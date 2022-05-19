@@ -3,6 +3,8 @@ import { render } from "react-dom";
 import axios from 'axios';
 import { AppContext } from './index.jsx';
 
+import ProductDetails from './product_details/ProductDetails.jsx';
+
 export const ProdPageContext = createContext();
 
 const ProductPage = () => {
@@ -14,6 +16,7 @@ const ProductPage = () => {
       <ProdPageContext.Provider value={{ cart, setCart, prod_id, setProd }}>
         <h1>This is a Product Page</h1>
         {/* Add components you want to render here */}
+        <ProductDetails />
       </ProdPageContext.Provider>
     </div>
   )

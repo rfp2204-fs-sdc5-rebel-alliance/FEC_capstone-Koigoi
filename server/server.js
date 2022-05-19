@@ -1,9 +1,10 @@
 const express = require('express');
 const path = require('path');
+const config = require('../client/dist/config.js');
 
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = config.port || 3000;
 
 //middleware
 app.use(express.json());
