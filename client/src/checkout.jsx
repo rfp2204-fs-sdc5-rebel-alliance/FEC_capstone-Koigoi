@@ -1,3 +1,18 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useContext } from "react";
 import { render } from "react-dom";
 import axios from 'axios';
+import { AppContext } from './index.jsx';
+
+export const ProdPageContext = createContext();
+
+const Checkout = () => {
+  const { cart, setCart } = useContext(AppContext);
+
+  return (
+    <div>
+      <h1>This is a Checkout Page</h1>
+    </div>
+  )
+}
+
+export default Checkout;
