@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {ProdPageContext} from '../product_page.jsx';
 
 //may need to import more stuff to begin work
+//adding this line for git troubleshooting
 import Gallery from './Gallery.jsx';
 
 export const ProdDetailsContext = createContext();
