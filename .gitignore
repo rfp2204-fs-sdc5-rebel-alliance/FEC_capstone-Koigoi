@@ -1,8 +1,4 @@
 node_modules
 client/dist/bundle.js
 client/dist/bundle.js.map
-<<<<<<< HEAD
-client/dis/config.js
-=======
 client/dist/config.js
->>>>>>> caea8e8c49cd5b1ac8a16c17e72f9e266e2155f0

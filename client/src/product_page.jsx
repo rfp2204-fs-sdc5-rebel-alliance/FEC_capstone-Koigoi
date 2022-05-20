@@ -5,6 +5,9 @@ import { AppContext } from './index.jsx';
 
 import ProductDetails from './product_details/ProductDetails.jsx';
 
+// remove this when pushing to main
+import RelatedItems from './related_items/RelatedItems.jsx'
+
 export const ProdPageContext = createContext();
 
 const ProductPage = () => {
@@ -17,6 +20,7 @@ const ProductPage = () => {
         <h1>This is a Product Page</h1>
         {/* Add components you want to render here */}
         <ProductDetails />
+        <RelatedItems />
       </ProdPageContext.Provider>
     </div>
   )
