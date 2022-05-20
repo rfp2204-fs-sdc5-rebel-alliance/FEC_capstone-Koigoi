@@ -7,6 +7,62 @@ import fetchData from './fetchData.jsx';
 import styled from 'styled-components';
 // import Carousel from 'react-elastic-carousel';
 
+const RelatedProductDetail = () => {
+
+  const {prod_id} = useContext(ProdPageContext);
+
+  const [prod_image, setProd_image] = useState('');
+  const [prod_category, setProd_category] = useState('');
+  const [prod_name, setProd_name] = useState('');
+  const [prod_price, setProd_price] = useState('');
+  // const [prod_details, setProd_details] = useState([]);
+  // const [related_ids, setRelated_ids] = useState([]);
+
+  useEffect(() => {
+    console.log('Component Mounted');
+    fetchData('related', prod_id)
+      .then((relatedData) => {return fetchData('styles', relatedData[1])}) // need to loop through all relatedData, not just one
+      .then((productData) => {
+        for (let i = 0; i < productData.results.length; i++) {
+          let current = productData.results[i];
+          if (current['default?'] === true) {
+            setProd_image(current.photos[0].thumbnail_url); // grab the first url
+            // setProd_details({image: current.photos[0].thumbnail_url});
+          }
+        }
+      })
+      .catch((err) => {console.log(err)});
+  }, [prod_id]);
+
+  useEffect(() => {
+    fetchData('related', prod_id)
+      .then((relatedData) => {return fetchData('', relatedData[1])})
+      .then((productData) => {
+        setProd_category(productData.category);
+        setProd_name(productData.name);
+        setProd_price(productData.default_price);
+        // setProd_details(...prod_details, {
+        //   category: productData.category,
+        //   name: productData.name,
+        //   price: productData.default_price
+        // });
+      })
+      .catch((err) => {console.log(err)});
+  }, [prod_id]);
+
+  return (
+      <IndividualCardStyle>
+        <ImageStyle
+          src={prod_image}
+          alt='Girl in black shoes'
+        />
+        <CategoryStyle>{prod_category}</CategoryStyle>
+        <NameStyle>{prod_name}</NameStyle>
+        <PriceStyle>${prod_price}</PriceStyle>
+      </IndividualCardStyle>
+  )
+}
+
 const IndividualCardStyle = styled.div`
   display: tabel-cell, relative;
   position: relative;
@@ -47,56 +103,6 @@ const PriceStyle = styled.span`
   font-size: 15px;
   padding-left: 5px;
 `;
-
-const RelatedProductDetail = () => {
-
-  const {prod_id} = useContext(ProdPageContext);
-
-  const [prod_image, setProd_image] = useState('');
-  const [prod_category, setProd_category] = useState('');
-  const [prod_name, setProd_name] = useState('');
-  const [prod_price, setProd_price] = useState('');
-  // const [prod_details, setProd_details] = useState([]);
-  // const [related_ids, setRelated_ids] = useState([]);
-
-  useEffect(() => {
-    console.log('Component Mounted');
-    fetchData('related', prod_id)
-      .then((relatedData) => {return fetchData('styles', relatedData[1])}) // need to loop through all relatedData, not just one
-      .then((productData) => {
-        for (let i = 0; i < productData.results.length; i++) {
-          let current = productData.results[i];
-          if (current['default?'] === true) {
-            setProd_image(current.photos[0].thumbnail_url); // grab the first url
-          }
-        }
-      })
-      .catch((err) => {console.log(err)});
-  }, [prod_id]);
-
-  useEffect(() => {
-    fetchData('related', prod_id)
-      .then((relatedData) => {return fetchData('', relatedData[1])})
-      .then((productData) => {
-        setProd_category(productData.category);
-        setProd_name(productData.name);
-        setProd_price(productData.default_price);
-      })
-      .catch((err) => {console.log(err)});
-  }, [prod_id]);
-
-  return (
-      <IndividualCardStyle>
-        <ImageStyle
-          src={prod_image}
-          alt='Girl in black shoes'
-        />
-        <CategoryStyle>{prod_category}</CategoryStyle>
-        <NameStyle>{prod_name}</NameStyle>
-        <PriceStyle>${prod_price}</PriceStyle>
-      </IndividualCardStyle>
-  )
-}
 
 
 

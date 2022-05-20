@@ -6,6 +6,25 @@ import styled from 'styled-components';
 
 export const RelatedItemsContext = createContext();
 
+const RelatedItems = () => {
+  const {prod_id} = useContext(ProdPageContext);
+
+  return (
+    <RelatedProductsSection>
+      <TitleStyle> Related Products </TitleStyle>
+      <Wrapper>
+      <RelatedItemsContext.Provider value={{}}>
+        <CardStyle> <RelatedProductDetail /> </CardStyle>
+        <CardStyle> <RelatedProductDetail /> </CardStyle>
+        <CardStyle> <RelatedProductDetail /> </CardStyle>
+        <CardStyle> <RelatedProductDetail /> </CardStyle>
+      </RelatedItemsContext.Provider>
+      <TitleStyle> Your Outfit </TitleStyle>
+      </Wrapper>
+    </RelatedProductsSection>
+  )
+}
+
 const Wrapper = styled.div`
   width: 100%;
   display: grid;
@@ -34,24 +53,5 @@ const RelatedProductsSection = styled.section`
   position: relative;
   transform: translateX(-50%);
 `;
-
-const RelatedItems = () => {
-  const {prod_id} = useContext(ProdPageContext);
-
-  return (
-    <RelatedProductsSection>
-      <TitleStyle> Related Products </TitleStyle>
-      <Wrapper>
-      <RelatedItemsContext.Provider value={{}}>
-        <CardStyle> <RelatedProductDetail /> </CardStyle>
-        <CardStyle> <RelatedProductDetail /> </CardStyle>
-        <CardStyle> <RelatedProductDetail /> </CardStyle>
-        <CardStyle> <RelatedProductDetail /> </CardStyle>
-      </RelatedItemsContext.Provider>
-      <TitleStyle> Your Outfit </TitleStyle>
-      </Wrapper>
-    </RelatedProductsSection>
-  )
-}
 
 export default RelatedItems;
