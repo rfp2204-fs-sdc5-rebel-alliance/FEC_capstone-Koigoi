@@ -1,45 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import {ProdDetailsContext} from '../ProductDetails.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
 
+const CarouselStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImgContainer = styled.div`
+  border: 0.5rem solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30rem;
+  height: 40rem;
+`;
+
+const ImgStyle = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25rem;
+  height: auto;
+`;
 
 const Carousel = (slides) => {
   const [current, setCurrent] = useState(0);
-  const length = slides.length
+  const {index, setIndex} = useContext(ProdDetailsContext);
 
   if (!Array.isArray(slides) || slides.length === 0) {
     return null;
   }
 
   let nextSlide = () => {
-    setCurrent(current === length - 1 ? 0: current + 1)
+    setIndex(index === slides.length - 1 ? 0: index + 1)
   };
 
   let prevSlide = () => {
-    setCurrent(current === 0 ? length - 1: current - 1);
+    setIndex(index === 0 ? slides.length - 1: index - 1);
   };
 
-  var CarouselStyles = {
-    div: {
-      display: 'flex',
-      height: '35rem',
-      width: 'auto'
-    }
-  }
+  // if (!Array.isArray(slides) || slides.length === 0) {
+  //   return null;
+  // }
+
+  // let nextSlide = () => {
+  //   setCurrent(current === slides.length - 1 ? 0: current + 1)
+  // };
+
+  // let prevSlide = () => {
+  //   setCurrent(current === 0 ? slides.length - 1: current - 1);
+  // };
 
   return (
-    <section className="slider">
-      <button onClick={prevSlide} >Previous</button>
-      <button onClick={nextSlide} >Next</button>
-      {slides.map((slide, index) => {
-        return (
-          <div key={index}>
-            {index === current && (
-              <img style={CarouselStyles.div} src={slide.url} alt="No Image" />
-            )}
-          </div>
-        )
-      })}
-    </section>
+    <CarouselStyle>
+      <FontAwesomeIcon icon={faAngleLeft} onClick={prevSlide}/>
+      <ImgContainer>
+        {slides.map((slide, number) => {
+          return (
+            <div key={number}>
+              {number === index && (
+                <ImgStyle src={slide.url} alt="No Image" />
+              )}
+            </div>
+          )
+        })}
+      </ImgContainer>
+      <FontAwesomeIcon icon={faAngleRight} onClick={nextSlide}/>
+    </CarouselStyle>
   )
 };
 
 export default Carousel;
+
+//<button onClick={nextSlide} >Next</button>

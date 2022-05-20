@@ -2,11 +2,21 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
 import { ProdDetailsContext } from './ProductDetails.jsx';
+import styled from 'styled-components';
 import config from '../../dist/config.js';
 
 import Carousel from './components/Carousel.jsx';
+import ImageList from './components/ImageList.jsx';
 
 //may need to import more stuff to begin work
+
+const Container = styled.div`
+  width: 60%;
+  border: 0.5rem solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Gallery = () => {
   const {prod_id} = useContext(ProdPageContext);
@@ -33,29 +43,11 @@ const Gallery = () => {
     getImages();
   }, [prod_id]);
 
-  var styles = {
-    div: {
-      width: '60%',
-      border: '0.5rem solid red',
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    img: {
-      display: 'flex',
-      height: '35rem',
-      width: 'auto'
-    }
-  }
-
   return (
-    <>
-      <div>
-        <p onClick={getImages}>Item id: {prod_id}</p>
-      </div>
-      <div style={styles.div}>
-        {Carousel(imageGallery)}
-      </div>
-    </>
+    <Container>
+      {ImageList(imageGallery)}
+      {Carousel(imageGallery)}
+    </Container>
   )
 
 }
