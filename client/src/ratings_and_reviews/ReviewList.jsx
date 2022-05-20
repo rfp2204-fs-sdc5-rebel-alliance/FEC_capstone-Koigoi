@@ -5,7 +5,7 @@ import ReviewListCard from './ReviewListCard.jsx'
 import { ProdPageContext } from '../product_page.jsx';
 
 function ReviewList() {
-  // const [reviewListView, setReviewListView] = useState(ReviewsView)
+  const [reviewListView, setReviewListView] = useState();
   const [reviews, setReviews] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const {prod_id} = useContext(ProdPageContext);
@@ -13,14 +13,6 @@ function ReviewList() {
   useEffect(() => {
     getReviews();
   }, []);
-
-  // const ReviewsView = (
-  //   <p>Be the first to submit a review!</p>
-  // )
-
-  // if (reviews.length > 0) {
-
-  // }
 
   const getReviews = () => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {
@@ -39,8 +31,31 @@ function ReviewList() {
     .catch((err) => console.log(err));
   }
 
+
+  const reviewListStyle = {
+    'background': '#FFF',
+    'fontSize': '18px',
+  }
+
+  const buttonStyles = {
+    'display': 'flex',
+    'alignItems': 'center',
+    'padding': '20px 10px'
+  }
+  let moreReviewsButton = null;
+  let noReviewsGreeting = null;
+
+  if (reviews.length > 0) {
+    moreReviewsButton = <button onClick={getReviews}>More Reviews</button>;
+  } else if (reviews.length !== pageCount * 2) {
+    moreReviewsButton = null;
+  } else {
+    noReviewsGreeting = <p>Be the first to review this product!</p>;
+  }
+
   return (
-    <div className="ReviewList">
+    <div className="ReviewList" style={reviewListStyle}>
+      {noReviewsGreeting}
       {reviews.map((review) =>
         <ReviewListCard
           key={review.review_id}
@@ -55,8 +70,10 @@ function ReviewList() {
           recommend={review.recommend}
         />
        )}
-      <button onClick={getReviews}>More Reviews</button>
+       <div className="ReviewListButtons" style={buttonStyles}>
+      {moreReviewsButton}
       <button>Add a Review</button>
+       </div>
     </div>
   );
 }
