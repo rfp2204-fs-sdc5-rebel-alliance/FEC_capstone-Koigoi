@@ -5,7 +5,7 @@ import {ProdPageContext} from '../product_page.jsx';
 import config from '../../dist/config.js';
 import fetchData from './fetchData.jsx';
 import styled from 'styled-components';
-
+// import Carousel from 'react-elastic-carousel';
 
 const IndividualCardStyle = styled.div`
   display: tabel-cell, relative;
