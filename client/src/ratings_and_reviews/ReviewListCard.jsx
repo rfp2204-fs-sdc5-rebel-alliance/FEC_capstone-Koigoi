@@ -1,4 +1,26 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const ReviewCard = styled.div`
+  border-bottom: 1px solid black;
+  margin: 10px 10px;
+  padding: 10px;
+  font-weight: normal;
+  `;
+
+const CardHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CardSummary = styled.p`
+  font-weight: bold;
+`;
+
+
+const CardResponse = styled.div`
+  background: #F0F0F0;
+`;
 
 function ReviewListCard({ date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
 
@@ -9,25 +31,6 @@ function ReviewListCard({ date, rating, reviewerName, summary, body, response, h
 
   //need to create view more button for review body text
 
-  const reviewCardStyle = {
-    'borderBottom': '1px solid black',
-    'margin': '10px 10px',
-    'padding': '10px',
-    'fontWeight': 'normal'
-  };
-
-  const cardHeader = {
-    'display': 'flex',
-    'justifyContent': 'space-between'
-  }
-
-  const cardSummary = {
-    'fontWeight': 'bold'
-  }
-
-  const cardResponse = {
-    'background': '#F0F0F0'
-  }
 
   let recommendMessage = null;
   if (recommend) {
@@ -43,22 +46,24 @@ function ReviewListCard({ date, rating, reviewerName, summary, body, response, h
   )}
 
   return (
-    <div className="ReviewCard" style={reviewCardStyle}>
-      <div className="ReviewCardHeader" style={cardHeader}>
+    <ReviewCard>
+      <CardHeader>
         <p>{rating} Stars</p>
-        <div style={cardHeader}>
+        <CardHeader>
           <p>{reviewerName}, </p>
           <p>{date}</p>
-        </div>
-      </div>
-      <p style={cardSummary}>{summary}</p>
+          </CardHeader>
+      </CardHeader>
+      <CardSummary>{summary}</CardSummary>
       <div className="CardBody">
         <p>{body}</p>
       </div>
       {recommendMessage}
-      {reviewResponse}
+      <CardResponse>
+        {reviewResponse}
+      </CardResponse>
       <p>Helpful? Yes {helpfulness}</p>
-    </div>
+    </ReviewCard>
   );
 }
 

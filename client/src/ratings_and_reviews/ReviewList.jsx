@@ -3,6 +3,23 @@ import axios from 'axios';
 import config from '../../dist/config.js';
 import ReviewListCard from './ReviewListCard.jsx'
 import { ProdPageContext } from '../product_page.jsx';
+import styled from 'styled-components';
+
+const ReviewListContainer = styled.div`
+  background: #FFF;
+  font-size: 18px;
+`;
+
+const ReviewCardContainer = styled.div`
+max-height: 500px;
+overflow: scroll;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  alignItems: center;
+  padding: 20px 10px;
+`;
 
 function ReviewList() {
   const [reviewListView, setReviewListView] = useState();
@@ -32,49 +49,42 @@ function ReviewList() {
   }
 
 
-  const reviewListStyle = {
-    'background': '#FFF',
-    'fontSize': '18px',
-  }
 
-  const buttonStyles = {
-    'display': 'flex',
-    'alignItems': 'center',
-    'padding': '20px 10px'
-  }
   let moreReviewsButton = null;
   let noReviewsGreeting = null;
 
   if (reviews.length > 0) {
     moreReviewsButton = <button onClick={getReviews}>More Reviews</button>;
-  } else if (reviews.length !== pageCount * 2) {
+  } else if (!pageCount + 1) {
     moreReviewsButton = null;
   } else {
     noReviewsGreeting = <p>Be the first to review this product!</p>;
   }
 
   return (
-    <div className="ReviewList" style={reviewListStyle}>
-      {noReviewsGreeting}
-      {reviews.map((review) =>
-        <ReviewListCard
-          key={review.review_id}
-          date={review.date}
-          rating={review.rating}
-          reviewerName={review.reviewer_name}
-          summary={review.summary}
-          body={review.body}
-          response={review.response}
-          helpfulness={review.helpfulness}
-          photos={review.photos}
-          recommend={review.recommend}
-        />
-       )}
-       <div className="ReviewListButtons" style={buttonStyles}>
-      {moreReviewsButton}
-      <button>Add a Review</button>
-       </div>
-    </div>
+    <ReviewListContainer>
+      <ReviewCardContainer>
+        {noReviewsGreeting}
+        {reviews.map((review, index) =>
+          <ReviewListCard
+            key={index}
+            date={review.date}
+            rating={review.rating}
+            reviewerName={review.reviewer_name}
+            summary={review.summary}
+            body={review.body}
+            response={review.response}
+            helpfulness={review.helpfulness}
+            photos={review.photos}
+            recommend={review.recommend}
+          />
+        )}
+      </ReviewCardContainer>
+      <ButtonContainer>
+        {moreReviewsButton}
+        <button>Add a Review</button>
+      </ButtonContainer>
+    </ReviewListContainer>
   );
 }
 
