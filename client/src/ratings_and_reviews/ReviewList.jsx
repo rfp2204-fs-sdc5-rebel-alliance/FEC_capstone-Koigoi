@@ -3,6 +3,7 @@ import axios from 'axios';
 import config from '../../dist/config.js';
 import ReviewListCard from './ReviewListCard.jsx'
 import { ProdPageContext } from '../product_page.jsx';
+import { ReviewsMetaContext } from './RatingsAndReviews.jsx';
 import styled from 'styled-components';
 
 const ReviewListContainer = styled.div`
@@ -22,14 +23,14 @@ const ButtonContainer = styled.div`
 `;
 
 function ReviewList() {
-  const [reviewListView, setReviewListView] = useState();
   const [reviews, setReviews] = useState([]);
   const [pageCount, setPageCount] = useState(1);
-  const {prod_id} = useContext(ProdPageContext);
+  const { prod_id } = useContext(ProdPageContext);
+  const { sort } = useContext(ReviewsMetaContext);
 
   useEffect(() => {
     getReviews();
-  }, []);
+  }, [sort]);
 
   const getReviews = () => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {
@@ -39,13 +40,13 @@ function ReviewList() {
       params: {
         page: pageCount,
         count: 2,
-        sort: "newest",
+        sort: sort,
         product_id: prod_id
       }
     })
     .then((reviews) => {setReviews(prevReviews => prevReviews.concat(reviews.data.results))})
     .then(() => {setPageCount(prevPageCount => prevPageCount + 1)})
-    .catch((err) => console.log(err));
+    .catch((err) => {console.log(err)});
   }
 
 
