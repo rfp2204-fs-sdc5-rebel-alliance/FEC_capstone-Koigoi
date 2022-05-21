@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
 import { ProdDetailsContext } from './ProductDetails.jsx';
 import styled from 'styled-components';
-import config from '../../dist/config.js';
+import config from '../../dist/myConfig.js';
 
 import Carousel from './components/Carousel.jsx';
 import ImageList from './components/ImageList.jsx';
@@ -29,7 +29,7 @@ const Gallery = () => {
       }
     })
     .then((results) => {
-      console.log(results);
+      // console.log(results);
       results.data.results.forEach((style) => {
         if (style['default?'] === true) {
           setGallery(style.photos);

@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const config = require('../client/dist/config.js');
+const config = require('../client/dist/myConfig.js');
 
 const app = express();
 

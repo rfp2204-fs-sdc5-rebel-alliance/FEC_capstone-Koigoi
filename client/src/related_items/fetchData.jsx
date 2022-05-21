@@ -1,8 +1,9 @@
 import React, {useState, useContext, useEffect} from 'react';
 import axios from 'axios';
 import {ProdPageContext} from '../product_page.jsx';
-import config from '../../dist/config.js';
+import config from '../../dist/myConfig.js';
 
+// move this to server
 const fetchData = (typeOfData, id) => {
     let headers = {
       headers: {Authorization: config.TOKEN}
@@ -11,7 +12,7 @@ const fetchData = (typeOfData, id) => {
 
     return axios.get(`${API}/products/${id}/${typeOfData}`, headers)
       .then((response) => {return response.data})
-      .catch((err) => {alert('error fetching data')});
+      .catch((err) => {console.log(err)});
 }
 
 export default fetchData;

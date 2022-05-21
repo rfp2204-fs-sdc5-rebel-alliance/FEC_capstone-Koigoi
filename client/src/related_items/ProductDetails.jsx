@@ -2,52 +2,87 @@ import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 // import {RelatedItemsContext} from './RelatedItems.jsx';
 import {ProdPageContext} from '../product_page.jsx';
-import config from '../../dist/config.js';
 import fetchData from './fetchData.jsx';
 import styled from 'styled-components';
 // import Carousel from 'react-elastic-carousel';
 
 const RelatedProductDetail = () => {
-
   const {prod_id} = useContext(ProdPageContext);
 
-  const [prod_image, setProd_image] = useState('');
-  const [prod_category, setProd_category] = useState('');
-  const [prod_name, setProd_name] = useState('');
-  const [prod_price, setProd_price] = useState('');
+  const [related_ids, setRelated_ids] = useState([]);
+  const [prod_image, setProd_image] = useState([]);
+  const [prod_category, setProd_category] = useState([]);
+  const [prod_name, setProd_name] = useState([]);
+  const [prod_price, setProd_price] = useState([]);
   // const [prod_details, setProd_details] = useState([]);
-  // const [related_ids, setRelated_ids] = useState([]);
 
-  useEffect(() => {
-    console.log('Component Mounted');
+  const promiseArray = [];
+
+  const getProductPhoto = () => {
     fetchData('related', prod_id)
-      .then((relatedData) => {return fetchData('styles', relatedData[1])}) // need to loop through all relatedData, not just one
-      .then((productData) => {
-        for (let i = 0; i < productData.results.length; i++) {
-          let current = productData.results[i];
-          if (current['default?'] === true) {
-            setProd_image(current.photos[0].thumbnail_url); // grab the first url
-            // setProd_details({image: current.photos[0].thumbnail_url});
-          }
-        }
+      .then((relatedIDs) => {
+        // console.log('relatedIDs: ', relatedIDs);
+        setRelated_ids(relatedIDs);
+        return relatedIDs
       })
-      .catch((err) => {console.log(err)});
-  }, [prod_id]);
-
-  useEffect(() => {
-    fetchData('related', prod_id)
-      .then((relatedData) => {return fetchData('', relatedData[1])})
-      .then((productData) => {
-        setProd_category(productData.category);
-        setProd_name(productData.name);
-        setProd_price(productData.default_price);
-        // setProd_details(...prod_details, {
-        //   category: productData.category,
-        //   name: productData.name,
-        //   price: productData.default_price
+      .then((relatedIDs) => {
+        let allRelatedStyles = relatedIDs.map((id) => {
+          return fetchData('styles', id);
+        });
+        return Promise.all(allRelatedStyles);
+      })
+      .then((allRelatedStyles) => {
+        // console.log(allRelatedStyles);
+        let styleDetails = allRelatedStyles.map((style) => {
+          return style.results;
+        });
+        setProd_image(styleDetails); // save data as array of arrays
+        // let previewImage = styleDetails.map((style) => {
+        //   style.forEach((id) => {
+        //     let isTrue = false;
+        //     if (id['default?'] === true) {
+        //       isTrue = true;
+        //       // console.log('id.photos', id.photos);
+        //       setProd_image(id.photos[0].thumbnail_url); //
+        //     }
+        //   })
         // });
       })
       .catch((err) => {console.log(err)});
+  }
+
+  const getProductDetails = () => {
+    // fetchData('related', prod_id)
+      // .then((relatedData) => {return fetchData('', relatedData[1])})
+      console.log('related_ids:', related_ids);
+    if (related_ids) {
+      // let allRelatedP  roducts = related_ids.map((id) => {
+      //   console.log('id', id);
+      //   return fetchData('', id);
+      // })
+
+      // Promise.all(related_ids.map((id) => {
+      //   return fetchData('', id);
+      // }))
+
+      related_ids.forEach((id) => {
+        promiseArray.push(fetchData('', id));
+      })
+      return Promise.all(promiseArray)
+      .then((productData) => {
+        console.log('productData:', productData);
+        // setProd_category(productData.category);
+        // setProd_name(productData.name);
+        // setProd_price(productData.default_price);
+      })
+      .catch((err) => {console.log(err)});
+    }
+  }
+
+  useEffect(() => {
+    console.log('Component Mounted');
+    getProductPhoto();
+    // getProductDetails();
   }, [prod_id]);
 
   return (
