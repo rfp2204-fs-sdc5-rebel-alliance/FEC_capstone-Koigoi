@@ -30,8 +30,12 @@ const RatingBarContainer = styled.div`
   background-color: white;
 `;
 
+const RecommendedMessage = styled.div`
+  text-align: right;
+`;
+
 function RatingBreakdown() {
-  const { ratings, ratingsTotal } = useContext(ReviewsContext);
+  const { ratings, ratingsTotal, recommended } = useContext(ReviewsContext);
 
   let ratingsSum = 0;
   let eachRatingsAverage = {};
@@ -73,10 +77,12 @@ function RatingBreakdown() {
     'backgroundColor': 'black'
   }
 
+  let recommendedPercentage = `${Math.round((recommended.true / ratingsTotal) * 100)}% of reviews recommend this product`;
+
   return (
     <div>
       <AverageRating>
-        {averageRating} <span style={{'fontWeight': 'bold', 'font-size': '18px'}}>stars</span>
+        {averageRating} <span style={{'fontWeight': 'bold', 'fontSize': '18px'}}>stars</span>
       </AverageRating>
       <div>
         <p>Rating Breakdown</p>
@@ -115,6 +121,7 @@ function RatingBreakdown() {
             <RatingNumberTotal>{ratings[1]}</RatingNumberTotal>
           </RatingBarContainer>
         </RatingsBreakdown>
+        <RecommendedMessage>{recommendedPercentage}</RecommendedMessage>
       </div>
     </div>
   );
