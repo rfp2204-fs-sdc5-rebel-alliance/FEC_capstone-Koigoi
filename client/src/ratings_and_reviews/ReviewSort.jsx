@@ -6,19 +6,22 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 const ReviewSortContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
   font-weight: bold;
 `;
 
-const SortButton = styled.button`
-  background: none;
+const SortForm = styled.select`
+  background-color: aquamarine;
   border: none;
   border-bottom: 2px solid black;
+  outline: 0;
 `;
 
 function ReviewSort() {
   const { ratingsTotal, sort, setSort, setToggleSort } = useContext(ReviewsContext);
 
-  const handleClick = (event) => {
+  const handleChange = (event) => {
     setToggleSort(true);
     setSort(event.target.value);
   }
@@ -27,10 +30,13 @@ function ReviewSort() {
     <ReviewSortContainer>
       <br></br>
       <span>{ratingsTotal} reviews, sorted by </span>
-      <SortButton>{sort} <FontAwesomeIcon icon={faChevronDown}/></SortButton>
-      <button value={'helpful'} onClick={handleClick}>helpful</button>
-      <button value={'newest'} onClick={handleClick}>newest</button>
-      <button value={'relevant'} onClick={handleClick}>relevant</button>
+      <form>
+        <SortForm onChange={handleChange}>
+          <option value={'relevant'}>relevant</option>
+          <option value={'newest'}>newest</option>
+          <option value={'helpful'}>helpful</option>
+        </SortForm>
+      </form>
     </ReviewSortContainer>
   )
 }
