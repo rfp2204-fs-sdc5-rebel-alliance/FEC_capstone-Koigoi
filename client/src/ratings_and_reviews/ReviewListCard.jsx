@@ -1,6 +1,7 @@
 import React from 'react';
+import formattedDate from './formattedDate.js';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const ReviewCard = styled.div`
@@ -27,6 +28,7 @@ const CardResponse = styled.div`
 `;
 
 function ReviewListCard({ date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
+
   if (summary.length > 60) {
     const summaryCopy = summary.slice(0,60);
     summary = summaryCopy + '...'
@@ -54,7 +56,7 @@ function ReviewListCard({ date, rating, reviewerName, summary, body, response, h
         <p>{rating} Stars</p>
         <CardHeader>
           <p>{reviewerName}, </p>
-          <p>{date}</p>
+          {formattedDate(date)}
           </CardHeader>
       </CardHeader>
       <CardSummary>{summary}</CardSummary>
