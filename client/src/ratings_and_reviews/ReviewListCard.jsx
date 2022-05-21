@@ -1,5 +1,5 @@
 import React from 'react';
-import formattedDate from './formattedDate.js';
+// import formattedDate from '../shared_components/formattedDate.js';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -56,7 +56,7 @@ function ReviewListCard({ date, rating, reviewerName, summary, body, response, h
         <p>{rating} Stars</p>
         <CardHeader>
           <p>{reviewerName}, </p>
-          {formattedDate(date)}
+          {/* {formattedDate(date)} */}
           </CardHeader>
       </CardHeader>
       <CardSummary>{summary}</CardSummary>
