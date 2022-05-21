@@ -10,15 +10,16 @@ const AverageRating = styled.div`
 
 const RatingsBreakdown = styled.div`
   display: flex;
+  align-items: center;
   margin: 10px 0px;
 `;
 
 const RatingNumber = styled.div`
-  width: 5%;
+  min-width: 60px;
 `;
 
 const RatingNumberTotal = styled.div`
-  margin-left: 1%;
+  margin-left: 1rem;
 `;
 
 const RatingBarContainer = styled.div`

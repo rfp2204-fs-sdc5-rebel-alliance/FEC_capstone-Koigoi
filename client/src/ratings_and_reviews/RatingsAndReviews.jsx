@@ -20,6 +20,16 @@ const RatingsAndReviewsLayout = styled.div`
   justify-content: space-between;
 `;
 
+const LayoutLeft = styled.div`
+  flex: 0 0 20rem;
+  margin-right: 2rem;
+`
+
+const LayoutRight = styled.div`
+  flex-grow: 2;
+  margin-left: 2rem;
+`
+
 function RatingsAndReviews() {
   const [reviewCount, setReviewCount] = useState(2);
   const [characteristics, setCharacteristics] = useState({});
@@ -59,11 +69,17 @@ function RatingsAndReviews() {
   return (
     <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, ratingsTotal, recommended, sort, setSort, toggleSort, setToggleSort }}>
       <RatingsAndReviewsContainer>
-        <h3>Ratings and Reviews</h3>
-        <RatingBreakdown/>
-        <ReviewSort/>
-        <br></br>
-        <ReviewList/>
+        <h2>Ratings and Reviews</h2>
+        <RatingsAndReviewsLayout>
+          <LayoutLeft>
+            <RatingBreakdown/>
+          </LayoutLeft>
+          <LayoutRight>
+            <ReviewSort/>
+            <br/>
+            <ReviewList/>
+          </LayoutRight>
+        </RatingsAndReviewsLayout>
       </RatingsAndReviewsContainer>
     </ReviewsContext.Provider>
   );
