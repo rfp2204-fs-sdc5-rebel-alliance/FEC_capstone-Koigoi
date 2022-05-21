@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const ReviewCard = styled.div`
   border-bottom: 1px solid black;
   margin: 0px 20px;
   padding: 20px 0px;
   font-weight: normal;
+  font-size: 14px;
   `;
 
 const CardHeader = styled.div`
@@ -14,7 +17,8 @@ const CardHeader = styled.div`
 `;
 
 const CardSummary = styled.p`
-  font-weight: bold;
+font-weight: bold;
+font-size: 18px;
 `;
 
 
@@ -34,7 +38,7 @@ function ReviewListCard({ date, rating, reviewerName, summary, body, response, h
 
   let recommendMessage = null;
   if (recommend) {
-    recommendMessage = <p>I recommend this product!</p>;
+    recommendMessage = <p><FontAwesomeIcon icon={faCheck}/> I recommend this product!</p>;
   }
 
   let reviewResponse = null;

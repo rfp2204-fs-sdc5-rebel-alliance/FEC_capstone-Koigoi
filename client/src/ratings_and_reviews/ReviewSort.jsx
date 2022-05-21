@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 
@@ -9,6 +7,7 @@ const ReviewSortContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   font-weight: bold;
+  font-size: 18px;
 `;
 
 const SortForm = styled.select`

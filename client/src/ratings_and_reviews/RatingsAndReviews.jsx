@@ -11,7 +11,7 @@ export const ReviewsContext = createContext();
 
 const RatingsAndReviewsContainer = styled.div`
   font-weight: normal;
-  font-size: 18px;
+  font-size: 14px;
 `;
 
 function RatingsAndReviews() {
