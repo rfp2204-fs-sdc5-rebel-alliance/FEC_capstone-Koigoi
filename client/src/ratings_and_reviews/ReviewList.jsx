@@ -3,7 +3,7 @@ import axios from 'axios';
 import config from '../../dist/config.js';
 import ReviewListCard from './ReviewListCard.jsx'
 import { ProdPageContext } from '../product_page.jsx';
-import { ReviewsMetaContext } from './RatingsAndReviews.jsx';
+import { ReviewsContext } from './RatingsAndReviews.jsx';
 import styled from 'styled-components';
 
 const ReviewListContainer = styled.div`
@@ -19,45 +19,43 @@ overflow: scroll;
 const ButtonContainer = styled.div`
   display: flex;
   alignItems: center;
-  padding: 20px 10px;
+  padding: 20px 20px;
 `;
 
 function ReviewList() {
   const [reviews, setReviews] = useState([]);
-  const [pageCount, setPageCount] = useState(1);
   const { prod_id } = useContext(ProdPageContext);
-  const { sort } = useContext(ReviewsMetaContext);
+  const { reviewCount, setReviewCount, ratingsTotal, sort, toggleSort, setToggleSort } = useContext(ReviewsContext);
 
   useEffect(() => {
-    getReviews();
-  }, [sort]);
-
-  const getReviews = () => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {
       headers: {
         Authorization: config.TOKEN
       },
       params: {
-        page: pageCount,
-        count: 2,
+        page: 1,
+        count: reviewCount,
         sort: sort,
         product_id: prod_id
       }
     })
-    .then((reviews) => {setReviews(prevReviews => prevReviews.concat(reviews.data.results))})
-    .then(() => {setPageCount(prevPageCount => prevPageCount + 1)})
-    .catch((err) => {console.log(err)});
+    .then((reviews) => {setReviews(reviews.data.results)})
+    .catch((err) => {console.log(err)})
+
+  }, [sort, reviewCount]);
+
+  const getReviews = () => {
+    setToggleSort(false);
+    setReviewCount(prevReviewCount => prevReviewCount + 2);
   }
-
-
 
   let moreReviewsButton = null;
   let noReviewsGreeting = null;
 
-  if (reviews.length > 0) {
-    moreReviewsButton = <button onClick={getReviews}>More Reviews</button>;
-  } else if (!pageCount + 1) {
+  if (reviewCount >= ratingsTotal) {
     moreReviewsButton = null;
+  } else if (reviewCount > 0) {
+    moreReviewsButton = <button onClick={getReviews}>More Reviews</button>;
   } else {
     noReviewsGreeting = <p>Be the first to review this product!</p>;
   }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-import { ReviewsMetaContext } from './RatingsAndReviews.jsx';
+import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 const ReviewSortContainer = styled.div`
   font-weight: bold;
@@ -16,22 +16,17 @@ const SortButton = styled.button`
 `;
 
 function ReviewSort() {
-  const { ratings, sort, setSort } = useContext(ReviewsMetaContext);
-
-  let reviewsTotal = 0;
-
-  Object.keys(ratings).forEach((value) => {
-    reviewsTotal += Number(ratings[value]);
-  })
+  const { ratingsTotal, sort, setSort, setToggleSort } = useContext(ReviewsContext);
 
   const handleClick = (event) => {
+    setToggleSort(true);
     setSort(event.target.value);
   }
 
   return (
     <ReviewSortContainer>
       <br></br>
-      <span>{reviewsTotal} reviews, sorted by </span>
+      <span>{ratingsTotal} reviews, sorted by </span>
       <SortButton>{sort} <FontAwesomeIcon icon={faChevronDown}/></SortButton>
       <button value={'helpful'} onClick={handleClick}>helpful</button>
       <button value={'newest'} onClick={handleClick}>newest</button>

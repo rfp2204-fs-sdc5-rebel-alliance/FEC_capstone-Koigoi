@@ -7,7 +7,7 @@ import { ProdPageContext } from '../product_page.jsx';
 import ReviewList from './ReviewList.jsx'
 import ReviewSort from './ReviewSort.jsx'
 
-export const ReviewsMetaContext = createContext();
+export const ReviewsContext = createContext();
 
 const RatingsAndReviewsContainer = styled.div`
   font-weight: normal;
@@ -15,10 +15,13 @@ const RatingsAndReviewsContainer = styled.div`
 `;
 
 function RatingsAndReviews() {
+  const [reviewCount, setReviewCount] = useState(2);
   const [characteristics, setCharacteristics] = useState({});
   const [ratings, setRatings] = useState({});
+  // const [ratingsTotal, setRatingsTotal] = useState(0);
   const [recommended, setRecommended] = useState({});
   const [sort, setSort] =  useState('relevance');
+  const [toggleSort, setToggleSort] = useState(true);
 
   const { prod_id } = useContext(ProdPageContext);
 
@@ -36,18 +39,27 @@ function RatingsAndReviews() {
         setRatings(reviewsData.data.ratings)
         setRecommended(reviewsData.data.recommended)
       })
+      .then(() => {
+
+      })
       .catch((err) => {console.log(err)});
     }, []);
 
+  let ratingsTotal = 0;
+
+  Object.keys(ratings).forEach((value) => {
+    ratingsTotal += Number(ratings[value]);
+  })
+
   return (
-    <ReviewsMetaContext.Provider value={{ characteristics, ratings, recommended, sort, setSort }}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratingsTotal, recommended, sort, setSort, toggleSort, setToggleSort }}>
       <RatingsAndReviewsContainer>
         <h3>Ratings and Reviews</h3>
         <ReviewSort/>
         <br></br>
         <ReviewList/>
       </RatingsAndReviewsContainer>
-    </ReviewsMetaContext.Provider>
+    </ReviewsContext.Provider>
   );
 }
 

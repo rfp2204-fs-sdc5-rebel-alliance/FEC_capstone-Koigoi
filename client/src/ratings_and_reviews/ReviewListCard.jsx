@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const ReviewCard = styled.div`
   border-bottom: 1px solid black;
-  margin: 10px 10px;
-  padding: 10px;
+  margin: 0px 20px;
+  padding: 20px 0px;
   font-weight: normal;
   `;
 
