@@ -4,8 +4,9 @@ import config from '../../dist/config.js';
 import styled from 'styled-components';
 
 import { ProdPageContext } from '../product_page.jsx';
-import ReviewList from './ReviewList.jsx'
-import ReviewSort from './ReviewSort.jsx'
+import ReviewList from './ReviewList.jsx';
+import ReviewSort from './ReviewSort.jsx';
+import RatingBreakdown from './RatingBreakdown.jsx';
 
 export const ReviewsContext = createContext();
 
@@ -14,11 +15,15 @@ const RatingsAndReviewsContainer = styled.div`
   font-size: 14px;
 `;
 
+const RatingsAndReviewsLayout = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 function RatingsAndReviews() {
   const [reviewCount, setReviewCount] = useState(2);
   const [characteristics, setCharacteristics] = useState({});
   const [ratings, setRatings] = useState({});
-  // const [ratingsTotal, setRatingsTotal] = useState(0);
   const [recommended, setRecommended] = useState({});
   const [sort, setSort] =  useState('relevance');
   const [toggleSort, setToggleSort] = useState(true);
@@ -52,9 +57,10 @@ function RatingsAndReviews() {
   })
 
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratingsTotal, recommended, sort, setSort, toggleSort, setToggleSort }}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, ratingsTotal, recommended, sort, setSort, toggleSort, setToggleSort }}>
       <RatingsAndReviewsContainer>
         <h3>Ratings and Reviews</h3>
+        <RatingBreakdown/>
         <ReviewSort/>
         <br></br>
         <ReviewList/>

@@ -27,7 +27,6 @@ const CardResponse = styled.div`
 `;
 
 function ReviewListCard({ date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
-
   if (summary.length > 60) {
     const summaryCopy = summary.slice(0,60);
     summary = summaryCopy + '...'
