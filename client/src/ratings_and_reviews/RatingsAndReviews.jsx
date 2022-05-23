@@ -1,6 +1,9 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
+import axios from 'axios';
+import config from '../../dist/config.js';
 import styled from 'styled-components';
 
+import { ProdPageContext } from '../product_page.jsx';
 import ReviewList from './ReviewList.jsx';
 import ReviewSort from './ReviewSort.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
@@ -29,11 +32,41 @@ const LayoutRight = styled.div`
 
 function RatingsAndReviews() {
   const [reviewCount, setReviewCount] = useState(2);
+  const [characteristics, setCharacteristics] = useState({});
+  const [ratings, setRatings] = useState({});
+
+  const [recommended, setRecommended] = useState({});
   const [sort, setSort] =  useState('relevance');
   const [toggleSort, setToggleSort] = useState(true);
 
+  const { prod_id } = useContext(ProdPageContext);
+
+  useEffect(() => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta`, {
+        headers: {
+          Authorization: config.TOKEN
+        },
+        params: {
+          product_id: prod_id
+        }
+      })
+      .then((reviewsData) => {
+        setCharacteristics(reviewsData.data.characteristics)
+        setRatings(reviewsData.data.ratings)
+        setRecommended(reviewsData.data.recommended)
+      })
+      .catch((err) => {console.log(err)});
+    }, []);
+
+    let totalRatings = 0
+    Object.keys(ratings).forEach((value) => {
+      totalRatings += Number(ratings[value]);
+    })
+
+  console.log('TOTAL RATINGS', totalRatings);
+
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, sort, setSort, toggleSort, setToggleSort }}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, recommended, sort, setSort, toggleSort, setToggleSort }}>
       <RatingsAndReviewsContainer>
         <h2>Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>

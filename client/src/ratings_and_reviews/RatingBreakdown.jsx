@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
-import { ProdPageContext } from '../product_page.jsx';
+import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 const AverageRating = styled.div`
   font-weight: 800;
@@ -35,7 +35,7 @@ const RecommendedMessage = styled.div`
 `;
 
 function RatingBreakdown() {
-  const { ratings, totalRatings, recommended } = useContext(ProdPageContext);
+  const { ratings, totalRatings, recommended } = useContext(ReviewsContext);
 
   let ratingsSum = 0;
   let eachRatingsAverage = {};
