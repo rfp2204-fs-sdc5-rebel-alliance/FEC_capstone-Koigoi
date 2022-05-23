@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
-import { ReviewsContext } from './RatingsAndReviews.jsx';
+import { ProdPageContext } from '../product_page.jsx';
 
 const AverageRating = styled.div`
   font-weight: 800;
@@ -35,17 +35,17 @@ const RecommendedMessage = styled.div`
 `;
 
 function RatingBreakdown() {
-  const { ratings, ratingsTotal, recommended } = useContext(ReviewsContext);
+  const { ratings, totalRatings, recommended } = useContext(ProdPageContext);
 
   let ratingsSum = 0;
   let eachRatingsAverage = {};
 
   Object.keys(ratings).forEach((rating) => {
     ratingsSum += (ratings[rating] * (rating));
-    eachRatingsAverage[rating] = Math.round((ratings[rating] / ratingsTotal) * 100)
+    eachRatingsAverage[rating] = Math.round((ratings[rating] / totalRatings) * 100)
   })
 
-  const averageRating = Math.round((ratingsSum / ratingsTotal) * 10) / 10;
+  const averageRating = Math.round((ratingsSum / totalRatings) * 10) / 10;
 
   let fiveStarAvg = {
     'width': `${eachRatingsAverage[5]}%`,
@@ -77,7 +77,7 @@ function RatingBreakdown() {
     'backgroundColor': 'black'
   }
 
-  let recommendedPercentage = `${Math.round((recommended.true / ratingsTotal) * 100)}% of reviews recommend this product`;
+  let recommendedPercentage = `${Math.round((recommended.true / totalRatings) * 100)}% of reviews recommend this product`;
 
   return (
     <div>

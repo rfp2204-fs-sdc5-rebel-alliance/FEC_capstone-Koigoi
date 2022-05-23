@@ -1,10 +1,11 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import axios from 'axios';
 import config from '../../dist/config.js';
+import styled from 'styled-components';
+
 import ReviewListCard from './ReviewListCard.jsx'
 import { ProdPageContext } from '../product_page.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
-import styled from 'styled-components';
 
 const ReviewListContainer = styled.div`
   background: #FFF;
@@ -24,8 +25,8 @@ const ButtonContainer = styled.div`
 
 function ReviewList() {
   const [reviews, setReviews] = useState([]);
-  const { prod_id } = useContext(ProdPageContext);
-  const { reviewCount, setReviewCount, ratingsTotal, sort, toggleSort, setToggleSort } = useContext(ReviewsContext);
+  const { prod_id, totalRatings } = useContext(ProdPageContext);
+  const { reviewCount, setReviewCount, sort, toggleSort, setToggleSort } = useContext(ReviewsContext);
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {
@@ -52,7 +53,7 @@ function ReviewList() {
   let moreReviewsButton = null;
   let noReviewsGreeting = null;
 
-  if (reviewCount >= ratingsTotal) {
+  if (reviewCount >= totalRatings) {
     moreReviewsButton = null;
   } else if (reviewCount > 0) {
     moreReviewsButton = <button onClick={getReviews}>More Reviews</button>;

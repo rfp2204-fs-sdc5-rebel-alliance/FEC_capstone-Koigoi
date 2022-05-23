@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
+import { ProdPageContext } from '../product_page.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 const ReviewSortContainer = styled.div`
@@ -18,7 +19,8 @@ const SortForm = styled.select`
 `;
 
 function ReviewSort() {
-  const { ratingsTotal, sort, setSort, setToggleSort } = useContext(ReviewsContext);
+  const { totalRatings } = useContext(ProdPageContext);
+  const { sort, setSort, setToggleSort } = useContext(ReviewsContext);
 
   const handleChange = (event) => {
     setToggleSort(true);
@@ -28,7 +30,7 @@ function ReviewSort() {
   return (
     <ReviewSortContainer>
       <br></br>
-      <span>{ratingsTotal} reviews, sorted by </span>
+      <span>{totalRatings} reviews, sorted by </span>
       <form>
         <SortForm onChange={handleChange}>
           <option value={'relevant'}>relevant</option>
