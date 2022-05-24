@@ -11,6 +11,7 @@ export const AppContext = createContext();
 const App = () => {
   const [cart, setCart] = useState([]);
   const [view, setView] = useState('Product');
+  const [showModal, setShowModal] = useState(false);
 
   const changeView = (name) => {
     console.log('Changing view to ' + name);
@@ -43,7 +44,7 @@ const App = () => {
 
         </nav>
       </header>
-      <AppContext.Provider value={{cart, setCart}}>
+      <AppContext.Provider value={{cart, setCart, showModal, setShowModal}}>
         <h1>{renderView()}</h1>
       </AppContext.Provider>
     </div>
