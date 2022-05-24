@@ -43,22 +43,12 @@ const ModalBody = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: 0px 40px;
+  padding: 0px 40px 20px 40px;
 `;
 
-const ModalFooter = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  padding: 20px 40px;
-  border-top: 1px solid black;
-`;
-
-const SubmitButton = styled.button`
-  margin-right: 20px;
-`;
-
-function Modal ( {header, body, footer} ) {
+function Modal ( {headerTitle, body} ) {
   const { showModal, setShowModal } = useContext(AppContext);
+
   if (!showModal) {
     return null;
   }
@@ -67,22 +57,14 @@ function Modal ( {header, body, footer} ) {
     setShowModal(false);
   }
 
-  // if (footer) {
-  //   footer = <SubmitButton>Submit</SubmitButton>
-  // }
-
   return (
     <ModalDiv onClick={closeModal}>
       <ModalContainer onClick={event => event.stopPropagation()}>
         <ModalHeader>
-          <h3>{header}</h3>
+          <h3>{headerTitle}</h3>
           <FontAwesomeIcon icon={faXmarkCircle} onClick={closeModal} />
         </ModalHeader>
         <ModalBody>{body}</ModalBody>
-        {/* <ModalFooter>
-          {footer}
-          <button onClick={closeModal}>Close</button>
-        </ModalFooter> */}
       </ModalContainer>
     </ModalDiv>
   );
