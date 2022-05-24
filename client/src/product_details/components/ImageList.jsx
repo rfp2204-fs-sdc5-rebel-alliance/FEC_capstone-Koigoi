@@ -16,12 +16,15 @@ const ImgStyle = styled.img`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 5rem;
+  width: 3rem;
   height: auto;
   margin: 1rem;
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+  }
 `;
-
-//need to import ProdDetails context and then setIndex onclick of thumbnails
 
 
 const ImageList = (slides) => {
@@ -29,13 +32,13 @@ const ImageList = (slides) => {
 
   return (
     <ListStyle>
-        {slides.map((slide, number) => {
-            return (
-              <div key={number}>
-                <ImgStyle onClick={() => {setIndex(number)}} src={slide.thumbnail_url} alt="No Image" />
-              </div>
-            )
-          })}
+      {slides.map((slide, number) => {
+          return (
+            <div key={number}>
+              <ImgStyle onClick={() => {setIndex(number)}} src={slide.thumbnail_url} alt="No Image" />
+            </div>
+          )
+        })}
     </ListStyle>
   )
 }
