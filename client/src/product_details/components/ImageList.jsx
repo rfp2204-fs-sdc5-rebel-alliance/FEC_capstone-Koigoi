@@ -9,16 +9,22 @@ const ListStyle = styled.div`
   display: block;
   justify-content: center;
   align-items: center;
-  margin-right: 3rem;
+  margin-right: 1rem;
 `;
 
-const ImgStyle = styled.img`
+const ImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3rem;
-  height: auto;
+  width: 4rem;
+  height: 4rem;
   margin: 1rem;
+`;
+
+const ImgStyle = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   &:hover,
   &:focus {
     transform: scale(1.1);
@@ -27,16 +33,20 @@ const ImgStyle = styled.img`
 `;
 
 
-const ImageList = (slides) => {
+const ImageList = (images) => {
   const {index, setIndex} = useContext(ProdDetailsContext);
+
+  if (!Array.isArray(images) || images.length === 0) {
+    return null;
+  }
 
   return (
     <ListStyle>
-      {slides.map((slide, number) => {
+      {images.map((image, number) => {
           return (
-            <div key={number}>
-              <ImgStyle onClick={() => {setIndex(number)}} src={slide.thumbnail_url} alt="No Image" />
-            </div>
+            <ImgContainer key={number}>
+              <ImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
+            </ImgContainer>
           )
         })}
     </ListStyle>

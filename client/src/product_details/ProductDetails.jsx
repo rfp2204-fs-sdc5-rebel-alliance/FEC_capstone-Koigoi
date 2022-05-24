@@ -9,6 +9,7 @@ import Gallery from './Gallery.jsx';
 import ProductInfo from './ProductInfo.jsx';
 import ProductDesc from './ProductDesc.jsx';
 import ProductFeatures from './ProductFeatures.jsx';
+import ShopSection from './ShopSection.jsx';
 
 export const ProdDetailsContext = createContext();
 
@@ -39,7 +40,8 @@ const ProductDetails = () => {
       setProdStyles(results);
       results.data.results.forEach((style) => {
         if (style['default?'] === true) {
-          setGallery(style.photos);
+          console.log('current style:', style);
+          setGallery(style);
         }
       })
     })
