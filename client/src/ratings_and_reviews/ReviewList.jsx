@@ -1,7 +1,10 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import axios from 'axios';
 import config from '../../dist/config.js';
-import ReviewListCard from './ReviewListCard.jsx'
+import ReviewListCard from './ReviewListCard.jsx';
+import AddReviewForm from './AddReviewForm.jsx';
+import Modal from '../shared_components/Modal.jsx';
+
 import { ProdPageContext } from '../product_page.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 import styled from 'styled-components';
@@ -24,7 +27,7 @@ const ButtonContainer = styled.div`
 
 function ReviewList() {
   const [reviews, setReviews] = useState([]);
-  const { prod_id } = useContext(ProdPageContext);
+  const { prod_id, setShowModal } = useContext(ProdPageContext);
   const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort } = useContext(ReviewsContext);
 
   useEffect(() => {
@@ -60,6 +63,16 @@ function ReviewList() {
     noReviewsGreeting = <p>Be the first to review this product!</p>;
   }
 
+  const handleModel = () => {
+    setShowModal(true);
+  }
+
+  // const handleFormSubmit = () => {
+  //   console.log('Form submitted')
+  // }
+
+
+
   return (
     <ReviewListContainer>
       <ReviewCardContainer>
@@ -81,7 +94,8 @@ function ReviewList() {
       </ReviewCardContainer>
       <ButtonContainer>
         {moreReviewsButton}
-        <button>Add a Review</button>
+        <button onClick={handleModel}>Add a Review</button>
+        <Modal header={'Write Your Review'} body={<AddReviewForm/>}/>
       </ButtonContainer>
     </ReviewListContainer>
   );
