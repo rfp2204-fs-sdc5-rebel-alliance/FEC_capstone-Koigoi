@@ -12,7 +12,7 @@ const Search = () => {
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
-    // searchQuestions(search);
+    searchQuestions(search);
   }
   const handleSearch = (e) => {
     e.preventDefault();

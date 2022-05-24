@@ -14,6 +14,8 @@ const QuestionEntry = (props) => {
   const [answers, setAnswers] = useState([]);
   const [answersToShow, setAnwsersToShow] = useState(2); // maping
   const [expanded, setExpanded] = useState(false); // button
+  const [show, setShow] = useState(true);
+
 
   console.log('inside QuestionEntry answers =>:', answers)
   // setAnswers(response.data.results)
@@ -35,12 +37,9 @@ const QuestionEntry = (props) => {
       .then((response) => { console.log('get answer response:=>', response); setAnswers(response.data.results) })
       .catch((err) => console.log(err))
   }, [url])
-  // const searchWord = (word) => {
 
-  // }
-
-  const loadMore =() => {
-
+  const loadMoreAnswers =() => {
+    answers.length === 0 ? setShow(false) : setShow(true)
     answersToShow === 2 ? setAnwsersToShow(answers.length) : setAnwsersToShow(2);
     setExpanded(!expanded)
   }
@@ -55,7 +54,7 @@ const QuestionEntry = (props) => {
       <tbody>
             {answers.slice(0, answersToShow).map((answer) => <Answer key={answer.answer_id} entry={answer}/>)}
         <tr>
-            <a onClick={loadMore}> {!expanded ? (<td>Load More Answers </td>) : (<td>Collapse answers</td>)}</a>
+           {show ? (<a onClick={loadMoreAnswers}> {!expanded ? (<td>Load More Answers </td>) : (<td>Collapse answers</td>)}</a>) : null}
         </tr>
       </tbody>
     </table>
