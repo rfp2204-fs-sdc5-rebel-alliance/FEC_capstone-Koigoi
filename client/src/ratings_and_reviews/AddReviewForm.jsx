@@ -1,14 +1,10 @@
-import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
-import { ReviewsContext } from './RatingsAndReviews.jsx';
-
 const FormSection = styled.div`
   margin: 20px 0px;
   `;
-  // border: 2px solid black;
 
 const RadioButtons = styled.label`
   margin-right: 20px;
@@ -19,42 +15,6 @@ const InputText = styled.input`
 `;
 
 function AddReviewForm () {
-  // const [showSizeCharacteristic, setShowSizeCharacteristic] = useState(false);
-  // const [showWidthCharacteristic, setShowWidthCharacteristic] = useState(false);
-  // const [showComfortCharacteristic, setShowComfortCharacteristic] = useState(false);
-  // const [showQualityCharacteristic, setShowQualityCharacteristic] = useState(false);
-  // const [showLengthCharacteristic, setShowLengthCharacteristic] = useState(false);
-  // const [showFitCharacteristic, setShowFitCharacteristic] = useState(false);
-
-  // const { characteristics } = useContext(ReviewsContext);
-
-  // Object.keys(characteristics).forEach((characteristic) => {
-
-  // })
-
-  // const sizeCharacteristic = (
-
-  // );
-
-  // const widthCharacteristic = (
-
-  // );
-
-  // const comfortCharacteristic = (
-
-  // );
-
-  // const qualityCharacteristic = (
-
-  // );
-
-  // const lengthCharacteristic = (
-
-  // );
-
-  // const fitCharacteristic = (
-
-  // );
 
   return (
     <div>
