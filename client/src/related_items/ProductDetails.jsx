@@ -72,11 +72,6 @@ const RelatedProductDetail = () => {
   return (
       <div>
         {Carousel(prod_details)}
-        {/* {
-          prod_details.map((details, index) => (
-            <Carousel productDetails={details} key={index}/>
-          ))
-        } */}
       </div>
   )
 }
