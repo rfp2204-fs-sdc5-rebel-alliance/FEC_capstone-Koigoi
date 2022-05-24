@@ -7,6 +7,7 @@ import { ProdPageContext } from '../product_page.jsx';
 import ReviewList from './ReviewList.jsx';
 import ReviewSort from './ReviewSort.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
+import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
 
 export const ReviewsContext = createContext();
 
@@ -34,12 +35,11 @@ function RatingsAndReviews() {
   const [reviewCount, setReviewCount] = useState(2);
   const [characteristics, setCharacteristics] = useState({});
   const [ratings, setRatings] = useState({});
-  // const [totalRatings, setTotalRatings] = useState(0);
   const [recommended, setRecommended] = useState({});
   const [sort, setSort] =  useState('relevance');
   const [toggleSort, setToggleSort] = useState(true);
 
-  const { prod_id } = useContext(ProdPageContext);
+  const { prod_id, ratingsObj, setRatingsObj } = useContext(ProdPageContext);
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta`, {
@@ -51,26 +51,22 @@ function RatingsAndReviews() {
         }
       })
       .then((reviewsData) => {
+        console.log(reviewsData.data.ratings);
         setCharacteristics(reviewsData.data.characteristics)
         setRatings(reviewsData.data.ratings)
         setRecommended(reviewsData.data.recommended)
+        setRatingsObj(sharedReviewsComponent(reviewsData.data.ratings));
+      })
+      .then(() => {
       })
       .catch((err) => {console.log(err)});
     }, []);
 
-    // Object.keys(ratings).forEach((value) => {
-    //   setTotalRatings(prevTotal => prevTotal + Number(ratings[value]));
-    // })
-
-    let totalRatings = 0;
-    Object.keys(ratings).forEach((value) => {
-      totalRatings += Number(ratings[value]);
-    })
-
-    // console.log(totalRatings);
+    const totalRatings = ratingsObj.totalRatings;
+    const avgRating = ratingsObj.avgRating;
 
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, recommended, sort, setSort, toggleSort, setToggleSort }}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort }}>
       <RatingsAndReviewsContainer>
         <h2>Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>

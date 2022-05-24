@@ -1,15 +1,14 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import axios from 'axios';
 import config from '../../dist/config.js';
+import styled from 'styled-components';
+
 import ReviewListCard from './ReviewListCard.jsx';
 import AddReviewForm from './AddReviewForm.jsx';
 import Modal from '../shared_components/Modal.jsx';
 
 import { ProdPageContext } from '../product_page.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
-import styled from 'styled-components';
-
-import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
 
 const ReviewListContainer = styled.div`
   background: #FFF;
@@ -68,12 +67,6 @@ function ReviewList() {
   const handleModel = () => {
     setShowModal(true);
   }
-
-  // const handleFormSubmit = () => {
-  //   console.log('Form submitted')
-  // }
-
-  sharedReviewsComponent();
 
   return (
     <ReviewListContainer>
