@@ -9,7 +9,7 @@ import config from '../../dist/config.js';
 
 const Container = styled.div`
   width: 100%;
-  border: 0.5rem solid red;
+  border: 0.5rem solid green;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -11,6 +11,7 @@ import ShopSection from './ShopSection.jsx';
 
 const Container = styled.div`
   width: 40%;
+  margin-top: 2rem;
   border: 0.5rem solid red;
   display: block;
   justify-content: center;
