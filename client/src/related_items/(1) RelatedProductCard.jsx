@@ -42,6 +42,8 @@ const RelatedProductCard = () => {
       .catch((err) => {console.log(err)});
   }
 
+
+
   useEffect(() => {
     console.log('Component Mounted');
     getProductDetails();
@@ -64,7 +66,7 @@ const RelatedProductCard = () => {
 }
 
 const IndividualCardStyle = styled.div`
-  display: tabel-cell, relative;
+  display: table-cell, relative;
   position: relative;
   border: 1px solid black;
   mid-width: 250px;
@@ -105,3 +107,79 @@ const PriceStyle = styled.span`
 `;
 
 export default RelatedProductCard;
+
+
+const getProductPhoto = () => {
+  fetchData('related', prod_id)
+    .then((relatedIDs) => {
+      // console.log('relatedIDs: ', relatedIDs);
+      setRelated_ids(relatedIDs);
+      return relatedIDs
+    })
+    .then((relatedIDs) => {
+      let allRelatedStyles = relatedIDs.map((id) => {
+        return fetchData('styles', id);
+      });
+      return Promise.all(allRelatedStyles);
+    })
+    .then((allRelatedStyles) => {
+      // console.log('allRelatedStyles', allRelatedStyles);
+      let styleDetails = allRelatedStyles.map((style) => {
+        return style.results;
+      });
+      return styleDetails;
+    })
+    .then((styleDetails) => {
+      // console.log('styleDetails', styleDetails);
+      let previewImages = [];
+      let previewImage = styleDetails.map((style) => {
+        let isDefaultTrue = false;
+        // console.log('style', style);
+        style.forEach((id) => {
+          // console.log('id', id);
+          if (id['default?'] === true) {
+            // console.log('id.photos', id.photos);
+            isDefaultTrue = true;
+            previewImages.push(id.photos[0].thumbnail_url);
+          }
+        })
+        if (!isDefaultTrue) {
+          previewImages.push(style[0].photos[0].thumbnail_url);
+        }
+      });
+      // console.log('previewImages', previewImages);
+      setProd_image(previewImages);
+    })
+    .catch((err) => {console.log(err)});
+}
+
+const getProductDetails = () => {
+  // if (related_ids.length !== 0) {
+  //   console.log('relatedID', related_ids);
+  // }
+  fetchData('related', prod_id)
+    .then((relatedIDs) => {
+      return relatedIDs;
+    })
+    .then((relatedIDs) => {
+      let allRelatedProducts = relatedIDs.map((id) => {
+        return fetchData('', id);
+      })
+      return Promise.all(allRelatedProducts);
+    })
+    .then((allRelatedProducts) => {
+      // console.log('allRelatedProducts', allRelatedProducts);
+      let productCategories = [];
+      let productNames = [];
+      let productPrices = [];
+      allRelatedProducts.forEach((product) => {
+        productCategories.push(product.category);
+        productNames.push(product.name);
+        productPrices.push(product.default_price);
+      })
+      setProd_category(productCategories);
+      setProd_name(productNames);
+      setProd_price(productPrices);
+    })
+    .catch((err) => {console.log(err)});
+}
