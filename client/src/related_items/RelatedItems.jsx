@@ -16,39 +16,39 @@ const RelatedItems = () => {
       <RelatedItemsContext.Provider value={{}}>
         <CardStyle> <RelatedProductDetail /> </CardStyle>
       </RelatedItemsContext.Provider>
-      <TitleStyle> Your Outfit </TitleStyle>
       </Wrapper>
+      <TitleStyle> Your Outfit </TitleStyle>
     </RelatedProductsSection>
   )
 }
 
 const Wrapper = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  // width: 100%;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr 1fr 1fr;
   // font-family:
 `;
 
 const CardStyle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // position: relative;
 `;
 
 const TitleStyle = styled.h3`
-  text-transform: uppercase;
-  padding-left: 15px;
-  padding-bottom: 10px;
-  font-size: 20px;
+  // text-transform: uppercase;
+  // padding-left: 15px;
+  // padding-bottom: 10px;
+  // font-size: 20px;
   // font-family:
 `;
 
 const RelatedProductsSection = styled.section`
-  display: inline-block;
-  left: 50%;
-  position: relative;
-  transform: translateX(-50%);
+  // display: inline-block;
+  // left: 50%;
+  // position: relative;
+  // transform: translateX(-50%);
 `;
 
 export default RelatedItems;

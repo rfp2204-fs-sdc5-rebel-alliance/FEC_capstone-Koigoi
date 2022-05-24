@@ -3,23 +3,17 @@ import axios from 'axios';
 import {ProdPageContext} from '../product_page.jsx';
 import fetchData from './fetchData.jsx';
 import styled from 'styled-components';
-import RelatedProductCard from './ProductCard.jsx';
+import Carousel from './Carousel.jsx';
 
 const RelatedProductDetail = () => {
   const {prod_id} = useContext(ProdPageContext);
   const [prod_details, setProd_details] = useState([]);
-  const allProductList = [];
-
-  // const [prod_image, setProd_image] = useState([]);
-  // const [prod_category, setProd_category] = useState([]);
-  // const [prod_name, setProd_name] = useState([]);
-  // const [prod_price, setProd_price] = useState([]);
-
-  const promiseArray = [];
+  const allRelatedDetails = [];
 
   const getAllRelatedDetails= () => {
     fetchData('related', prod_id)
-      .then((relatedIDs) => {
+    .then((relatedIDs) => {
+        const promiseArray = [];
         relatedIDs.forEach((id) => {
           promiseArray.push(fetchData('styles', id));
           promiseArray.push(fetchData('', id));
@@ -35,16 +29,16 @@ const RelatedProductDetail = () => {
           return style.results;
         });
         let images = [];
-        let previewImages = allStyles.map((image) => {
+        allStyles.map((defaultImages) => {
           let isDefaultTrue = false;
-          image.forEach((id) => {
-            if (id['default?'] === true) {
+          defaultImages.forEach((image) => {
+            if (image['default?'] === true) {
               isDefaultTrue = true;
-              images.push(id.photos[0].thumbnail_url);
+              images.push(image.photos[0].thumbnail_url);
             }
           })
           if (!isDefaultTrue) {
-            images.push((image[0].photos[0].thumbnail_url));
+            images.push((defaultImages[0].photos[0].thumbnail_url));
           }
         });
         /* parse through related product details */
@@ -63,10 +57,9 @@ const RelatedProductDetail = () => {
           allRelatedProducts.categories = productCategories[i];
           allRelatedProducts.names = productNames[i];
           allRelatedProducts.prices = productPrices[i];
-          allProductList.push(allRelatedProducts);
+          allRelatedDetails.push(allRelatedProducts);
         }
-        console.log('allProductList', allProductList);
-        setProd_details(allProductList);
+        setProd_details(allRelatedDetails);
       })
       .catch((err) => {console.log(err)});
   }
@@ -78,11 +71,12 @@ const RelatedProductDetail = () => {
 
   return (
       <div>
-        {
+        {Carousel(prod_details)}
+        {/* {
           prod_details.map((details, index) => (
-            <RelatedProductCard details={details} key={index}/>
+            <Carousel productDetails={details} key={index}/>
           ))
-        }
+        } */}
       </div>
   )
 }
