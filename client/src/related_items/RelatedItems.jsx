@@ -15,9 +15,6 @@ const RelatedItems = () => {
       <Wrapper>
       <RelatedItemsContext.Provider value={{}}>
         <CardStyle> <RelatedProductDetail /> </CardStyle>
-        {/* <CardStyle> <RelatedProductDetail /> </CardStyle>
-        <CardStyle> <RelatedProductDetail /> </CardStyle>
-        <CardStyle> <RelatedProductDetail /> </CardStyle> */}
       </RelatedItemsContext.Provider>
       <TitleStyle> Your Outfit </TitleStyle>
       </Wrapper>

@@ -1,10 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
-// import {RelatedItemsContext} from './RelatedItems.jsx';
 import {ProdPageContext} from '../product_page.jsx';
 import fetchData from './fetchData.jsx';
 import styled from 'styled-components';
-// import Carousel from 'react-elastic-carousel';
+import RelatedProductCard from './ProductCard.jsx';
 
 const RelatedProductDetail = () => {
   const {prod_id} = useContext(ProdPageContext);
@@ -14,7 +13,6 @@ const RelatedProductDetail = () => {
   const [prod_category, setProd_category] = useState([]);
   const [prod_name, setProd_name] = useState([]);
   const [prod_price, setProd_price] = useState([]);
-  // const [prod_details, setProd_details] = useState([]);
 
   const promiseArray = [];
 
@@ -32,68 +30,103 @@ const RelatedProductDetail = () => {
         return Promise.all(allRelatedStyles);
       })
       .then((allRelatedStyles) => {
-        // console.log(allRelatedStyles);
+        // console.log('allRelatedStyles', allRelatedStyles);
         let styleDetails = allRelatedStyles.map((style) => {
           return style.results;
         });
-        setProd_image(styleDetails); // save data as array of arrays
-        // let previewImage = styleDetails.map((style) => {
-        //   style.forEach((id) => {
-        //     let isTrue = false;
-        //     if (id['default?'] === true) {
-        //       isTrue = true;
-        //       // console.log('id.photos', id.photos);
-        //       setProd_image(id.photos[0].thumbnail_url); //
-        //     }
-        //   })
-        // });
+        return styleDetails;
+      })
+      .then((styleDetails) => {
+        // console.log('styleDetails', styleDetails);
+        let previewImages = [];
+        let previewImage = styleDetails.map((style) => {
+          let isDefaultTrue = false;
+          // console.log('style', style);
+          style.forEach((id) => {
+            // console.log('id', id);
+            if (id['default?'] === true) {
+              // console.log('id.photos', id.photos);
+              isDefaultTrue = true;
+              previewImages.push(id.photos[0].thumbnail_url);
+            }
+          })
+          if (!isDefaultTrue) {
+            previewImages.push(style[0].photos[0].thumbnail_url);
+          }
+        });
+        // console.log('previewImages', previewImages);
+        setProd_image(previewImages);
       })
       .catch((err) => {console.log(err)});
   }
 
   const getProductDetails = () => {
-    // fetchData('related', prod_id)
-      // .then((relatedData) => {return fetchData('', relatedData[1])})
-      console.log('related_ids:', related_ids);
-    if (related_ids) {
-      // let allRelatedP  roducts = related_ids.map((id) => {
-      //   console.log('id', id);
-      //   return fetchData('', id);
-      // })
-
-      // Promise.all(related_ids.map((id) => {
-      //   return fetchData('', id);
-      // }))
-
-      related_ids.forEach((id) => {
-        promiseArray.push(fetchData('', id));
+    // if (related_ids.length !== 0) {
+    //   console.log('relatedID', related_ids);
+    // }
+    fetchData('related', prod_id)
+      .then((relatedIDs) => {
+        return relatedIDs;
       })
-      return Promise.all(promiseArray)
-      .then((productData) => {
-        console.log('productData:', productData);
-        // setProd_category(productData.category);
-        // setProd_name(productData.name);
-        // setProd_price(productData.default_price);
+      .then((relatedIDs) => {
+        let allRelatedProducts = relatedIDs.map((id) => {
+          return fetchData('', id);
+        })
+        return Promise.all(allRelatedProducts);
+      })
+      .then((allRelatedProducts) => {
+        // console.log('allRelatedProducts', allRelatedProducts);
+        let productCategories = [];
+        let productNames = [];
+        let productPrices = [];
+        allRelatedProducts.forEach((product) => {
+          productCategories.push(product.category);
+          productNames.push(product.name);
+          productPrices.push(product.default_price);
+        })
+        setProd_category(productCategories);
+        setProd_name(productNames);
+        setProd_price(productPrices);
       })
       .catch((err) => {console.log(err)});
-    }
   }
+
+  // const getProductRatings = () => {
+  //   fetchData('related', prod_id)
+  //     .then((relatedIDs) => {
+  //       return relatedIDs;
+  //     })
+  //     .then((relatedIDs) => {
+  //       let allRelatedProducts = relatedIDs.map((id) => {
+  //         return fetchData('', id);
+  //       })
+  //       return Promise.all(allRelatedProducts);
+  //     })
+  // }
 
   useEffect(() => {
     console.log('Component Mounted');
     getProductPhoto();
-    // getProductDetails();
+    getProductDetails();
   }, [prod_id]);
 
   return (
+    // <div>
+    //   {prod_image.map((image) => {
+    //     <RelatedProductCard
+
+    //     />
+
+    //   })}
+    // </div>
       <IndividualCardStyle>
         <ImageStyle
-          src={prod_image}
-          alt='Girl in black shoes'
+          src={prod_image[3]}
+          alt='product image'
         />
-        <CategoryStyle>{prod_category}</CategoryStyle>
-        <NameStyle>{prod_name}</NameStyle>
-        <PriceStyle>${prod_price}</PriceStyle>
+        <CategoryStyle>{prod_category[3]}</CategoryStyle>
+        <NameStyle>{prod_name[3]}</NameStyle>
+        <PriceStyle>${prod_price[3]}</PriceStyle>
       </IndividualCardStyle>
   )
 }
