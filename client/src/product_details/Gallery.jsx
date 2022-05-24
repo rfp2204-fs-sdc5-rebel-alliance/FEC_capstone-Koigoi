@@ -24,11 +24,12 @@ const Gallery = () => {
 
   return (
     <Container>
-      {ImageList(imageGallery)}
-      {Carousel(imageGallery)}
+      {ImageList(imageGallery.photos)}
+      {Carousel(imageGallery.photos)}
     </Container>
   )
 
 }
 
 export default Gallery;
+
