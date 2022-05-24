@@ -8,10 +8,10 @@ const CarouselStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 1rem;
 `;
 
 const ImgContainer = styled.div`
-  border: 0.5rem solid red;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,6 +27,13 @@ const ImgStyle = styled.img`
   height: auto;
 `;
 
+const ArrowStyle = styled.div`
+  &:hover,
+  &:focus {
+    transform: scale(1.25);
+  }
+`;
+
 const Carousel = (slides) => {
   const [current, setCurrent] = useState(0);
   const {index, setIndex} = useContext(ProdDetailsContext);
@@ -36,28 +43,26 @@ const Carousel = (slides) => {
   }
 
   let nextSlide = () => {
-    setIndex(index === slides.length - 1 ? 0: index + 1)
+    if (index === slides.length - 1) {
+      setIndex(0);
+    } else {
+      setIndex(index + 1);
+    }
   };
 
   let prevSlide = () => {
-    setIndex(index === 0 ? slides.length - 1: index - 1);
+    if (index === 0) {
+      setIndex(slides.length - 1);
+    } else {
+      setIndex(index - 1);
+    }
   };
-
-  // if (!Array.isArray(slides) || slides.length === 0) {
-  //   return null;
-  // }
-
-  // let nextSlide = () => {
-  //   setCurrent(current === slides.length - 1 ? 0: current + 1)
-  // };
-
-  // let prevSlide = () => {
-  //   setCurrent(current === 0 ? slides.length - 1: current - 1);
-  // };
 
   return (
     <CarouselStyle>
-      <FontAwesomeIcon icon={faAngleLeft} onClick={prevSlide}/>
+      <ArrowStyle>
+        <FontAwesomeIcon icon={faAngleLeft} onClick={prevSlide}/>
+      </ArrowStyle>
       <ImgContainer>
         {slides.map((slide, number) => {
           return (
@@ -69,7 +74,9 @@ const Carousel = (slides) => {
           )
         })}
       </ImgContainer>
-      <FontAwesomeIcon icon={faAngleRight} onClick={nextSlide}/>
+      <ArrowStyle>
+        <FontAwesomeIcon icon={faAngleRight} onClick={nextSlide}/>
+      </ArrowStyle>
     </CarouselStyle>
   )
 };
