@@ -35,44 +35,39 @@ const RecommendedMessage = styled.div`
 `;
 
 function RatingBreakdown() {
-  const { ratings, totalRatings, recommended } = useContext(ReviewsContext);
+  const { ratings, totalRatings, avgRating, recommended } = useContext(ReviewsContext);
 
-  let ratingsSum = 0;
-  let eachRatingsAverage = {};
-
-  Object.keys(ratings).forEach((rating) => {
-    ratingsSum += (ratings[rating] * (rating));
-    eachRatingsAverage[rating] = Math.round((ratings[rating] / totalRatings) * 100)
-  })
-
-  const averageRating = Math.round((ratingsSum / totalRatings) * 10) / 10;
+  const individualRatingAvg = (rating, sum = 0) => {
+    sum = ratings[rating] * rating;
+    return Math.round((ratings[rating] / totalRatings) * 100);
+  }
 
   let fiveStarAvg = {
-    'width': `${eachRatingsAverage[5]}%`,
+    'width': `${individualRatingAvg(5)}%`,
     'height': '30px',
     'backgroundColor': 'black'
   }
 
   let fourStarAvg = {
-    'width': `${eachRatingsAverage[4]}%`,
+    'width': `${individualRatingAvg(4)}%`,
     'height': '30px',
     'backgroundColor': 'black'
   }
 
   let threeStarAvg = {
-    'width': `${eachRatingsAverage[3]}%`,
+    'width': `${individualRatingAvg(3)}%`,
     'height': '30px',
     'backgroundColor': 'black'
   }
 
   let twoStarAvg = {
-    'width': `${eachRatingsAverage[2]}%`,
+    'width': `${individualRatingAvg(2)}%`,
     'height': '30px',
     'backgroundColor': 'black'
   }
 
   let oneStarAvg = {
-    'width': `${eachRatingsAverage[1]}%`,
+    'width': `${individualRatingAvg(1)}%`,
     'height': '30px',
     'backgroundColor': 'black'
   }
@@ -82,7 +77,7 @@ function RatingBreakdown() {
   return (
     <div>
       <AverageRating>
-        {averageRating} <span style={{'fontWeight': 'bold', 'fontSize': '18px'}}>stars</span>
+        {avgRating} <span style={{'fontWeight': 'bold', 'fontSize': '18px'}}>stars</span>
       </AverageRating>
       <div>
         <p>Rating Breakdown</p>
