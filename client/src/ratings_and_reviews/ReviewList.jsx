@@ -9,6 +9,8 @@ import { ProdPageContext } from '../product_page.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 import styled from 'styled-components';
 
+import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
+
 const ReviewListContainer = styled.div`
   background: #FFF;
   font-size: 18px;
@@ -71,7 +73,7 @@ function ReviewList() {
   //   console.log('Form submitted')
   // }
 
-
+  sharedReviewsComponent();
 
   return (
     <ReviewListContainer>
@@ -95,7 +97,7 @@ function ReviewList() {
       <ButtonContainer>
         {moreReviewsButton}
         <button onClick={handleModel}>Add a Review</button>
-        <Modal header={'Write Your Review'} body={<AddReviewForm/>}/>
+        <Modal headerTitle={'Write Your Review'} body={<AddReviewForm/>}/>
       </ButtonContainer>
     </ReviewListContainer>
   );

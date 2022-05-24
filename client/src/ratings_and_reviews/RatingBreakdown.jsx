@@ -47,6 +47,8 @@ function RatingBreakdown() {
 
   const averageRating = Math.round((ratingsSum / totalRatings) * 10) / 10;
 
+  console.log(eachRatingsAverage)
+
   let fiveStarAvg = {
     'width': `${eachRatingsAverage[5]}%`,
     'height': '30px',
