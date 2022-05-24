@@ -1,9 +1,4 @@
-import React, { useState, useContext } from 'react';
-import { ReviewsContext } from '../ratings_and_reviews/RatingsAndReviews.jsx';
-
-function sharedReviewsComponent () {
-  const { ratings } = useContext(ReviewsContext);
-
+function sharedReviewsComponent (ratings) {
   let ratingsObj = {
     totalRatings: 0,
     avgRating: 0,
@@ -19,4 +14,4 @@ function sharedReviewsComponent () {
   return ratingsObj;
 }
 
-export default sharedReviewsComponent
+export default sharedReviewsComponent;
