@@ -22,6 +22,16 @@ const ImgContainer = styled.div`
   margin: 1rem;
 `;
 
+const SelectedImgContainer = styled.div`
+  outline: 0.5rem solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  margin: 1rem;
+`;
+
 const ImgStyle = styled.img`
   width: 100%;
   height: 100%;
@@ -31,6 +41,14 @@ const ImgStyle = styled.img`
     transform: scale(1.1);
     box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
   }
+`;
+
+const SelectedImgStyle = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
 `;
 
 const ArrowStyle = styled.div`
@@ -52,7 +70,10 @@ const ImageList = (images) => {
       {images.map((image, number) => {
           return (
             <ImgContainer key={number}>
-              <ImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
+              {
+                index === number ? <SelectedImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
+                : <ImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
+              }
             </ImgContainer>
           )
         })}
@@ -61,5 +82,3 @@ const ImageList = (images) => {
 }
 
 export default ImageList;
-
-

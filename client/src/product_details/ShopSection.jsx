@@ -15,6 +15,10 @@ const Container = styled.div`
   align-items: center;
 `;
 
+let AddButton = () => {
+
+}
+
 const ShopSection = () => {
   const {prod_id} = useContext(ProdPageContext);
   const {prodObj, setProdObj, prodStyles, setProdStyles, imageGallery} = useContext(ProdDetailsContext);
