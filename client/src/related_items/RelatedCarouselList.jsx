@@ -1,12 +1,13 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import StarRating from '../shared_components/StarRating.jsx';
 
 const Carousel = (productDetails) => {
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
-  const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
-  const maxDisplay = productDetails.length - 4; // change to 4
+  const display = productDetails.slice(currentImageIdx, (currentImageIdx + 2)); // change to 4
+  const maxDisplay = productDetails.length - 2; // change to 4
   const placeholder = 'http://placecorgi.com/260/180';
 
   const nextSlide = () => {
@@ -24,7 +25,7 @@ const Carousel = (productDetails) => {
   return (
     <CarouselContainer>
       {currentImageIdx !== 0 ?
-      <LeftArrow> <FontAwesomeIcon icon={faAngleLeft} onClick={() => prevSlide()}/> </LeftArrow>
+      <LeftArrow><FontAwesomeIcon icon={faAngleLeft} onClick={() => prevSlide()}/></LeftArrow>
       : null}
       <CarouselWrapper>
         {display.map((details, index) => {
@@ -36,6 +37,8 @@ const Carousel = (productDetails) => {
               <CategoryStyle>{details.categories}</CategoryStyle>
               <NameStyle>{details.names}</NameStyle>
               <PriceStyle>${details.prices}</PriceStyle>
+              {/* <RatingsStyle>{details.ratings.avgRating}</RatingsStyle> */}
+              <RatingsStyle>{StarRating(details.ratings.avgRating)}</RatingsStyle>
             </IndividualCardStyle>
           )
         })}
@@ -80,7 +83,7 @@ const IndividualCardStyle = styled.div`
   position: relative;
   border: 1px solid black;
   mid-width: 250px;
-  width: 300px;
+  width: 250px;
   height: fit-content;
   margin-right: 30px;
   margin-bottom: 10px;
@@ -112,7 +115,13 @@ const NameStyle = styled.div`
   padding-left: 5px;
 `;
 
-const PriceStyle = styled.span`
+const PriceStyle = styled.div`
+  font-weight: normal;
+  font-size: 15px;
+  padding-left: 5px;
+`;
+
+const RatingsStyle = styled.div`
   font-weight: normal;
   font-size: 15px;
   padding-left: 5px;
