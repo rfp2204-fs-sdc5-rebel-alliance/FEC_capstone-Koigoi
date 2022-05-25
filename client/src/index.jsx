@@ -5,6 +5,7 @@ import axios from 'axios';
 import ProductPage from './product_page.jsx';
 import HomePage from './homepage.jsx';
 import Checkout from './checkout.jsx';
+import Modal from './shared_components/Modal.jsx';
 
 export const AppContext = createContext();
 
@@ -12,6 +13,8 @@ const App = () => {
   const [cart, setCart] = useState([]);
   const [view, setView] = useState('Product');
   const [showModal, setShowModal] = useState(false);
+  const [modalBodyContent, setModalBodyContent] = useState(null);
+  const [modalHeaderContent, setModalHeaderContent] = useState(null);
 
   const changeView = (name) => {
     console.log('Changing view to ' + name);
@@ -44,8 +47,9 @@ const App = () => {
 
         </nav>
       </header>
-      <AppContext.Provider value={{cart, setCart, showModal, setShowModal}}>
+      <AppContext.Provider value={{cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
         <h1>{renderView()}</h1>
+        <Modal />
       </AppContext.Provider>
     </div>
   )
