@@ -36,6 +36,7 @@ const Carousel = (productDetails) => {
               <CategoryStyle>{details.categories}</CategoryStyle>
               <NameStyle>{details.names}</NameStyle>
               <PriceStyle>${details.prices}</PriceStyle>
+              <RatingsStyle>{details.ratings.avgRating}</RatingsStyle>
             </IndividualCardStyle>
           )
         })}
@@ -111,7 +112,13 @@ const NameStyle = styled.div`
   padding-left: 5px;
 `;
 
-const PriceStyle = styled.span`
+const PriceStyle = styled.div`
+  font-weight: normal;
+  font-size: 15px;
+  padding-left: 5px;
+`;
+
+const RatingsStyle = styled.div`
   font-weight: normal;
   font-size: 15px;
   padding-left: 5px;
