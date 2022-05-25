@@ -27,7 +27,7 @@ const ProductDetails = () => {
   const [index, setIndex] = useState(0);
   const [prodObj, setProdObj] = useState({});
   const [prodStyles, setProdStyles] = useState({});
-  const [imageGallery, setGallery] = useState([]);
+  const [imageGallery, setGallery] = useState({});
 
   let getImages = () => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${prod_id}/styles`, {
