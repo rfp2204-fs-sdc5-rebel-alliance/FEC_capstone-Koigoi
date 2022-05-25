@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import formattedDate from '../shared_components/formattedDate.js';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import ImageThumbnail from '../shared_components/ImageThumbnail.jsx';
+import ImageList from '../product_details/components/ImageList.jsx';
+import { ReviewsContext } from './RatingsAndReviews.jsx';
+
 
 const ReviewCard = styled.div`
   border-bottom: 1px solid black;
@@ -34,8 +36,11 @@ const CardResponse = styled.div`
   background: #F0F0F0;
 `;
 
-function ReviewListCard({ date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
+function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
   const [showMore, setShowMore] = useState(false);
+  const { helpful, setHelpful, notHelpful, setNotHelpful } = useContext(ReviewsContext);
+
+  console.log('Photos', photos);
 
   if (summary.length > 60) {
     const summaryCopy = summary.slice(0,60);
@@ -88,6 +93,12 @@ function ReviewListCard({ date, rating, reviewerName, summary, body, response, h
 
   }
 
+  setHelpful(helpfulness);
+
+  const handleHelpfulClick = () => {
+    setHelpful(prevCount => prevCount + 1);
+  }
+
   return (
     <ReviewCard>
       <CardSummary>{reviewerName}</CardSummary>
@@ -100,18 +111,12 @@ function ReviewListCard({ date, rating, reviewerName, summary, body, response, h
       <div className="CardBody">
         <p>{renderedBody}</p>
         {showMoreButton()}
-        <ReviewImageContainer>
-          <ImageThumbnail></ImageThumbnail>
-          <ImageThumbnail></ImageThumbnail>
-          <ImageThumbnail></ImageThumbnail>
-          <ImageThumbnail></ImageThumbnail>
-          <ImageThumbnail></ImageThumbnail>
-        </ReviewImageContainer>
+        {/* {ImageList()} */}
       </div>
       {recommendMessage()}
       <br></br>
       {reviewResponse()}
-      <p>Helpful? Yes {helpfulness}</p>
+      <p>Was this review helpful? Yes <span onClick={handleHelpfulClick}>( {helpful} )</span>></p>
     </ReviewCard>
   );
 }

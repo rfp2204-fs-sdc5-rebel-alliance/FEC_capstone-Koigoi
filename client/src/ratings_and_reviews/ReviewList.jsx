@@ -76,6 +76,7 @@ function ReviewList() {
         {reviews.map((review, index) =>
           <ReviewListCard
             key={index}
+            id={review.review_id}
             date={review.date}
             rating={review.rating}
             reviewerName={review.reviewer_name}
