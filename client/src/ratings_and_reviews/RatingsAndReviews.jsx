@@ -38,6 +38,8 @@ function RatingsAndReviews() {
   const [recommended, setRecommended] = useState({});
   const [sort, setSort] =  useState('relevance');
   const [toggleSort, setToggleSort] = useState(true);
+  const [helpful, setHelpful] = useState(false);
+  const [notHelpful, setNotHelpful] = useState(0);
 
   const { prod_id, ratingsObj, setRatingsObj } = useContext(ProdPageContext);
 
@@ -65,7 +67,7 @@ function RatingsAndReviews() {
     const avgRating = ratingsObj.avgRating;
 
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort }}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, helpful, setHelpful, notHelpful, setNotHelpful}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>

@@ -1,3 +1,4 @@
+import React, { useState, useContext, createContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
@@ -14,14 +15,39 @@ const InputText = styled.input`
   margin-right: 10px;
 `;
 
-function AddReviewForm () {
+function AddReviewForm ({ prodId, productName }) {
+  const [rating, setRating] = useState(5);
+  const [summary, setSummary] = useState('');
+  const [body, setBody] = useState('');
+  const [recommend, setRecommend] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [photos, setPhotos] = useState([]);
+  const [characteristics, setCharacteristics] = useState({});
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newReviewData = {
+      product_id: prodId,
+      rating: rating,
+      summary: summary,
+      body: body,
+      recommend: recommend,
+      name: name,
+      email: email,
+      photos: photos,
+      characteristics: characteristics
+    }
+
+    console.log(newReviewData);
+  }
 
   return (
     <div>
       <FormSection>
-        <h4>About the [Product Name Here]</h4>
+        <h4>About the {productName}</h4>
       </FormSection>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormSection>
           <h5>Overall Rating*</h5>
           <FontAwesomeIcon icon={faStar} />
