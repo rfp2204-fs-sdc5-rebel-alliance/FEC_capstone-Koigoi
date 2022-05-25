@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import formattedDate from '../shared_components/formattedDate.js'
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 const Answer = (props) => {
 

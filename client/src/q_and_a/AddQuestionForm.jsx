@@ -5,9 +5,6 @@ const FormSection = styled.div`
   margin: 20px 0px;
   `;
 
-// const RadioButtons = styled.label`
-//   margin-right: 20px;
-// `;
 
 const InputText = styled.input`
   margin-right: 10px;
@@ -18,7 +15,6 @@ const AddQuestionForm = () => {
   const [question, setQuestion] = useState("")
   const [nickname, setNickname] = useState("")
   const [email, setEmail] = useState("")
-  // const [name, setName] = useState("")
 
   const handleChangeQuestion = (e) => { setQuestion(e.target.value)};
   const handleChangeNickname = (e) => {setNickname(e.target.value)};
