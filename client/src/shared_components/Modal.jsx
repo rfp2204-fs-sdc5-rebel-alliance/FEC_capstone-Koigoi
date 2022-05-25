@@ -18,9 +18,6 @@ const ModalDiv = styled.div`
 `;
 
 const ModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   min-height: 25%;
   min-width: 25%;
   max-height: 90%;
@@ -41,13 +38,14 @@ const ModalHeader = styled.div`
 const ModalBody = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding: 0px 40px 20px 40px;
+  min-height: 200px;
+  padding: 20px 20px;
 `;
 
-function Modal ( {headerTitle, body} ) {
-  const { showModal, setShowModal } = useContext(AppContext);
+function Modal () {
+  const { showModal, setShowModal, modalBodyContent, modalHeaderContent } = useContext(AppContext);
 
   if (!showModal) {
     return null;
@@ -61,10 +59,10 @@ function Modal ( {headerTitle, body} ) {
     <ModalDiv onClick={closeModal}>
       <ModalContainer onClick={event => event.stopPropagation()}>
         <ModalHeader>
-          <h3>{headerTitle}</h3>
+          <h3>{modalHeaderContent}</h3>
           <FontAwesomeIcon icon={faXmarkCircle} onClick={closeModal} />
         </ModalHeader>
-        <ModalBody>{body}</ModalBody>
+        <ModalBody>{modalBodyContent}</ModalBody>
       </ModalContainer>
     </ModalDiv>
   );
