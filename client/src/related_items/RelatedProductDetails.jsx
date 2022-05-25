@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import {ProdPageContext} from '../product_page.jsx';
-import {fetchData, fetchRatingsData} from './fetchData.jsx';
+import { ProdPageContext } from '../product_page.jsx';
+import { fetchData, fetchRatingsData } from './fetchData.js';
 import styled from 'styled-components';
 import Carousel from './RelatedCarouselList.jsx';
 import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';

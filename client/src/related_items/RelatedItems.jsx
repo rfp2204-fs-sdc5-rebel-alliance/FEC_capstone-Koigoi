@@ -1,6 +1,6 @@
-import React, {useState, useContext, createContext} from 'react';
+import React, { useState, useContext, createContext } from 'react';
 import axios from 'axios';
-import {ProdPageContext} from '../product_page.jsx';
+import { ProdPageContext } from '../product_page.jsx';
 import RelatedProductDetail from './RelatedProductDetails.jsx';
 import styled from 'styled-components';
 
@@ -37,11 +37,10 @@ const CardStyle = styled.div`
 `;
 
 const TitleStyle = styled.h3`
-  // text-transform: uppercase;
-  // padding-left: 15px;
-  // padding-bottom: 10px;
-  // font-size: 20px;
-  // font-family:
+  text-transform: uppercase;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  font-size: 20px;
 `;
 
 const RelatedProductsSection = styled.section`

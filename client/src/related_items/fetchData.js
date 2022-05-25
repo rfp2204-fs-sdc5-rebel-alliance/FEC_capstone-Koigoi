@@ -1,6 +1,6 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import {ProdPageContext} from '../product_page.jsx';
+import { ProdPageContext } from '../product_page.jsx';
 import config from '../../dist/config.js';
 
 // move this to server

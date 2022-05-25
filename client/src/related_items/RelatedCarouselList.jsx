@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import StarRating from '../shared_components/StarRating.jsx';
 
 const Carousel = (productDetails) => {
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
@@ -37,6 +38,7 @@ const Carousel = (productDetails) => {
               <NameStyle>{details.names}</NameStyle>
               <PriceStyle>${details.prices}</PriceStyle>
               <RatingsStyle>{details.ratings.avgRating}</RatingsStyle>
+              <StarRating></StarRating>
             </IndividualCardStyle>
           )
         })}
