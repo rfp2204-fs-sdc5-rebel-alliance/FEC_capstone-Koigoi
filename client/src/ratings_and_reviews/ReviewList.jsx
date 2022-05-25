@@ -27,7 +27,7 @@ const ButtonContainer = styled.div`
 
 function ReviewList() {
   const [reviews, setReviews] = useState([]);
-  const { prod_id, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
+  const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
   const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort } = useContext(ReviewsContext);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ function ReviewList() {
 
   const handleModal = () => {
     setModalHeaderContent('Write Your Review')
-    setModalBodyContent(<AddReviewForm/>);
+    setModalBodyContent(<AddReviewForm prodId={prod_id} productName={prod_name}/>);
     setShowModal(true);
   }
 

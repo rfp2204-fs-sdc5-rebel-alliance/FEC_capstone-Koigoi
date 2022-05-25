@@ -38,7 +38,7 @@ function RatingsAndReviews() {
   const [recommended, setRecommended] = useState({});
   const [sort, setSort] =  useState('relevance');
   const [toggleSort, setToggleSort] = useState(true);
-  const [helpful, setHelpful] = useState(0);
+  const [helpful, setHelpful] = useState(false);
   const [notHelpful, setNotHelpful] = useState(0);
 
   const { prod_id, ratingsObj, setRatingsObj } = useContext(ProdPageContext);

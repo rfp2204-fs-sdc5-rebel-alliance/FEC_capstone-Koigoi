@@ -23,7 +23,7 @@ const MainWrapper = styled.div`
 
 
 const ProductDetails = () => {
-  const {prod_id} = useContext(ProdPageContext);
+  const {prod_id, setProdName} = useContext(ProdPageContext);
   const [index, setIndex] = useState(0);
   const [prodObj, setProdObj] = useState({});
   const [prodStyles, setProdStyles] = useState({});
@@ -54,6 +54,7 @@ const ProductDetails = () => {
     })
     .then((results) => {
       setProdObj(results);
+      setProdName(results.data.name);
     })
     .catch((err) => console.log(err));
   }

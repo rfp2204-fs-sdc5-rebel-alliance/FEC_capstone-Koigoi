@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import axios from 'axios';
+import config from '../../dist/config.js';
 import formattedDate from '../shared_components/formattedDate.js';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -91,10 +93,21 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
 
   }
 
-  setHelpful(helpfulness);
-
   const handleHelpfulClick = () => {
-    setHelpful(prevCount => prevCount + 1);
+    // helpful ? setHelpful(false) : setHelpful(true);
+
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, {
+      auth: config.TOKEN,
+      headers: {
+        Authorization: config.TOKEN
+      }
+    })
+    .then(() => {console.log('Success')})
+    .catch((err) => {
+      console.log(err)
+      console.log(id)
+      console.log(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`)
+    })
   }
 
   return (
@@ -114,7 +127,7 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
       {recommendMessage()}
       <br></br>
       {reviewResponse()}
-      <p>Was this review helpful? Yes <span onClick={handleHelpfulClick}>( {helpful} )</span></p>
+      <p>Was this review helpful? Yes <span onClick={handleHelpfulClick}>( {helpfulness} )</span></p>
     </ReviewCard>
   );
 }
