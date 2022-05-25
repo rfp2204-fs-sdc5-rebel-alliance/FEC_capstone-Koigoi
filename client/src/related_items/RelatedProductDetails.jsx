@@ -68,7 +68,6 @@ const RelatedProductDetail = () => {
   }
 
   useEffect(() => {
-    console.log('Component Mounted');
     getAllRelatedDetails();
   }, [prod_id]);
 

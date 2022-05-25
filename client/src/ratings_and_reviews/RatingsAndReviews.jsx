@@ -69,7 +69,7 @@ function RatingsAndReviews() {
   return (
     <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, helpful, setHelpful, notHelpful, setNotHelpful}}>
       <RatingsAndReviewsContainer>
-        <h2>Ratings and Reviews</h2>
+        <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>
           <LayoutLeft>
             <RatingBreakdown/>

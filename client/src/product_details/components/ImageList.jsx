@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import {ProdDetailsContext} from '../ProductDetails.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 //may need to import more stuff to begin work
@@ -32,6 +33,20 @@ const ImgStyle = styled.img`
   }
 `;
 
+const SelectedImgStyle = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+`;
+
+const ArrowStyle = styled.div`
+  &:hover,
+  &:focus {
+    transform: scale(1.25);
+  }
+`;
 
 const ImageList = (images) => {
   const {index, setIndex} = useContext(ProdDetailsContext);
@@ -45,7 +60,10 @@ const ImageList = (images) => {
       {images.map((image, number) => {
           return (
             <ImgContainer key={number}>
-              <ImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
+              {
+                index === number ? <SelectedImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
+                : <ImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
+              }
             </ImgContainer>
           )
         })}
