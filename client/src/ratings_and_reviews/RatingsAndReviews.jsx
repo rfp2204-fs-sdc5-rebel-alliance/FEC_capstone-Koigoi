@@ -51,7 +51,6 @@ function RatingsAndReviews() {
         }
       })
       .then((reviewsData) => {
-        console.log(reviewsData.data.ratings);
         setCharacteristics(reviewsData.data.characteristics)
         setRatings(reviewsData.data.ratings)
         setRecommended(reviewsData.data.recommended)

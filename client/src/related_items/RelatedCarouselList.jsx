@@ -52,6 +52,8 @@ const CarouselContainer = styled.div`
   align-items: center;
   position: relative;
   max-width: 1000px;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const CarouselWrapper = styled.div`
@@ -94,6 +96,7 @@ const ImageStyle = styled.img`
   background-position: center;
   width: 100%;
   height: 250px;
+  position: relative;
 `;
 
 const CategoryStyle = styled.div`

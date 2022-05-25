@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {ProdPageContext} from '../product_page.jsx';
-import fetchData from './fetchData.jsx';
+import {fetchData, fetchRatingsData} from './fetchData.jsx';
 import styled from 'styled-components';
-import Carousel from './Carousel.jsx';
+import Carousel from './RelatedCarouselList.jsx';
 
 const RelatedProductDetail = () => {
   const {prod_id} = useContext(ProdPageContext);
@@ -17,9 +17,12 @@ const RelatedProductDetail = () => {
         relatedIDs.forEach((id) => {
           promiseArray.push(fetchData('styles', id));
           promiseArray.push(fetchData('', id));
+          // promiseArray.push(fetchRatingsData('meta', id));
         })
         return Promise.all(promiseArray)
       })
+      // .then((results) => {
+      //   console.log(results);
       .then(([style1, product1, style2, product2,
               style3, product3, style4, product4]) => {
         let styles = [style1, style2, style3, style4];
