@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
 import { fetchData, fetchRatingsData } from './fetchData.js';
 import styled from 'styled-components';
 import Carousel from './RelatedCarouselList.jsx';
 import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
 
-const RelatedProductDetail = () => {
+const RelatedProductDetails = () => {
   const {prod_id} = useContext(ProdPageContext);
   const [prod_details, setProd_details] = useState([]);
   const allRelatedDetails = [];
@@ -22,8 +21,6 @@ const RelatedProductDetail = () => {
         })
         return Promise.all(promiseArray)
       })
-      // .then((results) => {
-      //   console.log(results);
       .then(([style1, product1, rating1,
               style2, product2, rating2,
               style3, product3, rating3,
@@ -33,9 +30,7 @@ const RelatedProductDetail = () => {
         let products = [product1, product2, product3, product4];
         let ratings = [rating1, rating2, rating3, rating4];
         /* parse through related styles */
-        let allStyles = styles.map((style) => {
-          return style.results;
-        });
+        let allStyles = styles.map((style) => {return style.results;});
         let images = [];
         allStyles.map((defaultImages) => {
           let isDefaultTrue = false;
@@ -90,4 +85,4 @@ const RelatedProductDetail = () => {
   )
 }
 
-export default RelatedProductDetail;
+export default RelatedProductDetails;

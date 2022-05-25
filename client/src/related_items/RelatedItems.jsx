@@ -1,7 +1,7 @@
 import React, { useState, useContext, createContext } from 'react';
 import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
-import RelatedProductDetail from './RelatedProductDetails.jsx';
+import RelatedProductDetails from './RelatedProductDetails.jsx';
 import styled from 'styled-components';
 
 export const RelatedItemsContext = createContext();
@@ -14,7 +14,7 @@ const RelatedItems = () => {
       <TitleStyle> Related Products </TitleStyle>
       <Wrapper>
       <RelatedItemsContext.Provider value={{}}>
-        <CardStyle> <RelatedProductDetail /> </CardStyle>
+        <CardStyle> <RelatedProductDetails /> </CardStyle>
       </RelatedItemsContext.Provider>
       </Wrapper>
       <TitleStyle> Your Outfit </TitleStyle>

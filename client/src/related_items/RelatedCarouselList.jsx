@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
@@ -25,7 +25,7 @@ const Carousel = (productDetails) => {
   return (
     <CarouselContainer>
       {currentImageIdx !== 0 ?
-      <LeftArrow> <FontAwesomeIcon icon={faAngleLeft} onClick={() => prevSlide()}/> </LeftArrow>
+      <LeftArrow><FontAwesomeIcon icon={faAngleLeft} onClick={() => prevSlide()}/></LeftArrow>
       : null}
       <CarouselWrapper>
         {display.map((details, index) => {
@@ -38,7 +38,8 @@ const Carousel = (productDetails) => {
               <NameStyle>{details.names}</NameStyle>
               <PriceStyle>${details.prices}</PriceStyle>
               <RatingsStyle>{details.ratings.avgRating}</RatingsStyle>
-              <StarRating></StarRating>
+              {/* <StarRating></StarRating> */}
+              <RatingsStyle>{StarRating(details.ratings.avgRating)}</RatingsStyle>
             </IndividualCardStyle>
           )
         })}
@@ -83,7 +84,7 @@ const IndividualCardStyle = styled.div`
   position: relative;
   border: 1px solid black;
   mid-width: 250px;
-  width: 300px;
+  width: 250px;
   height: fit-content;
   margin-right: 30px;
   margin-bottom: 10px;
