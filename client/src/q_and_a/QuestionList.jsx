@@ -5,13 +5,15 @@ import QuestionEntry from './QuestionEntry.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 import config from '../../dist/config.js';
 import styled from 'styled-components';
+import QnaModal from './QnaModal.jsx';
+import AddQuestionForm from './AddQuestionForm.jsx';
 
 export const QuestionContext = React.createContext();
 
 const QuestionList = () => {
 
   const [questions, setQuestions] = useState([]);
-  const { prod_id } = useContext(ProdPageContext);
+  const { prod_id} = useContext(ProdPageContext);
   const [questionsToShow, setQuestionsToShow] = useState(2);
   const [expanded, setExpanded] = useState(false);
   const [show, setShow] = useState(true);
@@ -71,10 +73,10 @@ const QuestionList = () => {
 
   }
 
-  const showModalHandler = (e) => {
-    showModal ? setShowModal(false) : setShowModal(true);
-    // setShowModal(true);
-  }
+  // const showModalHandler = (e) => {
+  //   // showModal ? setShowModal(false) : setShowModal(true);
+  //   setShowModal(true);
+  // }
   // const hideModalHandler = (e) => {
   //   setShowModal(false);
   // }
@@ -87,9 +89,9 @@ const QuestionList = () => {
     }
   }
 
-  // const addQuestion = () => {
-
-  // }
+  const handleModal = () => {
+    setShowModal(true);
+  }
 
   return (
     <div>
@@ -100,7 +102,8 @@ const QuestionList = () => {
           {questions.slice(0, questionsToShow).map((item) => <QuestionEntry key={item.question_id} entry={item} />)}
         </QuestionListContainer>
         {show ? <button onClick={loadMoreQuestions}> MORE ANSWERED QUESTIONS </button> : null}
-        <button onClick={showModalHandler}> ADD A QUESTION + </button>
+        <button onClick={handleModal}> ADD A QUESTION + </button>
+        <QnaModal showModal={showModal} setShowModal={setShowModal}headerTitle={'Ask Your Question'} body={<AddQuestionForm/>}/>
       </QuestionContext.Provider>
     </div>
   );

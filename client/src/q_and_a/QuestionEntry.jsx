@@ -1,21 +1,24 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import { QuestionContext } from './QuestionList.jsx';
+// import { QuestionContext } from './QuestionList.jsx';
 import config from '../../dist/config.js';
 import Answer from './Answer.jsx';
-// import styled from 'styled-components';
-
-export const QuestionEntryContext = React.createContext();
+import QnaModal from './QnaModal.jsx';
+import styled from 'styled-components';
+import { ProdPageContext } from '../product_page.jsx';
+import AddAnswerForm from './AddAnswerForm.jsx';
+// export const QuestionEntryContext = React.createContext();
 
 
 const QuestionEntry = (props) => {
 
   // const questions = useContext(QuestionContext);
+  const { prod_id, showModal, setShowModal } = useContext(ProdPageContext);
   const [answers, setAnswers] = useState([]);
   const [answersToShow, setAnwsersToShow] = useState(2); // maping
   const [expanded, setExpanded] = useState(false); // button
   const [show, setShow] = useState(true);
-
+  // const [showModal, setShowModal] = useState(false);
 
   console.log('inside QuestionEntry answers =>:', answers)
   // setAnswers(response.data.results)
@@ -38,6 +41,18 @@ const QuestionEntry = (props) => {
       .catch((err) => console.log(err))
   }, [url])
 
+  // const showModalHandler = (e) => {
+  //   // showModal ? setShowModal(false) : setShowModal(true);
+  //   setShowModal(true);
+  // }
+  // const hideModalHandler = (e) => {
+  //   setShowModal(false);
+  // }
+
+  const handleModel = () => {
+    setShowModal(true);
+  }
+
   const loadMoreAnswers =() => {
     answers.length === 0 ? setShow(false) : setShow(true)
     answersToShow === 2 ? setAnwsersToShow(answers.length) : setAnwsersToShow(2);
@@ -48,7 +63,10 @@ const QuestionEntry = (props) => {
     <table>
       <thead>
         <tr>
-          <td> {`Q: ${props.entry.question_body}`} Helpful? Yes {props.entry.question_helpfulness} | Add Answer</td>
+          <td> {`Q: ${props.entry.question_body}`} Helpful? Yes {props.entry.question_helpfulness} |
+          <a onClick={handleModel}> Add Answer </a>
+          <QnaModal headerTitle={'Answer'} body={<AddAnswerForm/>}/>
+          </td>
         </tr>
       </thead>
       <tbody>
