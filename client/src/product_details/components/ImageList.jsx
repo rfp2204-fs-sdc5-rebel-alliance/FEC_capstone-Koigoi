@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import {ProdDetailsContext} from '../ProductDetails.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 //may need to import more stuff to begin work
@@ -32,6 +33,12 @@ const ImgStyle = styled.img`
   }
 `;
 
+const ArrowStyle = styled.div`
+  &:hover,
+  &:focus {
+    transform: scale(1.25);
+  }
+`;
 
 const ImageList = (images) => {
   const {index, setIndex} = useContext(ProdDetailsContext);
@@ -54,3 +61,5 @@ const ImageList = (images) => {
 }
 
 export default ImageList;
+
+
