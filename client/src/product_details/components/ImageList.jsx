@@ -22,16 +22,6 @@ const ImgContainer = styled.div`
   margin: 1rem;
 `;
 
-const SelectedImgContainer = styled.div`
-  outline: 0.5rem solid blue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 4rem;
-  height: 4rem;
-  margin: 1rem;
-`;
-
 const ImgStyle = styled.img`
   width: 100%;
   height: 100%;
