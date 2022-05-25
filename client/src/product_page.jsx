@@ -1,10 +1,10 @@
 import React, { useState, createContext, useContext } from "react";
 import { render } from "react-dom";
 import { AppContext } from './index.jsx';
-
 import ProductDetails from './product_details/ProductDetails.jsx';
 import RatingsAndReviews from './ratings_and_reviews/RatingsAndReviews.jsx';
 import RelatedItems from './related_items/RelatedItems.jsx';
+import QuestionList from './q_and_a/QuestionList.jsx';
 
 export const ProdPageContext = createContext();
 
@@ -21,6 +21,7 @@ const ProductPage = () => {
         {/* Add components you want to render here */}
         <ProductDetails />
         <RelatedItems />
+        <QuestionList />
         <RatingsAndReviews />
       </ProdPageContext.Provider>
     </div>
