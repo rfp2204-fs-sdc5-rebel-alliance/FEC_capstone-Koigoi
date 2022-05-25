@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import ReviewListCard from './ReviewListCard.jsx';
 import AddReviewForm from './AddReviewForm.jsx';
-import Modal from '../shared_components/Modal.jsx';
 
 import { ProdPageContext } from '../product_page.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
@@ -28,7 +27,7 @@ const ButtonContainer = styled.div`
 
 function ReviewList() {
   const [reviews, setReviews] = useState([]);
-  const { prod_id, setShowModal } = useContext(ProdPageContext);
+  const { prod_id, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
   const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort } = useContext(ReviewsContext);
 
   useEffect(() => {
@@ -64,7 +63,9 @@ function ReviewList() {
     noReviewsGreeting = <p>Be the first to review this product!</p>;
   }
 
-  const handleModel = () => {
+  const handleModal = () => {
+    setModalHeaderContent('Write Your Review')
+    setModalBodyContent(<AddReviewForm/>);
     setShowModal(true);
   }
 
@@ -89,8 +90,7 @@ function ReviewList() {
       </ReviewCardContainer>
       <ButtonContainer>
         {moreReviewsButton}
-        <button onClick={handleModel}>Add a Review</button>
-        <Modal headerTitle={'Write Your Review'} body={<AddReviewForm/>}/>
+        <button onClick={handleModal}>Add a Review</button>
       </ButtonContainer>
     </ReviewListContainer>
   );

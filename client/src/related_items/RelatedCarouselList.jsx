@@ -99,6 +99,7 @@ const ImageStyle = styled.img`
   background-position: center;
   width: 100%;
   height: 250px;
+  position: relative;
 `;
 
 const CategoryStyle = styled.div`

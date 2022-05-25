@@ -14,7 +14,7 @@ const RelatedItems = () => {
       <TitleStyle> Related Products </TitleStyle>
       <Wrapper>
       <RelatedItemsContext.Provider value={{}}>
-        <CardStyle> <RelatedProductDetails /> </CardStyle>
+        <RelatedProductDetails />
       </RelatedItemsContext.Provider>
       </Wrapper>
       <TitleStyle> Your Outfit </TitleStyle>
@@ -44,6 +44,7 @@ const TitleStyle = styled.h3`
 `;
 
 const RelatedProductsSection = styled.section`
+  // align-items: center;
   // display: inline-block;
   // left: 50%;
   // position: relative;

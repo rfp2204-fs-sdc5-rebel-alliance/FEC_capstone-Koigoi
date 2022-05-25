@@ -36,11 +36,9 @@ const ProductDetails = () => {
       }
     })
     .then((results) => {
-      console.log('prodStyles:', results);
       setProdStyles(results);
       results.data.results.forEach((style) => {
         if (style['default?'] === true) {
-          console.log('current style:', style);
           setGallery(style);
         }
       })
@@ -55,7 +53,6 @@ const ProductDetails = () => {
       }
     })
     .then((results) => {
-      console.log('prodObj:', results);
       setProdObj(results);
     })
     .catch((err) => console.log(err));

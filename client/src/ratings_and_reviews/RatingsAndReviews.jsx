@@ -51,7 +51,6 @@ function RatingsAndReviews() {
         }
       })
       .then((reviewsData) => {
-        console.log(reviewsData.data.ratings);
         setCharacteristics(reviewsData.data.characteristics)
         setRatings(reviewsData.data.ratings)
         setRecommended(reviewsData.data.recommended)
@@ -68,7 +67,7 @@ function RatingsAndReviews() {
   return (
     <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort }}>
       <RatingsAndReviewsContainer>
-        <h2>Ratings and Reviews</h2>
+        <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>
           <LayoutLeft>
             <RatingBreakdown/>

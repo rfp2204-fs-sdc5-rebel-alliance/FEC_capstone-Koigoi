@@ -50,38 +50,32 @@ const DiscountText = styled.div`
 const ProductInfo = () => {
   const {prod_id} = useContext(ProdPageContext);
   const {prodObj, setProdObj, prodStyles, setProdStyles, imageGallery} = useContext(ProdDetailsContext);
+  const {ratingsObj} = useContext(ProdPageContext);
 
   if (!prodObj.data) {
-    return null;
-  } else {
-    if (imageGallery.sale_price === null) {
-      return (
-        <Container>
-          <CategoryText>Stars + Read all reviews link</CategoryText>
-          <CategoryText>{prodObj.data.category}</CategoryText>
-          <NameText>{prodObj.data.name}</NameText>
-          <OtherText>{imageGallery.original_price}</OtherText>
-          <OtherText>Style: {imageGallery.name}</OtherText>
-          <StylesBlock />
-          <ShopSection />
-        </Container>
-      )
-    } else {
-      return (
-        <Container>
-          <CategoryText>Stars + Read all reviews link</CategoryText>
-          <CategoryText>{prodObj.data.category}</CategoryText>
-          <NameText>{prodObj.data.name}</NameText>
+  return null;
+  }
+  return (
+    <Container>
+      {ratingsObj.totalRatings > 0 ?
+        <CategoryText onClick={() => window.location.replace("/#RatingsAndReviews")}>{ratingsObj.avgRating} Stars: Read all {ratingsObj.totalRatings} reviews</CategoryText>
+        : null
+      }
+      <CategoryText>{prodObj.data.category}</CategoryText>
+      <NameText>{prodObj.data.name}</NameText>
+      {imageGallery.sale_price === null ?
+        <OtherText>{imageGallery.original_price}</OtherText>
+        :
+        <>
           <DiscountText>{imageGallery.sale_price}</DiscountText>
           <StrikeText>{imageGallery.original_price}</StrikeText>
-          <OtherText>Style: {imageGallery.name}</OtherText>
-          <StylesBlock />
-          <ShopSection />
-        </Container>
-      )
-    }
-  }
-
+        </>
+      }
+      <OtherText>Style: {imageGallery.name}</OtherText>
+      <StylesBlock />
+      <ShopSection />
+    </Container>
+  )
 }
 
 export default ProductInfo;
