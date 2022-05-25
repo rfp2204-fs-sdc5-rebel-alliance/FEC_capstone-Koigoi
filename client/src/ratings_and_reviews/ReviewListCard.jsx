@@ -3,7 +3,7 @@ import formattedDate from '../shared_components/formattedDate.js';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import ImageList from '../product_details/components/ImageList.jsx';
+import ImageThumbnail from '../shared_components/ImageThumbnail.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 
@@ -39,8 +39,6 @@ const CardResponse = styled.div`
 function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
   const [showMore, setShowMore] = useState(false);
   const { helpful, setHelpful, notHelpful, setNotHelpful } = useContext(ReviewsContext);
-
-  console.log('Photos', photos);
 
   if (summary.length > 60) {
     const summaryCopy = summary.slice(0,60);
@@ -111,12 +109,12 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
       <div className="CardBody">
         <p>{renderedBody}</p>
         {showMoreButton()}
-        {/* {ImageList()} */}
+        <ImageThumbnail images={photos}/>
       </div>
       {recommendMessage()}
       <br></br>
       {reviewResponse()}
-      <p>Was this review helpful? Yes <span onClick={handleHelpfulClick}>( {helpful} )</span>></p>
+      <p>Was this review helpful? Yes <span onClick={handleHelpfulClick}>( {helpful} )</span></p>
     </ReviewCard>
   );
 }
