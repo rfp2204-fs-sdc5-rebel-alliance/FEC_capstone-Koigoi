@@ -37,8 +37,7 @@ const Carousel = (productDetails) => {
               <CategoryStyle>{details.categories}</CategoryStyle>
               <NameStyle>{details.names}</NameStyle>
               <PriceStyle>${details.prices}</PriceStyle>
-              <RatingsStyle>{details.ratings.avgRating}</RatingsStyle>
-              {/* <StarRating></StarRating> */}
+              {/* <RatingsStyle>{details.ratings.avgRating}</RatingsStyle> */}
               <RatingsStyle>{StarRating(details.ratings.avgRating)}</RatingsStyle>
             </IndividualCardStyle>
           )
