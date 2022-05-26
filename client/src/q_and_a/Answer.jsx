@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 const Answer = (props) => {
 
-  console.log('Answer: props =>:', props)
   return (
     <>
       <tr>
