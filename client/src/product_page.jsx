@@ -21,7 +21,7 @@ const ProductPage = () => {
         {/* Add components you want to render here */}
         <ProductDetails />
         <RelatedItems />
-        {/* <QuestionList /> */}
+        <QuestionList />
         <RatingsAndReviews />
       </ProdPageContext.Provider>
     </div>

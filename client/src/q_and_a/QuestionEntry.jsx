@@ -14,10 +14,10 @@ const QuestionEntry = (props) => {
   const [expanded, setExpanded] = useState(false);
   const [show, setShow] = useState(true);
 
-  // console.log('inside QuestionEntry answers =>:', answers)
+  console.log('inside QuestionEntry answers =>:', answers)
   const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${props.entry.question_id}/answers`;
-  // console.log('props.entry', props.entry)
-  // console.log('question id', props.entry.question_id)
+  console.log('props.entry', props.entry)
+  console.log('question id', props.entry.question_id)
 
   useEffect(() => {
     axios.get(url, {
