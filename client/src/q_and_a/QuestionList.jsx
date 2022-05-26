@@ -12,8 +12,8 @@ export const QuestionContext = React.createContext();
 const QuestionList = () => {
 
   const [questions, setQuestions] = useState([]);
-  const [filteredQuestion, setFilteredQuestion] = useState([])
-  const { prod_id, setShowModal, setModalBodyContent,setModalHeaderContent} = useContext(ProdPageContext);
+  // const [filteredQuestion, setFilteredQuestion] = useState([])
+  const { prod_id, prod_name, setShowModal, setModalBodyContent,setModalHeaderContent} = useContext(ProdPageContext);
   const [questionsToShow, setQuestionsToShow] = useState(2);
   const [expanded, setExpanded] = useState(false);
   const [show, setShow] = useState(true);
@@ -37,7 +37,7 @@ const QuestionList = () => {
         // count: 5
       }
     })
-      .then((response) => { console.log('This is response of get:', response); setQuestions(response.data.results); setFilteredQuestion(response.data.results) })
+      .then((response) => { setQuestions(response.data.results); })
       .catch((err) => console.log(err)) //setFilteredQuestion(response.data.results)
   }, [url])
 
@@ -45,11 +45,9 @@ const QuestionList = () => {
   const searchQuestions = (word) => {
     let search = word.toLowerCase();
     let result;
-    console.log('serchQuestions =>', word)
     if (word.length > 2) {
       result = questions.filter((item) => item.question_body.includes(search))
       setQuestions(result);
-      console.log('search Fn: result:', result)
     } else if (word.length <=1) {
       axios.get(url, {
         headers: {
@@ -61,7 +59,7 @@ const QuestionList = () => {
           // count: 5
         }
       })
-        .then((response) => { console.log('This is response of get:', response); setQuestions(response.data.results) })
+        .then((response) => { setQuestions(response.data.results) })
         .catch((err) => console.log(err))
       setExpanded(false);
       setQuestionsToShow(2);
@@ -79,7 +77,7 @@ const QuestionList = () => {
 
   const handleModal = () => {
     setModalHeaderContent('Your Question')
-    setModalBodyContent(<AddQuestionForm/>);
+    setModalBodyContent(<AddQuestionForm prodName={prod_name}/>);
     setShowModal(true);
   }
 // flag and conditionaly render reset button.

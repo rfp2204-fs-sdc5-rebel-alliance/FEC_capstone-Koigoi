@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import styled from 'styled-components';
 
 
@@ -10,7 +10,7 @@ const InputText = styled.input`
   margin-right: 10px;
 `;
 
-const AddAnswerForm = () => {
+const AddAnswerForm = ({prod_name, questionBody }) => {
 
   const [answer, setAnswer] = useState("")
   const [nickname, setNickname] = useState("")
@@ -25,28 +25,13 @@ const AddAnswerForm = () => {
   return (
     <div>
       <FormSection>
-        <h4>[Product Name]: [Question Body]</h4>
+        <h4> {prod_name } : {questionBody}</h4>
       </FormSection>
         <form>
         <FormSection>
           <label> <h5>Your Answer *</h5>
-            <textarea name="answer" rows="4" cols="40" maxLength="600" required value={() => setAnswer(answer)}
+            <textarea name="answer" rows="6" cols="60" maxLength="600" required value={answer}
               onChange={handleChangeAnswer} />
-          </label>
-        </FormSection>
-        <FormSection>
-          <label> <h5>What is your nickname? *</h5>
-            <input name="nickname" type="text" placeholder="Example: jack543!" required value={()=> setNickname(nickname)}
-              onChange={handleChangeNickname} />
-              <br></br>
-              <h5>For privacy reasons, do not use your full name or email address</h5>
-          </label>
-        </FormSection>
-        <FormSection>
-          <label> <h5>Your email *</h5>
-            <input name="email" placeholder="Example: jack@email.com" type="text" required value={() => setEmail(email)}
-              onChange={handleChangeEmail} />
-              <h5>For authentication reasons, you will not be emailed</h5>
           </label>
         </FormSection>
         <FormSection>
@@ -55,11 +40,24 @@ const AddAnswerForm = () => {
             type='file'
             name='image'/>
         </FormSection>
-        </form>
         <FormSection>
-        <button onClick={handleClickSubmit}>Submit</button>
-        {/* invalid cases message You must enter the following: */}
+          <label> <h5>What is your nickname? *</h5>
+            <input name="nickname" type="text" placeholder="Example: jack543!" required value={nickname} size='30' onChange={handleChangeNickname} />
+              <br></br>
+              <h5>For privacy reasons, do not use your full name or email address</h5>
+          </label>
         </FormSection>
+        <FormSection>
+          <label> <h5>Your email *</h5>
+            <input name="email" placeholder="Example: jack@email.com" type="text" required value={email} size='30'
+              onChange={handleChangeEmail} />
+              <h5>For authentication reasons, you will not be emailed</h5>
+          </label>
+        </FormSection>
+        <FormSection>
+          <input type ='submit' value='Submit' onClick={handleClickSubmit}/>
+        </FormSection>
+        </form>
       </div>
   )
 };
