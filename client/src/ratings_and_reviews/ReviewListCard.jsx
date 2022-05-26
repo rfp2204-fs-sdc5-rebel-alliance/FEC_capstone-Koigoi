@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import config from '../../dist/config.js';
 import formattedDate from '../shared_components/formattedDate.js';
+import StarRating from '../shared_components/StarRating.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -113,7 +114,7 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
     <ReviewCard>
       <CardSummary>{reviewerName}</CardSummary>
       <br></br>
-      <p>{rating} Stars</p>
+      {StarRating(rating)}
       {formattedDate(date)}
       <br></br>
       <br></br>
