@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import StarRating from '../shared_components/StarRating.jsx';
+import ComparisonModal from './ComparisonModal.jsx';
+import { ProdPageContext } from '../product_page.jsx';
 
 const Carousel = (productDetails) => {
+  const { prod_id, prod_name, setShowModal, setModalBodyContent } = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
-  const display = productDetails.slice(currentImageIdx, (currentImageIdx + 2)); // change to 4
-  const maxDisplay = productDetails.length - 2; // change to 4
+  const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
+  const maxDisplay = productDetails.length - 4; // change to 4
   const placeholder = 'http://placecorgi.com/260/180';
 
   const nextSlide = () => {
@@ -22,15 +25,22 @@ const Carousel = (productDetails) => {
     setCurrentImageIdx(0);
   }, [productDetails]);
 
+  const handleModalClick = (id) => {
+    // console.log(id); // gets the current product ID for clicked card
+    // ComparisonModal(id);
+    setModalBodyContent(<ComparisonModal mainId={prod_id} relatedId={id}/>);
+    setShowModal(true);
+  }
+
   return (
     <CarouselContainer>
       {currentImageIdx !== 0 ?
       <LeftArrow><FontAwesomeIcon icon={faAngleLeft} onClick={() => prevSlide()}/></LeftArrow>
       : null}
       <CarouselWrapper>
-        {display.map((details, index) => {
+        {display.map((details) => {
           return (
-            <IndividualCardStyle key={index}>
+            <IndividualCardStyle key={details.id} onClick={() => handleModalClick(details.id)}>
               <ImageStyle
                 src={details.images === null ? placeholder : details.images}
               />
