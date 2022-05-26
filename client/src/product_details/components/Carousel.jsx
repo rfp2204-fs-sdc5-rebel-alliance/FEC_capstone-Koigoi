@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
+//this is a carousel component
+
 const CarouselStyle = styled.div`
   display: flex;
   justify-content: center;

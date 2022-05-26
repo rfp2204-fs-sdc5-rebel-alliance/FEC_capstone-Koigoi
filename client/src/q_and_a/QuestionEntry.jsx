@@ -8,7 +8,7 @@ import AddAnswerForm from './AddAnswerForm.jsx';
 
 const QuestionEntry = (props) => {
 
-  const { prod_id, setShowModal,setModalBodyContent,setModalHeaderContent } = useContext(ProdPageContext);
+  const { prod_id, prod_name, setShowModal,setModalBodyContent,setModalHeaderContent } = useContext(ProdPageContext);
   const [answers, setAnswers] = useState([]);
   const [answersToShow, setAnwsersToShow] = useState(2);
   const [expanded, setExpanded] = useState(false);
@@ -16,8 +16,10 @@ const QuestionEntry = (props) => {
 
   console.log('inside QuestionEntry answers =>:', answers)
   const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${props.entry.question_id}/answers`;
-  console.log('props.entry', props.entry)
-  console.log('question id', props.entry.question_id)
+  const question_body = props.entry.question_body;
+
+  // console.log('props.entry', props.entry)
+  // console.log('question id', props.entry.question_id)
 
   useEffect(() => {
     axios.get(url, {
@@ -30,13 +32,13 @@ const QuestionEntry = (props) => {
         // count:
       }
     })
-      .then((response) => { console.log('get answer response:=>', response); setAnswers(response.data.results) })
+      .then((response) => { setAnswers(response.data.results) })
       .catch((err) => console.log(err))
   }, [url])
 
   const handleModal = () => {
-    setModalHeaderContent('Answer')
-    setModalBodyContent(<AddAnswerForm/>);
+    setModalHeaderContent('Submit your Answer')
+    setModalBodyContent(<AddAnswerForm prodName={prod_name} questionBody={question_body}/>);
     setShowModal(true);
   }
 
