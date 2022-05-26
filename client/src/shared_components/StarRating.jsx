@@ -7,12 +7,11 @@ const StarRating = (avgRating) => {
   const width = {width: starPercentage};
   // const starPercentage = (avgRating / starsTotal) * 100;
   // const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-  console.log(starPercentage);
 
   return (
     <div>
-        <div class='stars-outer'>
-          <div class='stars-inner' style={width}> </div>
+        <div className='stars-outer'>
+          <div className='stars-inner' style={width}> </div>
         </div>
     </div>
   )
