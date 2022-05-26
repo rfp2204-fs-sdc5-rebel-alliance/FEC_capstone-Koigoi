@@ -12,6 +12,7 @@ export const QuestionContext = React.createContext();
 const QuestionList = () => {
 
   const [questions, setQuestions] = useState([]);
+  const [filteredQuestion, setFilteredQuestion] = useState([])
   const { prod_id, setShowModal, setModalBodyContent,setModalHeaderContent} = useContext(ProdPageContext);
   const [questionsToShow, setQuestionsToShow] = useState(2);
   const [expanded, setExpanded] = useState(false);
@@ -36,8 +37,8 @@ const QuestionList = () => {
         // count: 5
       }
     })
-      .then((response) => { console.log('This is response of get:', response); setQuestions(response.data.results) })
-      .catch((err) => console.log(err))
+      .then((response) => { console.log('This is response of get:', response); setQuestions(response.data.results); setFilteredQuestion(response.data.results) })
+      .catch((err) => console.log(err)) //setFilteredQuestion(response.data.results)
   }, [url])
 
 
@@ -81,7 +82,7 @@ const QuestionList = () => {
     setModalBodyContent(<AddQuestionForm/>);
     setShowModal(true);
   }
-
+// flag and conditionaly render reset button.
   return (
     <div>
       <p > {title} </p>

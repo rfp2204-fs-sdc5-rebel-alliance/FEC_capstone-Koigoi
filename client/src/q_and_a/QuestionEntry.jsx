@@ -35,7 +35,7 @@ const QuestionEntry = (props) => {
   }, [url])
 
   const handleModal = () => {
-    setModalHeaderContent('Answer')
+    setModalHeaderContent('Submit your Answer')
     setModalBodyContent(<AddAnswerForm/>);
     setShowModal(true);
   }
