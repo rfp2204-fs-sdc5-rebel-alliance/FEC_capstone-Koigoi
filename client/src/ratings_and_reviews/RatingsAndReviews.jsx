@@ -33,13 +33,19 @@ const LayoutRight = styled.div`
 
 function RatingsAndReviews() {
   const [reviewCount, setReviewCount] = useState(2);
-  const [characteristics, setCharacteristics] = useState({});
-  const [ratings, setRatings] = useState({});
-  const [recommended, setRecommended] = useState({});
+
   const [sort, setSort] =  useState('relevance');
   const [toggleSort, setToggleSort] = useState(true);
-  const [helpful, setHelpful] = useState(false);
-  const [notHelpful, setNotHelpful] = useState(0);
+
+  const [numRating, setNumRating] = useState({});
+  const [filterNumRating, setFilterNumRating] = useState([])
+
+  const [ratings, setRatings] = useState({});
+  const [characteristics, setCharacteristics] = useState({});
+  const [recommended, setRecommended] = useState({});
+
+  // const [helpful, setHelpful] = useState(false);
+  // const [notHelpful, setNotHelpful] = useState(0);
 
   const { prod_id, ratingsObj, setRatingsObj } = useContext(ProdPageContext);
 
@@ -66,8 +72,10 @@ function RatingsAndReviews() {
     const totalRatings = ratingsObj.totalRatings;
     const avgRating = ratingsObj.avgRating;
 
+    console.log('FILTERED ARRAY',filterNumRating);
+
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, helpful, setHelpful, notHelpful, setNotHelpful}}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>

@@ -14,8 +14,10 @@ const RatingsBreakdown = styled.div`
   margin: 10px 0px;
 `;
 
-const RatingNumber = styled.div`
+const RatingNumber = styled.button`
   min-width: 60px;
+  background: none;
+  border: none;
 `;
 
 const RatingNumberTotal = styled.div`
@@ -35,7 +37,28 @@ const RecommendedMessage = styled.div`
 `;
 
 function RatingBreakdown() {
-  const { ratings, totalRatings, avgRating, recommended } = useContext(ReviewsContext);
+  const { ratings, totalRatings, avgRating, recommended, numRating, setFilterNumRating } = useContext(ReviewsContext);
+
+  const showRatingsObj = {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false
+  }
+
+  const [showRatings, setShowRatings] = useState(showRatingsObj);
+
+
+  const handleRatingClick = (event) => {
+    const starRating = event.target.value
+
+    console.log(showRatings[starRating])
+
+    // showRatings[starRating] ? setShowRatings[starRating](false) : setShowRatings[starRating](true);
+
+    setFilterNumRating(prevFilter => prevFilter.concat(numRating[starRating]));
+  }
 
   const individualRatingAvg = (rating, sum = 0) => {
     sum = ratings[rating] * rating;
@@ -82,35 +105,55 @@ function RatingBreakdown() {
       <div>
         <p>Rating Breakdown</p>
         <RatingsBreakdown>
-          <RatingNumber>5 stars</RatingNumber>
+          <RatingNumber
+            value={'5'}
+            onClick={handleRatingClick}>
+            5 stars
+          </RatingNumber>
           <RatingBarContainer>
             <div style={fiveStarAvg}></div>
             <RatingNumberTotal>{ratings[5]}</RatingNumberTotal>
           </RatingBarContainer>
         </RatingsBreakdown>
         <RatingsBreakdown>
-          <RatingNumber>4 stars</RatingNumber>
+          <RatingNumber
+            value='4'
+            onClick={handleRatingClick}>
+            4 stars
+          </RatingNumber>
           <RatingBarContainer>
             <div style={fourStarAvg}></div>
             <RatingNumberTotal>{ratings[4]}</RatingNumberTotal>
           </RatingBarContainer>
         </RatingsBreakdown>
         <RatingsBreakdown>
-          <RatingNumber>3 stars</RatingNumber>
+          <RatingNumber
+            value='3'
+            onClick={handleRatingClick}>
+            3 stars
+          </RatingNumber>
           <RatingBarContainer>
             <div style={threeStarAvg}></div>
             <RatingNumberTotal>{ratings[3]}</RatingNumberTotal>
           </RatingBarContainer>
         </RatingsBreakdown>
         <RatingsBreakdown>
-          <RatingNumber>2 stars</RatingNumber>
+          <RatingNumber
+            value='2'
+            onClick={handleRatingClick}>
+            2 stars
+          </RatingNumber>
           <RatingBarContainer>
             <div style={twoStarAvg}></div>
             <RatingNumberTotal>{ratings[2]}</RatingNumberTotal>
           </RatingBarContainer>
         </RatingsBreakdown>
         <RatingsBreakdown>
-          <RatingNumber>1 stars</RatingNumber>
+          <RatingNumber
+            value='1'
+            onClick={handleRatingClick}>
+            1 stars
+          </RatingNumber>
           <RatingBarContainer>
             <div style={oneStarAvg}></div>
             <RatingNumberTotal>{ratings[1]}</RatingNumberTotal>

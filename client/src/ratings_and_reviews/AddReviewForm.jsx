@@ -39,7 +39,15 @@ function AddReviewForm ({ prodId, productName }) {
       characteristics: characteristics
     }
 
-    console.log(newReviewData);
+    axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, newReviewData, {
+      headers: {
+        Authorization: config.TOKEN
+      }
+    })
+    .then(() => {console.log('Success')})
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
   return (
