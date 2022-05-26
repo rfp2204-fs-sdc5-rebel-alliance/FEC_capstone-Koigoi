@@ -1,11 +1,18 @@
 import React, { useState, useContext, createContext } from 'react';
+import axios from 'axios';
+import config from '../../dist/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 const FormSection = styled.div`
+  font-size: 14px;
   margin: 20px 0px;
-  `;
+
+`;
+
+const FormHeading = styled.h4`
+`
 
 const RadioButtons = styled.label`
   margin-right: 20px;
@@ -14,6 +21,9 @@ const RadioButtons = styled.label`
 const InputText = styled.input`
   margin-right: 10px;
 `;
+
+const InputMessage = styled.div`
+`
 
 function AddReviewForm ({ prodId, productName }) {
   const [rating, setRating] = useState(5);
@@ -24,17 +34,43 @@ function AddReviewForm ({ prodId, productName }) {
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
   const [characteristics, setCharacteristics] = useState({});
+  const [characterCount, setCharacterCount] = useState(50);
+
+  const handleBody = (event) => {
+    let bodyContent = event.target.value;
+    let bodyLength = event.target.value.length;
+
+    setBody(bodyContent);
+
+    if (bodyLength >= 50) {
+      setCharacterCount('Minimum reached')
+    } else {
+      setCharacterCount(50 - (bodyLength));
+    }
+  }
+
+  const handlePhotos = (event) => {
+    const uploadedPhotos = event.target.files;
+    let photosArray = [];
+
+    for (let i = 0; i < uploadedPhotos.length; i++) {
+      photosArray.push(uploadedPhotos[i].name)
+    }
+
+    // setPhotos(photosArray);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const newReviewData = {
       product_id: prodId,
       rating: rating,
-      summary: summary,
-      body: body,
-      recommend: recommend,
-      name: name,
-      email: email,
+      summary: summary.target.value,
+      body: body.target.value,
+      recommend: recommend.target.value,
+      name: name.target.value,
+      email: email.target.value,
       photos: photos,
       characteristics: characteristics
     }
@@ -53,11 +89,11 @@ function AddReviewForm ({ prodId, productName }) {
   return (
     <div>
       <FormSection>
-        <h4>About the {productName}</h4>
+        <h3>About the {productName}</h3>
       </FormSection>
       <form onSubmit={handleSubmit}>
         <FormSection>
-          <h5>Overall Rating*</h5>
+          <FormHeading>Overall Rating*</FormHeading>
           <FontAwesomeIcon icon={faStar} />
           <FontAwesomeIcon icon={faStar} />
           <FontAwesomeIcon icon={faStar} />
@@ -65,12 +101,13 @@ function AddReviewForm ({ prodId, productName }) {
           <FontAwesomeIcon icon={faStar} />
         </FormSection>
         <FormSection>
-          <h5>Do you recommend this product?*</h5>
+          <FormHeading>Do you recommend this product?*</FormHeading>
           <RadioButtons>
             <InputText
               type='radio'
               name='recommend'
-              value='Yes'
+              value={true}
+              onChange={setRecommend}
               required/>
             Yes
           </RadioButtons>
@@ -78,52 +115,67 @@ function AddReviewForm ({ prodId, productName }) {
             <InputText
               type='radio'
               name='recommend'
-              value='No'
+              value={false}
+              onChange={setRecommend}
               required/>
             No
           </RadioButtons>
         </FormSection>
         <FormSection>
-          <h5>Characteristics*</h5>
+          <FormHeading>Characteristics*</FormHeading>
         </FormSection>
         <FormSection>
-          <h5>Review Summary</h5>
+          <FormHeading>Review Summary</FormHeading>
           <input
             type='text'
             name='summary'
-            size='60'/>
+            size='60'
+            placeholder="Example: Best purchase ever!"
+            onChange={setSummary}/>
         </FormSection>
         <FormSection>
-          <h5>Review Body*</h5>
+          <FormHeading>Review Body*</FormHeading>
           <textarea
             name='body'
             rows='10'
             cols='100'
+            minLength='50'
             maxLength='1000'
+            placeholder="Why did you like the product or not?"
+            onChange={handleBody}
             required>
           </textarea>
+          <InputMessage>Minimum required characters left: {characterCount}</InputMessage>
         </FormSection>
         <FormSection>
-          <h5>Upload your photos</h5>
+          <FormHeading>Upload your photos</FormHeading>
           <input
             type='file'
-            name='image'/>
+            name='image'
+            onChange={handlePhotos}
+            multiple/>
         </FormSection>
         <FormSection>
-          <h5>What is your nickname*</h5>
+          <FormHeading>What is your nickname*</FormHeading>
           <input
             type='text'
             name='nickname'
             size='60'
+            placeholder='Example: jackson11!'
+            onChange={setName}
             required/>
+            <InputMessage>For privacy reasons, do not use your full name or email address</InputMessage>
         </FormSection>
         <FormSection>
-          <h5>Email*</h5>
+          <FormHeading>Email*</FormHeading>
           <input
             type='email'
             name='summary'
             size='60'
+            placeholder='Example: jackson11@email.com'
+            onChange={setEmail}
             required/>
+            <InputMessage>For authentication reasons, you will not be emailed</InputMessage>
         </FormSection>
         <FormSection>
           <input type ='submit' value='Submit'/>

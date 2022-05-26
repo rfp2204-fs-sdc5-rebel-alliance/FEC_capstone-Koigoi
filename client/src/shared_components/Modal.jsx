@@ -31,7 +31,7 @@ const ModalHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 20px 20px;
   border-bottom: 1px solid black;
 `;
 
