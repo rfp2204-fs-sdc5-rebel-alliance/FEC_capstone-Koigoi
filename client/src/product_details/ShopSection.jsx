@@ -30,6 +30,13 @@ const SelectStyle = styled.select`
   margin: 0 1rem 0 1rem;
 `;
 
+const ButtonStyle = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem 0 1rem;
+`;
+
 export const ShopContext = createContext();
 
 const ShopSection = () => {
@@ -92,7 +99,8 @@ const ShopSection = () => {
           </ShopContext.Provider>
         </FormStyle>
         <FormStyle>
-          <button onClick={() => {setCart(cart.concat({'sku': sku, 'size': size, 'quant': quant}))}}>Add to Cart</button>
+          <ButtonStyle onClick={() => {setCart(cart.concat({'sku': sku, 'size': size, 'quant': quant}))}}>Add to Cart</ButtonStyle>
+          <ButtonStyle>&#9733;</ButtonStyle>
         </FormStyle>
       </Container>
     )

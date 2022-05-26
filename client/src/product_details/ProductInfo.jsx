@@ -8,6 +8,7 @@ import config from '../../dist/config.js';
 //may need to import more stuff to begin work
 import StylesBlock from './components/StylesBlock.jsx';
 import ShopSection from './ShopSection.jsx';
+import StarRating from '../shared_components/StarRating.jsx';
 
 const Container = styled.div`
   width: 40%;
@@ -57,7 +58,7 @@ const ProductInfo = () => {
   return (
     <Container>
       {ratingsObj.totalRatings > 0 ?
-        <CategoryText onClick={() => window.location.replace("/#RatingsAndReviews")}>{ratingsObj.avgRating} Stars: Read all {ratingsObj.totalRatings} reviews</CategoryText>
+        <CategoryText onClick={() => window.location.replace("/#RatingsAndReviews")}>{StarRating(ratingsObj.avgRating)} Read all {ratingsObj.totalRatings} reviews</CategoryText>
         : null
       }
       <CategoryText>{prodObj.data.category}</CategoryText>
