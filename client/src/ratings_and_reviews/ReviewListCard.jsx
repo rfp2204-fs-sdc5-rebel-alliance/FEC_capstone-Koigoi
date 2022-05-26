@@ -97,7 +97,6 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
     // helpful ? setHelpful(false) : setHelpful(true);
 
     axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, {
-      auth: config.TOKEN,
       headers: {
         Authorization: config.TOKEN
       }
