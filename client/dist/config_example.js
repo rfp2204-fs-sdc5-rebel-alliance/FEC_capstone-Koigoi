@@ -1,6 +1,6 @@
 const config = {
-  PORT: 'INSERT PORT',
-  TOKEN: "INSERT TOKEN"
+  PORT: 'PORT',
+  TOKEN: "TOKEN"
 }
 
 module.exports = config;

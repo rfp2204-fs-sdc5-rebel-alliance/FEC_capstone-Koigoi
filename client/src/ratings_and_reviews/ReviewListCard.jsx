@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import axios from 'axios';
+import config from '../../dist/config.js';
 import formattedDate from '../shared_components/formattedDate.js';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import ImageThumbnail from '../shared_components/ImageThumbnail.jsx';
+import { ReviewsContext } from './RatingsAndReviews.jsx';
+
 
 const ReviewCard = styled.div`
   border-bottom: 1px solid black;
@@ -34,8 +38,9 @@ const CardResponse = styled.div`
   background: #F0F0F0;
 `;
 
-function ReviewListCard({ date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
+function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
   const [showMore, setShowMore] = useState(false);
+  const { helpful, setHelpful, notHelpful, setNotHelpful } = useContext(ReviewsContext);
 
   if (summary.length > 60) {
     const summaryCopy = summary.slice(0,60);
@@ -88,6 +93,23 @@ function ReviewListCard({ date, rating, reviewerName, summary, body, response, h
 
   }
 
+  const handleHelpfulClick = () => {
+    // helpful ? setHelpful(false) : setHelpful(true);
+
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, {
+      auth: config.TOKEN,
+      headers: {
+        Authorization: config.TOKEN
+      }
+    })
+    .then(() => {console.log('Success')})
+    .catch((err) => {
+      console.log(err)
+      console.log(id)
+      console.log(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`)
+    })
+  }
+
   return (
     <ReviewCard>
       <CardSummary>{reviewerName}</CardSummary>
@@ -100,18 +122,12 @@ function ReviewListCard({ date, rating, reviewerName, summary, body, response, h
       <div className="CardBody">
         <p>{renderedBody}</p>
         {showMoreButton()}
-        <ReviewImageContainer>
-          <ImageThumbnail></ImageThumbnail>
-          <ImageThumbnail></ImageThumbnail>
-          <ImageThumbnail></ImageThumbnail>
-          <ImageThumbnail></ImageThumbnail>
-          <ImageThumbnail></ImageThumbnail>
-        </ReviewImageContainer>
+        <ImageThumbnail images={photos}/>
       </div>
       {recommendMessage()}
       <br></br>
       {reviewResponse()}
-      <p>Helpful? Yes {helpfulness}</p>
+      <p>Was this review helpful? Yes <span onClick={handleHelpfulClick}>( {helpfulness} )</span></p>
     </ReviewCard>
   );
 }
