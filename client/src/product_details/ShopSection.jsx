@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, createContext } from 'react';
 import axios from 'axios';
+import { AppContext } from '../index.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 import { ProdDetailsContext } from './ProductDetails.jsx';
 import styled from 'styled-components';
@@ -32,13 +33,40 @@ const SelectStyle = styled.select`
 export const ShopContext = createContext();
 
 const ShopSection = () => {
+  const {cart, addCart} = useContext(AppContext);
   const {prod_id} = useContext(ProdPageContext);
   const {prodObj, setProdObj, prodStyles, setProdStyles, imageGallery} = useContext(ProdDetailsContext);
+  const [sku, setSku] = useState('');
   const [size, setSize] = useState('');
   const [quantOptions, setQuantOptions] = useState([]);
   const [quant, setQuant] = useState(0);
 
-  console.log('imageGallery:', imageGallery);
+  //console.log('imageGallery:', imageGallery);
+
+  let onSelectSize = (sku) => {
+    if (sku === 'Select') {
+      setSize('');
+      setQuantOptions([]);
+      return;
+    }
+    setSku(sku);
+    setSize(imageGallery.skus[sku].size);
+    let maxQuant = imageGallery.skus[sku].quantity;
+    let tempArray = [];
+    while (maxQuant > 0) {
+      tempArray.unshift(maxQuant);
+      maxQuant--;
+    }
+    setQuantOptions(tempArray);
+  }
+
+  let getQuant = () => {
+    quantOptions.map(quant => {
+      return (
+        <option value={quant}>{quant}</option>
+      )
+    })
+  }
 
   if (!imageGallery.skus) {
     return null;
@@ -46,24 +74,25 @@ const ShopSection = () => {
     return (
       <Container>
         <FormStyle>
-          <SelectStyle onChange={() => {setSize(event.target.value)}}>
-            <option value={0}>Size</option>
+          <SelectStyle onChange={() => {onSelectSize(event.target.value)}}>
+            <option value={'Select'}>Size</option>
             {
-              Object.keys(imageGallery.skus).map(sku => {
+              Object.keys(imageGallery.skus).map((sku, index) => {
                 return (
-                  <option value={imageGallery.skus[sku].size}>{imageGallery.skus[sku].size}</option>
+                  <option key={index} value={sku}>{imageGallery.skus[sku].size}</option>
                 )
               })
             }
           </SelectStyle>
-          <ShopContext.Provider value={{size, setSize, quant, setQuant}}>
-            <SelectStyle>
-              <QuantForm />
+          <ShopContext.Provider value={{size, setSize, quant, setQuant, quantOptions}}>
+            <SelectStyle onChange={() => {setQuant(event.target.value)}}>
+                <option value={0}>Quantity</option>
+                <QuantForm />
             </SelectStyle>
           </ShopContext.Provider>
         </FormStyle>
         <FormStyle>
-          <button onClick={() => {console.log({'size': size, 'quant': quant})}}>Add to Cart</button>
+          <button onClick={() => {setCart(cart.concat({'sku': sku, 'size': size, 'quant': quant}))}}>Add to Cart</button>
         </FormStyle>
       </Container>
     )
