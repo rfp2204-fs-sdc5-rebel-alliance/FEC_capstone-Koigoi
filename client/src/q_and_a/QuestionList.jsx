@@ -9,6 +9,11 @@ import AddQuestionForm from './AddQuestionForm.jsx';
 
 export const QuestionContext = React.createContext();
 
+const QuestionListContainer = styled.div`
+max-height: 500px;
+overflow: scroll;
+`;
+
 const QuestionList = () => {
 
   const [questions, setQuestions] = useState([]);
@@ -18,10 +23,7 @@ const QuestionList = () => {
   const [expanded, setExpanded] = useState(false);
   const [show, setShow] = useState(true);
 
-  const QuestionListContainer = styled.div`
-  max-height: 500px;
-  overflow: scroll;
-  `;
+
 
   const title = 'QUESTIONS & ANSWERS';
   const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions`;
@@ -32,13 +34,11 @@ const QuestionList = () => {
         Authorization: config.TOKEN
       },
       params: {
-        product_id: 40352,
-        // page: 2,
-        // count: 5
+        product_id: 40352
       }
     })
       .then((response) => { setQuestions(response.data.results); })
-      .catch((err) => console.log(err)) //setFilteredQuestion(response.data.results)
+      .catch((err) => console.log(err))
   }, [url])
 
 
@@ -54,9 +54,7 @@ const QuestionList = () => {
           Authorization: config.TOKEN
         },
         params: {
-          product_id: 40352,
-          // page: 2,
-          // count: 5
+          product_id: 40352
         }
       })
         .then((response) => { setQuestions(response.data.results) })
@@ -77,10 +75,9 @@ const QuestionList = () => {
 
   const handleModal = () => {
     setModalHeaderContent('Your Question')
-    setModalBodyContent(<AddQuestionForm prodName={prod_name}/>);
+    setModalBodyContent(<AddQuestionForm prodId={prod_id} prodName={prod_name}/>);
     setShowModal(true);
   }
-// flag and conditionaly render reset button.
   return (
     <div>
       <p > {title} </p>
