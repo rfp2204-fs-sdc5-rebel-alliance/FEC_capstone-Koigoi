@@ -3,18 +3,26 @@ import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
 import { ProdDetailsContext } from './ProductDetails.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExpand } from '@fortawesome/free-solid-svg-icons';
+import { faCompress } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import config from '../../dist/config.js';
 
-import Carousel from './components/Carousel.jsx';
+import ExpandedCarousel from './components/ExpandedCarousel.jsx';
 import ImageList from './components/ImageList.jsx';
 
 //may need to import more stuff to begin work
 
 const Container = styled.div`
-  width: 60%;
+  width: 100%;
   border: 0.5rem solid blue;
+  display: flex;
+  align-items: center;
+  position: relative;
+`;
+
+const CenterContainer = styled.div`
+  width: 100%;
+  border: 0.5rem solid green;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +35,7 @@ const ExpandStyle = styled.div`
   right: 0.5rem;
 `;
 
-const Gallery = () => {
+const ExpandedView = () => {
   const {prod_id} = useContext(ProdPageContext);
   const {prodStyles, setProdStyles, imageGallery, setGallery, setExpanded} = useContext(ProdDetailsContext);
 
@@ -36,14 +44,16 @@ const Gallery = () => {
       {imageGallery.photos &&
       <ImageList images={imageGallery.photos}/>
       }
-      {Carousel(imageGallery.photos)}
+      <CenterContainer>
+        {ExpandedCarousel(imageGallery.photos)}
+      </CenterContainer>
       <ExpandStyle>
-        <FontAwesomeIcon icon={faExpand} onClick={() => {setExpanded(true)}}/>
+        <FontAwesomeIcon icon={faCompress} onClick={() => {setExpanded(false)}}/>
       </ExpandStyle>
     </Container>
   )
 
 }
 
-export default Gallery;
+export default ExpandedView;
 
