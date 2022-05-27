@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {ProdDetailsContext} from '../ProductDetails.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 //may need to import more stuff to begin work
@@ -17,8 +17,8 @@ const ImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   margin: 1rem;
 `;
 
@@ -42,31 +42,81 @@ const SelectedImgStyle = styled.img`
 `;
 
 const ArrowStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.5);
   &:hover,
   &:focus {
-    transform: scale(1.25);
+    transform: scale(1.0);
   }
 `;
 
-const ImageList = (images) => {
-  const {index, setIndex} = useContext(ProdDetailsContext);
+const NoStyle = styled.div`
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.5);
+  &:hover,
+  &:focus {
+  transform: scale(1.0);
+}
+`;
 
-  if (!Array.isArray(images) || images.length === 0) {
-    return null;
+const ImageList = ({images}) => {
+  const {index, setIndex} = useContext(ProdDetailsContext);
+  const [range, setRange] = useState({min: 0, max: 7});
+
+  let rangeCheck = () => {
+    if (index >= range.max) {
+      setRange({min: index - 6, max: index + 1});
+    }
+    if (index < range.min) {
+      setRange({min: index, max: index + 7});
+    }
   }
+
+  useEffect(() => {
+    if (!Array.isArray(images) || !images.length) {
+      return null;
+    }
+    rangeCheck();
+  }, [index])
 
   return (
     <ListStyle>
+      <ArrowStyle>
+        {
+          range.min !== 0 && images.length > 7 ?
+            <FontAwesomeIcon icon={faAngleUp} onClick={() => {setRange({min: range.min - 1, max: range.max - 1})}}/>
+          : <NoStyle>
+              <FontAwesomeIcon icon={faAngleUp}/>
+            </NoStyle>
+        }
+      </ArrowStyle>
       {images.map((image, number) => {
-          return (
-            <ImgContainer key={number}>
-              {
-                index === number ? <SelectedImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
-                : <ImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
-              }
-            </ImgContainer>
-          )
+          if (number >= range.min && number <= range.max - 1) {
+            return (
+              <ImgContainer key={number}>
+                {
+                  index === number ?
+                    <SelectedImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
+                  : <ImgStyle onClick={() => {setIndex(number)}} src={image.thumbnail_url} alt="No Image" />
+                }
+              </ImgContainer>
+            )
+          }
         })}
+      <ArrowStyle>
+        {
+          range.max !== images.length && images.length > 7 ?
+            <FontAwesomeIcon icon={faAngleDown} onClick={() => {setRange({min: range.min + 1, max: range.max + 1})}}/>
+          : <NoStyle>
+              <FontAwesomeIcon icon={faAngleDown}/>
+            </NoStyle>
+        }
+      </ArrowStyle>
     </ListStyle>
   )
 }

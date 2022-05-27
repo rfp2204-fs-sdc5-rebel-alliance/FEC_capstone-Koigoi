@@ -36,9 +36,17 @@ const ArrowStyle = styled.div`
   }
 `;
 
-const Carousel = (slides) => {
+const ZoomStyle = styled.div`
+  background-repeat: no-repeat;
+  &:hover img {
+    opacity: 0;
+  }
+`;
+
+const ExpandedCarousel = (slides) => {
   const [current, setCurrent] = useState(0);
   const {index, setIndex} = useContext(ProdDetailsContext);
+  const [zoomPosition, setZoomPosition] = useState('0% 0%');
 
   if (!Array.isArray(slides) || slides.length === 0) {
     return null;
@@ -60,6 +68,13 @@ const Carousel = (slides) => {
     }
   };
 
+  let handleMouseMove = (event) => {
+    const { left, top, width, height } = event.target.getBoundingClientRect();
+    let x = (event.pageX - left) / width * 100;
+    let y = (event.pageY - top) / height * 100;
+    setZoomPosition(`${x}% ${y}%`);
+  }
+
   return (
     <CarouselStyle>
       <ArrowStyle>
@@ -68,11 +83,11 @@ const Carousel = (slides) => {
       <ImgContainer>
         {slides.map((slide, number) => {
           return (
-            <div key={number}>
+            <ZoomStyle key={number} onMouseMove={handleMouseMove} style={{backgroundImage: `url(${slide.url})`, backgroundPosition: zoomPosition}}>
               {number === index && (
                 <ImgStyle src={slide.url} alt="No Image" />
               )}
-            </div>
+            </ZoomStyle>
           )
         })}
       </ImgContainer>
@@ -83,4 +98,4 @@ const Carousel = (slides) => {
   )
 };
 
-export default Carousel;
+export default ExpandedCarousel;

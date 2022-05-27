@@ -29,9 +29,9 @@ const ProductFeatures = () => {
   } else {
     return (
       <Container>
-        {prodObj.data.features.map((feature) => {
+        {prodObj.data.features.map((feature, index) => {
           return (
-            <FeatureText>
+            <FeatureText key={index}>
               ✓ {feature.feature}: {feature.value}
             </FeatureText>
           )
