@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect} from 'react';
 import config from '../../dist/config.js';
 import axios from 'axios';
+import { QuestionContext } from  './QuestionList.jsx';
 import styled from 'styled-components';
 
 const FormSection = styled.div`
@@ -11,7 +12,7 @@ const InputText = styled.input`
   margin-right: 10px;
 `;
 
-const AddQuestionForm = ({prodId, prodName}) => {
+const AddQuestionForm = ({prodId, prodName, count, setCount}) => {
 
   const [question, setQuestion] = useState("");
   const [nickname, setNickname] = useState("");
@@ -22,7 +23,9 @@ const AddQuestionForm = ({prodId, prodName}) => {
   const handleChangeEmail = (e) => {setEmail(e.target.value)};
 
   const handleClickSubmit = () => {
-    const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions`
+
+    const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions`;
+
     const data = {
       body: question,
       name: nickname,
@@ -37,7 +40,8 @@ const AddQuestionForm = ({prodId, prodName}) => {
     .then((response) => {
       console.log('success')
     })
-    .catch((err) => console.log(err));
+    .then(() => {setCount(count + 1)})
+    .catch((err) => console.log(err))
   };
 
   return (
@@ -48,13 +52,12 @@ const AddQuestionForm = ({prodId, prodName}) => {
         <form>
         <FormSection>
           <label> <h5>Your Question *</h5>
-            <textarea name="question" rows="6" cols="60" maxLength="600"  value={question} required ="required"
-              onChange={handleChangeQuestion} />
+            <textarea name="question" rows="6" cols="60" maxLength="600"  required value={question}             onChange={handleChangeQuestion} />
           </label>
         </FormSection>
         <FormSection>
           <label> <h5>What is your nickname? *</h5>
-            <input name="nickname" type="text" placeholder="Example: jackson11!"  size='30' value={nickname} required="required"
+            <input name="nickname" type="text" placeholder="Example: jackson11!"  size='30' required value={nickname}
               onChange={handleChangeNickname} />
               <br></br>
               <h5>For privacy reasons, do not use your full name or email address</h5>
@@ -62,7 +65,7 @@ const AddQuestionForm = ({prodId, prodName}) => {
         </FormSection>
         <FormSection>
           <label> <h5>Your email *</h5>
-            <input name="password" placeholder="Example: jack@email.com" type="text"  size='30' value={email} required="required"
+            <input name="password" placeholder="Example: jack@email.com" type="text"  size='30' required value={email}
               onChange={handleChangeEmail} />
               <h5>For authentication reasons, you will not be emailed</h5>
           </label>
