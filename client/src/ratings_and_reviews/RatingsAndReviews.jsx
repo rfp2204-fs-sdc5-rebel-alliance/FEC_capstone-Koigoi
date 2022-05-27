@@ -46,7 +46,7 @@ function RatingsAndReviews() {
   const [characteristics, setCharacteristics] = useState({});
   const [recommended, setRecommended] = useState({});
 
-  // const [helpful, setHelpful] = useState(false);
+  const [helpful, setHelpful] = useState(0);
   // const [notHelpful, setNotHelpful] = useState(0);
 
   const { prod_id, ratingsObj, setRatingsObj } = useContext(ProdPageContext);
@@ -95,18 +95,30 @@ function RatingsAndReviews() {
       });
     }
 
+    const renderFilterRatings = () => {
+      setFilterNumRating([]);
+      setShowFilterMessage(false);
+
+      Object.keys(showRatings).forEach((rating) => {
+        if (showRatings[rating] === true) {
+          setFilterNumRating(prevFilter => prevFilter.concat(numRating[rating]));
+          setShowFilterMessage(true);
+        }
+      })
+    }
+
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage}}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage, helpful, setHelpful}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>
           <LayoutLeft>
-            <RatingBreakdown removeFilters={removeFilters}/>
+            <RatingBreakdown removeFilters={removeFilters} renderFilterRatings={renderFilterRatings}/>
           </LayoutLeft>
           <LayoutRight>
             <ReviewSort/>
             <br/>
-            <ReviewList removeFilters={removeFilters}/>
+            <ReviewList removeFilters={removeFilters} renderFilterRatings={renderFilterRatings}/>
           </LayoutRight>
         </RatingsAndReviewsLayout>
       </RatingsAndReviewsContainer>

@@ -25,10 +25,10 @@ const ButtonContainer = styled.div`
   padding: 20px 20px;
 `;
 
-function ReviewList({ removeFilters }) {
+function ReviewList({ removeFilters, renderFilterRatings }) {
   const [reviews, setReviews] = useState([]);
   const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
-  const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort, numRating, setNumRating, showRatings, setShowRatings, filterNumRating, showFilterMessage } = useContext(ReviewsContext);
+  const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort, numRating, setNumRating, showRatings, setShowRatings, filterNumRating, showFilterMessage, helpful, setHelpful } = useContext(ReviewsContext);
 
   //if showFilterMessage is true
     //check to make sure FilterNumRating has two or more reviews
@@ -39,25 +39,36 @@ function ReviewList({ removeFilters }) {
       //do axios get request
 
   useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {
-      headers: {
-        Authorization: config.TOKEN
-      },
-      params: {
-        page: 1,
-        count: reviewCount,
-        sort: sort,
-        product_id: prod_id
-      }
-    })
-    .then((reviews) => {
-      setReviews(reviews.data.results)
-      filterNumRatings(reviews.data.results)
-    })
-    .catch((err) => {console.log(err)})
+      axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {
+        headers: {
+          Authorization: config.TOKEN
+        },
+        params: {
+          page: 1,
+          count: reviewCount,
+          sort: sort,
+          product_id: prod_id
+        }
+      })
+      .then((reviews) => {
+        setReviews(reviews.data.results)
+        filterNumRatings(reviews.data.results)
+      })
+      .then(() => {test()})
+      .catch((err) => {console.log(err)})
+  }, [sort, reviewCount, helpful, filterNumRating]);
 
-  }, [sort, reviewCount]);
-
+  const test = () => {
+    if (showFilterMessage === true) {
+      // if (filterNumRating.length >= 2) {
+      //   console.log('hi')
+        setReviews(filterNumRating)
+      // } else {
+      //   getReviews();
+      //   renderFilterRatings();
+      // }
+    }
+  }
   const getReviews = () => {
     setToggleSort(false);
     setReviewCount(prevReviewCount => prevReviewCount + 2);
@@ -81,7 +92,12 @@ function ReviewList({ removeFilters }) {
   let moreReviewsButton = null;
   let noReviewsGreeting = null;
 
-  if (reviewCount >= totalRatings) {
+  if (showFilterMessage === true && reviews.length > 0) {
+    moreReviewsButton = <button onClick={removeFilters}>Remove filter</button>
+  } else if (showFilterMessage === true && reviews.length === 0) {
+    noReviewsGreeting = <p>There are currently no reviews with this filter. Please remove filter and add additional reviews.</p>;
+    moreReviewsButton = <button onClick={removeFilters}>Remove filter</button>
+  } else if (reviewCount >= totalRatings) {
     moreReviewsButton = null;
   } else if (reviewCount > 0) {
     moreReviewsButton = <button onClick={getReviews}>More Reviews</button>;
