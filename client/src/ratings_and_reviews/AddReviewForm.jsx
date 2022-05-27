@@ -63,28 +63,38 @@ function AddReviewForm ({ prodId, productName }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    let recommendToBool = recommend.target.value;
+
+    if (recommendToBool === 'true') {
+      recommendToBool = true;
+    } else {
+      recommendToBool = false;
+    }
+
     const newReviewData = {
-      product_id: prodId,
-      rating: rating,
-      summary: summary.target.value,
-      body: body.target.value,
-      recommend: recommend.target.value,
-      name: name.target.value,
-      email: email.target.value,
-      photos: photos,
-      characteristics: characteristics
+      'product_id': prodId,
+      'rating': rating,
+      'summary': summary.target.value,
+      'body': body,
+      'recommend': recommendToBool,
+      'name': name.target.value,
+      'email': email.target.value,
+      'photos': photos,
+      'characteristics': characteristics
     }
 
     console.log(newReviewData);
+    console.log(typeof recommend.target.value)
 
-    axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {
+    axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, newReviewData, {
       headers: {
         Authorization: config.TOKEN
-      },
-      data: newReviewData
+      }
     })
-    .then(() => {console.log('Success!')})
-    .catch((err) => {console.log(err)})
+    .then(() => {console.log('Success')})
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
   return (

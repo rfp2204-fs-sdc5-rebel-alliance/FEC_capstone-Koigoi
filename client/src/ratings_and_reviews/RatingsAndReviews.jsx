@@ -33,13 +33,21 @@ const LayoutRight = styled.div`
 
 function RatingsAndReviews() {
   const [reviewCount, setReviewCount] = useState(2);
-  const [characteristics, setCharacteristics] = useState({});
-  const [ratings, setRatings] = useState({});
-  const [recommended, setRecommended] = useState({});
+
   const [sort, setSort] =  useState('relevance');
   const [toggleSort, setToggleSort] = useState(true);
-  const [helpful, setHelpful] = useState(false);
-  const [notHelpful, setNotHelpful] = useState(0);
+
+  const [numRating, setNumRating] = useState({});
+  const [showRatings, setShowRatings] = useState({});
+  const [filterNumRating, setFilterNumRating] = useState([])
+  const [showFilterMessage, setShowFilterMessage] = useState(false);
+
+  const [ratings, setRatings] = useState({});
+  const [characteristics, setCharacteristics] = useState({});
+  const [recommended, setRecommended] = useState({});
+
+  // const [helpful, setHelpful] = useState(false);
+  // const [notHelpful, setNotHelpful] = useState(0);
 
   const { prod_id, ratingsObj, setRatingsObj } = useContext(ProdPageContext);
 
@@ -59,6 +67,13 @@ function RatingsAndReviews() {
         setRatingsObj(sharedReviewsComponent(reviewsData.data.ratings));
       })
       .then(() => {
+        setShowRatings({
+          '1': false,
+          '2': false,
+          '3': false,
+          '4': false,
+          '5': false
+        });
       })
       .catch((err) => {console.log(err)});
     }, []);
@@ -66,18 +81,32 @@ function RatingsAndReviews() {
     const totalRatings = ratingsObj.totalRatings;
     const avgRating = ratingsObj.avgRating;
 
+    const removeFilters = () => {
+      setShowFilterMessage(false);
+
+      setFilterNumRating([]);
+
+      setShowRatings({
+        '1': false,
+        '2': false,
+        '3': false,
+        '4': false,
+        '5': false
+      });
+    }
+
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, helpful, setHelpful, notHelpful, setNotHelpful}}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>
           <LayoutLeft>
-            <RatingBreakdown/>
+            <RatingBreakdown removeFilters={removeFilters}/>
           </LayoutLeft>
           <LayoutRight>
             <ReviewSort/>
             <br/>
-            <ReviewList/>
+            <ReviewList removeFilters={removeFilters}/>
           </LayoutRight>
         </RatingsAndReviewsLayout>
       </RatingsAndReviewsContainer>
