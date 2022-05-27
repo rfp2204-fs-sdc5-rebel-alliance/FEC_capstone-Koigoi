@@ -6,8 +6,8 @@ import styled from 'styled-components';
 
 const ComparisonModal = ({ mainId, relatedId }) => {
   const [features, setFeatures] = useState([]);
-  const mainFeatures = [];
-  const relatedFeatures = [];
+  const [mainFeatures, setMainFeatures] = useState([]);
+  const [relatedFeatures, setRelatedFeatures] = useState([]);
   // console.log('mainID', mainId);
   // console.log('relatedID', relatedId);
 
@@ -17,11 +17,11 @@ const ComparisonModal = ({ mainId, relatedId }) => {
     promiseArray.push(fetchData('', relatedId));
     return Promise.all(promiseArray)
     .then(([main, related]) => {
-      // console.log(main);
-      // console.log(related);
+      const mainProduct = [];
+      const relatedProduct = [];
       main.features.forEach((feature) => {
         if (feature.value !== null) {
-          mainFeatures.push({
+          mainProduct.push({
             name: main.name,
             value: feature.value
           });
@@ -29,55 +29,113 @@ const ComparisonModal = ({ mainId, relatedId }) => {
       });
       related.features.forEach((feature) => {
         if (feature.value !== null) {
-          relatedFeatures.push({
+          relatedProduct.push({
             name: related.name,
             value: feature.value
           });
         }
       });
-      setFeatures(mainFeatures.concat(relatedFeatures));
+      setMainFeatures(mainProduct);
+      setRelatedFeatures(relatedProduct);
+      setFeatures(mainProduct.concat(relatedProduct));
     })
     .catch((err) => {console.log(err)});
   }
 
-  // const isMainFeatures = (feature) => {
-  //   if (mainFeatures.indexOf(feature) !== -1) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
-  // const isRelatedFeatures = (feature) => {
-  //   if (relatedFeatures.indexOf(feature) !== -1) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
   useEffect(() => {
     getAllFeatures();
   }, []);
 
-  console.log('allfeatures', features);
+  const isMainFeaturesIncluded = (value) => {
+    let isTrue;
+    for (let i = 0; i < mainFeatures.length; i++) {
+      let currentValue = mainFeatures[i].value
+      if (currentValue.includes(value)) {
+        isTrue = true;
+        break;
+      } else {
+        isTrue = false;
+      }
+    }
+    return isTrue;
+  }
 
-  if (features.length === 0) {
+  const isRelatedFeaturesIncluded = (value) => {
+    let isTrue;
+    for (let i = 0; i < relatedFeatures.length; i++) {
+      let currentValue = relatedFeatures[i].value
+      if (currentValue.includes(value)) {
+        isTrue = true;
+        break;
+      } else {
+        isTrue = false;
+      }
+    }
+    return isTrue;
+  }
+
+  if (features.length === 0 ||
+      mainFeatures.length === 0 ||
+      relatedFeatures.length === 0
+      ) {
     return null;
   } else {
     return (
       <table>
         <thead>
           <tr>
-            <th>{features[0].name}</th>
+            <LeftHeader>{features[0].name}</LeftHeader>
             <th> </th>
-            <th>{features[features.length-1].name}</th>
+            <RightHeader>{features[features.length-1].name}</RightHeader>
+            <th> </th>
           </tr>
         </thead>
+        <tbody>
+          {features.map((feature, index) => (
+            <tr key={index}>
+              <LeftValues>{isMainFeaturesIncluded(feature.value) ? '✓' : ''}</LeftValues>
+              <MiddleValues>{feature.value}</MiddleValues>
+              <RightValues>{isRelatedFeaturesIncluded(feature.value) ? '✓' : ''}</RightValues>
+            </tr>
+          ))}
+        </tbody>
       </table>
     )
   }
 }
+
+const LeftValues = styled.td`
+  position: flex;
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: bold;
+`;
+
+const RightValues = styled.td`
+  position: flex;
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: bold;
+`;
+
+const MiddleValues = styled.td`
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+`;
+
+const LeftHeader = styled.th`
+  padding-left: 10px;
+  padding-right: 10px;
+`;
+
+const RightHeader = styled.th`
+  padding-left: 10px;
+  padding-right: 10px;
+`;
 
 
 export default ComparisonModal;
