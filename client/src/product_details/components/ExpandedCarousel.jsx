@@ -27,7 +27,6 @@ const ImgStyle = styled.img`
   align-items: center;
   width: 25rem;
   height: auto;
-  pointer-events: none
 `;
 
 const ArrowStyle = styled.div`
@@ -37,7 +36,7 @@ const ArrowStyle = styled.div`
   }
 `;
 
-const TestStyle = styled.div`
+const ZoomStyle = styled.div`
   background-repeat: no-repeat;
   &:hover img {
     opacity: 0;
@@ -84,11 +83,11 @@ const ExpandedCarousel = (slides) => {
       <ImgContainer>
         {slides.map((slide, number) => {
           return (
-            <TestStyle key={number} onMouseMove={handleMouseMove} style={{backgroundImage: `url(${slide.url})`, backgroundPosition: zoomPosition}}>
+            <ZoomStyle key={number} onMouseMove={handleMouseMove} style={{backgroundImage: `url(${slide.url})`, backgroundPosition: zoomPosition}}>
               {number === index && (
                 <ImgStyle src={slide.url} alt="No Image" />
               )}
-            </TestStyle>
+            </ZoomStyle>
           )
         })}
       </ImgContainer>
