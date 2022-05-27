@@ -16,9 +16,6 @@ const YourOutfitDetails = () => {
     promiseArray.push(fetchRatingsData('meta', prod_id));
     return Promise.all(promiseArray)
     .then(([productStyles, productInfo, productRatings]) => {
-      // console.log('productStyles', productStyles);
-      // console.log('productInfo', productInfo);
-      // console.log('productRatings', productRatings);
       let defaultImage = [];
       let eachStyle = productStyles.results;
       let isDefaultTrue = false;

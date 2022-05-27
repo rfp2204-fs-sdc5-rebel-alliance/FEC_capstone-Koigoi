@@ -6,7 +6,7 @@ import StarRating from '../shared_components/StarRating.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 
 const YourOutfitCarousel = ({outfitDetails}) => {
-  console.log('outfitDetails', outfitDetails);
+  // console.log('outfitDetails', outfitDetails);
   const {prod_id} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
@@ -26,11 +26,24 @@ const YourOutfitCarousel = ({outfitDetails}) => {
   }, [outfitDetails]);
 
   const saveToStorage = (e, id) => {
-    console.log(id);
+    e.preventDefault();
+    e.stopPropagation();
+    // console.log('saveToStorage', id);
+    const localStorageItem = localStorage.getItem('outfits');
+    if (localStorageItem === null) {
+      localStorage.setItem('outfits', JSON.stringify([id]));
+      console.log('localStorageItem', localStorageItem);
+    }
+    // else {
+    // //   const productID = JSON.parse(localStorageItem);
+    // //   productID.push(id);
+    // //   localStorage.setItem('outfits', JSON.stringify(productID));
+    // // }
   }
 
   const removeFromStorage = (e, id) => {
-    console.log(id);
+    // console.log('removeFromStorage', id);
+
   }
 
   return (
