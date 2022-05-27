@@ -24,7 +24,9 @@ const Gallery = () => {
 
   return (
     <Container>
-      {ImageList(imageGallery.photos)}
+      {imageGallery.photos &&
+      <ImageList images={imageGallery.photos}/>
+      }
       {Carousel(imageGallery.photos)}
     </Container>
   )
@@ -32,4 +34,6 @@ const Gallery = () => {
 }
 
 export default Gallery;
+
+//{ImageList(imageGallery.photos)}
 

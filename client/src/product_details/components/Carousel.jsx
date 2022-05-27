@@ -84,5 +84,3 @@ const Carousel = (slides) => {
 };
 
 export default Carousel;
-
-//<button onClick={nextSlide} >Next</button>
