@@ -32,9 +32,9 @@ const ModalImageContainer = styled.img`
 function ImageThumbnail ({images}) {
   const { setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
 
-  // if (!Array.isArray(images) || images.length === 0) {
-  //   return null;
-  // }
+  if (!Array.isArray(images) || images.length === 0) {
+    return null;
+  }
 
   const handleModal = (event) => {
     const imageSrc = event.target.src;
@@ -45,33 +45,12 @@ function ImageThumbnail ({images}) {
 
   return (
     <ThumbnailContainer>
-      <Image
-        src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-        onClick={handleModal}>
-      </Image>
-      <Image
-        src="https://images.unsplash.com/photo-1534011546717-407bced4d25c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80"
-        onClick={handleModal}>
-      </Image>
-      <Image
-        src="https://images.unsplash.com/photo-1549831243-a69a0b3d39e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80"
-        onClick={handleModal}>
-      </Image>
-      <Image
-        src="https://images.unsplash.com/photo-1532543491484-63e29b3c1f5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
-        onClick={handleModal}>
-      </Image>
-      <Image
-        src="https://images.unsplash.com/photo-1458253329476-1ebb8593a652?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
-        onClick={handleModal}>
-        </Image>
-
-      {/* {images.map((image) =>
+      {images.map((image) =>
         <Image
           src={image.url}
           onClick={handleModal}>
         </Image>
-      )} */}
+      )}
     </ThumbnailContainer>
   );
 }
