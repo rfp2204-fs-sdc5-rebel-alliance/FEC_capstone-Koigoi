@@ -7,7 +7,7 @@ import ComparisonModal from './ComparisonModal.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 
 const Carousel = (productDetails) => {
-  const { prod_id, prod_name, setShowModal, setModalBodyContent } = useContext(ProdPageContext);
+  const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
   const maxDisplay = productDetails.length - 4; // change to 4
@@ -28,6 +28,7 @@ const Carousel = (productDetails) => {
   const handleModalClick = (id) => {
     // console.log(id); // gets the current product ID for clicked card
     // ComparisonModal(id);
+    setModalHeaderContent('COMPARING')
     setModalBodyContent(<ComparisonModal mainId={prod_id} relatedId={id}/>);
     setShowModal(true);
   }
@@ -40,7 +41,10 @@ const Carousel = (productDetails) => {
       <CarouselWrapper>
         {display.map((details) => {
           return (
-            <IndividualCardStyle key={details.id} onClick={() => handleModalClick(details.id)}>
+            <IndividualCardStyle key={details.id}>
+              <ButtonStyle onClick={() => handleModalClick(details.id)}>
+                &#9733;
+              </ButtonStyle>
               <ImageStyle
                 src={details.images === null ? placeholder : details.images}
               />
@@ -102,6 +106,11 @@ const IndividualCardStyle = styled.div`
     box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
   }
   object-fit: cover;
+`;
+
+const ButtonStyle = styled.button`
+  position: relative;
+  background-color: transparent;
 `;
 
 const ImageStyle = styled.img`
