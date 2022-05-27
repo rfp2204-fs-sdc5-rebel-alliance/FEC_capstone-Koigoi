@@ -31,6 +31,15 @@ const ImgStyle = styled.img`
   }
 `;
 
+const SelectedImgStyle = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+`;
+
 const StylesBlock = () => {
   const {index, setIndex, imageGallery, setGallery, prodStyles} = useContext(ProdDetailsContext);
 
@@ -44,15 +53,17 @@ const StylesBlock = () => {
   } else {
     return (
       <ListStyle>
-        <div>
-          {prodStyles.data.results.map((style) => {
+          {prodStyles.data.results.map((style, index) => {
             return (
-              <ImgContainer>
-                <ImgStyle onClick={() => {setStyle(style)}} src={style.photos[0].thumbnail_url} alt="No Image" />
+              <ImgContainer key={index}>
+                {
+                  imageGallery.style_id === style.style_id
+                  ? <SelectedImgStyle src={style.photos[0].thumbnail_url} alt="No Image" />
+                  : <ImgStyle onClick={() => {setStyle(style)}} src={style.photos[0].thumbnail_url} alt="No Image" />
+                }
               </ImgContainer>
             )
           })}
-        </div>
       </ListStyle>
     )
   }
