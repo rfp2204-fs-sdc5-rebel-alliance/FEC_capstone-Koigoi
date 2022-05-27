@@ -1,12 +1,19 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import StarRating from '../shared_components/StarRating.jsx';
 
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 const AverageRating = styled.div`
+  display: flex;
+  align-items: center;
   font-weight: 800;
   font-size: 45px;
 `;
+
+const RatingsStyle = styled.div`
+  margin-left: 10px;
+`
 
 const RatingsBreakdown = styled.div`
   display: flex;
@@ -77,7 +84,8 @@ function RatingBreakdown() {
   return (
     <div>
       <AverageRating>
-        {avgRating} <span style={{'fontWeight': 'bold', 'fontSize': '18px'}}>stars</span>
+        {avgRating}
+        <RatingsStyle>{StarRating(avgRating)}</RatingsStyle>
       </AverageRating>
       <div>
         <p>Rating Breakdown</p>

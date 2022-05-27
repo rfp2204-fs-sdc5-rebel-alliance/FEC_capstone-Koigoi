@@ -10,7 +10,7 @@ const RelatedProductDetails = () => {
   const [prod_details, setProd_details] = useState([]);
   const allRelatedDetails = [];
 
-  const getAllRelatedDetails= () => {
+  const getAllRelatedDetails = () => {
     fetchData('related', prod_id)
     .then((relatedIDs) => {
         const promiseArray = [];
@@ -45,10 +45,12 @@ const RelatedProductDetails = () => {
           }
         });
         /* parse through related product details */
+        let productID = [];
         let productCategories = [];
         let productNames = [];
         let productPrices = [];
         products.forEach((product) => {
+          productID.push(product.id);
           productCategories.push(product.category);
           productNames.push(product.name);
           productPrices.push(product.default_price);
@@ -62,6 +64,7 @@ const RelatedProductDetails = () => {
         for (let i = 0; i < images.length; i++) {
           let allRelatedProducts = {};
           allRelatedProducts.images = images[i];
+          allRelatedProducts.id = productID[i];
           allRelatedProducts.categories = productCategories[i];
           allRelatedProducts.names = productNames[i];
           allRelatedProducts.prices = productPrices[i];
