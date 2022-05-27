@@ -32,16 +32,16 @@ const RelatedProductDetails = () => {
         /* parse through related styles */
         let allStyles = styles.map((style) => {return style.results;});
         let images = [];
-        allStyles.map((defaultImages) => {
+        allStyles.map((eachStyle) => {
           let isDefaultTrue = false;
-          defaultImages.forEach((image) => {
-            if (image['default?'] === true) {
+          eachStyle.forEach((style) => {
+            if (style['default?']) {
               isDefaultTrue = true;
-              images.push(image.photos[0].thumbnail_url);
+              images.push(style.photos[0].thumbnail_url);
             }
           });
           if (!isDefaultTrue) {
-            images.push((defaultImages[0].photos[0].thumbnail_url));
+            images.push(eachStyle[0].photos[0].thumbnail_url);
           }
         });
         /* parse through related product details */

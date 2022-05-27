@@ -7,7 +7,7 @@ import ComparisonModal from './ComparisonModal.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 
 const Carousel = (productDetails) => {
-  const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
+  const {prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
   const maxDisplay = productDetails.length - 4; // change to 4
@@ -96,7 +96,7 @@ const RightArrow = styled.div`
 const IndividualCardStyle = styled.div`
   position: relative;
   border: 1px solid black;
-  mid-width: 250px;
+  // min-width: 250px;
   width: 250px;
   height: fit-content;
   margin-right: 30px;
