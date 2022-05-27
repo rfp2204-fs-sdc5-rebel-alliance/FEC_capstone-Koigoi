@@ -7,7 +7,7 @@ import sharedReviewsComponent from '../shared_components/sharedReviewsComponent'
 
 const RelatedProductDetails = () => {
   const {prod_id} = useContext(ProdPageContext);
-  const [prod_details, setProd_details] = useState([]);
+  const [productDetails, setProductDetails] = useState([]);
   const allRelatedDetails = [];
 
   const getAllRelatedDetails = () => {
@@ -71,7 +71,7 @@ const RelatedProductDetails = () => {
           allRelatedProducts.ratings = productRatings[i];
           allRelatedDetails.push(allRelatedProducts);
         }
-        setProd_details(allRelatedDetails);
+        setProductDetails(allRelatedDetails);
       })
       .catch((err) => {console.log(err)});
   }
@@ -82,7 +82,7 @@ const RelatedProductDetails = () => {
 
   return (
       <div>
-        {Carousel(prod_details)}
+        {Carousel(productDetails)}
       </div>
   )
 }
