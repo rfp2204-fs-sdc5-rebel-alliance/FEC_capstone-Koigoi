@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import config from '../../dist/config.js';
 import formattedDate from '../shared_components/formattedDate.js';
+import StarRating from '../shared_components/StarRating.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -40,7 +41,7 @@ const CardResponse = styled.div`
 
 function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
   const [showMore, setShowMore] = useState(false);
-  const { helpful, setHelpful, notHelpful, setNotHelpful } = useContext(ReviewsContext);
+  // const { helpful, setHelpful, notHelpful, setNotHelpful } = useContext(ReviewsContext);
 
   if (summary.length > 60) {
     const summaryCopy = summary.slice(0,60);
@@ -94,10 +95,7 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
   }
 
   const handleHelpfulClick = () => {
-    // helpful ? setHelpful(false) : setHelpful(true);
-
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, {
-      auth: config.TOKEN,
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, {}, {
       headers: {
         Authorization: config.TOKEN
       }
@@ -114,7 +112,7 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
     <ReviewCard>
       <CardSummary>{reviewerName}</CardSummary>
       <br></br>
-      <p>{rating} Stars</p>
+      {StarRating(rating)}
       {formattedDate(date)}
       <br></br>
       <br></br>

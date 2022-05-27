@@ -57,9 +57,11 @@ const ProductInfo = () => {
   }
   return (
     <Container>
-      {ratingsObj.totalRatings > 0 ?
-        <CategoryText onClick={() => window.location.replace("/#RatingsAndReviews")}>{StarRating(ratingsObj.avgRating)} Read all {ratingsObj.totalRatings} reviews</CategoryText>
-        : null
+      {ratingsObj.totalRatings > 0 &&
+        <div>
+          <CategoryText>{StarRating(ratingsObj.avgRating)}</CategoryText>
+          <CategoryText onClick={() => window.location.replace("/#RatingsAndReviews")}>Read all {ratingsObj.totalRatings} reviews</CategoryText>
+        </div>
       }
       <CategoryText>{prodObj.data.category}</CategoryText>
       <NameText>{prodObj.data.name}</NameText>

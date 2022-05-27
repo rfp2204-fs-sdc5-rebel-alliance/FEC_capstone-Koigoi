@@ -1,4 +1,6 @@
 import React, { useState, useContext, useEffect} from 'react';
+import config from '../../dist/config.js';
+import axios from 'axios';
 import styled from 'styled-components';
 
 
@@ -10,7 +12,7 @@ const InputText = styled.input`
   margin-right: 10px;
 `;
 
-const AddAnswerForm = ({prod_name, questionBody }) => {
+const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) => {
 
   const [answer, setAnswer] = useState("")
   const [nickname, setNickname] = useState("")
@@ -20,12 +22,33 @@ const AddAnswerForm = ({prod_name, questionBody }) => {
   const handleChangeNickname = (e) => {setNickname(e.target.value)};
   const handleChangeEmail = (e) => {setEmail(e.target.value)};
 
-  const handleClickSubmit = () => {};
+  const handleClickSubmit = () => {
+
+    const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${questionId}/answers`;
+
+    const data = {
+      body: answer,
+      name: nickname,
+      email: email,
+      photos: []
+    }
+    axios.post(url, data, {
+      headers: {
+        Authorization: config.TOKEN
+      }
+    })
+    .then((response) => {
+      console.log('success')
+    })
+    .then(() => {setCount(count + 1)})
+    .catch((err) => console.log(err));
+
+  };
 
   return (
     <div>
       <FormSection>
-        <h4> {prod_name } : {questionBody}</h4>
+        <h4> {prodName} : {questionBody}</h4>
       </FormSection>
         <form>
         <FormSection>
@@ -54,10 +77,10 @@ const AddAnswerForm = ({prod_name, questionBody }) => {
               <h5>For authentication reasons, you will not be emailed</h5>
           </label>
         </FormSection>
-        <FormSection>
-          <input type ='submit' value='Submit' onClick={handleClickSubmit}/>
-        </FormSection>
         </form>
+        <FormSection>
+        <button onClick={handleClickSubmit}>Submit</button>
+        </FormSection>
       </div>
   )
 };

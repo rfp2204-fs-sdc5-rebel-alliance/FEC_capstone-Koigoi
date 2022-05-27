@@ -9,6 +9,11 @@ import AddQuestionForm from './AddQuestionForm.jsx';
 
 export const QuestionContext = React.createContext();
 
+const QuestionListContainer = styled.div`
+max-height: 500px;
+overflow: scroll;
+`;
+
 const QuestionList = () => {
 
   const [questions, setQuestions] = useState([]);
@@ -17,11 +22,8 @@ const QuestionList = () => {
   const [questionsToShow, setQuestionsToShow] = useState(2);
   const [expanded, setExpanded] = useState(false);
   const [show, setShow] = useState(true);
+  const [count, setCount] = useState(0);
 
-  const QuestionListContainer = styled.div`
-  max-height: 500px;
-  overflow: scroll;
-  `;
 
   const title = 'QUESTIONS & ANSWERS';
   const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions`;
@@ -32,14 +34,13 @@ const QuestionList = () => {
         Authorization: config.TOKEN
       },
       params: {
-        product_id: 40352,
-        // page: 2,
-        // count: 5
+        product_id: prod_id,
+        count: 34
       }
     })
       .then((response) => { setQuestions(response.data.results); })
-      .catch((err) => console.log(err)) //setFilteredQuestion(response.data.results)
-  }, [url])
+      .catch((err) => console.log(err))
+  }, [count])
 
 
   const searchQuestions = (word) => {
@@ -49,18 +50,8 @@ const QuestionList = () => {
       result = questions.filter((item) => item.question_body.includes(search))
       setQuestions(result);
     } else if (word.length <=1) {
-      axios.get(url, {
-        headers: {
-          Authorization: config.TOKEN
-        },
-        params: {
-          product_id: 40352,
-          // page: 2,
-          // count: 5
-        }
-      })
-        .then((response) => { setQuestions(response.data.results) })
-        .catch((err) => console.log(err))
+
+      setCount(count + 1);
       setExpanded(false);
       setQuestionsToShow(2);
       setShow(true);
@@ -77,14 +68,14 @@ const QuestionList = () => {
 
   const handleModal = () => {
     setModalHeaderContent('Your Question')
-    setModalBodyContent(<AddQuestionForm prodName={prod_name}/>);
+    setModalBodyContent(<AddQuestionForm prodId={prod_id} prodName={prod_name} count={count} setCount={setCount}/>);
     setShowModal(true);
   }
-// flag and conditionaly render reset button.
+
   return (
     <div>
       <p > {title} </p>
-      <QuestionContext.Provider value={{searchQuestions }}>
+      <QuestionContext.Provider value={{searchQuestions, count, setCount }}>
         <Search />
         <QuestionListContainer>
           {questions.slice(0, questionsToShow).map((item) => <QuestionEntry key={item.question_id} entry={item} />)}
