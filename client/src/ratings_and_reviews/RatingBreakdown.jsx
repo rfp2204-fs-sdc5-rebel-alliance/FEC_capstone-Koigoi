@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import StarRating from '../shared_components/StarRating.jsx';
 
@@ -23,8 +23,8 @@ const RatingsBreakdown = styled.div`
 
 const RatingNumber = styled.button`
   min-width: 60px;
-  background: none;
   border: none;
+  background: none;
 `;
 
 const RatingNumberTotal = styled.div`
@@ -44,27 +44,56 @@ const RecommendedMessage = styled.div`
 `;
 
 function RatingBreakdown() {
-  const { ratings, totalRatings, avgRating, recommended, numRating, setFilterNumRating } = useContext(ReviewsContext);
+  const { ratings, totalRatings, avgRating, recommended, numRating, setFilterNumRating, showRatings, setShowRatings } = useContext(ReviewsContext);
 
-  const showRatingsObj = {
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false
-  }
+  useEffect(() => {
+    let filterByRating = [];
+    showRatings.forEach((rating) => {
+      if (rating) {
+        filterByRating.concat(numRating[rating]);
+      }
+    })
+    setFilterNumRating(filterByRating);
+  })
 
-  const [showRatings, setShowRatings] = useState(showRatingsObj);
+  const { 1: oneStar, 2: twoStar, 3: threeStar, 4: fourStar, 5: fiveStar } = showRatings;
 
+  console.log('ONE STAR', oneStar)
+
+  // const [showOneStar, setShowOneStar] = useState(false);
+  // const [showTwoStar, setShowTwoStar] = useState(false);
+  // const [showThreeStar, setShowThreeStar] = useState(false);
+  // const [showFourStar, setShowFourStar] = useState(false);
+  // const [showFiveStar, setShowFiveStar] = useState(false);
 
   const handleRatingClick = (event) => {
-    const starRating = event.target.value
+    const starRating = event.target.value;
 
-    console.log(showRatings[starRating])
 
-    // showRatings[starRating] ? setShowRatings[starRating](false) : setShowRatings[starRating](true);
 
-    setFilterNumRating(prevFilter => prevFilter.concat(numRating[starRating]));
+    // when a rating is clicked
+      //change show rating to either true or false depending on prev value
+
+    // if show rating is true
+      //concatenate array
+
+    // if (starRating === '1') {
+    //   showOneStar ? setShowOneStar(false) : setShowOneStar(true);
+    // } else if (starRating === '2') {
+    //   showTwoStar ? setShowTwoStar(false) : setShowTwoStar(true);
+    // } else if (starRating === '3') {
+    //   showThreeStar ? setShowThreeStar(false) : setShowThreeStar(true);
+    // } else if (starRating === '4') {
+    //   showFourStar ? setShowFourStar(false) : setShowFourStar(true);
+    // } else {
+    //   showFiveStar ? setShowFiveStar(false) : setShowFiveStar(true);
+    // }
+
+    // showRatings[starRating] ? setShowRatings(starRating = false) : setShowRatings(starRating = true);
+
+    // setFilterNumRating(prevFilter => prevFilter.concat(numRating[starRating]));
+
+    // console.log(numRating)
   }
 
   const individualRatingAvg = (rating, sum = 0) => {
@@ -107,14 +136,13 @@ function RatingBreakdown() {
   return (
     <div>
       <AverageRating>
-        {avgRating}
-        <RatingsStyle>{StarRating(avgRating)}</RatingsStyle>
+        {avgRating} <span style={{'fontWeight': 'bold', 'fontSize': '18px'}}>stars</span>
       </AverageRating>
       <div>
         <p>Rating Breakdown</p>
         <RatingsBreakdown>
           <RatingNumber
-            value={'5'}
+            value='5'
             onClick={handleRatingClick}>
             5 stars
           </RatingNumber>

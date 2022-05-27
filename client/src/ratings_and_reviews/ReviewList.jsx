@@ -28,7 +28,7 @@ const ButtonContainer = styled.div`
 function ReviewList() {
   const [reviews, setReviews] = useState([]);
   const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
-  const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort, numRating, setNumRating } = useContext(ReviewsContext);
+  const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort, numRating, setNumRating, showRatings, setShowRatings } = useContext(ReviewsContext);
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {

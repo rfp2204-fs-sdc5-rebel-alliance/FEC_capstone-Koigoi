@@ -39,6 +39,7 @@ function RatingsAndReviews() {
 
   const [numRating, setNumRating] = useState({});
   const [filterNumRating, setFilterNumRating] = useState([])
+  const [showRatings, setShowRatings] = useState({});
 
   const [ratings, setRatings] = useState({});
   const [characteristics, setCharacteristics] = useState({});
@@ -72,10 +73,11 @@ function RatingsAndReviews() {
     const totalRatings = ratingsObj.totalRatings;
     const avgRating = ratingsObj.avgRating;
 
+    console.log('numRating', numRating)
     console.log('FILTERED ARRAY',filterNumRating);
 
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating}}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>
