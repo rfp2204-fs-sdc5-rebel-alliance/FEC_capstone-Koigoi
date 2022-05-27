@@ -18,22 +18,18 @@ const ReviewCard = styled.div`
   font-size: 14px;
   `;
 
-const CardHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
+const ReviewCardSection = styled.div`
+margin: 10px 0px;
 `;
 
-const CardSummary = styled.p`
+const Bold = styled.p`
 font-weight: bold;
 font-size: 18px;
 `;
 
 const ReviewImageContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  margin-top: 10px;
 `;
-
 
 const CardResponse = styled.div`
   background: #F0F0F0;
@@ -116,20 +112,20 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
 
   return (
     <ReviewCard>
-      <CardSummary>{reviewerName}</CardSummary>
-      <br></br>
-      {StarRating(rating)}
-      {formattedDate(date)}
-      <br></br>
-      <br></br>
-      <CardSummary>{summary}</CardSummary>
-      <div className="CardBody">
+      <Bold>{reviewerName}</Bold>
+      <ReviewCardSection>
+        {StarRating(rating)}
+        {formattedDate(date)}
+      </ReviewCardSection>
+      <Bold>{summary}</Bold>
         <p>{renderedBody}</p>
         {showMoreButton()}
-        <ImageThumbnail images={photos}/>
-      </div>
-      {recommendMessage()}
-      <br></br>
+        <ReviewImageContainer>
+          <ImageThumbnail images={photos}/>
+        </ReviewImageContainer>
+      <ReviewCardSection>
+        {recommendMessage()}
+      </ReviewCardSection>
       {reviewResponse()}
       <p>Was this review helpful? Yes <span onClick={handleHelpfulClick}>( {helpfulness} )</span></p>
     </ReviewCard>
