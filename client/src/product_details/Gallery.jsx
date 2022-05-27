@@ -23,8 +23,13 @@ const Container = styled.div`
 
 const ExpandStyle = styled.div`
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 1rem;
+  right: 1rem;
+  transform: scale(0.75);
+  &:hover,
+  &:focus {
+    transform: scale(1);
+  }
 `;
 
 const Gallery = () => {
