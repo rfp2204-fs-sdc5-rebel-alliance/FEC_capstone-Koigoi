@@ -3,18 +3,19 @@ import axios from 'axios';
 import config from '../../dist/config.js';
 import Answer from './Answer.jsx';
 import { ProdPageContext } from '../product_page.jsx';
+import { QuestionContext } from  './QuestionList.jsx';
 import AddAnswerForm from './AddAnswerForm.jsx';
 
 const QuestionEntry = (props) => {
 
   const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
+  const {count, setCount} = useContext(QuestionContext);
   const [answers, setAnswers] = useState([]);
   const [answersToShow, setAnwsersToShow] = useState(2);
   const [expanded, setExpanded] = useState(false);
   const [show, setShow] = useState(true);
 
   const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${props.entry.question_id}/answers`;
-  const question_body = props.entry.question_body;
 
   useEffect(() => {
     axios.get(url, {
@@ -25,13 +26,26 @@ const QuestionEntry = (props) => {
         question_id: props.entry.question_id
       }
     })
-      .then((response) => { setAnswers(response.data.results) })
+      .then((response) => { setAnswers(response.data.results); })
       .catch((err) => console.log(err))
-  }, [url])
+  }, [count])
+
+  const handleClickHelpful = () => {
+
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${props.entry.question_id}/helpful`, null, {
+      headers: {
+        Authorization: config.TOKEN
+      }
+    })
+    .then((response) => {console.log('Success')})
+    .then(() => {setCount(count + 1)})
+    .catch((err) => console.log(err))
+
+  }
 
   const handleModal = () => {
-    setModalHeaderContent('Submit your Answer')
-    setModalBodyContent(<AddAnswerForm prodName={prod_name} questionBody={question_body} />);
+    setModalHeaderContent('Submit Your Answer')
+    setModalBodyContent(<AddAnswerForm prodName={prod_name} questionBody={props.entry.question_body} questionId={props.entry.question_id} count={count} setCount={setCount}/>);
     setShowModal(true);
   }
 
@@ -45,8 +59,7 @@ const QuestionEntry = (props) => {
     <>
       <div>
         <div>
-        {`Q: ${props.entry.question_body}`} Helpful? Yes {props.entry.question_helpfulness} |
-        <a onClick={handleModal}> Add Answer </a>
+        {`Q: ${props.entry.question_body}`} Helpful? <span onClick={handleClickHelpful}>Yes ({props.entry.question_helpfulness})</span> | <u onClick={handleModal} >    Add Answer</u>
         </div>
       </div>
       <div>
