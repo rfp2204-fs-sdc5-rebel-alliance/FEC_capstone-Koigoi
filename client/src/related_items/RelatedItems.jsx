@@ -2,6 +2,7 @@ import React, { useState, useContext, createContext } from 'react';
 import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
 import RelatedProductDetails from './RelatedProductDetails.jsx';
+import YourOutfitDetails from './YourOutfitDetails.jsx';
 import styled from 'styled-components';
 
 export const RelatedItemsContext = createContext();
@@ -15,6 +16,7 @@ const RelatedItems = () => {
       <Wrapper>
       <RelatedItemsContext.Provider value={{}}>
         <RelatedProductDetails />
+        <YourOutfitDetails />
       </RelatedItemsContext.Provider>
       </Wrapper>
       <TitleStyle> Your Outfit </TitleStyle>
