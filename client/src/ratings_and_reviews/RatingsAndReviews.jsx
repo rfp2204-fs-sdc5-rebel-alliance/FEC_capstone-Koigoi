@@ -66,6 +66,13 @@ function RatingsAndReviews() {
         setRatingsObj(sharedReviewsComponent(reviewsData.data.ratings));
       })
       .then(() => {
+        setShowRatings({
+          '1': false,
+          '2': false,
+          '3': false,
+          '4': false,
+          '5': false
+        });
       })
       .catch((err) => {console.log(err)});
     }, []);
@@ -73,8 +80,7 @@ function RatingsAndReviews() {
     const totalRatings = ratingsObj.totalRatings;
     const avgRating = ratingsObj.avgRating;
 
-    console.log('numRating', numRating)
-    console.log('FILTERED ARRAY',filterNumRating);
+    // console.log('FILTERED ARRAY',filterNumRating);
 
   return (
     <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings}}>

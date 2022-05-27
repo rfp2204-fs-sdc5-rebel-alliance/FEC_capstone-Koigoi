@@ -21,6 +21,9 @@ const RatingsBreakdown = styled.div`
   margin: 10px 0px;
 `;
 
+const StarFilterMessage = styled.div`
+`;
+
 const RatingNumber = styled.button`
   min-width: 60px;
   border: none;
@@ -44,56 +47,65 @@ const RecommendedMessage = styled.div`
 `;
 
 function RatingBreakdown() {
-  const { ratings, totalRatings, avgRating, recommended, numRating, setFilterNumRating, showRatings, setShowRatings } = useContext(ReviewsContext);
+  const { ratings, totalRatings, avgRating, recommended, numRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings } = useContext(ReviewsContext);
+  const [showFilterMessage, setShowFilterMessage] = useState(false);
 
-  useEffect(() => {
-    let filterByRating = [];
-    showRatings.forEach((rating) => {
-      if (rating) {
-        filterByRating.concat(numRating[rating]);
-      }
-    })
-    setFilterNumRating(filterByRating);
-  })
-
-  const { 1: oneStar, 2: twoStar, 3: threeStar, 4: fourStar, 5: fiveStar } = showRatings;
-
-  console.log('ONE STAR', oneStar)
-
-  // const [showOneStar, setShowOneStar] = useState(false);
-  // const [showTwoStar, setShowTwoStar] = useState(false);
-  // const [showThreeStar, setShowThreeStar] = useState(false);
-  // const [showFourStar, setShowFourStar] = useState(false);
-  // const [showFiveStar, setShowFiveStar] = useState(false);
+  console.log('FILTERED ARRAY',filterNumRating);
 
   const handleRatingClick = (event) => {
     const starRating = event.target.value;
+    const updateShowRatingObj = showRatings;
 
+    console.log('SHOW RATINGS', showRatings)
 
+    showRatings[starRating] ? updateShowRatingObj[starRating] = false : updateShowRatingObj[starRating] = true;
 
-    // when a rating is clicked
-      //change show rating to either true or false depending on prev value
+    setShowRatings(updateShowRatingObj);
 
-    // if show rating is true
-      //concatenate array
+    renderFilterRatings();
+  }
 
-    // if (starRating === '1') {
-    //   showOneStar ? setShowOneStar(false) : setShowOneStar(true);
-    // } else if (starRating === '2') {
-    //   showTwoStar ? setShowTwoStar(false) : setShowTwoStar(true);
-    // } else if (starRating === '3') {
-    //   showThreeStar ? setShowThreeStar(false) : setShowThreeStar(true);
-    // } else if (starRating === '4') {
-    //   showFourStar ? setShowFourStar(false) : setShowFourStar(true);
-    // } else {
-    //   showFiveStar ? setShowFiveStar(false) : setShowFiveStar(true);
-    // }
+  const renderFilterRatings = () => {
+    setFilterNumRating([]);
+    setShowFilterMessage(false);
 
-    // showRatings[starRating] ? setShowRatings(starRating = false) : setShowRatings(starRating = true);
+    Object.keys(showRatings).forEach((rating) => {
+      if (showRatings[rating] === true) {
+        setFilterNumRating(prevFilter => prevFilter.concat(numRating[rating]));
+        setShowFilterMessage(true);
+      }
+    })
+  }
 
-    // setFilterNumRating(prevFilter => prevFilter.concat(numRating[starRating]));
+  const renderFilterMessage = () => {
 
-    // console.log(numRating)
+    if (!showFilterMessage) {
+      return null;
+    }
+
+    let starFilters = [];
+
+    Object.keys(showRatings).forEach((rating) => {
+      if (showRatings[rating] === true) {
+        starFilters.push(rating + ' Stars');
+      }
+    })
+
+    if (starFilters.length > 1) {
+      starFilters = starFilters.join(', ')
+    }
+
+    return (
+      <StarFilterMessage>
+        <h4>Currently filtering:</h4>
+        {starFilters}
+        <div onClick={() => {console.log('Remove Filters')}}>Remove Filters</div>
+      </StarFilterMessage>
+    )
+  }
+
+  const removeFilters = () => {
+
   }
 
   const individualRatingAvg = (rating, sum = 0) => {
@@ -139,7 +151,8 @@ function RatingBreakdown() {
         {avgRating} <span style={{'fontWeight': 'bold', 'fontSize': '18px'}}>stars</span>
       </AverageRating>
       <div>
-        <p>Rating Breakdown</p>
+        <h3>Rating Breakdown</h3>
+        {renderFilterMessage()}
         <RatingsBreakdown>
           <RatingNumber
             value='5'
