@@ -25,10 +25,18 @@ const ButtonContainer = styled.div`
   padding: 20px 20px;
 `;
 
-function ReviewList() {
+function ReviewList({ removeFilters }) {
   const [reviews, setReviews] = useState([]);
   const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
-  const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort, numRating, setNumRating, showRatings, setShowRatings } = useContext(ReviewsContext);
+  const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort, numRating, setNumRating, showRatings, setShowRatings, filterNumRating, showFilterMessage } = useContext(ReviewsContext);
+
+  //if showFilterMessage is true
+    //check to make sure FilterNumRating has two or more reviews
+      //if it does, render reviews from FilterNumRating
+      //if not, add two to reviewCount
+    //conditionally render remove filter button where more reviews button is
+    //else if showFilterMessage is false
+      //do axios get request
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {

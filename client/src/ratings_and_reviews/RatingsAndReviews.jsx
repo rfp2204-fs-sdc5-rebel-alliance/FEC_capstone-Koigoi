@@ -38,8 +38,9 @@ function RatingsAndReviews() {
   const [toggleSort, setToggleSort] = useState(true);
 
   const [numRating, setNumRating] = useState({});
-  const [filterNumRating, setFilterNumRating] = useState([])
   const [showRatings, setShowRatings] = useState({});
+  const [filterNumRating, setFilterNumRating] = useState([])
+  const [showFilterMessage, setShowFilterMessage] = useState(false);
 
   const [ratings, setRatings] = useState({});
   const [characteristics, setCharacteristics] = useState({});
@@ -80,20 +81,32 @@ function RatingsAndReviews() {
     const totalRatings = ratingsObj.totalRatings;
     const avgRating = ratingsObj.avgRating;
 
-    // console.log('FILTERED ARRAY',filterNumRating);
+    const removeFilters = () => {
+      setShowFilterMessage(false);
+
+      setFilterNumRating([]);
+
+      setShowRatings({
+        '1': false,
+        '2': false,
+        '3': false,
+        '4': false,
+        '5': false
+      });
+    }
 
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings}}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>
           <LayoutLeft>
-            <RatingBreakdown/>
+            <RatingBreakdown removeFilters={removeFilters}/>
           </LayoutLeft>
           <LayoutRight>
             <ReviewSort/>
             <br/>
-            <ReviewList/>
+            <ReviewList removeFilters={removeFilters}/>
           </LayoutRight>
         </RatingsAndReviewsLayout>
       </RatingsAndReviewsContainer>

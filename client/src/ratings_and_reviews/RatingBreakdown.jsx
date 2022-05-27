@@ -11,7 +11,7 @@ const AverageRating = styled.div`
   font-size: 45px;
 `;
 
-const RatingsStyle = styled.div`
+const AverageRatingStars = styled.span`
   margin-left: 10px;
 `
 
@@ -24,10 +24,22 @@ const RatingsBreakdown = styled.div`
 const StarFilterMessage = styled.div`
 `;
 
+const RemoveFiltersButton = styled.button`
+  background: none;
+  border: none;
+  margin-left: 5px;
+  padding: 0px;
+`
+
 const RatingNumber = styled.button`
   min-width: 60px;
   border: none;
   background: none;
+  padding: 0px;
+
+  &:hover {
+    font-weight: bold;
+  }
 `;
 
 const RatingNumberTotal = styled.div`
@@ -46,17 +58,14 @@ const RecommendedMessage = styled.div`
   text-align: right;
 `;
 
-function RatingBreakdown() {
-  const { ratings, totalRatings, avgRating, recommended, numRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings } = useContext(ReviewsContext);
-  const [showFilterMessage, setShowFilterMessage] = useState(false);
+function RatingBreakdown({ removeFilters }) {
+  const { ratings, totalRatings, avgRating, recommended, numRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage } = useContext(ReviewsContext);
 
-  console.log('FILTERED ARRAY',filterNumRating);
+  // console.log('FILTERED ARRAY',filterNumRating);
 
   const handleRatingClick = (event) => {
     const starRating = event.target.value;
     const updateShowRatingObj = showRatings;
-
-    console.log('SHOW RATINGS', showRatings)
 
     showRatings[starRating] ? updateShowRatingObj[starRating] = false : updateShowRatingObj[starRating] = true;
 
@@ -87,7 +96,7 @@ function RatingBreakdown() {
 
     Object.keys(showRatings).forEach((rating) => {
       if (showRatings[rating] === true) {
-        starFilters.push(rating + ' Stars');
+        starFilters.push(rating + ' star');
       }
     })
 
@@ -98,15 +107,25 @@ function RatingBreakdown() {
     return (
       <StarFilterMessage>
         <h4>Currently filtering:</h4>
-        {starFilters}
-        <div onClick={() => {console.log('Remove Filters')}}>Remove Filters</div>
+        <span style={{"fontWeight": "bold"}}>{starFilters}</span>
+          <RemoveFiltersButton onClick={removeFilters}>Remove filter</RemoveFiltersButton>
       </StarFilterMessage>
     )
   }
 
-  const removeFilters = () => {
+  // const removeFilters = () => {
+  //   setShowFilterMessage(false);
 
-  }
+  //   setFilterNumRating([]);
+
+  //   setShowRatings({
+  //     '1': false,
+  //     '2': false,
+  //     '3': false,
+  //     '4': false,
+  //     '5': false
+  //   });
+  // }
 
   const individualRatingAvg = (rating, sum = 0) => {
     sum = ratings[rating] * rating;
@@ -148,7 +167,8 @@ function RatingBreakdown() {
   return (
     <div>
       <AverageRating>
-        {avgRating} <span style={{'fontWeight': 'bold', 'fontSize': '18px'}}>stars</span>
+        {avgRating}
+        <AverageRatingStars>{StarRating(avgRating)}</AverageRatingStars>
       </AverageRating>
       <div>
         <h3>Rating Breakdown</h3>
@@ -157,7 +177,7 @@ function RatingBreakdown() {
           <RatingNumber
             value='5'
             onClick={handleRatingClick}>
-            5 stars
+            5 star
           </RatingNumber>
           <RatingBarContainer>
             <div style={fiveStarAvg}></div>
@@ -168,7 +188,7 @@ function RatingBreakdown() {
           <RatingNumber
             value='4'
             onClick={handleRatingClick}>
-            4 stars
+            4 star
           </RatingNumber>
           <RatingBarContainer>
             <div style={fourStarAvg}></div>
@@ -179,7 +199,7 @@ function RatingBreakdown() {
           <RatingNumber
             value='3'
             onClick={handleRatingClick}>
-            3 stars
+            3 star
           </RatingNumber>
           <RatingBarContainer>
             <div style={threeStarAvg}></div>
@@ -190,7 +210,7 @@ function RatingBreakdown() {
           <RatingNumber
             value='2'
             onClick={handleRatingClick}>
-            2 stars
+            2 star
           </RatingNumber>
           <RatingBarContainer>
             <div style={twoStarAvg}></div>
@@ -201,7 +221,7 @@ function RatingBreakdown() {
           <RatingNumber
             value='1'
             onClick={handleRatingClick}>
-            1 stars
+            1 star
           </RatingNumber>
           <RatingBarContainer>
             <div style={oneStarAvg}></div>
