@@ -41,7 +41,8 @@ const CardResponse = styled.div`
 
 function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
   const [showMore, setShowMore] = useState(false);
-  // const { helpful, setHelpful, notHelpful, setNotHelpful } = useContext(ReviewsContext);
+  const [clickedHelpful, setClickedHelpful] = useState(false);
+  const { helpful, setHelpful } = useContext(ReviewsContext);
 
   if (summary.length > 60) {
     const summaryCopy = summary.slice(0,60);
@@ -95,12 +96,17 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
   }
 
   const handleHelpfulClick = () => {
+    if (clickedHelpful) {
+      return;
+    }
+
     axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, {}, {
       headers: {
         Authorization: config.TOKEN
       }
     })
-    .then(() => {console.log('Success')})
+    .then(() => {setHelpful(prevHelpful => prevHelpful + 1)})
+    .then(() => {setClickedHelpful(true)})
     .catch((err) => {
       console.log(err)
       console.log(id)
