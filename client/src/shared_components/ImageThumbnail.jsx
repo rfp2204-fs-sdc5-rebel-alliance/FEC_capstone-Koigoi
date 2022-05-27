@@ -36,6 +36,18 @@ function ImageThumbnail ({images}) {
     return null;
   }
 
+  let filteredImages = [];
+
+  images.forEach((image) => {
+    if (image.url.slice(0,4) === 'http') {
+      filteredImages.push(image);
+    }
+  });
+
+  if (filteredImages.length === 0) {
+    return null;
+  }
+
   const handleModal = (event) => {
     const imageSrc = event.target.src;
     setModalHeaderContent(null)
@@ -45,11 +57,11 @@ function ImageThumbnail ({images}) {
 
   return (
     <ThumbnailContainer>
-      {images.map((image) =>
-        <Image
-          src={image.url}
-          onClick={handleModal}>
-        </Image>
+      {filteredImages.map((image) =>
+          <Image
+            src={image.url}
+            onClick={handleModal}>
+          </Image>
       )}
     </ThumbnailContainer>
   );
