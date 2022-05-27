@@ -58,7 +58,7 @@ const ShopSection = () => {
     }
     setSku(sku);
     setSize(imageGallery.skus[sku].size);
-    let maxQuant = imageGallery.skus[sku].quantity;
+    let maxQuant = Math.min(15, imageGallery.skus[sku].quantity);
     let tempArray = [];
     while (maxQuant > 0) {
       tempArray.unshift(maxQuant);
@@ -100,7 +100,6 @@ const ShopSection = () => {
         </FormStyle>
         <FormStyle>
           <ButtonStyle onClick={() => {setCart(cart.concat({'sku': sku, 'size': size, 'quant': quant}))}}>Add to Cart</ButtonStyle>
-          <ButtonStyle>&#9733;</ButtonStyle>
         </FormStyle>
       </Container>
     )
