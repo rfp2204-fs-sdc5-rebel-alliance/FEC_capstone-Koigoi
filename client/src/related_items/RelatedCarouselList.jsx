@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
 import StarRating from '../shared_components/StarRating.jsx';
 import ComparisonModal from './ComparisonModal.jsx';
 import { ProdPageContext } from '../product_page.jsx';
@@ -9,8 +10,8 @@ import { ProdPageContext } from '../product_page.jsx';
 const Carousel = (productDetails) => {
   const {prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
-  const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
-  const maxDisplay = productDetails.length - 4; // change to 4
+  const display = productDetails.slice(currentImageIdx, (currentImageIdx + 2)); // change to 4
+  const maxDisplay = productDetails.length - 2; // change to 4
   const placeholder = 'http://placecorgi.com/260/180';
 
   const nextSlide = () => {
@@ -42,16 +43,13 @@ const Carousel = (productDetails) => {
         {display.map((details) => {
           return (
             <IndividualCardStyle key={details.id}>
-              <ButtonStyle onClick={() => handleModalClick(details.id)}>
-                &#9733;
-              </ButtonStyle>
               <ImageStyle
                 src={details.images === null ? placeholder : details.images}
               />
+              <ButtonStyle onClick={() => handleModalClick(details.id)}> <FontAwesomeIcon icon={faStar} size='2xs'/></ButtonStyle>
               <CategoryStyle>{details.categories}</CategoryStyle>
               <NameStyle>{details.names}</NameStyle>
               <PriceStyle>${details.prices}</PriceStyle>
-              {/* <RatingsStyle>{details.ratings.avgRating}</RatingsStyle> */}
               <RatingsStyle>{StarRating(details.ratings.avgRating)}</RatingsStyle>
             </IndividualCardStyle>
           )
@@ -109,8 +107,11 @@ const IndividualCardStyle = styled.div`
 `;
 
 const ButtonStyle = styled.button`
-  position: relative;
-  background-color: transparent;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
 `;
 
 const ImageStyle = styled.img`

@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import StarRating from '../shared_components/StarRating.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 
-const YourOutfitCarousel = ({outfitDetails}) => {
+const YourOutfitCarousel = ({outfitDetails, saveToStorage}) => {
   // console.log('outfitDetails', outfitDetails);
   const {prod_id} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
@@ -24,22 +25,6 @@ const YourOutfitCarousel = ({outfitDetails}) => {
   useEffect(() => {
     setCurrentImageIdx(0);
   }, [outfitDetails]);
-
-  const saveToStorage = (e, id) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // console.log('saveToStorage', id);
-    const localStorageItem = localStorage.getItem('outfits');
-    if (localStorageItem === null) {
-      localStorage.setItem('outfits', JSON.stringify([id]));
-      console.log('localStorageItem', localStorageItem);
-    }
-    // else {
-    // //   const productID = JSON.parse(localStorageItem);
-    // //   productID.push(id);
-    // //   localStorage.setItem('outfits', JSON.stringify(productID));
-    // // }
-  }
 
   const removeFromStorage = (e, id) => {
     // console.log('removeFromStorage', id);
@@ -64,16 +49,16 @@ const YourOutfitCarousel = ({outfitDetails}) => {
             {display.map((details, index) => {
               return (
                 <IndividualCardStyle key={index}>
-                  <ButtonStyle onClick={(e) => removeFromStorage(e, prod_id)}>
-                    x
-                  </ButtonStyle>
                   <ImageStyle
                     src={details.image === null ? placeholder : details.image}
                   />
+                  <ButtonStyle onClick={(e) => removeFromStorage(e, prod_id)}>
+                    <FontAwesomeIcon icon={faCircleXmark} size='2xs'/>
+                  </ButtonStyle>
                   <CategoryStyle>{details.category}</CategoryStyle>
                   <NameStyle>{details.name}</NameStyle>
                   <PriceStyle>${details.price}</PriceStyle>
-                  <RatingsStyle>{StarRating(details.rating.avgRating)}</RatingsStyle>
+                  <RatingsStyle>{StarRating(details.rating)}</RatingsStyle>
                 </IndividualCardStyle>
               )
             })}
@@ -161,8 +146,11 @@ const IndividualCardStyle = styled.div`
 `;
 
 const ButtonStyle = styled.button`
-  position: relative;
-  background-color: transparent;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
 `;
 
 const ImageStyle = styled.img`

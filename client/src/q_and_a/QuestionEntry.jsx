@@ -15,10 +15,6 @@ const QuestionEntry = (props) => {
   const [expanded, setExpanded] = useState(false);
   const [show, setShow] = useState(true);
 
-<<<<<<< HEAD
-  // console.log('inside QuestionEntry answers =>:', answers)
-=======
->>>>>>> main
   const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${props.entry.question_id}/answers`;
 
   useEffect(() => {
