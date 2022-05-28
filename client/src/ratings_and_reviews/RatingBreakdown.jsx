@@ -58,10 +58,8 @@ const RecommendedMessage = styled.div`
   text-align: right;
 `;
 
-function RatingBreakdown({ removeFilters }) {
+function RatingBreakdown({ removeFilters, renderFilterRatings }) {
   const { ratings, totalRatings, avgRating, recommended, numRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage } = useContext(ReviewsContext);
-
-  // console.log('FILTERED ARRAY',filterNumRating);
 
   const handleRatingClick = (event) => {
     const starRating = event.target.value;
@@ -72,18 +70,6 @@ function RatingBreakdown({ removeFilters }) {
     setShowRatings(updateShowRatingObj);
 
     renderFilterRatings();
-  }
-
-  const renderFilterRatings = () => {
-    setFilterNumRating([]);
-    setShowFilterMessage(false);
-
-    Object.keys(showRatings).forEach((rating) => {
-      if (showRatings[rating] === true) {
-        setFilterNumRating(prevFilter => prevFilter.concat(numRating[rating]));
-        setShowFilterMessage(true);
-      }
-    })
   }
 
   const renderFilterMessage = () => {
@@ -112,20 +98,6 @@ function RatingBreakdown({ removeFilters }) {
       </StarFilterMessage>
     )
   }
-
-  // const removeFilters = () => {
-  //   setShowFilterMessage(false);
-
-  //   setFilterNumRating([]);
-
-  //   setShowRatings({
-  //     '1': false,
-  //     '2': false,
-  //     '3': false,
-  //     '4': false,
-  //     '5': false
-  //   });
-  // }
 
   const individualRatingAvg = (rating, sum = 0) => {
     sum = ratings[rating] * rating;
