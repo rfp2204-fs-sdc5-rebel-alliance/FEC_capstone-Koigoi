@@ -7,6 +7,7 @@ import { ProdPageContext } from '../product_page.jsx';
 import ReviewList from './ReviewList.jsx';
 import ReviewSort from './ReviewSort.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
+import ProductBreakdown from './ProductBreakdown.jsx';
 import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
 
 export const ReviewsContext = createContext();
@@ -42,12 +43,13 @@ function RatingsAndReviews() {
   const [filterNumRating, setFilterNumRating] = useState([])
   const [showFilterMessage, setShowFilterMessage] = useState(false);
 
+  const [showCharacteristics, setShowCharacteristics] = useState({});
+
   const [ratings, setRatings] = useState({});
   const [characteristics, setCharacteristics] = useState({});
   const [recommended, setRecommended] = useState({});
 
   const [helpful, setHelpful] = useState(0);
-  // const [notHelpful, setNotHelpful] = useState(0);
 
   const { prod_id, ratingsObj, setRatingsObj } = useContext(ProdPageContext);
 
@@ -108,12 +110,14 @@ function RatingsAndReviews() {
     }
 
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage, helpful, setHelpful}}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage, helpful, setHelpful, showCharacteristics, setShowCharacteristics}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>
           <LayoutLeft>
             <RatingBreakdown removeFilters={removeFilters} renderFilterRatings={renderFilterRatings}/>
+            <br></br>
+            <ProductBreakdown/>
           </LayoutLeft>
           <LayoutRight>
             <ReviewSort/>

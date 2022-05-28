@@ -15,7 +15,7 @@ const ReviewListContainer = styled.div`
 `;
 
 const ReviewCardContainer = styled.div`
-max-height: 500px;
+max-height: 600px;
 overflow: scroll;
 `;
 
