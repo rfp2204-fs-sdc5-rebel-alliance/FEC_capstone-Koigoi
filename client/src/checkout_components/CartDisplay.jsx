@@ -18,8 +18,15 @@ const CartDisplay = () => {
 
   return (
     <Container>
-      <h1>Cart Here</h1>
-      <h1>{cart.length}</h1>
+      {
+        cart.length === 0 ?
+          <h1>Empty cart. Add some items!</h1>
+        : cart.map((item) => {
+          return (
+            <p>{item.sku}: Size: {item.size}: Quantity: {item.quant}</p>
+          )
+        })
+      }
     </Container>
   )
 

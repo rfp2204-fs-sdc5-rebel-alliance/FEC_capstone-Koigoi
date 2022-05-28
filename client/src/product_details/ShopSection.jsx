@@ -122,7 +122,7 @@ const ShopSection = () => {
           </ShopContext.Provider>
         </FormStyle>
         <FormStyle>
-          <ButtonStyle onClick={() => {addToCart(); console.log(cart)}}>Add to Cart</ButtonStyle>
+          <ButtonStyle onClick={() => {addToCart()}}>Add to Cart</ButtonStyle>
         </FormStyle>
       </Container>
     )
