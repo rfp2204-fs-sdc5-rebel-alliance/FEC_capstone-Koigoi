@@ -26,12 +26,12 @@ const RelatedProductDetails = () => {
               style3, product3, rating3,
               style4, product4, rating4
             ]) => {
-        let styles = [style1, style2, style3, style4];
-        let products = [product1, product2, product3, product4];
-        let ratings = [rating1, rating2, rating3, rating4];
+        const styles = [style1, style2, style3, style4];
+        const products = [product1, product2, product3, product4];
+        const ratings = [rating1, rating2, rating3, rating4];
         /* parse through related styles */
-        let allStyles = styles.map((style) => {return style.results;});
-        let images = [];
+        const allStyles = styles.map((style) => {return style.results;});
+        const images = [];
         allStyles.map((eachStyle) => {
           let isDefaultTrue = false;
           eachStyle.forEach((style) => {
@@ -45,10 +45,10 @@ const RelatedProductDetails = () => {
           }
         });
         /* parse through related product details */
-        let productID = [];
-        let productCategories = [];
-        let productNames = [];
-        let productPrices = [];
+        const productID = [];
+        const productCategories = [];
+        const productNames = [];
+        const productPrices = [];
         products.forEach((product) => {
           productID.push(product.id);
           productCategories.push(product.category);
@@ -56,13 +56,13 @@ const RelatedProductDetails = () => {
           productPrices.push(product.default_price);
         });
         /* parse through related ratings */
-        let productRatings = [];
+        const productRatings = [];
         ratings.forEach((rating) => {
           productRatings.push(sharedReviewsComponent(rating.ratings))
         })
         /* combine all data into one state */
         for (let i = 0; i < images.length; i++) {
-          let allRelatedProducts = {};
+          const allRelatedProducts = {};
           allRelatedProducts.images = images[i];
           allRelatedProducts.id = productID[i];
           allRelatedProducts.categories = productCategories[i];

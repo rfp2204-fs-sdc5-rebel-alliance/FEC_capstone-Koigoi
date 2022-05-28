@@ -10,8 +10,8 @@ import { ProdPageContext } from '../product_page.jsx';
 const Carousel = (productDetails) => {
   const {prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
-  const display = productDetails.slice(currentImageIdx, (currentImageIdx + 2)); // change to 4
-  const maxDisplay = productDetails.length - 2; // change to 4
+  const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
+  const maxDisplay = productDetails.length - 4; // change to 4
   const placeholder = 'http://placecorgi.com/260/180';
 
   const nextSlide = () => {

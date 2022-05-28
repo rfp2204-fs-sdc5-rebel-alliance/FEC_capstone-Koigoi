@@ -50,7 +50,7 @@ const ComparisonModal = ({ mainId, relatedId }) => {
   const isMainFeaturesIncluded = (value) => {
     let isTrue;
     for (let i = 0; i < mainFeatures.length; i++) {
-      let currentValue = mainFeatures[i].value
+      const currentValue = mainFeatures[i].value
       if (currentValue.includes(value)) {
         isTrue = true;
         break;
@@ -64,7 +64,7 @@ const ComparisonModal = ({ mainId, relatedId }) => {
   const isRelatedFeaturesIncluded = (value) => {
     let isTrue;
     for (let i = 0; i < relatedFeatures.length; i++) {
-      let currentValue = relatedFeatures[i].value
+      const currentValue = relatedFeatures[i].value
       if (currentValue.includes(value)) {
         isTrue = true;
         break;

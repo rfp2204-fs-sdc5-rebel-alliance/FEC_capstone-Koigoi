@@ -7,7 +7,7 @@ import StarRating from '../shared_components/StarRating.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 
 const YourOutfitCarousel = ({outfitDetails, saveToStorage}) => {
-  // console.log('outfitDetails', outfitDetails);
+  console.log('outfitDetails', outfitDetails);
   const {prod_id} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
@@ -27,16 +27,28 @@ const YourOutfitCarousel = ({outfitDetails, saveToStorage}) => {
   }, [outfitDetails]);
 
   const removeFromStorage = (e, id) => {
-    // console.log('removeFromStorage', id);
-
+    localStorage.removeItem(id);
+    // const allLocalStorageItems = Object.keys(localStorage);
+    // console.log('localStorageItems', allLocalStorageItems);
+    // allLocalStorageItems.forEach((item, index) => {
+    //   if (item === id) {
+    //     // remove that item from the array
+    //     allLocalStorageItems.splice(index, 1, 0);
+    //   }
+    // })
+    //
   }
 
   return (
     <div>
       <CarouselContainer>
         {currentImageIdx !== 0 ?
-        <LeftArrow><FontAwesomeIcon icon={faAngleLeft} onClick={() => prevSlide()}/></LeftArrow>
-        : null}
+        <LeftArrow>
+          <FontAwesomeIcon
+            icon={faAngleLeft}
+            onClick={() => prevSlide()}
+          />
+        </LeftArrow> : null}
         <CarouselWrapper>
           <AddCard>
             <AddIcon
@@ -52,8 +64,12 @@ const YourOutfitCarousel = ({outfitDetails, saveToStorage}) => {
                   <ImageStyle
                     src={details.image === null ? placeholder : details.image}
                   />
-                  <ButtonStyle onClick={(e) => removeFromStorage(e, prod_id)}>
-                    <FontAwesomeIcon icon={faCircleXmark} size='2xs'/>
+                  <ButtonStyle>
+                    <FontAwesomeIcon
+                      icon={faCircleXmark}
+                      size='2xs'
+                      onClick={(e) => removeFromStorage(e, prod_id)}
+                    />
                   </ButtonStyle>
                   <CategoryStyle>{details.category}</CategoryStyle>
                   <NameStyle>{details.name}</NameStyle>
