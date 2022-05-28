@@ -57,8 +57,9 @@ function ImageThumbnail ({images}) {
 
   return (
     <ThumbnailContainer>
-      {filteredImages.map((image) =>
+      {filteredImages.map((image, index) =>
           <Image
+            key={index}
             src={image.url}
             onClick={handleModal}>
           </Image>
