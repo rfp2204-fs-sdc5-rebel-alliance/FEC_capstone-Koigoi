@@ -40,7 +40,7 @@ const ButtonStyle = styled.button`
 export const ShopContext = createContext();
 
 const ShopSection = () => {
-  const {cart, addCart} = useContext(AppContext);
+  const {cart, setCart} = useContext(AppContext);
   const {prod_id} = useContext(ProdPageContext);
   const {prodObj, setProdObj, prodStyles, setProdStyles, imageGallery} = useContext(ProdDetailsContext);
   const [sku, setSku] = useState('');
@@ -75,6 +75,29 @@ const ShopSection = () => {
     })
   }
 
+  let addToCart = () => {
+    if (sku === '' || size === '') {
+      alert('Please select a size.');
+      return;
+    }
+    if (quant === 0) {
+      alert('Please select an item quantity.');
+      return;
+    }
+
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].sku === sku) {
+        let tempArray = cart;
+        //tempArray[i].quant = Number(tempArray[i].quant) + Number(quant);
+        tempArray[i].quant += Number(quant);
+        setCart(tempArray);
+        return;
+      }
+    }
+
+    setCart(cart.concat({'sku': sku, 'size': size, 'quant': Number(quant)}));
+  }
+
   if (!imageGallery.skus) {
     return null;
   } else {
@@ -99,7 +122,7 @@ const ShopSection = () => {
           </ShopContext.Provider>
         </FormStyle>
         <FormStyle>
-          <ButtonStyle onClick={() => {setCart(cart.concat({'sku': sku, 'size': size, 'quant': quant}))}}>Add to Cart</ButtonStyle>
+          <ButtonStyle onClick={() => {addToCart(); console.log(cart)}}>Add to Cart</ButtonStyle>
         </FormStyle>
       </Container>
     )

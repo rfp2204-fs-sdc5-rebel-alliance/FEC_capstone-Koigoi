@@ -1,9 +1,6 @@
-import React, { useState, useContext } from 'react';
-import { ProdPageContext } from '../product_page.jsx';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExpand } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../index.jsx';
 import styled from 'styled-components';
-import config from '../../dist/config.js';
 
 //may need to import more stuff to begin work
 
@@ -16,23 +13,17 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Gallery = () => {
-  const {prod_id} = useContext(ProdPageContext);
-  const {prodStyles, setProdStyles, imageGallery, setGallery, setExpanded} = useContext(ProdDetailsContext);
+const CartDisplay = () => {
+  const {cart, setCart} = useContext(AppContext);
 
   return (
     <Container>
-      {imageGallery.photos &&
-      <ImageList images={imageGallery.photos}/>
-      }
-      {Carousel(imageGallery.photos)}
-      <ExpandStyle>
-        <FontAwesomeIcon icon={faExpand} onClick={() => {setExpanded(true)}}/>
-      </ExpandStyle>
+      <h1>Cart Here</h1>
+      <h1>{cart.length}</h1>
     </Container>
   )
 
 }
 
-export default Gallery;
+export default CartDisplay;
 
