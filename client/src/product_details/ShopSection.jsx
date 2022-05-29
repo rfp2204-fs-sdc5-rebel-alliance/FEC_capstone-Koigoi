@@ -44,6 +44,9 @@ const ShopSection = () => {
   const {prod_id} = useContext(ProdPageContext);
   const {prodObj, setProdObj, prodStyles, setProdStyles, imageGallery} = useContext(ProdDetailsContext);
   const [sku, setSku] = useState('');
+  const [price, setPrice] = useState(0);
+  const [name, setName] = useState(0);
+  const [style, setStyle] = useState('');
   const [size, setSize] = useState('');
   const [quantOptions, setQuantOptions] = useState([]);
   const [quant, setQuant] = useState(0);
@@ -51,13 +54,25 @@ const ShopSection = () => {
   //console.log('imageGallery:', imageGallery);
 
   let onSelectSize = (sku) => {
+    setName(prodObj.data.name);
+
+    if (imageGallery.sale_price) {
+      setPrice(imageGallery.sale_price);
+    } else {
+      setPrice(imageGallery.original_price);
+    }
+
     if (sku === 'Select') {
       setSize('');
       setQuantOptions([]);
       return;
     }
+    console.log('imageGallery:', imageGallery);
+    console.log('prodObj:', prodObj);
+
     setSku(sku);
     setSize(imageGallery.skus[sku].size);
+    setStyle(imageGallery.name)
     let maxQuant = Math.min(15, imageGallery.skus[sku].quantity);
     let tempArray = [];
     while (maxQuant > 0) {
@@ -88,14 +103,13 @@ const ShopSection = () => {
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].sku === sku) {
         let tempArray = cart;
-        //tempArray[i].quant = Number(tempArray[i].quant) + Number(quant);
         tempArray[i].quant += Number(quant);
         setCart(tempArray);
         return;
       }
     }
 
-    setCart(cart.concat({'sku': sku, 'size': size, 'quant': Number(quant)}));
+    setCart(cart.concat({'sku': sku, 'name': name, 'style': style, 'price': price, 'size': size, 'quant': Number(quant)}));
   }
 
   if (!imageGallery.skus) {

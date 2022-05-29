@@ -5,7 +5,7 @@ import styled from 'styled-components';
 //may need to import more stuff to begin work
 
 const Container = styled.div`
-  width: 60%;
+  width: 100%;
   border: 0.5rem solid blue;
   display: flex;
   justify-content: center;
@@ -15,17 +15,56 @@ const Container = styled.div`
 
 const CartDisplay = () => {
   const {cart, setCart} = useContext(AppContext);
+  const [total, setTotal] = useState(0);
+
+  let getTotal = () => {
+    let tempTotal = 0;
+    cart.forEach((item) => {
+      tempTotal += (item.price * item.quant)
+    });
+    setTotal(tempTotal);
+  }
+
+  useEffect(() => {
+    getTotal();
+  }, [cart])
 
   return (
     <Container>
       {
         cart.length === 0 ?
           <h1>Empty cart. Add some items!</h1>
-        : cart.map((item) => {
-          return (
-            <p>{item.sku}: Size: {item.size}: Quantity: {item.quant}</p>
-          )
-        })
+        :
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Style</th>
+              <th>Size</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((item) => {
+              return (
+                <tr>
+                  <td>{item.name}</td>
+                  <td>{item.style}</td>
+                  <td>{item.size}</td>
+                  <td>{item.quant}</td>
+                  <td>{item.price * item.quant}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+        <div>
+          <div>Total: {total}</div>
+          <button>Checkout</button>
+        </div>
+      </div>
       }
     </Container>
   )
