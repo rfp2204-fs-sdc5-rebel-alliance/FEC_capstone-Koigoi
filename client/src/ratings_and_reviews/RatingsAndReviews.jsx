@@ -44,6 +44,7 @@ function RatingsAndReviews() {
   const [showFilterMessage, setShowFilterMessage] = useState(false);
 
   const [showCharacteristics, setShowCharacteristics] = useState({});
+  const [showCharacteristicLabel, setShowCharacteristicLabel] = useState({});
   const [characteristicLabels, setCharacteristicLabels] = useState({});
 
   const [ratings, setRatings] = useState({});
@@ -111,7 +112,7 @@ function RatingsAndReviews() {
     }
 
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage, helpful, setHelpful, showCharacteristics, setShowCharacteristics, characteristicLabels, setCharacteristicLabels}}>
+    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage, helpful, setHelpful, showCharacteristics, setShowCharacteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>
