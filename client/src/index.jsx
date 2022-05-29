@@ -10,7 +10,7 @@ import Modal from './shared_components/Modal.jsx';
 export const AppContext = createContext();
 
 const App = () => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : []);
   const [view, setView] = useState('Product');
   const [showModal, setShowModal] = useState(false);
   const [modalBodyContent, setModalBodyContent] = useState(null);

@@ -25,8 +25,17 @@ const CartDisplay = () => {
     setTotal(tempTotal);
   }
 
+  let handleDelete = (toRemove) => {
+    let tempCart = cart.filter((item) => {
+      return (item.sku !== toRemove.sku);
+    })
+    setCart(tempCart);
+  }
+
+
   useEffect(() => {
     getTotal();
+    localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart])
 
   return (
@@ -44,6 +53,7 @@ const CartDisplay = () => {
               <th>Size</th>
               <th>Quantity</th>
               <th>Price</th>
+              <th>Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -55,6 +65,7 @@ const CartDisplay = () => {
                   <td>{item.size}</td>
                   <td>{item.quant}</td>
                   <td>{item.price * item.quant}</td>
+                  <td onClick={() => {handleDelete(item)}}>❌</td>
                 </tr>
               )
             })}

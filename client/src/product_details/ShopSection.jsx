@@ -109,8 +109,13 @@ const ShopSection = () => {
       }
     }
 
-    setCart(cart.concat({'sku': sku, 'name': name, 'style': style, 'price': price, 'size': size, 'quant': Number(quant)}));
+    let tempObj = {'sku': sku, 'name': name, 'style': style, 'price': price, 'size': size, 'quant': Number(quant)};
+    setCart(cart.concat(tempObj));
   }
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  },[cart])
 
   if (!imageGallery.skus) {
     return null;
