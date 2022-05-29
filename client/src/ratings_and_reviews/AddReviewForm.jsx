@@ -12,6 +12,11 @@ const FormSection = styled.div`
 
 const FormHeading = styled.h4`
 `
+const StarRatingInput = styled.input`
+  &[type='radio'] {
+    display:none
+  }
+`;
 
 const RadioButtons = styled.label`
   margin-right: 20px;
@@ -70,7 +75,8 @@ const ToolTipBox = styled.div`
 `;
 
 function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels }) {
-  const [rating, setRating] = useState(5);
+  const [rating, setRating] = useState(0);
+  const [ratingHover, setRatingHover] = useState(null);
   const [summary, setSummary] = useState('');
   const [body, setBody] = useState('');
   const [recommend, setRecommend] = useState(false);
@@ -143,6 +149,33 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     .catch((err) => {
       console.log(err)
     })
+  }
+
+
+  const StarRating = () => {
+    return (
+      <div>
+        {[...Array(5)].map((star, index) => {
+          const ratingValue = index + 1;
+          return (
+            <label>
+              <StarRatingInput
+                type='radio'
+                name='rating'
+                value={ratingValue}
+                onClick={() => {setRating(ratingValue)}}
+                required/>
+              <FontAwesomeIcon
+                icon={faStar}
+                size='2x'
+                color={ratingValue <= (ratingHover || rating) ? 'rgb(235, 235, 62)' : '#000'}
+                onMouseEnter={() => {setRatingHover(ratingValue)}}
+                onMouseLeave={() => {setRatingHover(null)}}/>
+            </label>
+          )
+        })}
+      </div>
+    )
   }
 
   let characteristicsFormLayout = [];
@@ -228,11 +261,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
       <form onSubmit={handleSubmit}>
         <FormSection>
           <FormHeading>Overall Rating*</FormHeading>
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
+          {StarRating()}
         </FormSection>
         <FormSection>
           <FormHeading>Do you recommend this product?*</FormHeading>
