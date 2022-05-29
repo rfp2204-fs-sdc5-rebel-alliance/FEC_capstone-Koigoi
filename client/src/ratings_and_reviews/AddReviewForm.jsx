@@ -72,7 +72,8 @@ const CharacteristicOptions = styled.div`
 
 const ToolTipBox = styled.div`
   visibility: hidden;
-`;
+  `;
+  // visibility: ${props => !props.characteristicHover ? 'hidden' : 'visible'};
 
 function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels }) {
   const [rating, setRating] = useState(0);
@@ -84,6 +85,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
   const [characteristicsValue, setCharacteristicsValue] = useState({});
+  const [characteristicHover, setCharacteristicHover] = useState(null);
   const [characterCount, setCharacterCount] = useState(50);
 
   const handleBody = (event) => {
@@ -158,7 +160,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
         {[...Array(5)].map((star, index) => {
           const ratingValue = index + 1;
           return (
-            <label>
+            <label key={index}>
               <StarRatingInput
                 type='radio'
                 name='rating'
@@ -183,15 +185,17 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     const renderCharacteristicsInput = () => {
       characteristicsFormLayout = [];
 
-      Object.keys(characteristics).forEach((characteristic, index) => {
-
+      Object.keys(characteristics).forEach((characteristic) => {
         characteristicsFormLayout.push(
           <CharacteristicContainer>
             <CharacteristicName>{characteristic}</CharacteristicName>
             <CharacteristicBodyContainer>
 
-              <CharacteristicOptions>
-                <ToolTipBox>{characteristicLabels[characteristic][0]}</ToolTipBox>
+              <CharacteristicOptions
+                // onMouseEnter={() => {setCharacteristicHover(true)}}
+                // onMouseLeave={() => {setCharacteristicHover(null)}}
+                >
+                <ToolTipBox /*characteristicHover={characteristicHover}*/>{characteristicLabels[characteristic][0]}</ToolTipBox>
                 <CharacteristicRadioButtons
                   type='radio'
                   name={characteristic}
@@ -201,8 +205,11 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
                 <CharacteristicLabelsContainer>{characteristicLabels[characteristic][0]}</CharacteristicLabelsContainer>
               </CharacteristicOptions>
 
-              <CharacteristicOptions>
-                <ToolTipBox>{characteristicLabels[characteristic][1]}</ToolTipBox>
+              <CharacteristicOptions
+                // onMouseEnter={() => {setCharacteristicHover(true)}}
+                // onMouseLeave={() => {setCharacteristicHover(null)}}
+                >
+                <ToolTipBox /*characteristicHover={characteristicHover}*/>{characteristicLabels[characteristic][1]}</ToolTipBox>
                 <CharacteristicRadioButtons
                     type='radio'
                     name={characteristic}
@@ -252,6 +259,10 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     }
 
     renderCharacteristicsInput();
+
+    // const renderLabels = (event) => {
+
+    // }
 
   return (
     <div>
