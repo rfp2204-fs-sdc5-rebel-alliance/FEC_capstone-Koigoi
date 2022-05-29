@@ -7,7 +7,7 @@ import sharedReviewsComponent from '../shared_components/sharedReviewsComponent'
 
 const RelatedProductDetails = () => {
   const {prod_id} = useContext(ProdPageContext);
-  const [prod_details, setProd_details] = useState([]);
+  const [productDetails, setProductDetails] = useState([]);
   const allRelatedDetails = [];
 
   const getAllRelatedDetails = () => {
@@ -26,29 +26,29 @@ const RelatedProductDetails = () => {
               style3, product3, rating3,
               style4, product4, rating4
             ]) => {
-        let styles = [style1, style2, style3, style4];
-        let products = [product1, product2, product3, product4];
-        let ratings = [rating1, rating2, rating3, rating4];
+        const styles = [style1, style2, style3, style4];
+        const products = [product1, product2, product3, product4];
+        const ratings = [rating1, rating2, rating3, rating4];
         /* parse through related styles */
-        let allStyles = styles.map((style) => {return style.results;});
-        let images = [];
-        allStyles.map((defaultImages) => {
+        const allStyles = styles.map((style) => {return style.results;});
+        const images = [];
+        allStyles.map((eachStyle) => {
           let isDefaultTrue = false;
-          defaultImages.forEach((image) => {
-            if (image['default?'] === true) {
+          eachStyle.forEach((style) => {
+            if (style['default?']) {
               isDefaultTrue = true;
-              images.push(image.photos[0].thumbnail_url);
+              images.push(style.photos[0].thumbnail_url);
             }
           });
           if (!isDefaultTrue) {
-            images.push((defaultImages[0].photos[0].thumbnail_url));
+            images.push(eachStyle[0].photos[0].thumbnail_url);
           }
         });
         /* parse through related product details */
-        let productID = [];
-        let productCategories = [];
-        let productNames = [];
-        let productPrices = [];
+        const productID = [];
+        const productCategories = [];
+        const productNames = [];
+        const productPrices = [];
         products.forEach((product) => {
           productID.push(product.id);
           productCategories.push(product.category);
@@ -56,13 +56,13 @@ const RelatedProductDetails = () => {
           productPrices.push(product.default_price);
         });
         /* parse through related ratings */
-        let productRatings = [];
+        const productRatings = [];
         ratings.forEach((rating) => {
           productRatings.push(sharedReviewsComponent(rating.ratings))
         })
         /* combine all data into one state */
         for (let i = 0; i < images.length; i++) {
-          let allRelatedProducts = {};
+          const allRelatedProducts = {};
           allRelatedProducts.images = images[i];
           allRelatedProducts.id = productID[i];
           allRelatedProducts.categories = productCategories[i];
@@ -71,7 +71,7 @@ const RelatedProductDetails = () => {
           allRelatedProducts.ratings = productRatings[i];
           allRelatedDetails.push(allRelatedProducts);
         }
-        setProd_details(allRelatedDetails);
+        setProductDetails(allRelatedDetails);
       })
       .catch((err) => {console.log(err)});
   }
@@ -82,7 +82,7 @@ const RelatedProductDetails = () => {
 
   return (
       <div>
-        {Carousel(prod_details)}
+        {Carousel(productDetails)}
       </div>
   )
 }

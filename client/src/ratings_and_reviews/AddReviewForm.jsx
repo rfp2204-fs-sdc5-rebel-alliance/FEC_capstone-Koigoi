@@ -8,7 +8,6 @@ import styled from 'styled-components';
 const FormSection = styled.div`
   font-size: 14px;
   margin: 20px 0px;
-
 `;
 
 const FormHeading = styled.h4`
@@ -57,7 +56,7 @@ function AddReviewForm ({ prodId, productName }) {
       photosArray.push(uploadedPhotos[i].name)
     }
 
-    // setPhotos(photosArray);
+    setPhotos(photosArray);
   }
 
   const handleSubmit = (event) => {
@@ -84,7 +83,6 @@ function AddReviewForm ({ prodId, productName }) {
     }
 
     console.log(newReviewData);
-    console.log(typeof recommend.target.value)
 
     axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, newReviewData, {
       headers: {
