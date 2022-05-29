@@ -58,15 +58,16 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       .catch((err) => {console.log(err)})
   }, [sort, reviewCount, helpful, filterNumRating]);
 
+  console.log(reviewCount);
   const test = () => {
     if (showFilterMessage === true) {
-      // if (filterNumRating.length >= 2) {
-      //   console.log('hi')
-        setReviews(filterNumRating)
-      // } else {
-      //   getReviews();
+      // if (filterNumRating.length < 2) {
+      //   setToggleSort(false);
+      //   setReviewCount(10);
       //   renderFilterRatings();
-      // }
+      //   }
+
+        setReviews(filterNumRating)
     }
   }
   const getReviews = () => {

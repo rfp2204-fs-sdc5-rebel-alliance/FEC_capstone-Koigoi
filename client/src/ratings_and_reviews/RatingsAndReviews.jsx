@@ -100,7 +100,7 @@ function RatingsAndReviews() {
 
     const renderFilterRatings = () => {
       setFilterNumRating([]);
-      setShowFilterMessage(false);
+      // setShowFilterMessage(false);
 
       Object.keys(showRatings).forEach((rating) => {
         if (showRatings[rating] === true) {
