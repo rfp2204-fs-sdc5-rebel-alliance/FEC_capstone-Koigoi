@@ -5,9 +5,10 @@ import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import StarRating from '../shared_components/StarRating.jsx';
 import { ProdPageContext } from '../product_page.jsx';
+import getOutfitDetails from './fetchYourOutfitData.js';
 
-const YourOutfitCarousel = ({outfitDetails, saveToStorage}) => {
-  console.log('outfitDetails', outfitDetails);
+const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage }) => {
+  // console.log('outfitDetails', outfitDetails);
   const {prod_id} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
@@ -22,22 +23,9 @@ const YourOutfitCarousel = ({outfitDetails, saveToStorage}) => {
     setCurrentImageIdx(currentImageIdx === 0 ? 0 : currentImageIdx - 1);
   };
 
-  useEffect(() => {
-    setCurrentImageIdx(0);
-  }, [outfitDetails]);
-
-  const removeFromStorage = (e, id) => {
-    localStorage.removeItem(id);
-    // const allLocalStorageItems = Object.keys(localStorage);
-    // console.log('localStorageItems', allLocalStorageItems);
-    // allLocalStorageItems.forEach((item, index) => {
-    //   if (item === id) {
-    //     // remove that item from the array
-    //     allLocalStorageItems.splice(index, 1, 0);
-    //   }
-    // })
-    //
-  }
+  // useEffect(() => {
+  //   setCurrentImageIdx(0);
+  // }, [outfitDetails]);
 
   return (
     <div>
@@ -69,6 +57,7 @@ const YourOutfitCarousel = ({outfitDetails, saveToStorage}) => {
                       icon={faCircleXmark}
                       size='2xs'
                       onClick={(e) => removeFromStorage(e, prod_id)}
+                      color='white'
                     />
                   </ButtonStyle>
                   <CategoryStyle>{details.category}</CategoryStyle>
@@ -89,8 +78,8 @@ const YourOutfitCarousel = ({outfitDetails, saveToStorage}) => {
 
 const CarouselContainer = styled.div`
   flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
+  justify-content: center;
+  align-items: center;
   position: relative;
   max-width: 1000px;
   left: 50%;

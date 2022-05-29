@@ -46,7 +46,7 @@ const Carousel = (productDetails) => {
               <ImageStyle
                 src={details.images === null ? placeholder : details.images}
               />
-              <ButtonStyle onClick={() => handleModalClick(details.id)}> <FontAwesomeIcon icon={faStar} size='2xs'/></ButtonStyle>
+              <ButtonStyle onClick={() => handleModalClick(details.id)}> <FontAwesomeIcon icon={faStar} size='2xs' color='white'/></ButtonStyle>
               <CategoryStyle>{details.categories}</CategoryStyle>
               <NameStyle>{details.names}</NameStyle>
               <PriceStyle>${details.prices}</PriceStyle>
