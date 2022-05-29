@@ -2,12 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
 import StarRating from '../shared_components/StarRating.jsx';
 import ComparisonModal from './ComparisonModal.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 
 const Carousel = (productDetails) => {
-  const { prod_id, prod_name, setShowModal, setModalBodyContent } = useContext(ProdPageContext);
+  const {prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
   const maxDisplay = productDetails.length - 4; // change to 4
@@ -28,6 +29,7 @@ const Carousel = (productDetails) => {
   const handleModalClick = (id) => {
     // console.log(id); // gets the current product ID for clicked card
     // ComparisonModal(id);
+    setModalHeaderContent('COMPARING')
     setModalBodyContent(<ComparisonModal mainId={prod_id} relatedId={id}/>);
     setShowModal(true);
   }
@@ -40,14 +42,14 @@ const Carousel = (productDetails) => {
       <CarouselWrapper>
         {display.map((details) => {
           return (
-            <IndividualCardStyle key={details.id} onClick={() => handleModalClick(details.id)}>
+            <IndividualCardStyle key={details.id}>
               <ImageStyle
                 src={details.images === null ? placeholder : details.images}
               />
+              <ButtonStyle onClick={() => handleModalClick(details.id)}> <FontAwesomeIcon icon={faStar} size='2xs' color='white'/></ButtonStyle>
               <CategoryStyle>{details.categories}</CategoryStyle>
               <NameStyle>{details.names}</NameStyle>
               <PriceStyle>${details.prices}</PriceStyle>
-              {/* <RatingsStyle>{details.ratings.avgRating}</RatingsStyle> */}
               <RatingsStyle>{StarRating(details.ratings.avgRating)}</RatingsStyle>
             </IndividualCardStyle>
           )
@@ -92,7 +94,7 @@ const RightArrow = styled.div`
 const IndividualCardStyle = styled.div`
   position: relative;
   border: 1px solid black;
-  mid-width: 250px;
+  // min-width: 250px;
   width: 250px;
   height: fit-content;
   margin-right: 30px;
@@ -102,6 +104,14 @@ const IndividualCardStyle = styled.div`
     box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
   }
   object-fit: cover;
+`;
+
+const ButtonStyle = styled.button`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
 `;
 
 const ImageStyle = styled.img`
