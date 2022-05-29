@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -34,28 +34,44 @@ const CharacteristicLabelsContainer = styled.div`
 `;
 
 function ProductBreakdown () {
-    const { characteristics, setShowCharacteristics } = useContext(ReviewsContext);
+    const { characteristics, characteristicLabels, setCharacteristicLabels } = useContext(ReviewsContext);
+
+    useEffect(() => {
+      setCharacteristicLabels({
+        Size: ['A size too small', '½ a size too small', 'Perfect', '½ a size too big',  'A size too wide'],
+        Width: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
+        Comfort: ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'],
+        Quality: ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'],
+        Length: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
+        Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long']
+      })
+    }, []);
 
     const characteristicsLayout = [];
-
-    const characteristicLabels = {
-      Size: ['A size too small', 'A size too wide'],
-      Width: ['Too narrow', 'Too wide'],
-      Comfort: ['Uncomfortable', 'Perfect'],
-      Quality: ['Poor', 'Perfect'],
-      Length: ['Runs Short', 'Runs long'],
-      Fit: ['Runs tight', 'Runs long']
-    }
 
     const renderCharacteristics = () => {
 
       Object.keys(characteristics).forEach((characteristic) => {
 
+        let averageCharacteristicValue = (Math.round(characteristics[characteristic].value));
+
+        if (averageCharacteristicValue === 1) {
+          averageCharacteristicValue = 0;
+        } else if (averageCharacteristicValue === 2) {
+          averageCharacteristicValue = 23;
+        } else if (averageCharacteristicValue === 3) {
+          averageCharacteristicValue = 47;
+        } else if (averageCharacteristicValue === 4) {
+          averageCharacteristicValue = 70;
+        } else {
+          averageCharacteristicValue = 94;
+        }
+
         const characteristicValue = {
           'display': 'flex',
           'alignItems': 'center',
           'position': 'relative',
-          'left': `${Math.round(characteristics[characteristic].value) * 25}%`,
+          'left': `${averageCharacteristicValue}%`,
           'height': '30px',
         }
 
@@ -67,7 +83,7 @@ function ProductBreakdown () {
             </CharacteristicBarContainer>
             <CharacteristicLabelsContainer>
               <div>{characteristicLabels[characteristic][0]}</div>
-              <div>{characteristicLabels[characteristic][1]}</div>
+              <div>{characteristicLabels[characteristic][4]}</div>
             </CharacteristicLabelsContainer>
           </div>
         )
