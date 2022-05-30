@@ -85,7 +85,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
 
   useEffect (() => {
     renderCharacteristicsInput();
-  }, [characteristicsValue])
+  }, [characteristicsValue, photos])
 
   const handleBody = (event) => {
     let bodyContent = event.target.value;
@@ -102,13 +102,23 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
 
   const handlePhotos = (event) => {
     const uploadedPhotos = event.target.files;
-    let photosArray = [];
 
-    for (let i = 0; i < uploadedPhotos.length; i++) {
-      photosArray.push(uploadedPhotos[i].name)
+    if (uploadedPhotos.length > 5) {
+      alert('You can only upload a maximum of five files');
+    } else {
+      for (let i = 0; i < uploadedPhotos.length; i++) {
+        const formData = new FormData();
+        formData.append("file", uploadedPhotos[i]);
+        formData.append("upload_preset", 'fjmeciqe');
+        uploadPhotos(formData);
+      }
     }
+  }
 
-    setPhotos(photosArray);
+  const uploadPhotos = (photo) => {
+    axios.post(`https://api.cloudinary.com/v1_1/dgn6fimlv/image/upload`, photo)
+    .then((photo) => {setPhotos(prevArray => prevArray.concat(photo.data.url))})
+    .catch((err) => {console.log(err)})
   }
 
   const handleCharacteristics = (event) => {
