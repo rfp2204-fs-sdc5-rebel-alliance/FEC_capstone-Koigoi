@@ -103,11 +103,15 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   const handlePhotos = (event) => {
     const uploadedPhotos = event.target.files;
 
-    for (let i = 0; i < uploadedPhotos.length; i++) {
-      const formData = new FormData();
-      formData.append("file", uploadedPhotos[i]);
-      formData.append("upload_preset", 'fjmeciqe');
-      uploadPhotos(formData);
+    if (uploadedPhotos.length > 5) {
+      alert('You can only upload a maximum of five files');
+    } else {
+      for (let i = 0; i < uploadedPhotos.length; i++) {
+        const formData = new FormData();
+        formData.append("file", uploadedPhotos[i]);
+        formData.append("upload_preset", 'fjmeciqe');
+        uploadPhotos(formData);
+      }
     }
   }
 
