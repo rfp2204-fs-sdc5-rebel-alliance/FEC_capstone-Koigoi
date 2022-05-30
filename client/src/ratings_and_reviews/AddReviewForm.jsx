@@ -85,7 +85,8 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
 
   useEffect (() => {
     renderCharacteristicsInput();
-  }, [characteristicsValue])
+    console.log('NEW PHOTOS', photos)
+  }, [characteristicsValue, photos])
 
   const handleBody = (event) => {
     let bodyContent = event.target.value;
@@ -102,14 +103,29 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
 
   const handlePhotos = (event) => {
     const uploadedPhotos = event.target.files;
-    let photosArray = [];
+    const formData = new FormData();
 
     for (let i = 0; i < uploadedPhotos.length; i++) {
-      photosArray.push(uploadedPhotos[i].name)
+      console.log('FILE'+[i],uploadedPhotos[i])
+      formData.append("file", uploadedPhotos[i]);
     }
+    formData.append("upload_preset", 'fjmeciqe')
 
-    setPhotos(photosArray);
+    axios.post(`https://api.cloudinary.com/v1_1/dgn6fimlv/image/upload`, formData)
+    .then((photo) => {
+      console.log(photo)
+      setPhotos(photos.concat(photo.data.url))})
+    .catch((err) => {console.log(err)})
+    // let photosArray = [];
+
+    // for (let i = 0; i < uploadedPhotos.length; i++) {
+    //   photosArray.push(uploadedPhotos[i].name)
+    // }
+
+    // setPhotos(photosArray);
   }
+
+  console.log('photos',photos)
 
   const handleCharacteristics = (event) => {
     const key = event.target.name;
