@@ -1,20 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../index.jsx';
+import { ProdPageContext } from '../product_page.jsx';
 import styled from 'styled-components';
 
 //may need to import more stuff to begin work
 
 const Container = styled.div`
-  width: 100%;
+  width: 65%;
   border: 0.5rem solid blue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
 `;
 
 const CartDisplay = () => {
-  const {cart, setCart} = useContext(AppContext);
+  const {cart, setCart, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(AppContext);
   const [total, setTotal] = useState(0);
 
   let getTotal = () => {
@@ -30,6 +27,13 @@ const CartDisplay = () => {
       return (item.sku !== toRemove.sku);
     })
     setCart(tempCart);
+  }
+
+  let handleModal = () => {
+    console.log('Modal');
+    setModalHeaderContent('Checkout');
+    setModalBodyContent('Text');
+    setShowModal(true);
   }
 
 
@@ -48,33 +52,37 @@ const CartDisplay = () => {
         <table>
           <thead>
             <tr>
+              <th>Remove</th>
               <th>Item</th>
               <th>Style</th>
               <th>Size</th>
               <th>Quantity</th>
               <th>Price</th>
-              <th>Remove</th>
             </tr>
           </thead>
           <tbody>
             {cart.map((item) => {
               return (
                 <tr>
+                  <td onClick={() => {handleDelete(item)}}>❌</td>
                   <td>{item.name}</td>
                   <td>{item.style}</td>
                   <td>{item.size}</td>
                   <td>{item.quant}</td>
                   <td>{item.price * item.quant}</td>
-                  <td onClick={() => {handleDelete(item)}}>❌</td>
                 </tr>
               )
             })}
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Total:</td>
+              <td>{total}</td>
+            </tr>
           </tbody>
         </table>
-        <div>
-          <div>Total: {total}</div>
-          <button>Checkout</button>
-        </div>
       </div>
       }
     </Container>

@@ -95,7 +95,7 @@ const ShopSection = () => {
       alert('Please select a size.');
       return;
     }
-    if (quant === 0) {
+    if (quant === 0 || quant === '0') {
       alert('Please select an item quantity.');
       return;
     }
