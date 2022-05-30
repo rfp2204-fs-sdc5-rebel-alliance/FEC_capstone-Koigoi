@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../index.jsx';
 import { ProdPageContext } from '../product_page.jsx';
+import axios from 'axios';
 import styled from 'styled-components';
+import config from '../../dist/config.js';
 
 //may need to import more stuff to begin work
 
@@ -20,11 +22,32 @@ const ButtonContainer = styled.div`
 `;
 
 const PayForm = () => {
+  const {cart, setCart} = useContext(AppContext);
 
   let handleSubmit = (event) => {
     event.preventDefault();
     console.log('checkout submitted');
-
+    let tempArray = [];
+    cart.forEach((item) => {
+      let data = {
+        "sku_id": item.sku
+      }
+      for (let i = 0; i < item.quant; i++) {
+        tempArray.push(
+          axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart', data, {
+            headers: {
+              Authorization: config.TOKEN
+            }
+          })
+          .then((response) => {return response.data})
+          .catch((err) => console.log(err))
+        )
+      }
+    });
+    return Promise.all(tempArray)
+      .then(() => setCart([]))
+      .then(() => alert('Thank you for your purchase!'))
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -36,7 +59,7 @@ const PayForm = () => {
         <label>Name on Card</label>
         <input type="text" placeholder="Full Name" required></input>
         <label>Exp. Date</label>
-        <input type="text" placeholder="MM/YY" required></input>
+        <input type="text" placeholder="MM/YY" maxLength = {5} required></input>
         <label>CVC</label>
         <input type="text" placeholder="***" maxLength={3} required></input>
         <ButtonContainer>

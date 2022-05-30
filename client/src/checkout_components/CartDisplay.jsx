@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../index.jsx';
-import { ProdPageContext } from '../product_page.jsx';
 import styled from 'styled-components';
 
 //may need to import more stuff to begin work
@@ -11,7 +10,7 @@ const Container = styled.div`
 `;
 
 const CartDisplay = () => {
-  const {cart, setCart, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(AppContext);
+  const {cart, setCart} = useContext(AppContext);
   const [total, setTotal] = useState(0);
 
   let getTotal = () => {
@@ -28,14 +27,6 @@ const CartDisplay = () => {
     })
     setCart(tempCart);
   }
-
-  let handleModal = () => {
-    console.log('Modal');
-    setModalHeaderContent('Checkout');
-    setModalBodyContent('Text');
-    setShowModal(true);
-  }
-
 
   useEffect(() => {
     getTotal();
