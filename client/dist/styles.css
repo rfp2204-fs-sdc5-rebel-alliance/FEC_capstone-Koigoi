@@ -114,3 +114,10 @@ nav ul li {
 .stars-inner::before {
   -webkit-text-stroke: 1px rgb(226, 138, 6);
 }
+
+table td,
+table th,
+table tr {
+  padding: 0.4rem 0.8rem;
+  text-align: var(--justify-important);
+}

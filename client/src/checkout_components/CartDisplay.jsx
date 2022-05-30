@@ -1,38 +1,85 @@
-import React, { useState, useContext } from 'react';
-import { ProdPageContext } from '../product_page.jsx';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExpand } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../index.jsx';
 import styled from 'styled-components';
-import config from '../../dist/config.js';
 
 //may need to import more stuff to begin work
 
 const Container = styled.div`
-  width: 60%;
+  width: 65%;
   border: 0.5rem solid blue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
 `;
 
-const Gallery = () => {
-  const {prod_id} = useContext(ProdPageContext);
-  const {prodStyles, setProdStyles, imageGallery, setGallery, setExpanded} = useContext(ProdDetailsContext);
+const CartDisplay = () => {
+  const {cart, setCart} = useContext(AppContext);
+  const [total, setTotal] = useState(0);
+
+  let getTotal = () => {
+    let tempTotal = 0;
+    cart.forEach((item) => {
+      tempTotal += (item.price * item.quant)
+    });
+    setTotal(tempTotal);
+  }
+
+  let handleDelete = (toRemove) => {
+    let tempCart = cart.filter((item) => {
+      return (item.sku !== toRemove.sku);
+    })
+    setCart(tempCart);
+  }
+
+  useEffect(() => {
+    getTotal();
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart])
 
   return (
     <Container>
-      {imageGallery.photos &&
-      <ImageList images={imageGallery.photos}/>
+      {
+        cart.length === 0 ?
+          <h1>Empty cart. Add some items!</h1>
+        :
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Remove</th>
+              <th>Item</th>
+              <th>Style</th>
+              <th>Size</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((item) => {
+              return (
+                <tr>
+                  <td onClick={() => {handleDelete(item)}}>❌</td>
+                  <td>{item.name}</td>
+                  <td>{item.style}</td>
+                  <td>{item.size}</td>
+                  <td>{item.quant}</td>
+                  <td>{item.price * item.quant}</td>
+                </tr>
+              )
+            })}
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Total:</td>
+              <td>{total}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       }
-      {Carousel(imageGallery.photos)}
-      <ExpandStyle>
-        <FontAwesomeIcon icon={faExpand} onClick={() => {setExpanded(true)}}/>
-      </ExpandStyle>
     </Container>
   )
 
 }
 
-export default Gallery;
+export default CartDisplay;
 
