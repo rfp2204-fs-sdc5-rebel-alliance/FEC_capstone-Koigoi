@@ -85,7 +85,6 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
 
   useEffect (() => {
     renderCharacteristicsInput();
-    console.log('NEW PHOTOS', photos)
   }, [characteristicsValue, photos])
 
   const handleBody = (event) => {
@@ -103,29 +102,20 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
 
   const handlePhotos = (event) => {
     const uploadedPhotos = event.target.files;
-    const formData = new FormData();
 
     for (let i = 0; i < uploadedPhotos.length; i++) {
-      console.log('FILE'+[i],uploadedPhotos[i])
+      const formData = new FormData();
       formData.append("file", uploadedPhotos[i]);
+      formData.append("upload_preset", 'fjmeciqe');
+      uploadPhotos(formData);
     }
-    formData.append("upload_preset", 'fjmeciqe')
-
-    axios.post(`https://api.cloudinary.com/v1_1/dgn6fimlv/image/upload`, formData)
-    .then((photo) => {
-      console.log(photo)
-      setPhotos(photos.concat(photo.data.url))})
-    .catch((err) => {console.log(err)})
-    // let photosArray = [];
-
-    // for (let i = 0; i < uploadedPhotos.length; i++) {
-    //   photosArray.push(uploadedPhotos[i].name)
-    // }
-
-    // setPhotos(photosArray);
   }
 
-  console.log('photos',photos)
+  const uploadPhotos = (photo) => {
+    axios.post(`https://api.cloudinary.com/v1_1/dgn6fimlv/image/upload`, photo)
+    .then((photo) => {setPhotos(prevArray => prevArray.concat(photo.data.url))})
+    .catch((err) => {console.log(err)})
+  }
 
   const handleCharacteristics = (event) => {
     const key = event.target.name;
