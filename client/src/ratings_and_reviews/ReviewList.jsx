@@ -58,7 +58,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       .catch((err) => {console.log(err)})
   }, [sort, reviewCount, helpful, filterNumRating]);
 
-  console.log(reviewCount);
+  // console.log(reviewCount);
   const test = () => {
     if (showFilterMessage === true) {
       // if (filterNumRating.length < 2) {
