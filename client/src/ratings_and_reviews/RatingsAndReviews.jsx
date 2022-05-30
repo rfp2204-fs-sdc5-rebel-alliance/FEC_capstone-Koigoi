@@ -33,15 +33,15 @@ const LayoutRight = styled.div`
 `
 
 function RatingsAndReviews() {
+  const [apiCount, setApiCount] = useState(2);
   const [reviewCount, setReviewCount] = useState(2);
 
-  const [sort, setSort] =  useState('relevance');
-  const [toggleSort, setToggleSort] = useState(true);
+  const [sort, setSort] =  useState('relevant');
 
   const [numRating, setNumRating] = useState({});
   const [showRatings, setShowRatings] = useState({});
   const [filterNumRating, setFilterNumRating] = useState([])
-  const [showFilterMessage, setShowFilterMessage] = useState(false);
+  const [filtered, setFiltered] = useState(false);
 
   const [showCharacteristics, setShowCharacteristics] = useState({});
   const [showCharacteristicLabel, setShowCharacteristicLabel] = useState({});
@@ -65,10 +65,12 @@ function RatingsAndReviews() {
         }
       })
       .then((reviewsData) => {
+        const ratings = reviewsData.data.ratings;
         setCharacteristics(reviewsData.data.characteristics)
         setRatings(reviewsData.data.ratings)
         setRecommended(reviewsData.data.recommended)
-        setRatingsObj(sharedReviewsComponent(reviewsData.data.ratings));
+        setRatingsObj(sharedReviewsComponent(ratings));
+        setApiCount(Number(ratings[1]) + Number(ratings[2]) + Number(ratings[3]) + Number(ratings[4]) + Number(ratings[5]));
       })
       .then(() => {
         setShowRatings({
@@ -82,11 +84,13 @@ function RatingsAndReviews() {
       .catch((err) => {console.log(err)});
     }, []);
 
+    console.log(apiCount)
+
     const totalRatings = ratingsObj.totalRatings;
     const avgRating = ratingsObj.avgRating;
 
     const removeFilters = () => {
-      setShowFilterMessage(false);
+      setFiltered(false);
 
       setFilterNumRating([]);
 
@@ -101,18 +105,17 @@ function RatingsAndReviews() {
 
     const renderFilterRatings = () => {
       setFilterNumRating([]);
-      // setShowFilterMessage(false);
 
       Object.keys(showRatings).forEach((rating) => {
         if (showRatings[rating] === true) {
           setFilterNumRating(prevFilter => prevFilter.concat(numRating[rating]));
-          setShowFilterMessage(true);
+          setFiltered(true);
         }
       })
     }
 
   return (
-    <ReviewsContext.Provider value={{ reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, toggleSort, setToggleSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage, helpful, setHelpful, showCharacteristics, setShowCharacteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel}}>
+    <ReviewsContext.Provider value={{ apiCount, reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, filtered, setFiltered, helpful, setHelpful, showCharacteristics, setShowCharacteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>

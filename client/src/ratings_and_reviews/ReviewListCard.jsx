@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import config from '../../dist/config.js';
 import formattedDate from '../shared_components/formattedDate.js';
@@ -11,6 +11,7 @@ import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 
 const ReviewCard = styled.div`
+  max-width: 100%;
   border-bottom: 1px solid black;
   margin: 0px 20px;
   padding: 20px 0px;
@@ -36,16 +37,22 @@ const CardResponse = styled.div`
 `;
 
 function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
+  const [condensedSummary, setCondensedSummary] = useState(summary)
+  const [condensedBody, setCondensedBody] = useState(body);
   const [showMore, setShowMore] = useState(false);
   const [clickedHelpful, setClickedHelpful] = useState(false);
   const { helpful, setHelpful } = useContext(ReviewsContext);
 
-  if (summary.length > 60) {
-    const summaryCopy = summary.slice(0,60);
-    summary = summaryCopy + '...'
-  }
+  useEffect(() => {
+    if (summary.length > 60) {
+      setCondensedSummary(`${summary.slice(0,60)}...`);
+    }
 
-  let renderedBody = body.slice(0, 250);
+    if (body.length > 250) {
+      setCondensedBody(body.slice(0, 250))
+      setShowMore(true);
+    }
+  }, [])
 
   const showMoreButton = () => {
     if (!showMore) {
@@ -53,20 +60,16 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
     } else {
       return (
         <button
-          onClick={handleShowMore}>
+          onClick={() => {handleShowMore()}}>
           Show More
         </button>
       );
     }
   }
 
-  if (body.length > 250) {
-    setShowMore(true);
-  }
-
   const handleShowMore = () => {
     setShowMore(false);
-    renderedBody = body;
+    setCondensedBody(body);
   }
 
   const recommendMessage = () => {
@@ -88,7 +91,6 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
     } else {
       return null;
     }
-
   }
 
   const handleHelpfulClick = () => {
@@ -104,8 +106,6 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
     .then(() => {setHelpful(prevHelpful => prevHelpful + 1)})
     .then(() => {setClickedHelpful(true)})
     .catch((err) => {
-      console.log(err)
-      console.log(id)
       console.log(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`)
     })
   }
@@ -117,8 +117,8 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
         {StarRating(rating)}
         {formattedDate(date)}
       </ReviewCardSection>
-      <Bold>{summary}</Bold>
-        <p>{renderedBody}</p>
+      <Bold>{condensedSummary}</Bold>
+        <p>{condensedBody}</p>
         {showMoreButton()}
         <ReviewImageContainer>
           <ImageThumbnail images={photos}/>
@@ -127,7 +127,7 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
         {recommendMessage()}
       </ReviewCardSection>
       {reviewResponse()}
-      <p>Was this review helpful? Yes <span onClick={handleHelpfulClick}>( {helpfulness} )</span></p>
+      <p>Was this review helpful? Yes <span onClick={() => {handleHelpfulClick()}}>( {helpfulness} )</span></p>
     </ReviewCard>
   );
 }

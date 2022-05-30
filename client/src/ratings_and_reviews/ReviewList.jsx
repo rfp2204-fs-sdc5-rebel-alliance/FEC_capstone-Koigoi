@@ -16,6 +16,7 @@ const ReviewListContainer = styled.div`
 
 const ReviewCardContainer = styled.div`
 max-height: 600px;
+max-width: 100%;
 overflow: scroll;
 `;
 
@@ -27,16 +28,10 @@ const ButtonContainer = styled.div`
 
 function ReviewList({ removeFilters, renderFilterRatings }) {
   const [reviews, setReviews] = useState([]);
+  const [allReviews, setAllReviews] = useState([])
+  const [filterRatingsCount, setFilterRatingsCount] = useState(10);
   const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
-  const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort, numRating, setNumRating, showRatings, setShowRatings, filterNumRating, showFilterMessage, helpful, setHelpful, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel } = useContext(ReviewsContext);
-
-  //if showFilterMessage is true
-    //check to make sure FilterNumRating has two or more reviews
-      //if it does, render reviews from FilterNumRating
-      //if not, add two to reviewCount
-    //conditionally render remove filter button where more reviews button is
-    //else if showFilterMessage is false
-      //do axios get request
+  const { apiCount, reviewCount, setReviewCount, totalRatings, sort, numRating, setNumRating, filterNumRating, filtered, helpful, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel } = useContext(ReviewsContext);
 
   useEffect(() => {
       axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {
@@ -45,34 +40,34 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
         },
         params: {
           page: 1,
-          count: reviewCount,
+          count: apiCount,
           sort: sort,
           product_id: prod_id
         }
       })
       .then((reviews) => {
-        setReviews(reviews.data.results)
+        setAllReviews(reviews.data.results)
         filterNumRatings(reviews.data.results)
       })
-      .then(() => {test()})
       .catch((err) => {console.log(err)})
-  }, [sort, reviewCount, helpful, filterNumRating]);
+  }, [apiCount, sort, helpful]);
 
-  // console.log(reviewCount);
-  const test = () => {
-    if (showFilterMessage === true) {
-      // if (filterNumRating.length < 2) {
-      //   setToggleSort(false);
-      //   setReviewCount(10);
-      //   renderFilterRatings();
-      //   }
+  useEffect(() => {
 
-        setReviews(filterNumRating)
+    if (filtered === true) {
+        setReviews(filterNumRating.slice(0, filterRatingsCount))
+    } else {
+      setReviews(allReviews.slice(0, reviewCount))
     }
-  }
+  }, [reviewCount, filterRatingsCount, allReviews, filtered])
+
   const getReviews = () => {
-    setToggleSort(false);
-    setReviewCount(prevReviewCount => prevReviewCount + 2);
+    if (filtered === true) {
+      setFilterRatingsCount(prevReviewCount => prevReviewCount + 2)
+    } else {
+      setFilterRatingsCount(10);
+      setReviewCount(prevReviewCount => prevReviewCount + 2);
+    }
   }
 
   const filterNumRatings = (reviews) => {
@@ -93,15 +88,10 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
   let moreReviewsButton = null;
   let noReviewsGreeting = null;
 
-  if (showFilterMessage === true && reviews.length > 0) {
-    moreReviewsButton = <button onClick={removeFilters}>Remove filter</button>
-  } else if (showFilterMessage === true && reviews.length === 0) {
-    noReviewsGreeting = <p>There are currently no reviews with this filter. Please remove filter and add additional reviews.</p>;
-    moreReviewsButton = <button onClick={removeFilters}>Remove filter</button>
-  } else if (reviewCount >= totalRatings) {
+   if (reviewCount >= totalRatings) {
     moreReviewsButton = null;
   } else if (reviewCount > 0) {
-    moreReviewsButton = <button onClick={getReviews}>More Reviews</button>;
+    moreReviewsButton = <button onClick={() => {getReviews()}}>More Reviews</button>;
   } else {
     noReviewsGreeting = <p>Be the first to review this product!</p>;
   }
@@ -135,7 +125,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       </ReviewCardContainer>
       <ButtonContainer>
         {moreReviewsButton}
-        <button onClick={handleModal}>Add a Review</button>
+        <button onClick={() => {handleModal()}}>Add a Review</button>
       </ButtonContainer>
     </ReviewListContainer>
   );

@@ -59,7 +59,7 @@ const RecommendedMessage = styled.div`
 `;
 
 function RatingBreakdown({ removeFilters, renderFilterRatings }) {
-  const { ratings, totalRatings, avgRating, recommended, numRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, showFilterMessage, setShowFilterMessage } = useContext(ReviewsContext);
+  const { ratings, totalRatings, avgRating, recommended, showRatings, setShowRatings, filtered } = useContext(ReviewsContext);
 
   const handleRatingClick = (event) => {
     const starRating = event.target.value;
@@ -74,7 +74,7 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
 
   const renderFilterMessage = () => {
 
-    if (!showFilterMessage) {
+    if (!filtered) {
       return null;
     }
 
