@@ -28,7 +28,7 @@ const ButtonContainer = styled.div`
 function ReviewList({ removeFilters, renderFilterRatings }) {
   const [reviews, setReviews] = useState([]);
   const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
-  const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort, numRating, setNumRating, showRatings, setShowRatings, filterNumRating, showFilterMessage, helpful, setHelpful, characteristics, characteristicLabels } = useContext(ReviewsContext);
+  const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort, numRating, setNumRating, showRatings, setShowRatings, filterNumRating, showFilterMessage, helpful, setHelpful, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel } = useContext(ReviewsContext);
 
   //if showFilterMessage is true
     //check to make sure FilterNumRating has two or more reviews
@@ -58,7 +58,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       .catch((err) => {console.log(err)})
   }, [sort, reviewCount, helpful, filterNumRating]);
 
-  console.log(reviewCount);
+  // console.log(reviewCount);
   const test = () => {
     if (showFilterMessage === true) {
       // if (filterNumRating.length < 2) {
@@ -108,7 +108,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
 
   const handleModal = () => {
     setModalHeaderContent('Write Your Review')
-    setModalBodyContent(<AddReviewForm prodId={prod_id} productName={prod_name} characteristics={characteristics} characteristicLabels={characteristicLabels}/>);
+    setModalBodyContent(<AddReviewForm prodId={prod_id} productName={prod_name} characteristics={characteristics} characteristicLabels={characteristicLabels} showCharacteristicLabel={showCharacteristicLabel} setShowCharacteristicLabel={setShowCharacteristicLabel}/>);
     setShowModal(true);
   }
 

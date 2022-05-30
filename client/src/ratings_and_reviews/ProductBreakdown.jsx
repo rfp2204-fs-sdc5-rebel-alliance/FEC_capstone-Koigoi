@@ -34,7 +34,7 @@ const CharacteristicLabelsContainer = styled.div`
 `;
 
 function ProductBreakdown () {
-    const { characteristics, characteristicLabels, setCharacteristicLabels } = useContext(ReviewsContext);
+    const { characteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel } = useContext(ReviewsContext);
 
     useEffect(() => {
       setCharacteristicLabels({
@@ -44,6 +44,14 @@ function ProductBreakdown () {
         Quality: ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'],
         Length: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
         Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long']
+      })
+      setShowCharacteristicLabel({
+        Size: [false, false, false, false, false],
+        Width: [false, false, false, false, false],
+        Comfort: [false, false, false, false, false],
+        Quality: [false, false, false, false, false],
+        Length: [false, false, false, false, false],
+        Fit: [false, false, false, false, false]
       })
     }, []);
 

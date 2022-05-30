@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import config from '../../dist/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -70,12 +70,7 @@ const CharacteristicOptions = styled.div`
 
 `;
 
-const ToolTipBox = styled.div`
-  visibility: hidden;
-  `;
-  // visibility: ${props => !props.characteristicHover ? 'hidden' : 'visible'};
-
-function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels }) {
+function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel }) {
   const [rating, setRating] = useState(0);
   const [ratingHover, setRatingHover] = useState(null);
   const [summary, setSummary] = useState('');
@@ -87,6 +82,10 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   const [characteristicsValue, setCharacteristicsValue] = useState({});
   const [characteristicHover, setCharacteristicHover] = useState(null);
   const [characterCount, setCharacterCount] = useState(50);
+
+  useEffect (() => {
+    renderCharacteristicsInput();
+  }, [characteristicsValue])
 
   const handleBody = (event) => {
     let bodyContent = event.target.value;
@@ -115,7 +114,9 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   const handleCharacteristics = (event) => {
     const key = event.target.name;
     const value = event.target.value;
-
+    const index = event.target.value - 1;
+    setCharacteristicsValue(showCharacteristicLabel[key] = [false, false, false, false, false]);
+    setCharacteristicsValue(showCharacteristicLabel[key][index] = true);
     setCharacteristicsValue({...characteristicsValue, [characteristics[key].id]: Number(value)});
   }
 
@@ -186,16 +187,14 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
       characteristicsFormLayout = [];
 
       Object.keys(characteristics).forEach((characteristic) => {
+
         characteristicsFormLayout.push(
           <CharacteristicContainer>
             <CharacteristicName>{characteristic}</CharacteristicName>
             <CharacteristicBodyContainer>
 
-              <CharacteristicOptions
-                // onMouseEnter={() => {setCharacteristicHover(true)}}
-                // onMouseLeave={() => {setCharacteristicHover(null)}}
-                >
-                <ToolTipBox /*characteristicHover={characteristicHover}*/>{characteristicLabels[characteristic][0]}</ToolTipBox>
+              <CharacteristicOptions>
+                <div style={showCharacteristicLabel[characteristic][0] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][0]}</div>
                 <CharacteristicRadioButtons
                   type='radio'
                   name={characteristic}
@@ -205,11 +204,8 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
                 <CharacteristicLabelsContainer>{characteristicLabels[characteristic][0]}</CharacteristicLabelsContainer>
               </CharacteristicOptions>
 
-              <CharacteristicOptions
-                // onMouseEnter={() => {setCharacteristicHover(true)}}
-                // onMouseLeave={() => {setCharacteristicHover(null)}}
-                >
-                <ToolTipBox /*characteristicHover={characteristicHover}*/>{characteristicLabels[characteristic][1]}</ToolTipBox>
+              <CharacteristicOptions>
+                <div style={showCharacteristicLabel[characteristic][1] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][1]}</div>
                 <CharacteristicRadioButtons
                     type='radio'
                     name={characteristic}
@@ -220,7 +216,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
               </CharacteristicOptions>
 
               <CharacteristicOptions>
-                <ToolTipBox>{characteristicLabels[characteristic][2]}</ToolTipBox>
+              <div style={showCharacteristicLabel[characteristic][2] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][2]}</div>
                 <CharacteristicRadioButtons
                     type='radio'
                     name={characteristic}
@@ -231,7 +227,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
               </CharacteristicOptions>
 
               <CharacteristicOptions>
-                <ToolTipBox>{characteristicLabels[characteristic][3]}</ToolTipBox>
+              <div style={showCharacteristicLabel[characteristic][3] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][3]}</div>
                 <CharacteristicRadioButtons
                     type='radio'
                     name={characteristic}
@@ -242,7 +238,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
               </CharacteristicOptions>
 
               <CharacteristicOptions>
-                <ToolTipBox>{characteristicLabels[characteristic][4]}</ToolTipBox>
+              <div style={showCharacteristicLabel[characteristic][4] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][4]}</div>
                 <CharacteristicRadioButtons
                     type='radio'
                     name={characteristic}
@@ -259,10 +255,6 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     }
 
     renderCharacteristicsInput();
-
-    // const renderLabels = (event) => {
-
-    // }
 
   return (
     <div>
