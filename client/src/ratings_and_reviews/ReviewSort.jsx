@@ -11,7 +11,6 @@ const ReviewSortContainer = styled.div`
 `;
 
 const SortForm = styled.select`
-  background-color: aquamarine;
   border: none;
   border-bottom: 2px solid black;
   outline: 0;

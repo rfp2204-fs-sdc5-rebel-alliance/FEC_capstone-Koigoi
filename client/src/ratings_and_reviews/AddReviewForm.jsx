@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import config from '../../dist/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -72,17 +72,6 @@ const CharacteristicOptions = styled.div`
 
 `;
 
-const ThumbnailContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const Image = styled.img`
-  max-height: 75px;
-  margin-right: 10px;
-`;
-
 function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel }) {
   const [rating, setRating] = useState(0);
   const [ratingHover, setRatingHover] = useState(null);
@@ -93,7 +82,6 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
   const [characteristicsValue, setCharacteristicsValue] = useState({});
-  const [characteristicHover, setCharacteristicHover] = useState(null);
   const [characterCount, setCharacterCount] = useState(50);
 
   useEffect (() => {
@@ -157,7 +145,6 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     })
   }
 
-
   const StarRating = () => {
     return (
       <div>
@@ -186,78 +173,48 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
 
   let characteristicsFormLayout = [];
 
-    const renderCharacteristicsInput = () => {
-      characteristicsFormLayout = [];
+  const renderCharacteristicsInput = () => {
+    characteristicsFormLayout = [];
 
-      Object.keys(characteristics).forEach((characteristic) => {
+    Object.keys(characteristics).forEach((characteristic) => {
+      let characteristicOptions = [];
+      let footerLabel = null;
 
-        characteristicsFormLayout.push(
-          <CharacteristicContainer>
-            <CharacteristicName>{characteristic}</CharacteristicName>
-            <CharacteristicBodyContainer>
+      [...Array(5)].map((label, index) => {
+        if (index === 0) {
+          footerLabel = characteristicLabels[characteristic][index]
+        }
 
-              <CharacteristicOptions>
-                <div style={showCharacteristicLabel[characteristic][0] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][0]}</div>
-                <CharacteristicRadioButtons
-                  type='radio'
-                  name={characteristic}
-                  value={1}
-                  onChange={handleCharacteristics}
-                  required/>
-                <CharacteristicLabelsContainer>{characteristicLabels[characteristic][0]}</CharacteristicLabelsContainer>
-              </CharacteristicOptions>
+        if (index === 4) {
+          footerLabel = characteristicLabels[characteristic][index]
+        }
 
-              <CharacteristicOptions>
-                <div style={showCharacteristicLabel[characteristic][1] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][1]}</div>
-                <CharacteristicRadioButtons
-                    type='radio'
-                    name={characteristic}
-                    value={2}
-                    onChange={handleCharacteristics}
-                    required/>
-                  <CharacteristicLabelsContainer></CharacteristicLabelsContainer>
-              </CharacteristicOptions>
-
-              <CharacteristicOptions>
-              <div style={showCharacteristicLabel[characteristic][2] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][2]}</div>
-                <CharacteristicRadioButtons
-                    type='radio'
-                    name={characteristic}
-                    value={3}
-                    onChange={handleCharacteristics}
-                    required/>
-                  <CharacteristicLabelsContainer></CharacteristicLabelsContainer>
-              </CharacteristicOptions>
-
-              <CharacteristicOptions>
-              <div style={showCharacteristicLabel[characteristic][3] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][3]}</div>
-                <CharacteristicRadioButtons
-                    type='radio'
-                    name={characteristic}
-                    value={4}
-                    onChange={handleCharacteristics}
-                    required/>
-                  <CharacteristicLabelsContainer></CharacteristicLabelsContainer>
-              </CharacteristicOptions>
-
-              <CharacteristicOptions>
-              <div style={showCharacteristicLabel[characteristic][4] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][4]}</div>
-                <CharacteristicRadioButtons
-                    type='radio'
-                    name={characteristic}
-                    value={5}
-                    onChange={handleCharacteristics}
-                    required/>
-                <CharacteristicLabelsContainer>{characteristicLabels[characteristic][4]}</CharacteristicLabelsContainer>
-              </CharacteristicOptions>
-
-            </CharacteristicBodyContainer>
-          </CharacteristicContainer>
+        characteristicOptions.push(
+          <CharacteristicOptions key={index}>
+              <div style={showCharacteristicLabel[characteristic][index] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][index]}</div>
+              <CharacteristicRadioButtons
+                type='radio'
+                name={characteristic}
+                value={index + 1}
+                onChange={handleCharacteristics}
+                required/>
+              <CharacteristicLabelsContainer>{footerLabel}</CharacteristicLabelsContainer>
+            </CharacteristicOptions>
         )
-      })
-    }
+      });
 
-    renderCharacteristicsInput();
+      characteristicsFormLayout.push(
+        <CharacteristicContainer>
+          <CharacteristicName>{characteristic}</CharacteristicName>
+          <CharacteristicBodyContainer>
+            {characteristicOptions}
+          </CharacteristicBodyContainer>
+        </CharacteristicContainer>
+      );
+    })
+  }
+
+  renderCharacteristicsInput();
 
   return (
     <div>

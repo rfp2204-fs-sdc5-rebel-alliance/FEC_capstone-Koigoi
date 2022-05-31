@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import config from '../../dist/config.js';
 import styled from 'styled-components';
@@ -10,8 +10,8 @@ import { ProdPageContext } from '../product_page.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 const ReviewListContainer = styled.div`
-  background: #FFF;
   font-size: 18px;
+  border: 1px solid black;
 `;
 
 const ReviewCardContainer = styled.div`
