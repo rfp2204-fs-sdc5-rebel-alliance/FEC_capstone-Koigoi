@@ -16,6 +16,7 @@ const ReviewListContainer = styled.div`
 
 const ReviewCardContainer = styled.div`
 max-height: 600px;
+max-width: 100%;
 overflow: scroll;
 `;
 
@@ -27,16 +28,10 @@ const ButtonContainer = styled.div`
 
 function ReviewList({ removeFilters, renderFilterRatings }) {
   const [reviews, setReviews] = useState([]);
-  const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
-  const { reviewCount, setReviewCount, totalRatings, sort, toggleSort, setToggleSort, numRating, setNumRating, showRatings, setShowRatings, filterNumRating, showFilterMessage, helpful, setHelpful, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel } = useContext(ReviewsContext);
-
-  //if showFilterMessage is true
-    //check to make sure FilterNumRating has two or more reviews
-      //if it does, render reviews from FilterNumRating
-      //if not, add two to reviewCount
-    //conditionally render remove filter button where more reviews button is
-    //else if showFilterMessage is false
-      //do axios get request
+  const [allReviews, setAllReviews] = useState([])
+  const [filterRatingsCount, setFilterRatingsCount] = useState(10);
+  const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent, totalRatings, setTotalRatings, setAverageRating } = useContext(ProdPageContext);
+  const { apiCount, reviewCount, setReviewCount, sort, ratings, setRatings, numRating, setNumRating, filterNumRating, filtered, helpful, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, setRecommended } = useContext(ReviewsContext);
 
   useEffect(() => {
       axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {
@@ -45,34 +40,35 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
         },
         params: {
           page: 1,
-          count: reviewCount,
+          count: apiCount,
           sort: sort,
           product_id: prod_id
         }
       })
       .then((reviews) => {
-        setReviews(reviews.data.results)
+        setAllReviews(reviews.data.results)
+        setTotalRatings(reviews.data.results.length);
         filterNumRatings(reviews.data.results)
       })
-      .then(() => {test()})
       .catch((err) => {console.log(err)})
-  }, [sort, reviewCount, helpful, filterNumRating]);
+  }, [apiCount, sort, helpful, totalRatings]);
 
-  // console.log(reviewCount);
-  const test = () => {
-    if (showFilterMessage === true) {
-      // if (filterNumRating.length < 2) {
-      //   setToggleSort(false);
-      //   setReviewCount(10);
-      //   renderFilterRatings();
-      //   }
+  useEffect(() => {
 
-        setReviews(filterNumRating)
+    if (filtered === true) {
+        setReviews(filterNumRating.slice(0, filterRatingsCount))
+    } else {
+      setReviews(allReviews.slice(0, reviewCount))
     }
-  }
+  }, [reviewCount, filterRatingsCount, allReviews, filtered])
+
   const getReviews = () => {
-    setToggleSort(false);
-    setReviewCount(prevReviewCount => prevReviewCount + 2);
+    if (filtered === true) {
+      setFilterRatingsCount(prevReviewCount => prevReviewCount + 2)
+    } else {
+      setFilterRatingsCount(10);
+      setReviewCount(prevReviewCount => prevReviewCount + 2);
+    }
   }
 
   const filterNumRatings = (reviews) => {
@@ -84,24 +80,40 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       5: []
     }
 
+    let recommended = {
+      true: 0,
+      false: 0
+    }
+
+    let averageRating = 0;
+
     reviews.forEach((review) => {
       numRatingObj[review.rating].push(review);
+      recommended[review.recommend] += 1;
+      averageRating += review.rating;
     })
+
+    const ratingsCount = {
+      1: numRatingObj[1].length,
+      2: numRatingObj[2].length,
+      3: numRatingObj[3].length,
+      4: numRatingObj[4].length,
+      5: numRatingObj[5].length
+    }
+
+    setAverageRating(Math.round((averageRating / totalRatings) * 10) / 10);
     setNumRating(numRatingObj);
+    setRatings(ratingsCount);
+    setRecommended(recommended);
   }
 
   let moreReviewsButton = null;
   let noReviewsGreeting = null;
 
-  if (showFilterMessage === true && reviews.length > 0) {
-    moreReviewsButton = <button onClick={removeFilters}>Remove filter</button>
-  } else if (showFilterMessage === true && reviews.length === 0) {
-    noReviewsGreeting = <p>There are currently no reviews with this filter. Please remove filter and add additional reviews.</p>;
-    moreReviewsButton = <button onClick={removeFilters}>Remove filter</button>
-  } else if (reviewCount >= totalRatings) {
+   if (reviewCount >= totalRatings) {
     moreReviewsButton = null;
   } else if (reviewCount > 0) {
-    moreReviewsButton = <button onClick={getReviews}>More Reviews</button>;
+    moreReviewsButton = <button onClick={() => {getReviews()}}>More Reviews</button>;
   } else {
     noReviewsGreeting = <p>Be the first to review this product!</p>;
   }
@@ -135,7 +147,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       </ReviewCardContainer>
       <ButtonContainer>
         {moreReviewsButton}
-        <button onClick={handleModal}>Add a Review</button>
+        <button onClick={() => {handleModal()}}>Add a Review</button>
       </ButtonContainer>
     </ReviewListContainer>
   );
