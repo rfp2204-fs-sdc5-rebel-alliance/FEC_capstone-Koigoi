@@ -112,9 +112,6 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
 
   }, [characteristicsValue, photos])
 
-  console.log(photos)
-  console.log('DISPLAY',displayPhotos)
-
   const handleBody = (event) => {
     let bodyContent = event.target.value;
     let bodyLength = event.target.value.length;
