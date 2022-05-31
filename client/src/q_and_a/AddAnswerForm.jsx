@@ -3,12 +3,13 @@ import { AppContext } from '../index.jsx';
 import config from '../../dist/config.js';
 import axios from 'axios';
 import styled from 'styled-components';
-
+import ImageUpload from '../shared_components/ImageUpload.jsx';
 
 const FormSection = styled.div`
   margin: 20px 0px;
   `;
-
+const FormHeading = styled.h4`
+`;
 const InputText = styled.input`
   margin-right: 10px;
 `;
@@ -16,9 +17,10 @@ const InputText = styled.input`
 const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) => {
 
   const { setShowModal } = useContext(AppContext);
-  const [answer, setAnswer] = useState("")
-  const [nickname, setNickname] = useState("")
-  const [email, setEmail] = useState("")
+  const [answer, setAnswer] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [photos, setPhotos] = useState([]);
 
   const handleChangeAnswer = (e) => { setAnswer(e.target.value)};
   const handleChangeNickname = (e) => {setNickname(e.target.value)};
@@ -34,7 +36,7 @@ const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) =>
       body: answer,
       name: nickname,
       email: email,
-      photos: []
+      photos: photos
     }
     axios.post(url, data, {
       headers: {
@@ -64,10 +66,8 @@ const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) =>
           </label>
         </FormSection>
         <FormSection>
-          <h5>Upload your photos</h5>
-          <input
-            type='file'
-            name='image'/>
+          <FormHeading>Upload your photos</FormHeading>
+          <ImageUpload photos={photos} setPhotos={setPhotos}/>
         </FormSection>
         <FormSection>
           <label>
