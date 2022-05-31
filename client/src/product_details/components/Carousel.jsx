@@ -68,7 +68,7 @@ const Carousel = (slides) => {
       <ImgContainer>
         {slides.map((slide, number) => {
           return (
-            <div key={number}>
+            <div className={number === index ? 'slide active' : 'slide'} key={number}>
               {number === index && (
                 <ImgStyle src={slide.url} alt="No Image" />
               )}
