@@ -70,6 +70,17 @@ const CharacteristicOptions = styled.div`
 
 `;
 
+const ThumbnailContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  max-height: 75px;
+  margin-right: 10px;
+`;
+
 function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel }) {
   const [rating, setRating] = useState(0);
   const [ratingHover, setRatingHover] = useState(null);
@@ -79,13 +90,30 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
+  const [displayPhotos, setDisplayPhotos] = useState(null);
   const [characteristicsValue, setCharacteristicsValue] = useState({});
   const [characteristicHover, setCharacteristicHover] = useState(null);
   const [characterCount, setCharacterCount] = useState(50);
 
   useEffect (() => {
     renderCharacteristicsInput();
+
+    if (photos.length > 0) {
+      setDisplayPhotos(
+        <FormSection>
+          <ThumbnailContainer>
+            {photos.map((photo, index) =>
+              <Image key={index} src={photo}/>
+            )}
+          </ThumbnailContainer>
+        </FormSection>
+      );
+    }
+
   }, [characteristicsValue, photos])
+
+  console.log(photos)
+  console.log('DISPLAY',displayPhotos)
 
   const handleBody = (event) => {
     let bodyContent = event.target.value;
@@ -333,6 +361,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
             name='image'
             onChange={handlePhotos}
             multiple/>
+          {displayPhotos}
         </FormSection>
         <FormSection>
           <FormHeading>What is your nickname*</FormHeading>
