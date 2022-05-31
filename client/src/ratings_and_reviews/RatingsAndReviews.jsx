@@ -53,7 +53,7 @@ function RatingsAndReviews() {
 
   const [helpful, setHelpful] = useState(0);
 
-  const { prod_id, ratingsObj, setRatingsObj } = useContext(ProdPageContext);
+  const { prod_id, ratingsObj, setRatingsObj, totalRatings } = useContext(ProdPageContext);
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta`, {
@@ -67,8 +67,7 @@ function RatingsAndReviews() {
       .then((reviewsData) => {
         const ratings = reviewsData.data.ratings;
         setCharacteristics(reviewsData.data.characteristics)
-        setRatings(reviewsData.data.ratings)
-        setRecommended(reviewsData.data.recommended)
+        // setRecommended(reviewsData.data.recommended)
         setRatingsObj(sharedReviewsComponent(ratings));
         setApiCount(Number(ratings[1]) + Number(ratings[2]) + Number(ratings[3]) + Number(ratings[4]) + Number(ratings[5]));
       })
@@ -84,9 +83,6 @@ function RatingsAndReviews() {
       .catch((err) => {console.log(err)});
     }, []);
 
-    console.log(apiCount)
-
-    const totalRatings = ratingsObj.totalRatings;
     const avgRating = ratingsObj.avgRating;
 
     const removeFilters = () => {
@@ -115,7 +111,7 @@ function RatingsAndReviews() {
     }
 
   return (
-    <ReviewsContext.Provider value={{ apiCount, reviewCount, setReviewCount, characteristics, ratings, totalRatings, avgRating, recommended, sort, setSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, filtered, setFiltered, helpful, setHelpful, showCharacteristics, setShowCharacteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel}}>
+    <ReviewsContext.Provider value={{ apiCount, reviewCount, setReviewCount, characteristics, ratings, setRatings, totalRatings, avgRating, recommended, setRecommended, sort, setSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, filtered, setFiltered, helpful, setHelpful, showCharacteristics, setShowCharacteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>

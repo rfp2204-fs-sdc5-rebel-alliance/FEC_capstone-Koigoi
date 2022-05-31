@@ -30,8 +30,8 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
   const [reviews, setReviews] = useState([]);
   const [allReviews, setAllReviews] = useState([])
   const [filterRatingsCount, setFilterRatingsCount] = useState(10);
-  const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
-  const { apiCount, reviewCount, setReviewCount, totalRatings, sort, numRating, setNumRating, filterNumRating, filtered, helpful, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel } = useContext(ReviewsContext);
+  const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent, totalRatings, setTotalRatings, setAverageRating } = useContext(ProdPageContext);
+  const { apiCount, reviewCount, setReviewCount, sort, ratings, setRatings, numRating, setNumRating, filterNumRating, filtered, helpful, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, setRecommended } = useContext(ReviewsContext);
 
   useEffect(() => {
       axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, {
@@ -47,10 +47,11 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       })
       .then((reviews) => {
         setAllReviews(reviews.data.results)
+        setTotalRatings(reviews.data.results.length);
         filterNumRatings(reviews.data.results)
       })
       .catch((err) => {console.log(err)})
-  }, [apiCount, sort, helpful]);
+  }, [apiCount, sort, helpful, totalRatings]);
 
   useEffect(() => {
 
@@ -79,10 +80,31 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       5: []
     }
 
+    let recommended = {
+      true: 0,
+      false: 0
+    }
+
+    let averageRating = 0;
+
     reviews.forEach((review) => {
       numRatingObj[review.rating].push(review);
+      recommended[review.recommend] += 1;
+      averageRating += review.rating;
     })
+
+    const ratingsCount = {
+      1: numRatingObj[1].length,
+      2: numRatingObj[2].length,
+      3: numRatingObj[3].length,
+      4: numRatingObj[4].length,
+      5: numRatingObj[5].length
+    }
+
+    setAverageRating(Math.round((averageRating / totalRatings) * 10) / 10);
     setNumRating(numRatingObj);
+    setRatings(ratingsCount);
+    setRecommended(recommended);
   }
 
   let moreReviewsButton = null;

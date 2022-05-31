@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import StarRating from '../shared_components/StarRating.jsx';
 
 import { ReviewsContext } from './RatingsAndReviews.jsx';
+import { ProdPageContext } from '../product_page.jsx';
 
 const AverageRating = styled.div`
   display: flex;
@@ -60,6 +61,7 @@ const RecommendedMessage = styled.div`
 
 function RatingBreakdown({ removeFilters, renderFilterRatings }) {
   const { ratings, totalRatings, avgRating, recommended, showRatings, setShowRatings, filtered } = useContext(ReviewsContext);
+  const { averageRating } = useContext(ProdPageContext);
 
   const handleRatingClick = (event) => {
     const starRating = event.target.value;
@@ -139,8 +141,8 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
   return (
     <div>
       <AverageRating>
-        {avgRating}
-        <AverageRatingStars>{StarRating(avgRating)}</AverageRatingStars>
+        {averageRating}
+        <AverageRatingStars>{StarRating(averageRating)}</AverageRatingStars>
       </AverageRating>
       <div>
         <h3>Rating Breakdown</h3>
