@@ -17,6 +17,8 @@ const ReviewCard = styled.div`
   padding: 20px 0px;
   font-weight: normal;
   font-size: 14px;
+  word-break: break-all;
+  overflow-wrap: break-word;
   `;
 
 const ReviewCardSection = styled.div`
