@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
+import ImageUpload from '../shared_components/ImageUpload.jsx';
+
 const FormSection = styled.div`
   font-size: 14px;
   margin: 20px 0px;
@@ -90,7 +92,6 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
-  const [displayPhotos, setDisplayPhotos] = useState(null);
   const [characteristicsValue, setCharacteristicsValue] = useState({});
   const [characteristicHover, setCharacteristicHover] = useState(null);
   const [characterCount, setCharacterCount] = useState(50);
@@ -98,19 +99,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   useEffect (() => {
     renderCharacteristicsInput();
 
-    if (photos.length > 0) {
-      setDisplayPhotos(
-        <FormSection>
-          <ThumbnailContainer>
-            {photos.map((photo, index) =>
-              <Image key={index} src={photo}/>
-            )}
-          </ThumbnailContainer>
-        </FormSection>
-      );
-    }
-
-  }, [characteristicsValue, photos])
+  }, [characteristicsValue])
 
   const handleBody = (event) => {
     let bodyContent = event.target.value;
@@ -123,27 +112,6 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     } else {
       setCharacterCount(50 - (bodyLength));
     }
-  }
-
-  const handlePhotos = (event) => {
-    const uploadedPhotos = event.target.files;
-
-    if (uploadedPhotos.length > 5) {
-      alert('You can only upload a maximum of five files');
-    } else {
-      for (let i = 0; i < uploadedPhotos.length; i++) {
-        const formData = new FormData();
-        formData.append("file", uploadedPhotos[i]);
-        formData.append("upload_preset", 'fjmeciqe');
-        uploadPhotos(formData);
-      }
-    }
-  }
-
-  const uploadPhotos = (photo) => {
-    axios.post(`https://api.cloudinary.com/v1_1/dgn6fimlv/image/upload`, photo)
-    .then((photo) => {setPhotos(prevArray => prevArray.concat(photo.data.url))})
-    .catch((err) => {console.log(err)})
   }
 
   const handleCharacteristics = (event) => {
@@ -353,12 +321,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
         </FormSection>
         <FormSection>
           <FormHeading>Upload your photos</FormHeading>
-          <input
-            type='file'
-            name='image'
-            onChange={handlePhotos}
-            multiple/>
-          {displayPhotos}
+          <ImageUpload photos={photos} setPhotos={setPhotos}/>
         </FormSection>
         <FormSection>
           <FormHeading>What is your nickname*</FormHeading>

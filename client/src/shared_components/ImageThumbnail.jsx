@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
-import { ProdPageContext } from '../product_page.jsx';
+import { AppContext } from '../index.jsx';
 
 const ThumbnailContainer = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const ModalImageContainer = styled.img`
 `;
 
 function ImageThumbnail ({images}) {
-  const { setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
+  const { setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(AppContext);
 
   if (!Array.isArray(images) || images.length === 0) {
     return null;
