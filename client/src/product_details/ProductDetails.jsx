@@ -32,11 +32,7 @@ const ProductDetails = () => {
   const [expanded, setExpanded] = useState(false);
 
   let getImages = () => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${prod_id}/styles`, {
-      headers: {
-        Authorization: config.TOKEN
-      }
-    })
+    axios.get(`/FEC/products/${prod_id}/styles`)
     .then((results) => {
       setProdStyles(results);
       results.data.results.forEach((style) => {
@@ -49,11 +45,7 @@ const ProductDetails = () => {
   }
 
   let getInfo = () => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${prod_id}`, {
-      headers: {
-        Authorization: config.TOKEN
-      }
-    })
+    axios.get(`/FEC/products/${prod_id}`)
     .then((results) => {
       setProdObj(results);
       setProdName(results.data.name);

@@ -1,6 +1,5 @@
 import React, { useState, createContext } from "react";
 import { render } from "react-dom";
-import axios from 'axios';
 
 import styled, {ThemeProvider} from 'styled-components';
 import {lightTheme, darkTheme, GlobalStyle} from './themes.js';
@@ -19,6 +18,7 @@ const App = () => {
   const [theme, setTheme] = useState('light');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : []);
   const [view, setView] = useState('Product');
+  const [prod_id, setProd] = useState(40344);
   const [showModal, setShowModal] = useState(false);
   const [modalBodyContent, setModalBodyContent] = useState(null);
   const [modalHeaderContent, setModalHeaderContent] = useState(null);
@@ -62,8 +62,8 @@ const App = () => {
 
           </nav>
         </header>
-        <AppContext.Provider value={{cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
-          <h1>{renderView()}</h1>
+        <AppContext.Provider value={{prod_id, setProd, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
+          <div>{renderView()}</div>
           <Modal />
         </AppContext.Provider>
       </AppStyle>
