@@ -67,8 +67,6 @@ const ShopSection = () => {
       setQuantOptions([]);
       return;
     }
-    console.log('imageGallery:', imageGallery);
-    console.log('prodObj:', prodObj);
 
     setSku(sku);
     setSize(imageGallery.skus[sku].size);

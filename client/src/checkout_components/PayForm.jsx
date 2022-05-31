@@ -34,7 +34,7 @@ const PayForm = () => {
       }
       for (let i = 0; i < item.quant; i++) {
         tempArray.push(
-          axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart', data, {
+          axios.post(`/FEC/cart`, data, {
             headers: {
               Authorization: config.TOKEN
             }
