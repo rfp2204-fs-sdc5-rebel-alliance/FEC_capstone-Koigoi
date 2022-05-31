@@ -6,6 +6,7 @@ import config from '../../dist/config.js';
 
 //may need to import more stuff to begin work
 import Gallery from './Gallery.jsx';
+import ExpandedView from './ExpandedView.jsx';
 import ProductInfo from './ProductInfo.jsx';
 import ProductDesc from './ProductDesc.jsx';
 import ProductFeatures from './ProductFeatures.jsx';
@@ -28,6 +29,7 @@ const ProductDetails = () => {
   const [prodObj, setProdObj] = useState({});
   const [prodStyles, setProdStyles] = useState({});
   const [imageGallery, setGallery] = useState({});
+  const [expanded, setExpanded] = useState(false);
 
   let getImages = () => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${prod_id}/styles`, {
@@ -64,8 +66,22 @@ const ProductDetails = () => {
     getInfo();
   }, [prod_id]);
 
+  if (expanded) {
+    return (
+      <ProdDetailsContext.Provider value={{index, setIndex, prodObj, setProdObj, prodStyles, setProdStyles, imageGallery, setGallery, expanded, setExpanded}}>
+      <MainWrapper>
+        <ExpandedView />
+      </MainWrapper>
+      <MainWrapper>
+        <ProductDesc />
+        <ProductFeatures />
+      </MainWrapper>
+    </ProdDetailsContext.Provider>
+    )
+  }
+
   return (
-    <ProdDetailsContext.Provider value={{index, setIndex, prodObj, setProdObj, prodStyles, setProdStyles, imageGallery, setGallery}}>
+    <ProdDetailsContext.Provider value={{index, setIndex, prodObj, setProdObj, prodStyles, setProdStyles, imageGallery, setGallery, expanded, setExpanded}}>
       <MainWrapper>
         <Gallery />
         <ProductInfo />
@@ -75,7 +91,6 @@ const ProductDetails = () => {
         <ProductFeatures />
       </MainWrapper>
     </ProdDetailsContext.Provider>
-
   )
 
 }

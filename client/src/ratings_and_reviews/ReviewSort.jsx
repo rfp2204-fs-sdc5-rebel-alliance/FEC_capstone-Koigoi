@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import { ReviewsContext } from './RatingsAndReviews.jsx';
@@ -18,19 +18,14 @@ const SortForm = styled.select`
 `;
 
 function ReviewSort() {
-  const { totalRatings, sort, setSort, setToggleSort } = useContext(ReviewsContext);
-
-  const handleChange = (event) => {
-    setToggleSort(true);
-    setSort(event.target.value);
-  }
+  const { totalRatings, sort, setSort } = useContext(ReviewsContext);
 
   return (
     <ReviewSortContainer>
       <br></br>
       <span>{totalRatings} reviews, sorted by </span>
       <form>
-        <SortForm onChange={handleChange}>
+        <SortForm onChange={(event) => {setSort(event.target.value)}}>
           <option value={'relevant'}>relevant</option>
           <option value={'newest'}>newest</option>
           <option value={'helpful'}>helpful</option>
