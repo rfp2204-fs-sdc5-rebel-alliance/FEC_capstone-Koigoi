@@ -4,7 +4,7 @@ import { fetchData, fetchRatingsData } from './fetchData.js';
 import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
 import YourOutfitCarousel from './YourOutfitCarousel.jsx';
 import getOutfitDetails from './fetchYourOutfitData.js';
-// import Empty Card
+import EmptyCard from './YourOutfitEmptyCard.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';

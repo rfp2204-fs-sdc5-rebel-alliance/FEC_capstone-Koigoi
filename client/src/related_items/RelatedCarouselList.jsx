@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { ProdPageContext } from '../product_page.jsx';
+import StarRating from '../shared_components/StarRating.jsx';
+import ComparisonModal from './ComparisonModal.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
-import StarRating from '../shared_components/StarRating.jsx';
-import ComparisonModal from './ComparisonModal.jsx';
-import { ProdPageContext } from '../product_page.jsx';
 
 const Carousel = (productDetails) => {
   const {prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);

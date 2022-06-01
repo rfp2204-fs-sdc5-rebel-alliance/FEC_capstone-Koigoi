@@ -1,5 +1,4 @@
 import React, { useState, useContext, createContext } from 'react';
-import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
 import RelatedProductDetails from './RelatedProductDetails.jsx';
 import YourOutfitDetails from './YourOutfitDetails.jsx';

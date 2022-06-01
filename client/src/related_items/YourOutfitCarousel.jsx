@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { ProdPageContext } from '../product_page.jsx';
+import StarRating from '../shared_components/StarRating.jsx';
+import getOutfitDetails from './fetchYourOutfitData.js';
+import EmptyCard from './YourOutfitEmptyCard.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
-import StarRating from '../shared_components/StarRating.jsx';
-import { ProdPageContext } from '../product_page.jsx';
-import getOutfitDetails from './fetchYourOutfitData.js';
 
 const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage }) => {
   const {prod_id} = useContext(ProdPageContext);
