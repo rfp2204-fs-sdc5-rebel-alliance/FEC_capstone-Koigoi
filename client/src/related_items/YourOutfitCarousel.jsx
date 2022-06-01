@@ -11,7 +11,7 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
   const {prod_id} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 3));
-  const maxDisplay = outfitDetails.length > 0 ? outfitDetails.length - 3 : 3;
+  const maxDisplay = outfitDetails.length - 3;
   const placeholder = 'http://placecorgi.com/260/180';
 
   const nextSlide = () => {
@@ -21,10 +21,6 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
   const prevSlide = () => {
     setCurrentImageIdx(currentImageIdx === 0 ? 0 : currentImageIdx - 1);
   };
-
-  // useEffect(() => {
-  //   setCurrentImageIdx(0);
-  // }, [outfitDetails]);
 
   return (
     <div>
@@ -62,9 +58,9 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
               )
             })}
         </CarouselWrapper>
-          {currentImageIdx === maxDisplay ?
-          <RightArrowTransparent icon={faAngleRight} /> :
-          <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/>}
+          {(currentImageIdx !== maxDisplay && display.length >= 3) ?
+          <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/> :
+          <RightArrowTransparent icon={faAngleRight}/>}
       </CarouselContainer>
     </div>
   )
