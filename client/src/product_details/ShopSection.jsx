@@ -11,30 +11,37 @@ import QuantForm from './components/QuantForm.jsx';
 
 const Container = styled.div`
   width: 100%;
-  border: 0.5rem solid green;
   display: block;
-  justify-content: center;
-  align-items: center;
+  align-items: left;
 `;
 
-const FormStyle = styled.div`
+const ComponentStyle = styled.div`
   display: flex;
-  justify-content: center;
   margin: 1rem;
 `;
 
 const SelectStyle = styled.select`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 1rem 0 1rem;
+  appearance: none;
+  width: 6rem;
+  border-radius: 1rem;
+  text-align: center;
+  margin: 0 2rem 0 0;
+  &:hover {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  }
 `;
 
 const ButtonStyle = styled.button`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 1rem 0 1rem;
+  flex-direction: column;
+  padding: 0.25rem 1rem;
+  border-radius: 1rem;
+  color: #fff;
+  background: #111;
+  &:hover {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  }
 `;
 
 export const ShopContext = createContext();
@@ -48,10 +55,9 @@ const ShopSection = () => {
   const [name, setName] = useState(0);
   const [style, setStyle] = useState('');
   const [size, setSize] = useState('');
+  const [image, setImage] = useState('No Image');
   const [quantOptions, setQuantOptions] = useState([]);
   const [quant, setQuant] = useState(0);
-
-  //console.log('imageGallery:', imageGallery);
 
   let onSelectSize = (sku) => {
     setName(prodObj.data.name);
@@ -66,6 +72,10 @@ const ShopSection = () => {
       setSize('');
       setQuantOptions([]);
       return;
+    }
+
+    if (imageGallery.photos.length) {
+      setImage(imageGallery.photos[0].thumbnail_url);
     }
 
     setSku(sku);
@@ -100,14 +110,14 @@ const ShopSection = () => {
 
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].sku === sku) {
-        let tempArray = cart;
+        let tempArray = [...cart];
         tempArray[i].quant += Number(quant);
         setCart(tempArray);
         return;
       }
     }
 
-    let tempObj = {'sku': sku, 'name': name, 'style': style, 'price': price, 'size': size, 'quant': Number(quant)};
+    let tempObj = {'sku': sku, 'name': name, image: image,'style': style, 'price': price, 'size': size, 'quant': Number(quant), quantOptions: quantOptions};
     setCart(cart.concat(tempObj));
   }
 
@@ -120,7 +130,7 @@ const ShopSection = () => {
   } else {
     return (
       <Container>
-        <FormStyle>
+        <ComponentStyle>
           <SelectStyle onChange={() => {onSelectSize(event.target.value)}}>
             <option value={'Select'}>Size</option>
             {
@@ -137,10 +147,11 @@ const ShopSection = () => {
                 <QuantForm />
             </SelectStyle>
           </ShopContext.Provider>
-        </FormStyle>
-        <FormStyle>
           <ButtonStyle onClick={() => {addToCart()}}>Add to Cart</ButtonStyle>
-        </FormStyle>
+        </ComponentStyle>
+        <ComponentStyle>
+          Adding Social Media here.
+        </ComponentStyle>
       </Container>
     )
   }

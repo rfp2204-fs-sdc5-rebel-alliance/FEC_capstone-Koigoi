@@ -10,6 +10,7 @@ const Search = () => {
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
+    searchQuestions(search);
   }
   const handleSearch = (e) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ const Search = () => {
         type="text"
         placeholder="Have a question? Search for answers…"
         value={search}
+        size="40"
         onChange={handleSearchChange}
       />
       <button type="submit" onClick={handleSearch} >Search</button>

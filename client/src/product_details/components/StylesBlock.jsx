@@ -14,9 +14,9 @@ const ImgContainer = styled.div`
   display: inline-block;
   justify-content: center;
   align-items: center;
-  width: 20%;
+  width: 15%;
   aspect-ratio: 1/1;
-  margin: 0.5rem;
+  margin: 1rem;
 `;
 
 const ImgStyle = styled.img`

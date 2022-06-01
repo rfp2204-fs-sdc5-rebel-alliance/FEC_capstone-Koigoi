@@ -14,7 +14,6 @@ import ImageList from './components/ImageList.jsx';
 
 const Container = styled.div`
   width: 60%;
-  border: 0.5rem solid blue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,11 +23,10 @@ const Container = styled.div`
 const ExpandStyle = styled.div`
   position: absolute;
   top: 1rem;
-  right: 1rem;
-  transform: scale(0.75);
+  left: 1rem;
   &:hover,
   &:focus {
-    transform: scale(1);
+    transform: scale(1.2);
   }
 `;
 

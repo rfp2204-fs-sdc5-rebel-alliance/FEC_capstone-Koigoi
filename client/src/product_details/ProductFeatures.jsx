@@ -9,10 +9,10 @@ import config from '../../dist/config.js';
 
 const Container = styled.div`
   width: 40%;
-  border: 0.5rem solid green;
   display: block;
   justify-content: center;
   align-items: center;
+  margin-left: 5rem;
 `;
 
 const FeatureText = styled.div`
