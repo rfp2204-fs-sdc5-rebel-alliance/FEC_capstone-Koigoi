@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import config from '../../dist/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
@@ -72,7 +71,7 @@ const CharacteristicOptions = styled.div`
 
 `;
 
-function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel }) {
+function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, setShowModal }) {
   const [rating, setRating] = useState(0);
   const [ratingHover, setRatingHover] = useState(null);
   const [summary, setSummary] = useState('');
@@ -134,12 +133,8 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
       'characteristics': characteristicsValue
     }
 
-    axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, newReviewData, {
-      headers: {
-        Authorization: config.TOKEN
-      }
-    })
-    .then(() => {console.log('Success')})
+    axios.post(`/FEC/reviews/`, newReviewData)
+    .then(() => {setShowModal(false)})
     .catch((err) => {
       console.log(err)
     })
