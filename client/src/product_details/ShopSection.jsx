@@ -55,6 +55,7 @@ const ShopSection = () => {
   const [name, setName] = useState(0);
   const [style, setStyle] = useState('');
   const [size, setSize] = useState('');
+  const [image, setImage] = useState('No Image');
   const [quantOptions, setQuantOptions] = useState([]);
   const [quant, setQuant] = useState(0);
 
@@ -73,6 +74,10 @@ const ShopSection = () => {
       setSize('');
       setQuantOptions([]);
       return;
+    }
+
+    if (imageGallery.photos.length) {
+      setImage(imageGallery.photos[0].thumbnail_url);
     }
 
     setSku(sku);
@@ -107,14 +112,14 @@ const ShopSection = () => {
 
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].sku === sku) {
-        let tempArray = cart;
+        let tempArray = [...cart];
         tempArray[i].quant += Number(quant);
         setCart(tempArray);
         return;
       }
     }
 
-    let tempObj = {'sku': sku, 'name': name, 'style': style, 'price': price, 'size': size, 'quant': Number(quant)};
+    let tempObj = {'sku': sku, 'name': name, image: image,'style': style, 'price': price, 'size': size, 'quant': Number(quant), quantOptions: quantOptions};
     setCart(cart.concat(tempObj));
   }
 

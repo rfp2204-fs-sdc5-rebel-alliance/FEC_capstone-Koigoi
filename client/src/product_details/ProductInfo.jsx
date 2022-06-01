@@ -55,19 +55,18 @@ const PercentText = styled.div`
 `;
 
 const ProductInfo = () => {
-  const {prod_id} = useContext(ProdPageContext);
+  const {prod_id, averageRating, totalRatings} = useContext(ProdPageContext);
   const {prodObj, setProdObj, prodStyles, setProdStyles, imageGallery} = useContext(ProdDetailsContext);
-  const {ratingsObj} = useContext(ProdPageContext);
 
   if (!prodObj.data) {
   return null;
   }
   return (
     <Container>
-      {ratingsObj.totalRatings > 0 &&
+      {totalRatings > 0 &&
         <div>
-          <CategoryText>{StarRating(ratingsObj.avgRating)}</CategoryText>
-          <CategoryText onClick={() => window.location.replace("/#RatingsAndReviews")}>Read all {ratingsObj.totalRatings} reviews</CategoryText>
+          <CategoryText>{StarRating(averageRating)}</CategoryText>
+          <CategoryText onClick={() => window.location.replace("/#RatingsAndReviews")}>Read all {totalRatings} reviews</CategoryText>
         </div>
       }
       <NameText>{prodObj.data.name}</NameText>
