@@ -22,7 +22,6 @@ const RelatedProductDetails = () => {
         return Promise.all(promiseArray)
       })
       .then((allRelatedProductsData) => {
-        console.log('allRelatedProductsData',allRelatedProductsData);
         const styles = [];
         const products = [];
         const ratings = [];
