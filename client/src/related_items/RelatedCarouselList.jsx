@@ -35,91 +35,85 @@ const Carousel = (productDetails) => {
   }
 
   return (
-    <CarouselContainer>
+    <CarouselList>
       {currentImageIdx !== 0 ?
-      <LeftArrow><FontAwesomeIcon icon={faAngleLeft} onClick={() => prevSlide()}/></LeftArrow>
-      : null}
+      <LeftArrow icon={faAngleLeft} onClick={() => prevSlide()}/> : <LeftArrowTransparent icon={faAngleLeft}/>}
       <CarouselWrapper>
         {display.map((details) => {
           return (
             <IndividualCardStyle key={details.id}>
-              <ImageStyle
-                src={details.images === null ? placeholder : details.images}
-              />
-              <ButtonStyle onClick={() => handleModalClick(details.id)}> <FontAwesomeIcon icon={faStar} size='2xs' color='white'/></ButtonStyle>
-              <CategoryStyle>{details.categories}</CategoryStyle>
-              <NameStyle>{details.names}</NameStyle>
-              <PriceStyle>${details.prices}</PriceStyle>
-              <RatingsStyle>{StarRating(details.ratings.avgRating)}</RatingsStyle>
+              <ImageWrapper>
+                <ImageStyle
+                  src={details.images === null ? placeholder : details.images}
+                />
+                <ButtonStyle onClick={() => handleModalClick(details.id)}> <FontAwesomeIcon icon={faStar}/></ButtonStyle>
+              </ImageWrapper>
+              <DetailsWrapper>
+                <CategoryStyle>{details.categories}</CategoryStyle>
+                <NameStyle>{details.names}</NameStyle>
+                <PriceStyle>${details.prices}</PriceStyle>
+                <RatingsStyle>{StarRating(details.ratings.avgRating)}</RatingsStyle>
+              </DetailsWrapper>
             </IndividualCardStyle>
           )
         })}
       </CarouselWrapper>
-      {currentImageIdx === maxDisplay ? null :
-      <RightArrow><FontAwesomeIcon icon={faAngleRight} onClick={() => nextSlide()}/></RightArrow>}
-    </CarouselContainer>
+      {currentImageIdx === maxDisplay ?
+      <RightArrowTransparent icon={faAngleRight} fill='transparent'/> :
+      <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/>}
+    </CarouselList>
   )
 }
 
-const CarouselContainer = styled.div`
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+const CarouselList = styled.div`
+  display: flex;
+  flex-direction: row;
   position: relative;
-  max-width: 1000px;
-  left: 50%;
-  transform: translateX(-50%);
 `;
 
 const CarouselWrapper = styled.div`
+  flex-direction: row;
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  overflow: hidden;
-`;
-
-const LeftArrow = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 32px;
-`;
-
-const RightArrow = styled.div`
-  position: absolute;
-  top: 50%;
-  right: 32px;
+  width: 100%
 `;
 
 const IndividualCardStyle = styled.div`
-  position: relative;
-  border: 1px solid black;
-  // min-width: 250px;
-  width: 250px;
-  height: fit-content;
-  margin-right: 30px;
-  margin-bottom: 10px;
+  display: block;
   border-radius: 5px;
+  padding: 20px;
+  border-width: 1px;
+  border-style: solid;
+  margin: 15px;
+  flex-direction: column;
+  flex-wrap: nowrap;
   &:hover {
     box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
   }
+  width: fit-content;
+  height: fit-content;
+  overflow: hidden;
+`;
+
+const ImageWrapper = styled.div`
+  height: 235px;
+  width: 220px;
+  overflow: hidden;
   object-fit: cover;
 `;
 
-const ButtonStyle = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: none;
-  border: none;
-`;
-
 const ImageStyle = styled.img`
+  display: block;
   background-size: contain;
   background-position: center;
   width: 100%;
-  height: 250px;
+  height: 100%;
+`;
+
+const DetailsWrapper = styled.div`
   position: relative;
+  top: 10%;
 `;
 
 const CategoryStyle = styled.div`
@@ -127,6 +121,7 @@ const CategoryStyle = styled.div`
   text-transform: uppercase;
   font-size: 15px;
   padding-left: 5px;
+  padding-top: 10px;
 `;
 
 const NameStyle = styled.div`
@@ -145,6 +140,97 @@ const RatingsStyle = styled.div`
   font-weight: normal;
   font-size: 15px;
   padding-left: 5px;
+`;
+
+const LeftArrow = styled(FontAwesomeIcon)`
+  position: relative;
+  height: 30px;
+  width: auto;
+  top: 200px;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+  }
+`;
+
+const LeftArrowTransparent = styled(FontAwesomeIcon)`
+  position: relative;
+  height: 30px;
+  width: auto;
+  top: 200px;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+  }
+  opacity: .01;
+  color: rgba(0, 0, 0, 0.75);
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  filter: blur(2px);
+`;
+
+const RightArrow = styled(FontAwesomeIcon)`
+  position: relative;
+  height: 30px;
+  width: auto;
+  top: 200px;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+  }
+`;
+
+const RightArrowTransparent = styled(FontAwesomeIcon)`
+  position: relative;
+  height: 30px;
+  width: auto;
+  top: 200px;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+  }
+  opacity: .01;
+  color: rgba(0, 0, 0, 0.75);
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  filter: blur(2px);
+`;
+
+const ButtonStyle = styled.button`
+  bottom: 250px;
+  left: 190px;
+  position: relative;
+  border: 1px solid #1A1A1A;
+  border-radius: 15px;
+  color: #3B3B3B;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  padding: 2px 3px;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  touch-action: manipulation;
+  will-change: transform;
+
+  &:disabled {
+    pointer-events: none;
+  }
+
+  &:hover {
+    color: yellow;
+    background-color: #1A1A1A;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
 `;
 
 export default Carousel;
