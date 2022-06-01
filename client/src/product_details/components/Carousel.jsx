@@ -27,6 +27,7 @@ const ImgStyle = styled.img`
   align-items: center;
   width: 25rem;
   height: auto;
+  box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
 `;
 
 const ArrowStyle = styled.div`
@@ -68,7 +69,7 @@ const Carousel = (slides) => {
       <ImgContainer>
         {slides.map((slide, number) => {
           return (
-            <div key={number}>
+            <div className={number === index ? 'slide active' : 'slide'} key={number}>
               {number === index && (
                 <ImgStyle src={slide.url} alt="No Image" />
               )}

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +15,7 @@ const CharacteristicBarContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 30px;
-  background-color: white;
+  border: 1px solid black;
 `;
 
 const CharacteristicName = styled.h4`

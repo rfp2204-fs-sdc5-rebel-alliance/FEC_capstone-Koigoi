@@ -9,7 +9,6 @@ const Checkout = () => {
 
   const MainWrapper = styled.div`
   width: 100%;
-  border: 0.5rem solid black;
   display: flex;
   justify-content: center;
   align-items: top;
@@ -17,7 +16,6 @@ const Checkout = () => {
 
   return (
     <div>
-      <h1>This is a Checkout Page</h1>
       <MainWrapper>
         <CartDisplay />
         <PayForm />

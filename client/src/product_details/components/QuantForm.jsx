@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {ProdDetailsContext} from '../ProductDetails.jsx';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';
 
 import {ShopContext} from '../ShopSection.jsx';
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import config from '../../dist/config.js';
 import styled from 'styled-components';
 
 const FormSection = styled.div`

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import axios from 'axios';
-import config from '../../dist/config.js';
 import styled from 'styled-components';
 
 import { ProdPageContext } from '../product_page.jsx';
@@ -56,10 +55,7 @@ function RatingsAndReviews() {
   const { prod_id, ratingsObj, setRatingsObj, totalRatings } = useContext(ProdPageContext);
 
   useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta`, {
-        headers: {
-          Authorization: config.TOKEN
-        },
+    axios.get(`/reviews/meta`, {
         params: {
           product_id: prod_id
         }

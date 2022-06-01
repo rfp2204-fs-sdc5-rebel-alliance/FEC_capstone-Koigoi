@@ -1,6 +1,5 @@
 import React, { useState, createContext } from "react";
 import { render } from "react-dom";
-import axios from 'axios';
 
 import styled, {ThemeProvider} from 'styled-components';
 import {lightTheme, darkTheme, GlobalStyle} from './themes.js';
@@ -12,24 +11,24 @@ import Modal from './shared_components/Modal.jsx';
 export const AppContext = createContext();
 
 const AppStyle = styled.div`
-  color: ${props => props.theme.fontColor}
+  color: ${props => props.theme.fontColor};
+
 `;
 
 const App = () => {
   const [theme, setTheme] = useState('light');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : []);
   const [view, setView] = useState('Product');
+  const [prod_id, setProd] = useState(40344);
   const [showModal, setShowModal] = useState(false);
   const [modalBodyContent, setModalBodyContent] = useState(null);
   const [modalHeaderContent, setModalHeaderContent] = useState(null);
 
   const themeToggle = () => {
-    console.log('toggle clicked');
     theme === 'light' ? setTheme('dark') : setTheme('light');
   }
 
   const changeView = (name) => {
-    console.log('Changing view to ' + name);
     setView(name);
   }
 
@@ -52,7 +51,7 @@ const App = () => {
       <AppStyle>
         <header>
           <nav>
-            <h1>Cyclops Inc.</h1>
+            <h1>koigoi</h1>
             <ul>
               <li onClick={() => {themeToggle()}}>Toggle</li>
               <li onClick={() => {changeView('Home')}}>Home</li>
@@ -62,8 +61,8 @@ const App = () => {
 
           </nav>
         </header>
-        <AppContext.Provider value={{cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
-          <h1>{renderView()}</h1>
+        <AppContext.Provider value={{prod_id, setProd, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
+          <div>{renderView()}</div>
           <Modal />
         </AppContext.Provider>
       </AppStyle>
