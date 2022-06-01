@@ -17,12 +17,13 @@ overflow: scroll;
 const QuestionList = () => {
 
   const [questions, setQuestions] = useState([]);
-  // const [filteredQuestion, setFilteredQuestion] = useState([])
+  const [filteredQuestions, setFilteredQuestions] = useState(questions);
   const { prod_id, prod_name, setShowModal, setModalBodyContent,setModalHeaderContent} = useContext(ProdPageContext);
-  const [questionsToShow, setQuestionsToShow] = useState(2);
+  const [questionsToShow, setQuestionsToShow] = useState(4);
   const [expanded, setExpanded] = useState(false);
   const [show, setShow] = useState(true);
   const [count, setCount] = useState(0);
+  const [filtered, setFiltered] = useState(false);
 
 
   const title = 'QUESTIONS & ANSWERS';
@@ -45,15 +46,15 @@ const QuestionList = () => {
 
   const searchQuestions = (word) => {
     let search = word.toLowerCase();
-    let result;
-    if (word.length > 2) {
-      result = questions.filter((item) => item.question_body.includes(search))
-      setQuestions(result);
+    let result = questions.filter((item) => item.question_body.toLowerCase().includes(search))
+    setFilteredQuestions(result);
+    if (word.length > 1) {
+      setFiltered(true);
     } else if (word.length <=1) {
-
+      setFiltered(false);
       setCount(count + 1);
       setExpanded(false);
-      setQuestionsToShow(2);
+      setQuestionsToShow(4);
       setShow(true);
     }
   }
@@ -66,11 +67,14 @@ const QuestionList = () => {
     }
   }
 
+
   const handleModal = () => {
     setModalHeaderContent('Your Question')
     setModalBodyContent(<AddQuestionForm prodId={prod_id} prodName={prod_name} count={count} setCount={setCount}/>);
     setShowModal(true);
   }
+
+  const questionList = filtered ? filteredQuestions : questions;
 
   return (
     <div>
@@ -78,9 +82,10 @@ const QuestionList = () => {
       <QuestionContext.Provider value={{searchQuestions, count, setCount }}>
         <Search />
         <QuestionListContainer>
-          {questions.slice(0, questionsToShow).map((item) => <QuestionEntry key={item.question_id} entry={item} />)}
+          {filtered && questionList.length === 0 && <p> No questions found. Please, clear the search field</p> }
+          {questionList.slice(0, questionsToShow).map((item) => <QuestionEntry key={item.question_id} entry={item} />)}
         </QuestionListContainer>
-        {show ? <button onClick={loadMoreQuestions}> MORE ANSWERED QUESTIONS </button> : null}
+        {show ? <button onClick={loadMoreQuestions}> MORE ANSWERED QUESTIONS </button> : null} &nbsp;&nbsp;&nbsp;
         <button onClick={handleModal}> ADD A QUESTION + </button>
       </QuestionContext.Provider>
     </div>
