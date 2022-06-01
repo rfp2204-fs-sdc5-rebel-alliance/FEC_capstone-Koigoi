@@ -26,9 +26,10 @@ const RelatedProductsSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: nowrap;
-  max-width: 1200px;
+  max-width: 1080px;
+  padding-bottom: 20px;
 
 `;
 

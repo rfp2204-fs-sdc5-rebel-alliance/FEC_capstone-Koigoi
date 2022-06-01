@@ -69,6 +69,8 @@ const CarouselList = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CarouselWrapper = styled.div`
@@ -82,7 +84,6 @@ const CarouselWrapper = styled.div`
 const IndividualCardStyle = styled.div`
   display: block;
   border-radius: 5px;
-  padding: 20px;
   border-width: 1px;
   border-style: solid;
   margin: 15px;
@@ -91,16 +92,16 @@ const IndividualCardStyle = styled.div`
   &:hover {
     box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
   }
-  width: fit-content;
+  width: 240px;
   height: fit-content;
   overflow: hidden;
 `;
 
 const ImageWrapper = styled.div`
-  height: 235px;
-  width: 220px;
+  height: 230px;
+  width: 240px;
   overflow: hidden;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 const ImageStyle = styled.img`
@@ -201,8 +202,8 @@ const RightArrowTransparent = styled(FontAwesomeIcon)`
 `;
 
 const ButtonStyle = styled.button`
-  bottom: 250px;
-  left: 190px;
+  bottom: 245px;
+  left: 210px;
   position: relative;
   border: 1px solid #1A1A1A;
   border-radius: 15px;

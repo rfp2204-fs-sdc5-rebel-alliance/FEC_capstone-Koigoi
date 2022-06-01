@@ -5,6 +5,8 @@ import sharedReviewsComponent from '../shared_components/sharedReviewsComponent'
 import YourOutfitCarousel from './YourOutfitCarousel.jsx';
 import getOutfitDetails from './fetchYourOutfitData.js';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 const YourOutfitDetails = () => {
   const {prod_id} = useContext(ProdPageContext);
@@ -42,7 +44,8 @@ const YourOutfitDetails = () => {
 
   if (windowLocalStorage.length === 0) {
     return (
-      <EmptyCardContainer>
+      <CarouselContainer>
+        <LeftArrowTransparent icon={faAngleLeft}/>
         <CarouselWrapper>
           <IndividualCardStyle>
               <AddIcon onClick={(e) => saveToStorage(e, prod_id)}>
@@ -50,7 +53,7 @@ const YourOutfitDetails = () => {
               </AddIcon>
             </IndividualCardStyle>
         </CarouselWrapper>
-      </EmptyCardContainer>
+      </CarouselContainer>
     )
   } else {
     return (
@@ -74,12 +77,6 @@ const CarouselContainer = styled.div`
   width: 100%;
 `;
 
-const EmptyCardContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  position: relative;
-`;
-
 const CarouselWrapper = styled.div`
   flex-direction: row;
   position: relative;
@@ -91,7 +88,6 @@ const CarouselWrapper = styled.div`
 const IndividualCardStyle = styled.div`
   display: block;
   border-radius: 5px;
-  padding: 20px;
   border-width: 1px;
   border-style: solid;
   margin: 15px;
@@ -100,11 +96,10 @@ const IndividualCardStyle = styled.div`
   &:hover {
     box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
   }
-  width: 262px;
-  height: 385px;
+  width: 240px;
+  height: 340px;
   object-fit: contain;
   overflow: hidden;
-  margin-left: 30px;
   text-align: center;
 `;
 
@@ -175,6 +170,23 @@ const AddIcon = styled.button`
   &:disabled {
   box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
   }
+`;
+
+const LeftArrowTransparent = styled(FontAwesomeIcon)`
+  position: relative;
+  height: 30px;
+  width: auto;
+  top: 200px;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+  }
+  opacity: .01;
+  color: rgba(0, 0, 0, 0.75);
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  filter: blur(2px);
 `;
 
 export default YourOutfitDetails;
