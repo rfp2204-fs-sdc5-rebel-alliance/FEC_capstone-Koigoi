@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ProdPageContext } from '../product_page.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,8 +7,6 @@ import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 const EmptyCard = ({saveToStorage}) => {
   const {prod_id} = useContext(ProdPageContext);
   return (
-    <CarouselContainer>
-      <LeftArrowTransparent icon={faAngleLeft}/>
       <CarouselWrapper>
           <IndividualCardStyle>
             <AddIcon onClick={(e) => saveToStorage(e, prod_id)}>
@@ -16,19 +14,8 @@ const EmptyCard = ({saveToStorage}) => {
             </AddIcon>
           </IndividualCardStyle>
       </CarouselWrapper>
-      <RightArrowTransparent icon={faAngleRight} />
-    </CarouselContainer>
   )
 }
-
-const CarouselContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  position: relative;
-  width: 100%;
-`;
 
 const CarouselWrapper = styled.div`
   flex-direction: row;
@@ -123,40 +110,6 @@ const AddIcon = styled.button`
   &:disabled {
   box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
   }
-`;
-
-const LeftArrowTransparent = styled(FontAwesomeIcon)`
-  position: relative;
-  height: 30px;
-  width: auto;
-  top: 170px;
-  cursor: pointer;
-  user-select: none;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-  opacity: .01;
-  color: rgba(0, 0, 0, 0.75);
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  filter: blur(2px);
-`;
-
-const RightArrowTransparent = styled(FontAwesomeIcon)`
-  position: relative;
-  height: 30px;
-  width: auto;
-  top: 170px;
-  cursor: pointer;
-  user-select: none;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-  opacity: .01;
-  color: rgba(0, 0, 0, 0.75);
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  filter: blur(2px);
 `;
 
 export default EmptyCard;

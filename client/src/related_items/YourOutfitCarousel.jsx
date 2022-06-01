@@ -24,53 +24,56 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
   };
 
   return (
-    <div>
-      <CarouselContainer>
-        {currentImageIdx !== 0 ?
+    <CarouselContainer>
+      {
+        currentImageIdx !== 0 ?
         <LeftArrow icon={faAngleLeft} onClick={() => prevSlide()}/> :
-        <LeftArrowTransparent icon={faAngleLeft}/>}
-        <CarouselWrapper>
-          <AddCard>
-            <AddIcon onClick={(e) => saveToStorage(e, prod_id)}>
-                Add To Outfit
-            </AddIcon>
-          </AddCard>
-            {display.map((details, index) => {
-              return (
-                <IndividualCardStyle key={index}>
-                  <ImageWrapper>
-                    <ImageStyle
-                      src={details.image === null ? placeholder : details.image}
+        <LeftArrowTransparent icon={faAngleLeft}/>
+      }
+      <CarouselWrapper>
+        <EmptyCard saveToStorage={saveToStorage}/>
+        {/* <AddCard>
+          <AddIcon onClick={(e) => saveToStorage(e, prod_id)}>
+              Add To Outfit
+          </AddIcon>
+        </AddCard> */}
+          {display.map((details, index) => {
+            return (
+              <IndividualCardStyle key={index}>
+                <ImageWrapper>
+                  <ImageStyle
+                    src={details.image === null ? placeholder : details.image}
+                  />
+                  <ButtonStyle>
+                    <FontAwesomeIcon
+                      icon={faCircleXmark}
+                      onClick={(e) => removeFromStorage(e, details.id)}
                     />
-                    <ButtonStyle>
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        onClick={(e) => removeFromStorage(e, details.id)}
-                      />
-                    </ButtonStyle>
-                  </ImageWrapper>
-                  <DetailsWrapper>
-                    <CategoryStyle>{details.category}</CategoryStyle>
-                    <NameStyle>{details.name}</NameStyle>
-                    <PriceStyle>${details.price}</PriceStyle>
-                    <RatingsStyle>{StarRating(details.rating)}</RatingsStyle>
-                  </DetailsWrapper>
-                </IndividualCardStyle>
-              )
-            })}
-        </CarouselWrapper>
-          {(currentImageIdx !== maxDisplay && display.length >= 3) ?
+                  </ButtonStyle>
+                </ImageWrapper>
+                <DetailsWrapper>
+                  <CategoryStyle>{details.category}</CategoryStyle>
+                  <NameStyle>{details.name}</NameStyle>
+                  <PriceStyle>${details.price}</PriceStyle>
+                  <RatingsStyle>{StarRating(details.rating)}</RatingsStyle>
+                </DetailsWrapper>
+              </IndividualCardStyle>
+            )
+          })}
+      </CarouselWrapper>
+        {
+          (currentImageIdx !== maxDisplay && display.length >= 3) ?
           <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/> :
-          <RightArrowTransparent icon={faAngleRight}/>}
-      </CarouselContainer>
-    </div>
+          <RightArrowTransparent icon={faAngleRight}/>
+        }
+    </CarouselContainer>
   )
 }
 
 const CarouselContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  // justify-content: center;
   align-items: flex-start;
   position: relative;
   width: 100%;
@@ -84,23 +87,23 @@ const CarouselWrapper = styled.div`
   align-items: center;
 `;
 
-const AddCard = styled.div`
-  display: block;
-  border-radius: 5px;
-  border-width: 1px;
-  border-style: solid;
-  margin: 15px;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-  width: 240px;
-  height: 340px;
-  object-fit: contain;
-  overflow: hidden;
-  text-align: center;
-`;
+// const AddCard = styled.div`
+//   display: block;
+//   border-radius: 5px;
+//   border-width: 1px;
+//   border-style: solid;
+//   margin: 15px;
+//   flex-direction: column;
+//   flex-wrap: nowrap;
+//   &:hover {
+//     box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+//   }
+//   width: 240px;
+//   height: 340px;
+//   object-fit: contain;
+//   overflow: hidden;
+//   text-align: center;
+// `;
 
 const IndividualCardStyle = styled.div`
   display: block;
