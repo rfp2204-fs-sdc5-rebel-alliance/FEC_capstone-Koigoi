@@ -101,7 +101,7 @@ const CartItem = ({item}) => {
         <div>${Math.trunc(item.price)}</div>
       </InfoContainer>
       <QuantContainer>
-        <div>Subtotal: ${Math.trunc(item.price * item.quant)}</div>
+        <div>${Math.trunc(item.price * item.quant)}</div>
         <SelectContainer>
           <SelectStyle defaultValue={item.quant} onChange={() => {onSelectQuant(event.target.value)}}>
             <option value={0}>Remove</option>

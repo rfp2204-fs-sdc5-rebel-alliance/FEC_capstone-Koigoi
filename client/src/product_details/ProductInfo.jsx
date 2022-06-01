@@ -74,11 +74,11 @@ const ProductInfo = () => {
       {imageGallery.sale_price === null ?
         <OtherText>${Math.trunc(imageGallery.original_price)}</OtherText>
         :
-        <>
+        <div>
           <DiscountText>${Math.trunc(imageGallery.sale_price)}</DiscountText>
           <StrikeText>${Math.trunc(imageGallery.original_price)}</StrikeText>
           <PercentText>{Math.trunc((imageGallery.original_price - imageGallery.sale_price) / imageGallery.original_price * 100)}% off</PercentText>
-        </>
+        </div>
       }
       <OtherText>Style: {imageGallery.name}</OtherText>
       <StylesBlock />

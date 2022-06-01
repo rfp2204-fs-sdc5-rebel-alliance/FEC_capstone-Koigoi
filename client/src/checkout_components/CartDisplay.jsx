@@ -11,15 +11,6 @@ const Container = styled.div`
 
 const CartDisplay = () => {
   const {cart, setCart} = useContext(AppContext);
-  const [total, setTotal] = useState(0);
-
-  let getTotal = () => {
-    let tempTotal = 0;
-    cart.forEach((item) => {
-      tempTotal += (item.price * item.quant)
-    });
-    setTotal(tempTotal);
-  }
 
   let handleDelete = (toRemove) => {
     let tempCart = cart.filter((item) => {
@@ -27,11 +18,6 @@ const CartDisplay = () => {
     })
     setCart(tempCart);
   }
-
-  useEffect(() => {
-    getTotal();
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart])
 
   return (
     <Container>
