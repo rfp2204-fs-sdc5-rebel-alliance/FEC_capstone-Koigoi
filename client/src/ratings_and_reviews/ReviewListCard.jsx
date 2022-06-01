@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import config from '../../dist/config.js';
 import formattedDate from '../shared_components/formattedDate.js';
 import StarRating from '../shared_components/StarRating.jsx';
 import styled from 'styled-components';
@@ -17,8 +16,8 @@ const ReviewCard = styled.div`
   padding: 20px 0px;
   font-weight: normal;
   font-size: 14px;
-  word-break: break-all;
   overflow-wrap: break-word;
+  white-space: normal;
   `;
 
 const ReviewCardSection = styled.div`
@@ -100,15 +99,11 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
       return;
     }
 
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, {}, {
-      headers: {
-        Authorization: config.TOKEN
-      }
-    })
+    axios.put(`/FEC/reviews/${id}/helpful`, {})
     .then(() => {setHelpful(prevHelpful => prevHelpful + 1)})
     .then(() => {setClickedHelpful(true)})
     .catch((err) => {
-      console.log(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`)
+      console.log(err)
     })
   }
 

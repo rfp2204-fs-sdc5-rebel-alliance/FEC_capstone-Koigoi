@@ -1,9 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import config from '../../dist/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
+
+import ImageUpload from '../shared_components/ImageUpload.jsx';
 
 const FormSection = styled.div`
   font-size: 14px;
@@ -70,18 +71,7 @@ const CharacteristicOptions = styled.div`
 
 `;
 
-const ThumbnailContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const Image = styled.img`
-  max-height: 75px;
-  margin-right: 10px;
-`;
-
-function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel }) {
+function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, setShowModal }) {
   const [rating, setRating] = useState(0);
   const [ratingHover, setRatingHover] = useState(null);
   const [summary, setSummary] = useState('');
@@ -90,27 +80,13 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
-  const [displayPhotos, setDisplayPhotos] = useState(null);
   const [characteristicsValue, setCharacteristicsValue] = useState({});
-  const [characteristicHover, setCharacteristicHover] = useState(null);
   const [characterCount, setCharacterCount] = useState(50);
 
   useEffect (() => {
     renderCharacteristicsInput();
 
-    if (photos.length > 0) {
-      setDisplayPhotos(
-        <FormSection>
-          <ThumbnailContainer>
-            {photos.map((photo, index) =>
-              <Image key={index} src={photo}/>
-            )}
-          </ThumbnailContainer>
-        </FormSection>
-      );
-    }
-
-  }, [characteristicsValue, photos])
+  }, [characteristicsValue])
 
   const handleBody = (event) => {
     let bodyContent = event.target.value;
@@ -123,27 +99,6 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     } else {
       setCharacterCount(50 - (bodyLength));
     }
-  }
-
-  const handlePhotos = (event) => {
-    const uploadedPhotos = event.target.files;
-
-    if (uploadedPhotos.length > 5) {
-      alert('You can only upload a maximum of five files');
-    } else {
-      for (let i = 0; i < uploadedPhotos.length; i++) {
-        const formData = new FormData();
-        formData.append("file", uploadedPhotos[i]);
-        formData.append("upload_preset", 'fjmeciqe');
-        uploadPhotos(formData);
-      }
-    }
-  }
-
-  const uploadPhotos = (photo) => {
-    axios.post(`https://api.cloudinary.com/v1_1/dgn6fimlv/image/upload`, photo)
-    .then((photo) => {setPhotos(prevArray => prevArray.concat(photo.data.url))})
-    .catch((err) => {console.log(err)})
   }
 
   const handleCharacteristics = (event) => {
@@ -178,17 +133,12 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
       'characteristics': characteristicsValue
     }
 
-    axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`, newReviewData, {
-      headers: {
-        Authorization: config.TOKEN
-      }
-    })
-    .then(() => {console.log('Success')})
+    axios.post(`/FEC/reviews/`, newReviewData)
+    .then(() => {setShowModal(false)})
     .catch((err) => {
       console.log(err)
     })
   }
-
 
   const StarRating = () => {
     return (
@@ -218,78 +168,48 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
 
   let characteristicsFormLayout = [];
 
-    const renderCharacteristicsInput = () => {
-      characteristicsFormLayout = [];
+  const renderCharacteristicsInput = () => {
+    characteristicsFormLayout = [];
 
-      Object.keys(characteristics).forEach((characteristic) => {
+    Object.keys(characteristics).forEach((characteristic) => {
+      let characteristicOptions = [];
+      let footerLabel = null;
 
-        characteristicsFormLayout.push(
-          <CharacteristicContainer>
-            <CharacteristicName>{characteristic}</CharacteristicName>
-            <CharacteristicBodyContainer>
+      [...Array(5)].map((label, index) => {
+        if (index === 0) {
+          footerLabel = characteristicLabels[characteristic][index]
+        }
 
-              <CharacteristicOptions>
-                <div style={showCharacteristicLabel[characteristic][0] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][0]}</div>
-                <CharacteristicRadioButtons
-                  type='radio'
-                  name={characteristic}
-                  value={1}
-                  onChange={handleCharacteristics}
-                  required/>
-                <CharacteristicLabelsContainer>{characteristicLabels[characteristic][0]}</CharacteristicLabelsContainer>
-              </CharacteristicOptions>
+        if (index === 4) {
+          footerLabel = characteristicLabels[characteristic][index]
+        }
 
-              <CharacteristicOptions>
-                <div style={showCharacteristicLabel[characteristic][1] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][1]}</div>
-                <CharacteristicRadioButtons
-                    type='radio'
-                    name={characteristic}
-                    value={2}
-                    onChange={handleCharacteristics}
-                    required/>
-                  <CharacteristicLabelsContainer></CharacteristicLabelsContainer>
-              </CharacteristicOptions>
-
-              <CharacteristicOptions>
-              <div style={showCharacteristicLabel[characteristic][2] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][2]}</div>
-                <CharacteristicRadioButtons
-                    type='radio'
-                    name={characteristic}
-                    value={3}
-                    onChange={handleCharacteristics}
-                    required/>
-                  <CharacteristicLabelsContainer></CharacteristicLabelsContainer>
-              </CharacteristicOptions>
-
-              <CharacteristicOptions>
-              <div style={showCharacteristicLabel[characteristic][3] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][3]}</div>
-                <CharacteristicRadioButtons
-                    type='radio'
-                    name={characteristic}
-                    value={4}
-                    onChange={handleCharacteristics}
-                    required/>
-                  <CharacteristicLabelsContainer></CharacteristicLabelsContainer>
-              </CharacteristicOptions>
-
-              <CharacteristicOptions>
-              <div style={showCharacteristicLabel[characteristic][4] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][4]}</div>
-                <CharacteristicRadioButtons
-                    type='radio'
-                    name={characteristic}
-                    value={5}
-                    onChange={handleCharacteristics}
-                    required/>
-                <CharacteristicLabelsContainer>{characteristicLabels[characteristic][4]}</CharacteristicLabelsContainer>
-              </CharacteristicOptions>
-
-            </CharacteristicBodyContainer>
-          </CharacteristicContainer>
+        characteristicOptions.push(
+          <CharacteristicOptions key={index}>
+              <div style={showCharacteristicLabel[characteristic][index] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][index]}</div>
+              <CharacteristicRadioButtons
+                type='radio'
+                name={characteristic}
+                value={index + 1}
+                onChange={handleCharacteristics}
+                required/>
+              <CharacteristicLabelsContainer>{footerLabel}</CharacteristicLabelsContainer>
+            </CharacteristicOptions>
         )
-      })
-    }
+      });
 
-    renderCharacteristicsInput();
+      characteristicsFormLayout.push(
+        <CharacteristicContainer>
+          <CharacteristicName>{characteristic}</CharacteristicName>
+          <CharacteristicBodyContainer>
+            {characteristicOptions}
+          </CharacteristicBodyContainer>
+        </CharacteristicContainer>
+      );
+    })
+  }
+
+  renderCharacteristicsInput();
 
   return (
     <div>
@@ -353,12 +273,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
         </FormSection>
         <FormSection>
           <FormHeading>Upload your photos</FormHeading>
-          <input
-            type='file'
-            name='image'
-            onChange={handlePhotos}
-            multiple/>
-          {displayPhotos}
+          <ImageUpload photos={photos} setPhotos={setPhotos}/>
         </FormSection>
         <FormSection>
           <FormHeading>What is your nickname*</FormHeading>
