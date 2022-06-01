@@ -59,22 +59,29 @@ const QuestionList = () => {
     }
   }
 
-  const loadMoreQuestions = () => {
-    if (questionsToShow < questions.length) {
-      setQuestionsToShow(questionsToShow + 2)
-    } else {
-      setShow(false);
-    }
-  }
-
-
   const handleModal = () => {
     setModalHeaderContent('Your Question')
     setModalBodyContent(<AddQuestionForm prodId={prod_id} prodName={prod_name} count={count} setCount={setCount}/>);
     setShowModal(true);
   }
 
+  const handleMoreQuestions = () => {
+    if (questionsToShow < questionList.length) {
+      setQuestionsToShow(questionsToShow + 2)
+    } else {
+    setShow(false)
+    }
+  }
+
   const questionList = filtered ? filteredQuestions : questions;
+
+  let moreAnsweredQuestions;
+  if (questionList.length > 4) {
+    moreAnsweredQuestions = <button onClick={handleMoreQuestions}> MORE ANSWERED QUESTIONS </button>
+  } else {
+    moreAnsweredQuestions = null
+  }
+
 
   return (
     <div>
@@ -83,9 +90,10 @@ const QuestionList = () => {
         <Search />
         <QuestionListContainer>
           {filtered && questionList.length === 0 && <p> No questions found. Please, clear the search field</p> }
+          {!filtered && questionList.length === 0 && <p>No questions. Make a question about {prod_name}</p>}
           {questionList.slice(0, questionsToShow).map((item) => <QuestionEntry key={item.question_id} entry={item} />)}
         </QuestionListContainer>
-        {show ? <button onClick={loadMoreQuestions}> MORE ANSWERED QUESTIONS </button> : null} &nbsp;&nbsp;&nbsp;
+        {show ? moreAnsweredQuestions : null} &nbsp;&nbsp;&nbsp;
         <button onClick={handleModal}> ADD A QUESTION + </button>
       </QuestionContext.Provider>
     </div>
