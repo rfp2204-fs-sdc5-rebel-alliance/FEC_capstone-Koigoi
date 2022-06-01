@@ -31,6 +31,7 @@ const ImgStyle = styled.img`
 `;
 
 const ArrowStyle = styled.div`
+  cursor: pointer;
   &:hover,
   &:focus {
     transform: scale(1.25);

@@ -66,7 +66,7 @@ const ProductInfo = () => {
       {totalRatings > 0 &&
         <div>
           <CategoryText>{StarRating(averageRating)}</CategoryText>
-          <CategoryText onClick={() => window.location.replace("/#RatingsAndReviews")}>Read all {totalRatings} reviews</CategoryText>
+          <CategoryText style={{'cursor': 'pointer'}} onClick={() => window.location.replace("/#RatingsAndReviews")}>Read all {totalRatings} reviews</CategoryText>
         </div>
       }
       <NameText>{prodObj.data.name}</NameText>
