@@ -38,22 +38,26 @@ const CardResponse = styled.div`
 `;
 
 function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
-  const [condensedSummary, setCondensedSummary] = useState(summary)
-  const [condensedBody, setCondensedBody] = useState(body);
+  const [renderedSummary, setRenderedSummary] = useState(summary)
+  const [renderedBody, setRenderedBody] = useState(body);
   const [showMore, setShowMore] = useState(false);
   const [clickedHelpful, setClickedHelpful] = useState(false);
   const { helpful, setHelpful } = useContext(ReviewsContext);
 
   useEffect(() => {
     if (summary.length > 60) {
-      setCondensedSummary(`${summary.slice(0,60)}...`);
+      setRenderedSummary(`${summary.slice(0,60)}...`);
+    } else {
+      setRenderedSummary(summary);
     }
 
     if (body.length > 250) {
-      setCondensedBody(body.slice(0, 250))
+      setRenderedBody(body.slice(0, 250))
       setShowMore(true);
+    } else {
+      setRenderedBody(body);
     }
-  }, [])
+  }, [summary, body])
 
   const showMoreButton = () => {
     if (!showMore) {
@@ -70,7 +74,7 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
 
   const handleShowMore = () => {
     setShowMore(false);
-    setCondensedBody(body);
+    setRenderedBody(body);
   }
 
   const recommendMessage = () => {
@@ -114,8 +118,8 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
         {StarRating(rating)}
         {formattedDate(date)}
       </ReviewCardSection>
-      <Bold>{condensedSummary}</Bold>
-        <p>{condensedBody}</p>
+      <Bold>{renderedSummary}</Bold>
+        <p>{renderedBody}</p>
         {showMoreButton()}
         <ReviewImageContainer>
           <ImageThumbnail images={photos}/>
