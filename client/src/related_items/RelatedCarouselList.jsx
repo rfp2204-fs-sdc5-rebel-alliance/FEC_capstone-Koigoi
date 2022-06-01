@@ -78,7 +78,8 @@ const CarouselWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%
+  width: 100%;
+  left: 15px;
 `;
 
 const IndividualCardStyle = styled.div`
@@ -147,7 +148,7 @@ const LeftArrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 200px;
+  top: 10px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -159,7 +160,7 @@ const LeftArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 200px;
+  top: 10px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -176,7 +177,7 @@ const RightArrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 200px;
+  top: 10px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -188,7 +189,7 @@ const RightArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 200px;
+  top: 10px;
   cursor: pointer;
   user-select: none;
   &:hover {

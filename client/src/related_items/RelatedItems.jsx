@@ -30,6 +30,7 @@ const RelatedProductsSection = styled.section`
   flex-wrap: nowrap;
   max-width: 1080px;
   padding-bottom: 20px;
+  margin-bottom: 20px;
 
 `;
 

@@ -12,7 +12,7 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
   const {prod_id} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
-  const maxDisplay = outfitDetails.length - 4; // change to 4
+  const maxDisplay = outfitDetails.length > 0 ? outfitDetails.length - 4 : 4; // change to 4
   const placeholder = 'http://placecorgi.com/260/180';
 
   const nextSlide = () => {
@@ -63,7 +63,7 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
               )
             })}
         </CarouselWrapper>
-          {currentImageIdx === maxDisplay || currentImageIdx < 4 ?
+          {currentImageIdx === maxDisplay ? // || currentImageIdx < 4
           <RightArrowTransparent icon={faAngleRight} /> :
           <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/>}
       </CarouselContainer>
@@ -73,7 +73,7 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
 
 const CarouselContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: flex-start;
   position: relative;
@@ -173,7 +173,7 @@ const LeftArrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 200px;
+  top: 170px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -185,7 +185,7 @@ const LeftArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 200px;
+  top: 170px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -202,7 +202,7 @@ const RightArrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 200px;
+  top: 170px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -214,7 +214,7 @@ const RightArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 200px;
+  top: 170px;
   cursor: pointer;
   user-select: none;
   &:hover {

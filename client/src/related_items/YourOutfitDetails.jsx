@@ -6,7 +6,7 @@ import YourOutfitCarousel from './YourOutfitCarousel.jsx';
 import getOutfitDetails from './fetchYourOutfitData.js';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 const YourOutfitDetails = () => {
   const {prod_id} = useContext(ProdPageContext);
@@ -53,6 +53,7 @@ const YourOutfitDetails = () => {
               </AddIcon>
             </IndividualCardStyle>
         </CarouselWrapper>
+        <RightArrowTransparent icon={faAngleRight} />
       </CarouselContainer>
     )
   } else {
@@ -176,7 +177,24 @@ const LeftArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 200px;
+  top: 170px;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+  }
+  opacity: .01;
+  color: rgba(0, 0, 0, 0.75);
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  filter: blur(2px);
+`;
+
+const RightArrowTransparent = styled(FontAwesomeIcon)`
+  position: relative;
+  height: 30px;
+  width: auto;
+  top: 170px;
   cursor: pointer;
   user-select: none;
   &:hover {
