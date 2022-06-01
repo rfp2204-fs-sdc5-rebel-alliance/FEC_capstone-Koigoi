@@ -67,7 +67,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
     }
   }
 
-  const filterNumRatings = (reviews) => {
+  const filterNumRatings = (reviewsData) => {
     let numRatingObj = {
       1: [],
       2: [],
@@ -83,7 +83,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
 
     let averageRating = 0;
 
-    reviews.forEach((review) => {
+    reviewsData.forEach((review) => {
       numRatingObj[review.rating].push(review);
       recommended[review.recommend] += 1;
       averageRating += review.rating;
