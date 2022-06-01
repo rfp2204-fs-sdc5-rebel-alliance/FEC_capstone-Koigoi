@@ -25,10 +25,9 @@ const ExpandStyle = styled.div`
   position: absolute;
   top: 1rem;
   right: 1rem;
-  transform: scale(0.75);
   &:hover,
   &:focus {
-    transform: scale(1);
+    transform: scale(1.2);
   }
 `;
 
