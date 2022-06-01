@@ -107,9 +107,9 @@ const App = () => {
                   </CheckBoxWrapper>
                 </div>
               </li>
-              <li onClick={() => {changeView('Home')}}>Home</li>
-              <li onClick={() => {changeView('Product')}}>Product</li>
-              <li onClick={() => {changeView('Checkout')}}>Shopping Cart</li>
+              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Home')}}>Home</li>
+              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Product')}}>Product</li>
+              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Checkout')}}>Shopping Cart</li>
             </ul>
 
           </nav>
