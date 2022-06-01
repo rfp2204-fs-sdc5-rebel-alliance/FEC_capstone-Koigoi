@@ -44,6 +44,17 @@ const ButtonStyle = styled.button`
   }
 `;
 
+const SocialMedia = styled.img`
+  width: 3rem;
+  height: auto;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  border-radius: 0.25rem;
+  &:hover {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  }
+`;
+
 export const ShopContext = createContext();
 
 const ShopSection = () => {
@@ -150,7 +161,9 @@ const ShopSection = () => {
           <ButtonStyle onClick={() => {addToCart()}}>Add to Cart</ButtonStyle>
         </ComponentStyle>
         <ComponentStyle>
-          Adding Social Media here.
+          <SocialMedia src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" onClick={() => {window.open('https://www.facebook.com/')}}/>
+          <SocialMedia src="https://cdn-icons.flaticon.com/png/512/3256/premium/3256013.png?token=exp=1654107510~hmac=1159bb8d5cb1047a312152a56a02f6d0" alt="Twitter" onClick={() => {window.open('https://www.twitter.com/')}} />
+          <SocialMedia src="https://cdn-icons.flaticon.com/png/512/3536/premium/3536559.png?token=exp=1654107537~hmac=20c68737d56205ec0ddd9f2fcacccdae" alt="Pinterest" onClick={() => {window.open('https://www.pinterest.com/')}}/>
         </ComponentStyle>
       </Container>
     )
