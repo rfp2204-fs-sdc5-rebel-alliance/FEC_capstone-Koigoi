@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import StarRating from '../shared_components/StarRating.jsx';
 
@@ -33,10 +33,11 @@ const RemoveFiltersButton = styled.button`
 `
 
 const RatingNumber = styled.button`
-  min-width: 60px;
+  width: 60px;
   border: none;
   background: none;
   padding: 0px;
+  margin-right: 10px;
 
   &:hover {
     font-weight: bold;
@@ -44,7 +45,8 @@ const RatingNumber = styled.button`
 `;
 
 const RatingNumberTotal = styled.div`
-  margin-left: 1rem;
+  width: 50px;
+  margin-left: 10px;
 `;
 
 const RatingBarContainer = styled.div`
@@ -52,14 +54,14 @@ const RatingBarContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 30px;
-  background-color: white;
+  border: 1px solid black;
 `;
 
 const RecommendedMessage = styled.div`
   text-align: right;
 `;
 
-function RatingBreakdown({ removeFilters, renderFilterRatings }) {
+function RatingBreakdown({ removeFilters }) {
   const { ratings, totalRatings, avgRating, recommended, showRatings, setShowRatings, filtered } = useContext(ReviewsContext);
   const { averageRating } = useContext(ProdPageContext);
 
@@ -70,8 +72,6 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
     showRatings[starRating] ? updateShowRatingObj[starRating] = false : updateShowRatingObj[starRating] = true;
 
     setShowRatings(updateShowRatingObj);
-
-    renderFilterRatings();
   }
 
   const renderFilterMessage = () => {
@@ -98,7 +98,7 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
         <span style={{"fontWeight": "bold"}}>{starFilters}</span>
           <RemoveFiltersButton onClick={removeFilters}>Remove filter</RemoveFiltersButton>
       </StarFilterMessage>
-    )
+    );
   }
 
   const individualRatingAvg = (rating, sum = 0) => {
@@ -106,37 +106,33 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
     return Math.round((ratings[rating] / totalRatings) * 100);
   }
 
-  let fiveStarAvg = {
-    'width': `${individualRatingAvg(5)}%`,
-    'height': '30px',
-    'backgroundColor': 'black'
-  }
-
-  let fourStarAvg = {
-    'width': `${individualRatingAvg(4)}%`,
-    'height': '30px',
-    'backgroundColor': 'black'
-  }
-
-  let threeStarAvg = {
-    'width': `${individualRatingAvg(3)}%`,
-    'height': '30px',
-    'backgroundColor': 'black'
-  }
-
-  let twoStarAvg = {
-    'width': `${individualRatingAvg(2)}%`,
-    'height': '30px',
-    'backgroundColor': 'black'
-  }
-
-  let oneStarAvg = {
-    'width': `${individualRatingAvg(1)}%`,
-    'height': '30px',
-    'backgroundColor': 'black'
-  }
-
   let recommendedPercentage = `${Math.round((recommended.true / totalRatings) * 100)}% of reviews recommend this product`;
+
+  const renderRatingBreakdown = () => {
+    return (
+      [...Array(5)].map((rating, index) => {
+        const starRating = 5 - index;
+        const ratingPercent = {
+          'width': `${individualRatingAvg(starRating)}%`,
+          'height': '30px',
+          'backgroundColor': 'black'
+        }
+        return (
+          <RatingsBreakdown key={index}>
+              <RatingNumber
+                value={starRating}
+                onClick={handleRatingClick}>
+                {starRating} star
+              </RatingNumber>
+              <RatingBarContainer>
+                <div style={ratingPercent}></div>
+              </RatingBarContainer>
+              <RatingNumberTotal>{ratings[starRating]}</RatingNumberTotal>
+            </RatingsBreakdown>
+        );
+      })
+    );
+  }
 
   return (
     <div>
@@ -147,61 +143,7 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
       <div>
         <h3>Rating Breakdown</h3>
         {renderFilterMessage()}
-        <RatingsBreakdown>
-          <RatingNumber
-            value='5'
-            onClick={handleRatingClick}>
-            5 star
-          </RatingNumber>
-          <RatingBarContainer>
-            <div style={fiveStarAvg}></div>
-            <RatingNumberTotal>{ratings[5]}</RatingNumberTotal>
-          </RatingBarContainer>
-        </RatingsBreakdown>
-        <RatingsBreakdown>
-          <RatingNumber
-            value='4'
-            onClick={handleRatingClick}>
-            4 star
-          </RatingNumber>
-          <RatingBarContainer>
-            <div style={fourStarAvg}></div>
-            <RatingNumberTotal>{ratings[4]}</RatingNumberTotal>
-          </RatingBarContainer>
-        </RatingsBreakdown>
-        <RatingsBreakdown>
-          <RatingNumber
-            value='3'
-            onClick={handleRatingClick}>
-            3 star
-          </RatingNumber>
-          <RatingBarContainer>
-            <div style={threeStarAvg}></div>
-            <RatingNumberTotal>{ratings[3]}</RatingNumberTotal>
-          </RatingBarContainer>
-        </RatingsBreakdown>
-        <RatingsBreakdown>
-          <RatingNumber
-            value='2'
-            onClick={handleRatingClick}>
-            2 star
-          </RatingNumber>
-          <RatingBarContainer>
-            <div style={twoStarAvg}></div>
-            <RatingNumberTotal>{ratings[2]}</RatingNumberTotal>
-          </RatingBarContainer>
-        </RatingsBreakdown>
-        <RatingsBreakdown>
-          <RatingNumber
-            value='1'
-            onClick={handleRatingClick}>
-            1 star
-          </RatingNumber>
-          <RatingBarContainer>
-            <div style={oneStarAvg}></div>
-            <RatingNumberTotal>{ratings[1]}</RatingNumberTotal>
-          </RatingBarContainer>
-        </RatingsBreakdown>
+        {renderRatingBreakdown()}
         <RecommendedMessage>{recommendedPercentage}</RecommendedMessage>
       </div>
     </div>
