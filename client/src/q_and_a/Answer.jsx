@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import config from '../../dist/config.js';
 import { QuestionContext } from  './QuestionList.jsx';
 import AddPhotos from './AddPhotos.jsx';
 import formattedDate from '../shared_components/formattedDate.js'
@@ -16,11 +15,7 @@ const Answer = (props) => {
       return;
     }
 
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${props.entry.answer_id}/helpful`, null, {
-      headers: {
-        Authorization: config.TOKEN
-      }
-    })
+    axios.put(`/FEC/qa/answers/${props.entry.answer_id}/helpful`, null)
     .then((response) => {console.log('Success')})
     .then(() => {setCount(count + 1)})
     .then(() => {setClickedHelpful(true)})
@@ -31,11 +26,7 @@ const Answer = (props) => {
 
     setReported(true);
 
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${props.entry.answer_id}/report`, null, {
-      headers: {
-        Authorization: config.TOKEN
-      }
-    })
+    axios.put(`/FEC/qa/answers/${props.entry.answer_id}/report`, null)
     .then((response) => {console.log('Success')})
     .catch((err) => console.log(err))
   }
@@ -44,7 +35,7 @@ const Answer = (props) => {
   let answererName;
   if (user === 'seller' || user === 'Seller') {
     user = user.slice(0, 1).toUpperCase() + user.slice(1);
-    answererName = <span style={{fontStyle: 'italic', fontWeight: 'bold'}}>{user}</span>
+    answererName = <span style={{fontWeight: 'bold'}}>{user}</span>
   } else {
     answererName = user;
   }
