@@ -16,7 +16,6 @@ export const ProdDetailsContext = createContext();
 
 const MainWrapper = styled.div`
   width: 100%;
-  border: 0.5rem solid black;
   display: flex;
   justify-content: center;
   align-items: center;

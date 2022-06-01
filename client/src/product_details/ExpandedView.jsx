@@ -14,7 +14,6 @@ import ImageList from './components/ImageList.jsx';
 
 const Container = styled.div`
   width: 100%;
-  border: 0.5rem solid blue;
   display: flex;
   align-items: center;
   position: relative;
@@ -22,7 +21,6 @@ const Container = styled.div`
 
 const CenterContainer = styled.div`
   width: 100%;
-  border: 0.5rem solid green;
   display: flex;
   justify-content: center;
   align-items: center;

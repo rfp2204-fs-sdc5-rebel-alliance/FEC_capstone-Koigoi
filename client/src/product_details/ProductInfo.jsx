@@ -12,7 +12,6 @@ import StarRating from '../shared_components/StarRating.jsx';
 
 const Container = styled.div`
   width: 40%;
-  border: 0.5rem solid red;
   display: block;
   justify-content: center;
   align-items: center;
@@ -38,13 +37,21 @@ const StrikeText = styled.div`
   margin-left: 1rem;
   font-size: 2rem;
   text-decoration: line-through;
+  color: grey;
 `;
 
 const DiscountText = styled.div`
   display: inline-block;
   margin-left: 1rem;
   font-size: 2rem;
-  color: red;
+  color: black;
+`;
+
+const PercentText = styled.div`
+  display: inline-block;
+  margin-left: 1rem;
+  font-size: 2rem;
+  color: green;
 `;
 
 const ProductInfo = () => {
@@ -63,14 +70,15 @@ const ProductInfo = () => {
           <CategoryText onClick={() => window.location.replace("/#RatingsAndReviews")}>Read all {ratingsObj.totalRatings} reviews</CategoryText>
         </div>
       }
-      <CategoryText>{prodObj.data.category}</CategoryText>
       <NameText>{prodObj.data.name}</NameText>
+      <CategoryText>{prodObj.data.category}</CategoryText>
       {imageGallery.sale_price === null ?
-        <OtherText>{imageGallery.original_price}</OtherText>
+        <OtherText>${Math.trunc(imageGallery.original_price)}</OtherText>
         :
         <>
-          <DiscountText>{imageGallery.sale_price}</DiscountText>
-          <StrikeText>{imageGallery.original_price}</StrikeText>
+          <DiscountText>${Math.trunc(imageGallery.sale_price)}</DiscountText>
+          <StrikeText>${Math.trunc(imageGallery.original_price)}</StrikeText>
+          <PercentText>{Math.trunc((imageGallery.original_price - imageGallery.sale_price) / imageGallery.original_price * 100)}% off</PercentText>
         </>
       }
       <OtherText>Style: {imageGallery.name}</OtherText>

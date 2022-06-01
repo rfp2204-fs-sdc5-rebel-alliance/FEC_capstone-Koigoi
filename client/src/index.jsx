@@ -11,7 +11,11 @@ import Modal from './shared_components/Modal.jsx';
 export const AppContext = createContext();
 
 const AppStyle = styled.div`
-  color: ${props => props.theme.fontColor}
+  color: ${props => props.theme.fontColor};
+
+`;
+
+const NavStyle = styled.nav`
 `;
 
 const App = () => {
@@ -51,7 +55,7 @@ const App = () => {
       <GlobalStyle />
       <AppStyle>
         <header>
-          <nav>
+          <NavStyle>
             <h1>Cyclops Inc.</h1>
             <ul>
               <li onClick={() => {themeToggle()}}>Toggle</li>
@@ -60,7 +64,7 @@ const App = () => {
               <li onClick={() => {changeView('Checkout')}}>Shopping Cart</li>
             </ul>
 
-          </nav>
+          </NavStyle>
         </header>
         <AppContext.Provider value={{prod_id, setProd, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
           <div>{renderView()}</div>

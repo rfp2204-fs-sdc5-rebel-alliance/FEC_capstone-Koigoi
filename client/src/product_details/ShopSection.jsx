@@ -11,30 +11,37 @@ import QuantForm from './components/QuantForm.jsx';
 
 const Container = styled.div`
   width: 100%;
-  border: 0.5rem solid green;
   display: block;
-  justify-content: center;
-  align-items: center;
+  align-items: left;
 `;
 
 const FormStyle = styled.div`
   display: flex;
-  justify-content: center;
   margin: 1rem;
 `;
 
 const SelectStyle = styled.select`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 1rem 0 1rem;
+  appearance: none;
+  width: 6rem;
+  border-radius: 1rem;
+  text-align: center;
+  margin: 0 2rem 0 0;
+  &:hover {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  }
 `;
 
 const ButtonStyle = styled.button`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 1rem 0 1rem;
+  flex-direction: column;
+  padding: 0.25rem 1rem;
+  border-radius: 1rem;
+  color: #fff;
+  background: #111;
+  &:hover {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  }
 `;
 
 export const ShopContext = createContext();
@@ -137,9 +144,10 @@ const ShopSection = () => {
                 <QuantForm />
             </SelectStyle>
           </ShopContext.Provider>
+          <ButtonStyle onClick={() => {addToCart()}}>Add to Cart</ButtonStyle>
         </FormStyle>
         <FormStyle>
-          <ButtonStyle onClick={() => {addToCart()}}>Add to Cart</ButtonStyle>
+          Adding Social Media here.
         </FormStyle>
       </Container>
     )

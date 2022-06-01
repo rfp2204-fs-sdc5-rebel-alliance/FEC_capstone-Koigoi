@@ -27,6 +27,7 @@ const ImgStyle = styled.img`
   align-items: center;
   width: 25rem;
   height: auto;
+  box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
 `;
 
 const ArrowStyle = styled.div`
