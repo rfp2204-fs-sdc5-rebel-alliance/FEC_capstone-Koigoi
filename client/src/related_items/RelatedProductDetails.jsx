@@ -81,10 +81,20 @@ const RelatedProductDetails = () => {
   }, [prod_id]);
 
   return (
-      <div>
+      <CarouselContainer>
         {Carousel(productDetails)}
-      </div>
+      </CarouselContainer>
   )
 }
+
+const CarouselContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+`;
+
 
 export default RelatedProductDetails;

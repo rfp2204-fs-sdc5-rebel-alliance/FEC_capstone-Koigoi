@@ -128,7 +128,7 @@ const MiddleValues = styled.td`
 `;
 
 const LeftHeader = styled.th`
-  padding-left: 10px;
+  padding-left: 15px;
   padding-right: 10px;
 `;
 
