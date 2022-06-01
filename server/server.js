@@ -25,6 +25,20 @@ app.get('/FEC/*', (req, res) => {
   });
 })
 
+app.get('/qa/questions', (req, res) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${req.originalUrl}`, {
+    headers: {
+      Authorization: config.TOKEN
+    },
+    params: req.originalUrl
+  })
+  .then((results) => {res.status(200).send(results.data)})
+  .catch((err) => {
+    console.log(err);
+    res.sendStatus(404);
+  });
+})
+
 app.get('/reviews', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${req.originalUrl}`, {
     headers: {

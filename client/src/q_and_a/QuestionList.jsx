@@ -3,7 +3,6 @@ import axios from 'axios';
 import Search from './Search.jsx';
 import QuestionEntry from './QuestionEntry.jsx';
 import { ProdPageContext } from '../product_page.jsx';
-import config from '../../dist/config.js';
 import styled from 'styled-components';
 import AddQuestionForm from './AddQuestionForm.jsx';
 
@@ -27,13 +26,10 @@ const QuestionList = () => {
 
 
   const title = 'QUESTIONS & ANSWERS';
-  const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions`;
+  const url = `/qa/questions`;
 
   useEffect(() => {
     axios.get(url, {
-      headers: {
-        Authorization: config.TOKEN
-      },
       params: {
         product_id: prod_id,
         count: 34
