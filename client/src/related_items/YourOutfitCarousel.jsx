@@ -11,8 +11,8 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
   // console.log('outfitDetails', outfitDetails);
   const {prod_id} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
-  const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
-  const maxDisplay = outfitDetails.length > 0 ? outfitDetails.length - 4 : 4; // change to 4
+  const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 3)); // change to 4
+  const maxDisplay = outfitDetails.length > 0 ? outfitDetails.length - 3 : 3; // change to 4
   const placeholder = 'http://placecorgi.com/260/180';
 
   const nextSlide = () => {
@@ -63,7 +63,7 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
               )
             })}
         </CarouselWrapper>
-          {currentImageIdx === maxDisplay ? // || currentImageIdx < 4
+          {currentImageIdx === maxDisplay ?
           <RightArrowTransparent icon={faAngleRight} /> :
           <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/>}
       </CarouselContainer>
@@ -228,8 +228,8 @@ const RightArrowTransparent = styled(FontAwesomeIcon)`
 `;
 
 const ButtonStyle = styled.button`
-  bottom: 245px;
-  left: 210px;
+  bottom: 220px;
+  left: 205px;
   position: relative;
   border: 1px solid #1A1A1A;
   border-radius: 15px;
