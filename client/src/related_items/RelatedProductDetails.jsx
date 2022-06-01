@@ -21,14 +21,17 @@ const RelatedProductDetails = () => {
         })
         return Promise.all(promiseArray)
       })
-      .then(([style1, product1, rating1,
-              style2, product2, rating2,
-              style3, product3, rating3,
-              style4, product4, rating4
-            ]) => {
-        const styles = [style1, style2, style3, style4];
-        const products = [product1, product2, product3, product4];
-        const ratings = [rating1, rating2, rating3, rating4];
+      .then((allRelatedProductsData) => {
+        console.log('allRelatedProductsData',allRelatedProductsData);
+        const styles = [];
+        const products = [];
+        const ratings = [];
+        for (let i = 0; i < allRelatedProductsData.length; i+=3) {
+          let product = allRelatedProductsData;
+          styles.push(product[i]);
+          products.push(product[i+1]);
+          ratings.push(product[i+2]);
+        }
         /* parse through related styles */
         const allStyles = styles.map((style) => {return style.results;});
         const images = [];

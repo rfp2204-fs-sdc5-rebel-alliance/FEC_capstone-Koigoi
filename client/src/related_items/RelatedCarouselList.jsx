@@ -8,6 +8,7 @@ import ComparisonModal from './ComparisonModal.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 
 const Carousel = (productDetails) => {
+  console.log('productDetails', productDetails);
   const {prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
@@ -203,8 +204,8 @@ const RightArrowTransparent = styled(FontAwesomeIcon)`
 `;
 
 const ButtonStyle = styled.button`
-  bottom: 245px;
-  left: 210px;
+  bottom: 220px;
+  left: 205px;
   position: relative;
   border: 1px solid #1A1A1A;
   border-radius: 15px;

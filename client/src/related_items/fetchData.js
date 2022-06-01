@@ -1,26 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
-import config from '../../dist/config.js';
 
 export const fetchData = (typeOfData, id) => {
-    const headers = {
-      headers: {Authorization: config.TOKEN}
-    };
-    const API = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp';
-
-    return axios.get(`${API}/products/${id}/${typeOfData}`, headers)
+    return axios.get(`/FEC/products/${id}/${typeOfData}`)
       .then((response) => {return response.data})
       .catch((err) => {console.log(err)});
 }
 
 export const fetchRatingsData = (typeOfData, id) => {
-  const headers = {
-    headers: {Authorization: config.TOKEN}
-  };
-  const API = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp';
-
-  return axios.get(`${API}/reviews/${typeOfData}?product_id=${id}`, headers)
+  return axios.get(`/reviews/${typeOfData}?product_id=${id}`)
     .then((response) => {return response.data})
     .catch((err) => {console.log(err)});
 }
