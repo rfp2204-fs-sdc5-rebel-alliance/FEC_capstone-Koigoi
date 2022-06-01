@@ -15,6 +15,11 @@ const Container = styled.div`
   margin-left: 1rem;
 `;
 
+const HeaderStyle = styled.h4`
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+`;
+
 const LineItem = styled.div`
   display: flex;
   flex-direction: row;
@@ -78,7 +83,6 @@ const PayForm = () => {
 
   let handleSubmit = (event) => {
     event.preventDefault();
-    console.log('checkout submitted');
     let tempArray = [];
     cart.forEach((item) => {
       let data = {
@@ -109,7 +113,7 @@ const PayForm = () => {
   return (
     <Container>
       <div style={{'marginBottom': '1rem'}}>
-        <h4 style={{'marginLeft': '1rem'}}>Order Summary</h4>
+        <HeaderStyle>Order Summary</HeaderStyle>
           <div style={{'display': 'flex'}}>
             <LineItem>SubTotal</LineItem>
             <LineValue>${Math.round((total * 100) / 100).toFixed(2)}</LineValue>
@@ -132,7 +136,7 @@ const PayForm = () => {
           </div>
       </div>
       <div>
-        <h4 style={{'marginLeft': '1rem'}}>Shipping Information</h4>
+        <HeaderStyle>Shipping Information</HeaderStyle>
         <form onSubmit={handleSubmit}>
           <div style={{'marginLeft': '1rem'}}>
             <InputStyle type="text" placeholder="First Name" required></InputStyle>
@@ -140,9 +144,9 @@ const PayForm = () => {
             <InputStyle type="text" placeholder="Shipping Address" required></InputStyle>
             <InputStyle type="text" placeholder="City" required></InputStyle>
             <InputStyle type="text" placeholder="State" required></InputStyle>
-            <InputStyle type="text" placeholder="Postal" required></InputStyle>
+            <InputStyle type="text" placeholder="Postal Code" required></InputStyle>
           </div>
-          <h4 style={{'marginLeft': '1rem'}}>Payment Information</h4>
+          <HeaderStyle>Payment Information</HeaderStyle>
           <div>
             <LabelStyle>Card Number</LabelStyle>
             <input style={{'width': '20rem', 'marginLeft': '1rem'}} placeholder="(dashes not required)" minLength="12" maxLength="19" required></input>

@@ -30,7 +30,7 @@ const CenterContainer = styled.div`
 const ExpandStyle = styled.div`
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  left: 1rem;
   &:hover,
   &:focus {
     transform: scale(1.2);

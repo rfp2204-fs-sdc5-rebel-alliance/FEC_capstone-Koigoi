@@ -16,7 +16,6 @@ const Checkout = () => {
 
   return (
     <div>
-      <h1>This is a Checkout Page</h1>
       <MainWrapper>
         <CartDisplay />
         <PayForm />

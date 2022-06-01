@@ -15,9 +15,6 @@ const AppStyle = styled.div`
 
 `;
 
-const NavStyle = styled.nav`
-`;
-
 const App = () => {
   const [theme, setTheme] = useState('light');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : []);
@@ -28,12 +25,10 @@ const App = () => {
   const [modalHeaderContent, setModalHeaderContent] = useState(null);
 
   const themeToggle = () => {
-    console.log('toggle clicked');
     theme === 'light' ? setTheme('dark') : setTheme('light');
   }
 
   const changeView = (name) => {
-    console.log('Changing view to ' + name);
     setView(name);
   }
 
@@ -55,8 +50,8 @@ const App = () => {
       <GlobalStyle />
       <AppStyle>
         <header>
-          <NavStyle>
-            <h1>Cyclops Inc.</h1>
+          <nav>
+            <h1>koigoi</h1>
             <ul>
               <li onClick={() => {themeToggle()}}>Toggle</li>
               <li onClick={() => {changeView('Home')}}>Home</li>
@@ -64,7 +59,7 @@ const App = () => {
               <li onClick={() => {changeView('Checkout')}}>Shopping Cart</li>
             </ul>
 
-          </NavStyle>
+          </nav>
         </header>
         <AppContext.Provider value={{prod_id, setProd, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
           <div>{renderView()}</div>

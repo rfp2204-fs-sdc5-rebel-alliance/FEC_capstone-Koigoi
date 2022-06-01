@@ -5,7 +5,7 @@ import styled from 'styled-components';
 //may need to import more stuff to begin work
 
 const Container = styled.div`
-  border: 0.25rem solid gray;
+  border-bottom: 0.1rem solid gray;
   display: flex;
   width: 100%;
 `;
@@ -71,10 +71,6 @@ const CartItem = ({item}) => {
   }
 
   let onSelectQuant = (newQuant) => {
-    if (newQuant === 0) {
-      console.log('removed');
-    }
-
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].sku === item.sku) {
         let tempArray = [...cart];
@@ -104,7 +100,6 @@ const CartItem = ({item}) => {
         <div>${Math.trunc(item.price * item.quant)}</div>
         <SelectContainer>
           <SelectStyle defaultValue={item.quant} onChange={() => {onSelectQuant(event.target.value)}}>
-            <option value={0}>Remove</option>
             {
               item.quantOptions.map((quant, index) => {
                 if (quant === item.quant) {

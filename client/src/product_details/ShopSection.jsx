@@ -15,7 +15,7 @@ const Container = styled.div`
   align-items: left;
 `;
 
-const FormStyle = styled.div`
+const ComponentStyle = styled.div`
   display: flex;
   margin: 1rem;
 `;
@@ -58,8 +58,6 @@ const ShopSection = () => {
   const [image, setImage] = useState('No Image');
   const [quantOptions, setQuantOptions] = useState([]);
   const [quant, setQuant] = useState(0);
-
-  //console.log('imageGallery:', imageGallery);
 
   let onSelectSize = (sku) => {
     setName(prodObj.data.name);
@@ -132,7 +130,7 @@ const ShopSection = () => {
   } else {
     return (
       <Container>
-        <FormStyle>
+        <ComponentStyle>
           <SelectStyle onChange={() => {onSelectSize(event.target.value)}}>
             <option value={'Select'}>Size</option>
             {
@@ -150,10 +148,10 @@ const ShopSection = () => {
             </SelectStyle>
           </ShopContext.Provider>
           <ButtonStyle onClick={() => {addToCart()}}>Add to Cart</ButtonStyle>
-        </FormStyle>
-        <FormStyle>
+        </ComponentStyle>
+        <ComponentStyle>
           Adding Social Media here.
-        </FormStyle>
+        </ComponentStyle>
       </Container>
     )
   }
