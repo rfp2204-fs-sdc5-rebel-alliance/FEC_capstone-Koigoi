@@ -120,3 +120,17 @@ table tr {
   padding: 0.4rem 0.8rem;
   text-align: var(--justify-important);
 }
+
+
+
+/* ----- Added CSS Styles ----- */
+
+.slide {
+  opacity: 0;
+  transition-duration: 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  transition-duration: 1s;
+}

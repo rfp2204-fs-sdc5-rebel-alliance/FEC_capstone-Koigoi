@@ -11,7 +11,8 @@ import Modal from './shared_components/Modal.jsx';
 export const AppContext = createContext();
 
 const AppStyle = styled.div`
-  color: ${props => props.theme.fontColor}
+  color: ${props => props.theme.fontColor};
+
 `;
 
 const App = () => {
@@ -24,12 +25,10 @@ const App = () => {
   const [modalHeaderContent, setModalHeaderContent] = useState(null);
 
   const themeToggle = () => {
-    console.log('toggle clicked');
     theme === 'light' ? setTheme('dark') : setTheme('light');
   }
 
   const changeView = (name) => {
-    console.log('Changing view to ' + name);
     setView(name);
   }
 
@@ -52,7 +51,7 @@ const App = () => {
       <AppStyle>
         <header>
           <nav>
-            <h1>Cyclops Inc.</h1>
+            <h1>koigoi</h1>
             <ul>
               <li onClick={() => {themeToggle()}}>Toggle</li>
               <li onClick={() => {changeView('Home')}}>Home</li>

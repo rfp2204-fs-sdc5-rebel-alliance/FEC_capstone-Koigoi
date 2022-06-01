@@ -19,7 +19,6 @@ const ProductPage = () => {
   return (
     <div>
       <ProdPageContext.Provider value={{ cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent, prod_id, setProd, prod_name, setProdName, ratingsObj, setRatingsObj, totalRatings, setTotalRatings, averageRating, setAverageRating }}>
-        <h1>This is a Product Page</h1>
         {/* Add components you want to render here */}
         <ProductDetails />
         <RelatedItems />
