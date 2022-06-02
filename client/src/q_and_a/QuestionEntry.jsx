@@ -4,6 +4,12 @@ import Answer from './Answer.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 import { QuestionContext } from  './QuestionList.jsx';
 import AddAnswerForm from './AddAnswerForm.jsx';
+import styled from 'styled-components';
+
+// const StyledQuestion = styled.div`
+//   fontWeight: bold;
+//   fontColor: #3BACB6;
+// `;
 
 const QuestionEntry = (props) => {
 
@@ -78,9 +84,11 @@ const QuestionEntry = (props) => {
   return (
     <>
       <div>
+      {/* <StyledQuestion> */}
         <div>
-        {`Q: ${props.entry.question_body}`}&nbsp;&nbsp;&nbsp; Helpful?&nbsp;<span onClick={handleClickHelpful}><u>Yes</u> ({props.entry.question_helpfulness})</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<u onClick={handleModal}>Add Answer</u>
+        {`Question: ${props.entry.question_body}`}&nbsp;&nbsp;&nbsp; Helpful?&nbsp;<span onClick={handleClickHelpful}><u>Yes</u> ({props.entry.question_helpfulness})</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<u onClick={handleModal}>Add Answer</u>
         </div>
+      {/* </StyledQuestion> */}
       </div>
       <div>
         <div>
