@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, createContext } from 'react';
 import { ProdPageContext } from '../../product_page.jsx';
 import { fetchRelatedData, fetchRatingsData } from '../Data/fetchRelatedData.js';
 import RelatedCarousel from './CarouselList.jsx';
+import { findDuplicates } from '../Data/findDuplicates.js';
 import sharedReviewsComponent from '../../shared_components/sharedReviewsComponent';
 import styled from 'styled-components';
 
@@ -28,10 +29,10 @@ const RelatedProductDetails = () => {
         const products = [];
         const ratings = [];
         for (let i = 0; i < allRelatedProductsData.length; i+=3) {
-          let product = allRelatedProductsData;
-          styles.push(product[i]);
-          products.push(product[i+1]);
-          ratings.push(product[i+2]);
+          let data = allRelatedProductsData;
+          styles.push(data[i]);
+          products.push(data[i + 1]);
+          ratings.push(data[i + 2]);
         }
         /* parse through related styles */
         const allStyles = styles.map((style) => {return style.results;});
@@ -75,7 +76,8 @@ const RelatedProductDetails = () => {
           allRelatedProducts.ratings = productRatings[i];
           allRelatedDetails.push(allRelatedProducts);
         }
-        setProductDetails(allRelatedDetails);
+        let filteredProducts = findDuplicates(allRelatedDetails);
+        setProductDetails(filteredProducts);
       })
       .catch((err) => {console.log(err)});
   }

@@ -39,32 +39,31 @@ const RelatedCarousel = () => {
   }
 
   return (
-    <CarouselContainer>
+    <CarouselContainer className='CarouselContainer'>
       {
         currentImageIdx !== 0 ?
         <Arrow icon={faAngleLeft} onClick={() => prevSlide()}/> : <ArrowTransparent icon={faAngleLeft}/>
       }
-      <CarouselWrapper>
-        {display.map((details, index) => {
-          return (
-            <IndividualCardStyle key={index}>
-              <ImageWrapper>
-                <ImageStyle
-                  src={details.images === null ? placeholder : details.images}
-                  onClick={(id) => changeProductID(details.id)}
-                />
-                <ButtonStyle onClick={() => handleModalClick(details.id)}> <FontAwesomeIcon icon={faStar}/></ButtonStyle>
-              </ImageWrapper>
-              <DetailsWrapper>
-                <CategoryStyle>{details.categories}</CategoryStyle>
-                <NameStyle>{details.names}</NameStyle>
-                <DetailsStyle>${details.prices}</DetailsStyle>
-                <DetailsStyle>{StarRating(details.ratings.avgRating)}</DetailsStyle>
-              </DetailsWrapper>
-            </IndividualCardStyle>
-          )
-        })}
-      </CarouselWrapper>
+      {display.map((details, index) => {
+        return (
+          <IndividualCardStyle className='CardStyle' key={index}>
+            <ImageWrapper className='ImageWrapper'>
+              <ImageStyle
+                className='ImageStyle'
+                src={details.images === null ? placeholder : details.images}
+                onClick={(id) => changeProductID(details.id)}
+              />
+              <ButtonStyle onClick={() => handleModalClick(details.id)}> <FontAwesomeIcon icon={faStar}/></ButtonStyle>
+            </ImageWrapper>
+            <DetailsWrapper className='DetailsWrapper'>
+              <CategoryStyle>{details.categories}</CategoryStyle>
+              <NameStyle>{details.names}</NameStyle>
+              <DetailsStyle>${details.prices}</DetailsStyle>
+              <DetailsStyle>{StarRating(details.ratings.avgRating)}</DetailsStyle>
+            </DetailsWrapper>
+          </IndividualCardStyle>
+        )
+      })}
       {
         currentImageIdx === maxDisplay ?
         <ArrowTransparent icon={faAngleRight} fill='transparent'/> :
@@ -83,12 +82,12 @@ const CarouselContainer = styled.div`
   width: 100%;
 `;
 
-const CarouselWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  align-items: center;
-`;
+// const CarouselWrapper = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   position: relative;
+//   align-items: center;
+// `;
 
 const IndividualCardStyle = styled.div`
   display: block;

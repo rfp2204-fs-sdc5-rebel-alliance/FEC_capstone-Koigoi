@@ -29,32 +29,30 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
         <Arrow icon={faAngleLeft} onClick={() => prevSlide()}/> :
         <ArrowTransparent icon={faAngleLeft}/>
       }
-      <CarouselWrapper className='CarouselWrapper'>
-        <EmptyCard className='EmptyCard' saveToStorage={saveToStorage}/>
-          {display.map((details, index) => {
-            return (
-              <IndividualCardStyle className='CardStyle'key={index}>
-                <ImageWrapper className='ImageWrapper'>
-                  <ImageStyle className='ImageStyle'
-                    src={details.image === null ? placeholder : details.image}
+      <EmptyCard className='EmptyCard' saveToStorage={saveToStorage}/>
+        {display.map((details, index) => {
+          return (
+            <IndividualCardStyle className='CardStyle'key={index}>
+              <ImageWrapper className='ImageWrapper'>
+                <ImageStyle className='ImageStyle'
+                  src={details.image === null ? placeholder : details.image}
+                />
+                <ButtonStyle className='button'>
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    onClick={(e) => removeFromStorage(e, details.id)}
                   />
-                  <ButtonStyle className='button'>
-                    <FontAwesomeIcon
-                      icon={faCircleXmark}
-                      onClick={(e) => removeFromStorage(e, details.id)}
-                    />
-                  </ButtonStyle>
-                </ImageWrapper>
-                <DetailsWrapper className='Details'>
-                  <CategoryStyle>{details.category}</CategoryStyle>
-                  <NameStyle>{details.name}</NameStyle>
-                  <DetailsStyle>${details.price}</DetailsStyle>
-                  <DetailsStyle>{StarRating(details.rating)}</DetailsStyle>
-                </DetailsWrapper>
-              </IndividualCardStyle>
-            )
-          })}
-      </CarouselWrapper>
+                </ButtonStyle>
+              </ImageWrapper>
+              <DetailsWrapper className='Details'>
+                <CategoryStyle>{details.category}</CategoryStyle>
+                <NameStyle>{details.name}</NameStyle>
+                <DetailsStyle>${details.price}</DetailsStyle>
+                <DetailsStyle>{StarRating(details.rating)}</DetailsStyle>
+              </DetailsWrapper>
+            </IndividualCardStyle>
+          )
+        })}
         {
           (currentImageIdx !== maxDisplay && display.length >= 3) ?
           <Arrow icon={faAngleRight} onClick={() => nextSlide()}/> :
@@ -72,13 +70,13 @@ const CarouselContainer = styled.div`
   width: 100%;
 `;
 
-const CarouselWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  align-items: center;
-  object-fit: cover;
-`;
+// const CarouselWrapper = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   position: relative;
+//   align-items: center;
+//   object-fit: cover;
+// `;
 
 const IndividualCardStyle = styled.div`
   display: block;
