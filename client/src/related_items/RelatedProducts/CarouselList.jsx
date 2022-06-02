@@ -145,12 +145,12 @@ const PriceStyle = styled.div`
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   text-transform: none;
-  color: rgb(17, 17, 17);
+  color: ${(props) => props.theme.fontColor};
   font-weight: 500;
   padding: 2px 4px;
   position: relative;
   bottom: 38px;
-  background-color: #FFFAFA;
+  background-color: ${(props) => props.theme.body};
   border-radius: 3px;
   cursor: pointer;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
@@ -159,8 +159,8 @@ const PriceStyle = styled.div`
   }
 
   &:hover {
-    color: black;
-    background-color: #FFFAFA;
+    color: ${(props) => props.theme.fontColor};
+    background-color: ${(props) => props.theme.body};
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     transform: translateY(-3px);
   }
