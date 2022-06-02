@@ -8,7 +8,7 @@ import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 
 const Carousel = (productDetails) => {
-  const {prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
+  const {prod_id, setProd, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4));
   const maxDisplay = productDetails.length - 4;
@@ -32,6 +32,10 @@ const Carousel = (productDetails) => {
     setShowModal(true);
   }
 
+  const changeProductID = (id) => {
+    setProd(id);
+  }
+
   return (
     <CarouselContainer>
       {
@@ -45,6 +49,7 @@ const Carousel = (productDetails) => {
               <ImageWrapper>
                 <ImageStyle
                   src={details.images === null ? placeholder : details.images}
+                  onClick={(id) => changeProductID(details.id)}
                 />
                 <ButtonStyle onClick={() => handleModalClick(details.id)}> <FontAwesomeIcon icon={faStar}/></ButtonStyle>
               </ImageWrapper>
