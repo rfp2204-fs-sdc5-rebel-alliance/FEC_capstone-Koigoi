@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ProdPageContext } from '../product_page.jsx';
+import { ProdPageContext } from '../../product_page.jsx';
 import styled from 'styled-components';
 
 const EmptyCard = ({saveToStorage}) => {
@@ -15,15 +15,9 @@ const EmptyCard = ({saveToStorage}) => {
 
 const IndividualCardStyle = styled.div`
   display: block;
-  border-radius: 5px;
-  border-width: 1px;
-  border-style: solid;
   margin: 15px;
   flex-direction: column;
   flex-wrap: nowrap;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
   width: 240px;
   height: 340px;
   object-fit: contain;

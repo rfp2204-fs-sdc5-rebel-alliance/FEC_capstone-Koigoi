@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
-import { ProdPageContext } from '../product_page.jsx';
-import { fetchData, fetchRatingsData } from './fetchData.js';
-import Carousel from './RelatedCarouselList.jsx';
-import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
+import { ProdPageContext } from '../../product_page.jsx';
+import { fetchRelatedData, fetchRatingsData } from '../Data/fetchRelatedData.js';
+import RelatedCarousel from './CarouselList.jsx';
+import sharedReviewsComponent from '../../shared_components/sharedReviewsComponent';
 import styled from 'styled-components';
 
 export const RelatedCarouselContext = createContext();
@@ -13,12 +13,12 @@ const RelatedProductDetails = () => {
   const allRelatedDetails = [];
 
   const getAllRelatedDetails = () => {
-    fetchData('related', prod_id)
+    fetchRelatedData('related', prod_id)
     .then((relatedIDs) => {
         const promiseArray = [];
         relatedIDs.forEach((id) => {
-          promiseArray.push(fetchData('styles', id));
-          promiseArray.push(fetchData('', id));
+          promiseArray.push(fetchRelatedData('styles', id));
+          promiseArray.push(fetchRelatedData('', id));
           promiseArray.push(fetchRatingsData('meta', id));
         })
         return Promise.all(promiseArray)
@@ -84,14 +84,17 @@ const RelatedProductDetails = () => {
     getAllRelatedDetails();
   }, [prod_id]);
 
-  return (
+  if (productDetails.length === 0) {
+    return null;
+  } else {
+    return (
       <CarouselContainer>
         <RelatedCarouselContext.Provider value={{productDetails}}>
-          {/* {Carousel(productDetails)} */}
-          <Carousel />
+          <RelatedCarousel />
         </RelatedCarouselContext.Provider>
       </CarouselContainer>
-  )
+    )
+  }
 }
 
 const CarouselContainer = styled.div`

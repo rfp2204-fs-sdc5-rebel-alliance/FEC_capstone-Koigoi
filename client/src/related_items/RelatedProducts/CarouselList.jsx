@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { ProdPageContext } from '../product_page.jsx';
-import { RelatedCarouselContext } from './RelatedProductDetails.jsx';
-import StarRating from '../shared_components/StarRating.jsx';
+import { ProdPageContext } from '../../product_page.jsx';
+import { RelatedCarouselContext } from './ProductDetails.jsx';
+import StarRating from '../../shared_components/StarRating.jsx';
 import ComparisonModal from './ComparisonModal.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 
-const Carousel = () => {
+const RelatedCarousel = () => {
   const {prod_id, setProd, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
   const {productDetails} = useContext(RelatedCarouselContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
@@ -45,9 +45,9 @@ const Carousel = () => {
         <Arrow icon={faAngleLeft} onClick={() => prevSlide()}/> : <ArrowTransparent icon={faAngleLeft}/>
       }
       <CarouselWrapper>
-        {display.map((details) => {
+        {display.map((details, index) => {
           return (
-            <IndividualCardStyle key={details.id}>
+            <IndividualCardStyle key={index}>
               <ImageWrapper>
                 <ImageStyle
                   src={details.images === null ? placeholder : details.images}
@@ -198,4 +198,4 @@ const ButtonStyle = styled.button`
   }
 `;
 
-export default Carousel;
+export default RelatedCarousel;

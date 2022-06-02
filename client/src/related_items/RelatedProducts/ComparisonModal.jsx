@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchData } from './fetchData.js';
+import { fetchRelatedData } from '../Data/fetchRelatedData.js';
 import styled from 'styled-components';
 
 const ComparisonModal = ({ mainId, relatedId }) => {
@@ -9,8 +9,8 @@ const ComparisonModal = ({ mainId, relatedId }) => {
 
   const getAllFeatures = () => {
     const promiseArray = [];
-    promiseArray.push(fetchData('', mainId));
-    promiseArray.push(fetchData('', relatedId));
+    promiseArray.push(fetchRelatedData('', mainId));
+    promiseArray.push(fetchRelatedData('', relatedId));
     return Promise.all(promiseArray)
     .then(([main, related]) => {
       const mainProduct = [];

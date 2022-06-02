@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { ProdPageContext } from '../product_page.jsx';
-import StarRating from '../shared_components/StarRating.jsx';
-import EmptyCard from './YourOutfitEmptyCard.jsx';
+import { ProdPageContext } from '../../product_page.jsx';
+import StarRating from '../../shared_components/StarRating.jsx';
+import EmptyCard from './EmptyCard.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';

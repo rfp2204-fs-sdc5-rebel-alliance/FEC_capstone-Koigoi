@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { ProdPageContext } from '../product_page.jsx';
-import YourOutfitCarousel from './YourOutfitCarousel.jsx';
-import getOutfitDetails from './fetchYourOutfitData.js';
-import EmptyCard from './YourOutfitEmptyCard.jsx';
+import { ProdPageContext } from '../../product_page.jsx';
+import YourOutfitCarousel from './CarouselList.jsx';
+import fetchOutfitDetails from '../Data/fetchOutfitData.js';
+import EmptyCard from './EmptyCard.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +15,7 @@ const YourOutfitDetails = () => {
     e.preventDefault();
     e.stopPropagation();
 
-    getOutfitDetails(id)
+    fetchOutfitDetails(id)
     .then((outfitData) => {
         let currentOutfits = windowLocalStorage.slice();
         let doesCurrentExist = currentOutfits.filter((item) => item.id === outfitData.id)

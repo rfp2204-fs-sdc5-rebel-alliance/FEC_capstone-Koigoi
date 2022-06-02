@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-export const fetchData = (typeOfData, id) => {
+export const fetchRelatedData = (typeOfData, id) => {
   return axios.get(`/FEC/products/${id}/${typeOfData}`)
     .then((response) => {return response.data})
     .catch((err) => {console.log(err)});
