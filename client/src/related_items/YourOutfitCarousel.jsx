@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { ProdPageContext } from '../product_page.jsx';
+import StarRating from '../shared_components/StarRating.jsx';
+import getOutfitDetails from './fetchYourOutfitData.js';
+import EmptyCard from './YourOutfitEmptyCard.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
-import StarRating from '../shared_components/StarRating.jsx';
-import { ProdPageContext } from '../product_page.jsx';
-import getOutfitDetails from './fetchYourOutfitData.js';
 
 const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage }) => {
-  // console.log('outfitDetails', outfitDetails);
   const {prod_id} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
-  const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 3)); // change to 4
-  const maxDisplay = outfitDetails.length > 0 ? outfitDetails.length - 3 : 3; // change to 4
+  const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 3));
+  const maxDisplay = outfitDetails.length - 3;
   const placeholder = 'http://placecorgi.com/260/180';
 
   const nextSlide = () => {
@@ -23,58 +23,52 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
     setCurrentImageIdx(currentImageIdx === 0 ? 0 : currentImageIdx - 1);
   };
 
-  // useEffect(() => {
-  //   setCurrentImageIdx(0);
-  // }, [outfitDetails]);
-
   return (
-    <div>
-      <CarouselContainer>
-        {currentImageIdx !== 0 ?
+    <CarouselContainer className='CarouselContainer'>
+      {
+        currentImageIdx !== 0 ?
         <LeftArrow icon={faAngleLeft} onClick={() => prevSlide()}/> :
-        <LeftArrowTransparent icon={faAngleLeft}/>}
-        <CarouselWrapper>
-          <AddCard>
-            <AddIcon onClick={(e) => saveToStorage(e, prod_id)}>
-                Add To Outfit
-            </AddIcon>
-          </AddCard>
-            {display.map((details, index) => {
-              return (
-                <IndividualCardStyle key={index}>
-                  <ImageWrapper>
-                    <ImageStyle
-                      src={details.image === null ? placeholder : details.image}
+        <LeftArrowTransparent icon={faAngleLeft}/>
+      }
+      <CarouselWrapper className='CarouselWrapper'>
+        <EmptyCard className='EmptyCard' saveToStorage={saveToStorage}/>
+          {display.map((details, index) => {
+            return (
+              <IndividualCardStyle className='CardStyle'key={index}>
+                <ImageWrapper className='ImageWrapper'>
+                  <ImageStyle className='ImageStyle'
+                    src={details.image === null ? placeholder : details.image}
+                  />
+                  <ButtonStyle className='button'>
+                    <FontAwesomeIcon
+                      icon={faCircleXmark}
+                      onClick={(e) => removeFromStorage(e, details.id)}
                     />
-                    <ButtonStyle>
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        onClick={(e) => removeFromStorage(e, prod_id)}
-                      />
-                    </ButtonStyle>
-                  </ImageWrapper>
-                  <DetailsWrapper>
-                    <CategoryStyle>{details.category}</CategoryStyle>
-                    <NameStyle>{details.name}</NameStyle>
-                    <PriceStyle>${details.price}</PriceStyle>
-                    <RatingsStyle>{StarRating(details.rating)}</RatingsStyle>
-                  </DetailsWrapper>
-                </IndividualCardStyle>
-              )
-            })}
-        </CarouselWrapper>
-          {currentImageIdx === maxDisplay ?
-          <RightArrowTransparent icon={faAngleRight} /> :
-          <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/>}
-      </CarouselContainer>
-    </div>
+                  </ButtonStyle>
+                </ImageWrapper>
+                <DetailsWrapper className='Details'>
+                  <CategoryStyle>{details.category}</CategoryStyle>
+                  <NameStyle>{details.name}</NameStyle>
+                  <PriceStyle>${details.price}</PriceStyle>
+                  <RatingsStyle>{StarRating(details.rating)}</RatingsStyle>
+                </DetailsWrapper>
+              </IndividualCardStyle>
+            )
+          })}
+      </CarouselWrapper>
+        {
+          (currentImageIdx !== maxDisplay && display.length >= 3) ?
+          <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/> :
+          <RightArrowTransparent icon={faAngleRight}/>
+        }
+    </CarouselContainer>
   )
 }
 
 const CarouselContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  // justify-content: center;
   align-items: flex-start;
   position: relative;
   width: 100%;
@@ -86,24 +80,6 @@ const CarouselWrapper = styled.div`
   display: flex;
   object-fit: cover;
   align-items: center;
-`;
-
-const AddCard = styled.div`
-  display: block;
-  border-radius: 5px;
-  border-width: 1px;
-  border-style: solid;
-  margin: 15px;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-  width: 240px;
-  height: 340px;
-  object-fit: contain;
-  overflow: hidden;
-  text-align: center;
 `;
 
 const IndividualCardStyle = styled.div`
@@ -119,7 +95,6 @@ const IndividualCardStyle = styled.div`
   }
   width: 240px;
   height: fit-content;
-  object-fit-contain;
   overflow: hidden;
 `;
 
@@ -127,7 +102,7 @@ const ImageWrapper = styled.div`
   height: 230px;
   width: 240px;
   overflow: hidden;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const ImageStyle = styled.img`
@@ -136,6 +111,7 @@ const ImageStyle = styled.img`
   background-position: center;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 `;
 
 const DetailsWrapper = styled.div`
@@ -173,7 +149,7 @@ const LeftArrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 170px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -185,7 +161,7 @@ const LeftArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 170px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -202,7 +178,7 @@ const RightArrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 170px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -214,7 +190,7 @@ const RightArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 170px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
   &:hover {

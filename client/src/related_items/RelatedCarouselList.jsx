@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { ProdPageContext } from '../product_page.jsx';
+import StarRating from '../shared_components/StarRating.jsx';
+import ComparisonModal from './ComparisonModal.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
-import StarRating from '../shared_components/StarRating.jsx';
-import ComparisonModal from './ComparisonModal.jsx';
-import { ProdPageContext } from '../product_page.jsx';
 
 const Carousel = (productDetails) => {
-  console.log('productDetails', productDetails);
   const {prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
-  const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
-  const maxDisplay = productDetails.length - 4; // change to 4
+  const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4));
+  const maxDisplay = productDetails.length - 4;
   const placeholder = 'http://placecorgi.com/260/180';
 
   const nextSlide = () => {
@@ -28,17 +27,17 @@ const Carousel = (productDetails) => {
   }, [productDetails]);
 
   const handleModalClick = (id) => {
-    // console.log(id); // gets the current product ID for clicked card
-    // ComparisonModal(id);
     setModalHeaderContent('COMPARING')
     setModalBodyContent(<ComparisonModal mainId={prod_id} relatedId={id}/>);
     setShowModal(true);
   }
 
   return (
-    <CarouselList>
-      {currentImageIdx !== 0 ?
-      <LeftArrow icon={faAngleLeft} onClick={() => prevSlide()}/> : <LeftArrowTransparent icon={faAngleLeft}/>}
+    <CarouselContainer>
+      {
+        currentImageIdx !== 0 ?
+        <LeftArrow icon={faAngleLeft} onClick={() => prevSlide()}/> : <LeftArrowTransparent icon={faAngleLeft}/>
+      }
       <CarouselWrapper>
         {display.map((details) => {
           return (
@@ -59,19 +58,22 @@ const Carousel = (productDetails) => {
           )
         })}
       </CarouselWrapper>
-      {currentImageIdx === maxDisplay ?
-      <RightArrowTransparent icon={faAngleRight} fill='transparent'/> :
-      <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/>}
-    </CarouselList>
+      {
+        currentImageIdx === maxDisplay ?
+        <RightArrowTransparent icon={faAngleRight} fill='transparent'/> :
+        <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/>
+      }
+    </CarouselContainer>
   )
 }
 
-const CarouselList = styled.div`
+const CarouselContainer = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 const CarouselWrapper = styled.div`
@@ -79,8 +81,6 @@ const CarouselWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
-  left: 15px;
 `;
 
 const IndividualCardStyle = styled.div`
@@ -103,7 +103,7 @@ const ImageWrapper = styled.div`
   height: 230px;
   width: 240px;
   overflow: hidden;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const ImageStyle = styled.img`
@@ -112,6 +112,7 @@ const ImageStyle = styled.img`
   background-position: center;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 `;
 
 const DetailsWrapper = styled.div`
@@ -149,7 +150,7 @@ const LeftArrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 10px;
+  top: -15px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -161,7 +162,7 @@ const LeftArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 10px;
+  top: -15px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -178,7 +179,7 @@ const RightArrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 10px;
+  top: -15px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -190,7 +191,7 @@ const RightArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 10px;
+  top: -15px;
   cursor: pointer;
   user-select: none;
   &:hover {

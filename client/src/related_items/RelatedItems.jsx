@@ -1,5 +1,4 @@
 import React, { useState, useContext, createContext } from 'react';
-import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
 import RelatedProductDetails from './RelatedProductDetails.jsx';
 import YourOutfitDetails from './YourOutfitDetails.jsx';
@@ -28,7 +27,7 @@ const RelatedProductsSection = styled.section`
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  max-width: 1080px;
+  max-width: 1110px;
   padding-bottom: 20px;
   margin-bottom: 20px;
 

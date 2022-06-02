@@ -29,14 +29,10 @@ const getOutfitDetails = (id) => {
       price: productInfo.default_price,
       rating: avgRating.avgRating
     }
-    // setOutfitDetails([outfit]);
-    // outfitArray.push([outfit]);
     return outfit;
   })
   .then((data) => {
-    // console.log('data', data);
     return data;
-    // console.log('outfitArray inside', outfitArray);
   })
   .catch((err) => console.log(err));
 }

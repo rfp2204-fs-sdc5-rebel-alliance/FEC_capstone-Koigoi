@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect} from 'react';
 import { AppContext } from '../index.jsx';
-import config from '../../dist/config.js';
 import axios from 'axios';
 import styled from 'styled-components';
 import ImageUpload from '../shared_components/ImageUpload.jsx';
@@ -30,7 +29,7 @@ const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) =>
 
     event.preventDefault();
 
-    const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${questionId}/answers`;
+    const url = `/FEC/qa/questions/${questionId}/answers`;
 
     const data = {
       body: answer,
@@ -38,11 +37,8 @@ const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) =>
       email: email,
       photos: photos
     }
-    axios.post(url, data, {
-      headers: {
-        Authorization: config.TOKEN
-      }
-    })
+
+    axios.post(url, data)
     .then((response) => {
       console.log('success')
     })
