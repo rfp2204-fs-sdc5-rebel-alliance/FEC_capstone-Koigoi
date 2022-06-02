@@ -85,16 +85,18 @@ const CarouselContainer = styled.div`
 
 const IndividualCardStyle = styled.div`
   display: block;
-  border-radius: 3px;
   margin: 15px;
   flex-direction: column;
   flex-wrap: nowrap;
-  &:hover {
-    box-shadow: 0 0 5px rgba(90, 90, 90, 0.8);
-  }
   width: 240px;
   height: fit-content;
   overflow: hidden;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: .5px;
+  &:hover {
+    box-shadow: 0 0 5px rgba(90, 90, 90, 0.8);
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -102,8 +104,6 @@ const ImageWrapper = styled.div`
   width: 240px;
   overflow: hidden;
   object-fit: cover;
-  border-style: solid;
-  border-width: 1px;
 `;
 
 const ImageStyle = styled.img`
@@ -132,7 +132,6 @@ const InfoStyle = styled.div`
   font-size: 13px;
   line-height: 17px;
   text-transform: none;
-  color: rgb(17, 17, 17);
   font-weight: 500;
   padding-left: 5px;
 `;
@@ -151,10 +150,11 @@ const PriceStyle = styled.div`
   padding: 2px;
   position: relative;
   bottom: 75px;
-  left: 183px;
-  background-color: white;
+  left: 180px;
+  background-color: #FFFAFA;
   border-radius: 3px;
   cursor: pointer;
+  width: 54px;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
   &:disabled {
     pointer-events: none;
@@ -162,7 +162,7 @@ const PriceStyle = styled.div`
 
   &:hover {
     color: black;
-    background-color: white;
+    background-color: #FFFAFA;
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     transform: translateY(-3px);
   }
