@@ -42,14 +42,17 @@ const ButtonContainer = styled.div`
   justify-content: center;
 `;
 
-const ButtonStyle = styled.button`
+const AddButton = styled.button`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   padding: 0.25rem 1rem;
+  border: 1px solid ${(props) => props.theme.fontColor};
   border-radius: 1rem;
+  text-align: center;
   cursor: pointer;
-  color: #fff;
-  background: #111;
+  margin: 0 2rem 0 0;
+  background: black;
+  color: white;
   &:hover {
     box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   }
@@ -165,7 +168,7 @@ const PayForm = () => {
             </div>
           </div>
           <ButtonContainer>
-            <ButtonStyle type="submit">Checkout</ButtonStyle>
+            <AddButton type="submit">Checkout</AddButton>
           </ButtonContainer>
         </form>
       </div>

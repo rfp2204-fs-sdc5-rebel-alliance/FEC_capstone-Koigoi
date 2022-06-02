@@ -27,6 +27,7 @@ const RelatedProductsSection = styled.div`
   flex-wrap: nowrap;
   max-width: 1110px;
   padding-bottom: 20px;
+  margin-top: 2rem;
   margin-bottom: 20px;
 `;
 

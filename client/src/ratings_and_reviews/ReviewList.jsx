@@ -40,6 +40,11 @@ const Button = styled.button`
   }
 `;
 
+const AddButton = styled(Button)`
+  background: black;
+  color: white;
+`;
+
 function ReviewList({ removeFilters, renderFilterRatings }) {
   const [reviews, setReviews] = useState([]);
   const [allReviews, setAllReviews] = useState([])
@@ -206,7 +211,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       </ReviewCardContainer>
       <ButtonContainer>
         {moreReviewsButton}
-        <Button onClick={() => {handleModal()}}>Add a Review</Button>
+        <AddButton onClick={() => {handleModal()}}>Add a Review</AddButton>
       </ButtonContainer>
     </ReviewListContainer>
   );

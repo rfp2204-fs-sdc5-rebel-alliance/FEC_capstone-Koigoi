@@ -33,14 +33,17 @@ const SelectStyle = styled.select`
   }
 `;
 
-const ButtonStyle = styled.button`
+const AddButton = styled.button`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   padding: 0.25rem 1rem;
+  border: 1px solid ${(props) => props.theme.fontColor};
   border-radius: 1rem;
+  text-align: center;
   cursor: pointer;
-  color: #fff;
-  background: #111;
+  margin: 0 2rem 0 0;
+  background: black;
+  color: white;
   &:hover {
     box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   }
@@ -161,7 +164,7 @@ const ShopSection = () => {
                 <QuantForm />
             </SelectStyle>
           </ShopContext.Provider>
-          <ButtonStyle onClick={() => {addToCart()}}>Add to Cart</ButtonStyle>
+          <AddButton onClick={() => {addToCart()}}>Add to Cart</AddButton>
         </ComponentStyle>
         <ComponentStyle>
           <SocialMedia src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" onClick={() => {window.open('https://www.facebook.com/')}}/>
