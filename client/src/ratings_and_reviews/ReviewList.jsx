@@ -87,6 +87,9 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
     }
   }, [reviewCount, filterRatingsCount, allReviews, filtered, searchTerm])
 
+  // console.log('NUM RATING', numRating)
+  // console.log('FILTERED', filtered)
+
   const getReviews = () => {
     if (filtered === true) {
       setFilterRatingsCount(prevReviewCount => prevReviewCount + 2)
