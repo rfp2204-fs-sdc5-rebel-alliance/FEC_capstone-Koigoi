@@ -9,7 +9,7 @@ import Checkout from './checkout.jsx';
 import Modal from './shared_components/Modal.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faHouse, faShirt } from '@fortawesome/free-solid-svg-icons';
 
 export const AppContext = createContext();
 
@@ -64,6 +64,11 @@ const CheckBox = styled.input`
   }
 `;
 
+const CartCount = styled.span`
+  position: relative;
+  bottom: 8px;
+`;
+
 const App = () => {
   const [theme, setTheme] = useState('light');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : []);
@@ -113,8 +118,12 @@ const App = () => {
               <li>
                 <FontAwesomeIcon style={{'cursor': 'pointer'}} icon={faHouse} onClick={() => {changeView('Home')}}/>
               </li>
+              <li>
+                <FontAwesomeIcon style={{'cursor': 'pointer'}} icon={faShirt} onClick={() => {changeView('Product')}}/>
+              </li>
               <li style={{'cursor': 'pointer'}}>
                 <FontAwesomeIcon icon={faShoppingCart} onClick={() => {changeView('Checkout')}}/>
+                <CartCount>{cart.length || ''}</CartCount>
               </li>
             </ul>
 
