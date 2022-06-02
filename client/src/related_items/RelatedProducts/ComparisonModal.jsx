@@ -81,10 +81,9 @@ const ComparisonModal = ({ mainId, relatedId }) => {
       <table>
         <thead>
           <tr>
-            <LeftHeader>{features[0].name}</LeftHeader>
+            <HeaderStyle>{features[0].name}</HeaderStyle>
             <th> </th>
-            <RightHeader>{features[features.length-1].name}</RightHeader>
-            <th> </th>
+            <HeaderStyle>{features[features.length-1].name}</HeaderStyle>
           </tr>
         </thead>
         <tbody>
@@ -115,15 +114,9 @@ const MiddleValues = styled.td`
   padding-right: 10px;
 `;
 
-const LeftHeader = styled.th`
-  padding-left: 15px;
-  padding-right: 10px;
-`;
-
-const RightHeader = styled.th`
+const HeaderStyle = styled.th`
   padding-left: 10px;
   padding-right: 10px;
 `;
-
 
 export default ComparisonModal;
