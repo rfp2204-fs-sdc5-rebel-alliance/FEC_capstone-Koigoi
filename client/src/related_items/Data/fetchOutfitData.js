@@ -29,6 +29,7 @@ const fetchOutfitDetails = (id) => {
       price: productInfo.default_price,
       rating: avgRating.avgRating
     }
+    console.log(outfit);
     return outfit;
   })
   .then((data) => {

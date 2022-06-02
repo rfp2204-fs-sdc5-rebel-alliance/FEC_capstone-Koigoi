@@ -47,8 +47,11 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
               <DetailsWrapper className='Details'>
                 <CategoryStyle>{details.category}</CategoryStyle>
                 <NameStyle>{details.name}</NameStyle>
-                <DetailsStyle>${details.price}</DetailsStyle>
-                <DetailsStyle>{StarRating(details.rating)}</DetailsStyle>
+                <PriceStyle>${details.price}</PriceStyle>
+                <RatingStyle>
+                  {StarRating(details.rating)}
+                  {details.rating}
+                </RatingStyle>
               </DetailsWrapper>
             </IndividualCardStyle>
           )
@@ -69,14 +72,6 @@ const CarouselContainer = styled.div`
   align-items: flex-start;
   width: 100%;
 `;
-
-// const CarouselWrapper = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   position: relative;
-//   align-items: center;
-//   object-fit: cover;
-// `;
 
 const IndividualCardStyle = styled.div`
   display: block;
@@ -118,18 +113,25 @@ const DetailsWrapper = styled.div`
 const CategoryStyle = styled.div`
   font-weight: normal;
   text-transform: uppercase;
-  font-size: 15px;
+  font-size: 12px;
   padding-left: 5px;
   padding-top: 10px;
 `;
 
 const NameStyle = styled.div`
   font-weight: bold;
-  font-size: 17px;
+  font-size: 15px;
   padding-left: 5px;
 `;
 
-const DetailsStyle = styled.div`
+const PriceStyle = styled.div`
+  font-weight: normal;
+  font-size: 10px;
+  padding-left: 5px;
+`;
+
+const RatingStyle = styled.div`
+
   font-weight: normal;
   font-size: 15px;
   padding-left: 5px;
