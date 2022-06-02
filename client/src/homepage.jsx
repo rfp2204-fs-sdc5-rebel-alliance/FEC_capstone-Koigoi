@@ -9,6 +9,7 @@ const BannerStyle = styled.div`
   width: 100%;
   height: 30rem;
   background-color: black;
+  margin-bottom: 2rem;
   &:hover {
     .bannerText {
       visibility: visible;
@@ -26,6 +27,8 @@ const BannerText = styled.div`
   position: absolute;
   top: 45%;
   left: 45%;
+  font-size: 30px;
+  font-weight: bold;
   color: white;
   visibility: hidden;
   -webkit-transition: visibility 0s, opacity 0.5s linear;
@@ -41,7 +44,7 @@ const HomePage = () => {
         <ImgStyle src="https://i.gifer.com/g32L.gif" alt="No Fish :(" />
         <BannerText className="bannerText" >Shop Zen.</BannerText>
       </BannerStyle>
-      <h1>no frills, just clothes and koi fish.</h1>
+      <h1>no frills. just clothes and koi fish.</h1>
     </div>
   )
 }

@@ -55,6 +55,7 @@ const SelectStyle = styled.select`
   width: 6rem;
   border-radius: 1rem;
   text-align: center;
+  cursor: pointer;
   &:hover {
     box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   }
@@ -114,7 +115,7 @@ const CartItem = ({item}) => {
             }
           </SelectStyle>
         </SelectContainer>
-        <div style={{'marginTop': '1rem', 'marginRight': '1rem'}} onClick={() => {handleDelete(item)}}>❌</div>
+        <div style={{'marginTop': '1rem', 'marginRight': '1rem', 'cursor': 'pointer'}} onClick={() => {handleDelete(item)}}>❌</div>
       </QuantContainer>
     </Container>
   )

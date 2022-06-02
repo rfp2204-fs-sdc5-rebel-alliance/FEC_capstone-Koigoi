@@ -8,6 +8,9 @@ import HomePage from './homepage.jsx';
 import Checkout from './checkout.jsx';
 import Modal from './shared_components/Modal.jsx';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart, faHouse } from '@fortawesome/free-solid-svg-icons';
+
 export const AppContext = createContext();
 
 const AppStyle = styled.div`
@@ -107,9 +110,12 @@ const App = () => {
                   </CheckBoxWrapper>
                 </div>
               </li>
-              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Home')}}>Home</li>
-              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Product')}}>Product</li>
-              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Checkout')}}>Shopping Cart</li>
+              <li>
+                <FontAwesomeIcon style={{'cursor': 'pointer'}} icon={faHouse} onClick={() => {changeView('Home')}}/>
+              </li>
+              <li style={{'cursor': 'pointer'}}>
+                <FontAwesomeIcon icon={faShoppingCart} onClick={() => {changeView('Checkout')}}/>
+              </li>
               <li style={{'cursor': 'pointer'}} onClick={() => {setProd(40344); setView('Product')}}>40344</li>
               <li style={{'cursor': 'pointer'}} onClick={() => {setProd(40348); setView('Product')}}>40348</li>
             </ul>
