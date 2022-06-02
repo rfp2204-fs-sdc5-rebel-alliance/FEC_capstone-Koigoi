@@ -47,6 +47,7 @@ const ButtonStyle = styled.button`
   flex-direction: column;
   padding: 0.25rem 1rem;
   border-radius: 1rem;
+  cursor: pointer;
   color: #fff;
   background: #111;
   &:hover {

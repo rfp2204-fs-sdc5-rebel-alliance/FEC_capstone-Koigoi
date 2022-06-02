@@ -8,6 +8,9 @@ import HomePage from './homepage.jsx';
 import Checkout from './checkout.jsx';
 import Modal from './shared_components/Modal.jsx';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart, faHouse } from '@fortawesome/free-solid-svg-icons';
+
 export const AppContext = createContext();
 
 const AppStyle = styled.div`
@@ -64,7 +67,7 @@ const CheckBox = styled.input`
 const App = () => {
   const [theme, setTheme] = useState('light');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : []);
-  const [view, setView] = useState('Product');
+  const [view, setView] = useState('Home');
   const [prod_id, setProd] = useState(40344);
   const [showModal, setShowModal] = useState(false);
   const [modalBodyContent, setModalBodyContent] = useState(null);
@@ -97,7 +100,7 @@ const App = () => {
       <AppStyle>
         <header>
           <nav>
-            <h1>koigoi</h1>
+            <h1 style={{'cursor': 'pointer'}} onClick={() => {setView('Home')}}>koigoi</h1>
             <ul>
               <li>
                 <div>
@@ -107,14 +110,17 @@ const App = () => {
                   </CheckBoxWrapper>
                 </div>
               </li>
-              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Home')}}>Home</li>
-              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Product')}}>Product</li>
-              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Checkout')}}>Shopping Cart</li>
+              <li>
+                <FontAwesomeIcon style={{'cursor': 'pointer'}} icon={faHouse} onClick={() => {changeView('Home')}}/>
+              </li>
+              <li style={{'cursor': 'pointer'}}>
+                <FontAwesomeIcon icon={faShoppingCart} onClick={() => {changeView('Checkout')}}/>
+              </li>
             </ul>
 
           </nav>
         </header>
-        <AppContext.Provider value={{prod_id, setProd, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
+        <AppContext.Provider value={{prod_id, setProd, setView, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
           <div>{renderView()}</div>
           <Modal />
         </AppContext.Provider>

@@ -10,7 +10,6 @@ export const ProdPageContext = createContext();
 
 const ProductPage = () => {
   const { prod_id, setProd, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent } = useContext(AppContext);
-  //const [prod_id, setProd] = useState(40344);
   const [prod_name, setProdName] = useState('');
   const [ratingsObj, setRatingsObj] = useState({});
   const [totalRatings, setTotalRatings] = useState(0);
