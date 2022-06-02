@@ -18,9 +18,9 @@ const RelatedProductDetails = () => {
     .then((relatedIDs) => {
         const promiseArray = [];
         relatedIDs.forEach((id) => {
-          promiseArray.push(fetchRelatedData('styles', id));
-          promiseArray.push(fetchRelatedData('', id));
-          promiseArray.push(fetchRatingsData('meta', id));
+            promiseArray.push(fetchRelatedData('styles', id));
+            promiseArray.push(fetchRelatedData('', id));
+            promiseArray.push(fetchRatingsData('meta', id));
         })
         return Promise.all(promiseArray)
       })

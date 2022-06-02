@@ -4,6 +4,7 @@ import StarRating from '../shared_components/StarRating.jsx';
 
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 import { ProdPageContext } from '../product_page.jsx';
+import { AppContext } from '../index.jsx';
 
 const AverageRating = styled.div`
   display: flex;
@@ -38,6 +39,7 @@ const RatingNumber = styled.button`
   background: none;
   padding: 0px;
   margin-right: 10px;
+  color: ${(props) => props.theme.fontColor};
 
   &:hover {
     font-weight: bold;
@@ -54,7 +56,7 @@ const RatingBarContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 30px;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.fontColor};;
 `;
 
 const RecommendedMessage = styled.div`
@@ -64,6 +66,7 @@ const RecommendedMessage = styled.div`
 function RatingBreakdown({ removeFilters, renderFilterRatings }) {
   const { ratings, totalRatings, avgRating, recommended, showRatings, setShowRatings, filtered } = useContext(ReviewsContext);
   const { averageRating } = useContext(ProdPageContext);
+  const { theme } = useContext(AppContext);
 
   const handleRatingClick = (event) => {
     const starRating = event.target.value;
@@ -111,13 +114,15 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
   let recommendedPercentage = `${Math.round((recommended.true / totalRatings) * 100)}% of reviews recommend this product`;
 
   const renderRatingBreakdown = () => {
+
+    let barColor = theme === 'light' ? 'black' : 'white'
     return (
       [...Array(5)].map((rating, index) => {
         const starRating = 5 - index;
         const ratingPercent = {
           'width': `${individualRatingAvg(starRating)}%`,
           'height': '30px',
-          'backgroundColor': 'black'
+          'backgroundColor': barColor
         }
         return (
           <RatingsBreakdown key={index}>

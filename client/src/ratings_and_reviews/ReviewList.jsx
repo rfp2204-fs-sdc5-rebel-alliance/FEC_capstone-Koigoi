@@ -10,7 +10,7 @@ import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 const ReviewListContainer = styled.div`
   font-size: 18px;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.fontColor};
 `;
 
 const ReviewCardContainer = styled.div`
@@ -23,6 +23,21 @@ const ButtonContainer = styled.div`
   display: flex;
   alignItems: center;
   padding: 20px 20px;
+`;
+
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem 1rem;
+  border: 1px solid ${(props) => props.theme.fontColor};
+  border-radius: 1rem;
+  text-align: center;
+  cursor: pointer;
+  margin: 0 2rem 0 0;
+  background: #FFF;
+  &:hover {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  }
 `;
 
 function ReviewList({ removeFilters, renderFilterRatings }) {
@@ -154,7 +169,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
    if (reviewCount >= totalRatings) {
     moreReviewsButton = null;
   } else if (reviewCount > 0) {
-    moreReviewsButton = <button onClick={() => {getReviews()}}>More Reviews</button>;
+    moreReviewsButton = <Button onClick={() => {getReviews()}}>More Reviews</Button>;
   } else {
     noReviewsGreeting = <p>Be the first to review this product!</p>;
   }
@@ -188,7 +203,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       </ReviewCardContainer>
       <ButtonContainer>
         {moreReviewsButton}
-        <button onClick={() => {handleModal()}}>Add a Review</button>
+        <Button onClick={() => {handleModal()}}>Add a Review</Button>
       </ButtonContainer>
     </ReviewListContainer>
   );
