@@ -51,9 +51,9 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
               </ImageWrapper>
               <DetailsWrapper className='Details'>
                 <InfoStyle>
-                  <span> {details.name} </span>
-                  <CategoryStyle> {details.category}</CategoryStyle>
-                  <span> {StarRating(details.rating)} </span>
+                  <span>{details.name}</span>
+                  <CategoryStyle>{details.category}</CategoryStyle>
+                  <span>{StarRating(details.rating)}</span>
                 </InfoStyle>
                 <PriceStyle>${details.price}</PriceStyle>
               </DetailsWrapper>
@@ -141,10 +141,9 @@ const PriceStyle = styled.div`
   text-transform: none;
   color: rgb(17, 17, 17);
   font-weight: 500;
-  padding: 2px;
+  padding: 2px 4px;
   position: relative;
   bottom: 38px;
-  // right: 0px;
   background-color: #FFFAFA;
   border-radius: 3px;
   cursor: pointer;

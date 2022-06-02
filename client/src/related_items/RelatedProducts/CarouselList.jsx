@@ -59,8 +59,8 @@ const RelatedCarousel = () => {
                 <span>{details.names}</span>
                 <CategoryStyle>{details.categories}</CategoryStyle>
                 <span>{StarRating(details.ratings.avgRating)}</span>
-                <PriceStyle>${details.prices}</PriceStyle>
               </InfoStyle>
+                <PriceStyle>${details.prices}</PriceStyle>
             </DetailsWrapper>
           </IndividualCardStyle>
         )
@@ -147,14 +147,12 @@ const PriceStyle = styled.div`
   text-transform: none;
   color: rgb(17, 17, 17);
   font-weight: 500;
-  padding: 2px;
+  padding: 2px 4px;
   position: relative;
-  bottom: 75px;
-  left: 180px;
+  bottom: 38px;
   background-color: #FFFAFA;
   border-radius: 3px;
   cursor: pointer;
-  width: 54px;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
   &:disabled {
     pointer-events: none;

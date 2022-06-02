@@ -21,16 +21,13 @@ const RelatedItems = () => {
   )
 }
 
-const RelatedProductsSection = styled.section`
+const RelatedProductsSection = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   flex-wrap: nowrap;
   max-width: 1110px;
   padding-bottom: 20px;
   margin-bottom: 20px;
-
 `;
 
 const TitleStyle = styled.h3`
