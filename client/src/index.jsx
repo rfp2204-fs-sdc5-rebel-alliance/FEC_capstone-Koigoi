@@ -100,7 +100,7 @@ const App = () => {
       <AppStyle>
         <header>
           <nav>
-            <h1>koigoi</h1>
+            <h1 style={{'cursor': 'pointer'}} onClick={() => {setView('Home')}}>koigoi</h1>
             <ul>
               <li>
                 <div>
@@ -116,13 +116,11 @@ const App = () => {
               <li style={{'cursor': 'pointer'}}>
                 <FontAwesomeIcon icon={faShoppingCart} onClick={() => {changeView('Checkout')}}/>
               </li>
-              <li style={{'cursor': 'pointer'}} onClick={() => {setProd(40344); setView('Product')}}>40344</li>
-              <li style={{'cursor': 'pointer'}} onClick={() => {setProd(40348); setView('Product')}}>40348</li>
             </ul>
 
           </nav>
         </header>
-        <AppContext.Provider value={{prod_id, setProd, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
+        <AppContext.Provider value={{prod_id, setProd, setView, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
           <div>{renderView()}</div>
           <Modal />
         </AppContext.Provider>
