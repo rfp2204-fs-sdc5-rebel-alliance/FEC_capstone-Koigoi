@@ -170,7 +170,7 @@ const Arrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 160px;
+  top: 145px;
   cursor: pointer;
   user-select: none;
   transform: scale(0.75);
@@ -184,7 +184,7 @@ const ArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 160px;
+  top: 145px;
   visibility: hidden;
 `;
 
@@ -196,7 +196,7 @@ const ButtonStyle = styled.button`
   border-radius: 15px;
   color: #3B3B3B;
   cursor: pointer;
-  font-size: 16px;
+  // font-size: 16px;
   line-height: normal;
   padding: 2px 3px;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);

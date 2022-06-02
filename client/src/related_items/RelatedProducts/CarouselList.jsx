@@ -66,9 +66,9 @@ const RelatedCarousel = () => {
         )
       })}
       {
-        currentImageIdx === maxDisplay ?
-        <ArrowTransparent icon={faAngleRight} fill='transparent'/> :
-        <Arrow icon={faAngleRight} onClick={() => nextSlide()}/>
+        (currentImageIdx !== maxDisplay && display.length >= 4) ?
+        <Arrow icon={faAngleRight} onClick={() => nextSlide()}/> :
+        <ArrowTransparent icon={faAngleRight} fill='transparent'/>
       }
     </CarouselContainer>
   )
@@ -78,8 +78,7 @@ const CarouselContainer = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
 `;
 
@@ -175,7 +174,7 @@ const Arrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: -15px;
+  top: 145px;
   cursor: pointer;
   user-select: none;
   transform: scale(0.75);
@@ -189,7 +188,7 @@ const ArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 160px;
+  top: 145px;
   visibility: hidden;
 `;
 

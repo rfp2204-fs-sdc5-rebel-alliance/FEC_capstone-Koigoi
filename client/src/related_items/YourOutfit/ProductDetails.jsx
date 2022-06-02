@@ -43,9 +43,7 @@ const YourOutfitDetails = () => {
     return (
       <CarouselContainer className='CarouselContainer'>
         <ArrowTransparent icon={faAngleLeft}/>
-        <CarouselWrapper className='CarouselWrapper'>
           <EmptyCard saveToStorage={saveToStorage}/>
-        </CarouselWrapper>
         <ArrowTransparent icon={faAngleRight} />
       </CarouselContainer>
     )
@@ -64,18 +62,11 @@ const YourOutfitDetails = () => {
 
 const CarouselContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  position: relative;
+  flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  width: 100%;
-`;
-
-const CarouselWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
   position: relative;
-  align-items: center;
-  object-fit: cover;
+  width: 100%;
 `;
 
 const ArrowTransparent = styled(FontAwesomeIcon)`
