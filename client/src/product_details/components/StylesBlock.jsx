@@ -24,6 +24,7 @@ const ImgStyle = styled.img`
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
   &:hover,
   &:focus {
     transform: scale(1.1);
@@ -36,6 +37,7 @@ const SelectedImgStyle = styled.img`
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
   transform: scale(1.1);
   box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
 `;

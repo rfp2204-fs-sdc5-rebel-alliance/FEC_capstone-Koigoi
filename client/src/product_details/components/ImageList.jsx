@@ -26,6 +26,7 @@ const ImgStyle = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
   &:hover,
   &:focus {
     transform: scale(1.1);
@@ -37,6 +38,7 @@ const SelectedImgStyle = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
   transform: scale(1.1);
   box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
 `;
@@ -45,6 +47,7 @@ const ArrowStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   transform: scale(0.5);
   &:hover,
   &:focus {
@@ -86,15 +89,15 @@ const ImageList = ({images}) => {
 
   return (
     <ListStyle>
-      <ArrowStyle>
         {
           range.min !== 0 && images.length > 7 ?
+          <ArrowStyle>
             <FontAwesomeIcon icon={faAngleUp} onClick={() => {setRange({min: range.min - 1, max: range.max - 1})}}/>
+          </ArrowStyle>
           : <NoStyle>
               <FontAwesomeIcon icon={faAngleUp}/>
             </NoStyle>
         }
-      </ArrowStyle>
       {images.map((image, number) => {
           if (number >= range.min && number <= range.max - 1) {
             return (
@@ -108,15 +111,15 @@ const ImageList = ({images}) => {
             )
           }
         })}
-      <ArrowStyle>
         {
           range.max !== images.length && images.length > 7 ?
+          <ArrowStyle>
             <FontAwesomeIcon icon={faAngleDown} onClick={() => {setRange({min: range.min + 1, max: range.max + 1})}}/>
+          </ArrowStyle>
           : <NoStyle>
               <FontAwesomeIcon icon={faAngleDown}/>
             </NoStyle>
         }
-      </ArrowStyle>
     </ListStyle>
   )
 }

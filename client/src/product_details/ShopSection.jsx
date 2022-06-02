@@ -26,6 +26,7 @@ const SelectStyle = styled.select`
   width: 6rem;
   border-radius: 1rem;
   text-align: center;
+  cursor: pointer;
   margin: 0 2rem 0 0;
   &:hover {
     box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
@@ -37,6 +38,7 @@ const ButtonStyle = styled.button`
   flex-direction: column;
   padding: 0.25rem 1rem;
   border-radius: 1rem;
+  cursor: pointer;
   color: #fff;
   background: #111;
   &:hover {
@@ -50,6 +52,7 @@ const SocialMedia = styled.img`
   margin-right: 1rem;
   margin-top: 1rem;
   border-radius: 0.25rem;
+  cursor: pointer;
   &:hover {
     box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   }
