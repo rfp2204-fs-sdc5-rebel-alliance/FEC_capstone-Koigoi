@@ -9,8 +9,7 @@ import styled from 'styled-components';
 import { CardStyle, ImageWrapper, CarouselContainer,
          ImageStyle, DetailsWrapper, InfoStyle, CategoryStyle,
          PriceStyle, Arrow, ArrowTransparent, OutfitButtonStyle
-       }
-from '../Styled/Carousel.Styled.js';
+       } from '../Styled/Carousel.Styled.js';
 
 const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage }) => {
   const {prod_id, setProd} = useContext(ProdPageContext);

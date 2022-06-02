@@ -7,10 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { CarouselContainer, CardStyle, ImageWrapper,
-  ImageStyle, DetailsWrapper, InfoStyle, CategoryStyle,
-  PriceStyle, Arrow, ArrowTransparent, RelatedButtonStyle
-}
-from '../Styled/Carousel.Styled.js';
+          ImageStyle, DetailsWrapper, InfoStyle, CategoryStyle,
+          PriceStyle, Arrow, ArrowTransparent, RelatedButtonStyle
+        } from '../Styled/Carousel.Styled.js';
 
 const RelatedCarousel = () => {
   const {prod_id, setProd, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
