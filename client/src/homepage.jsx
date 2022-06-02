@@ -78,7 +78,7 @@ const HomePage = () => {
         <ImgStyle src="https://i.gifer.com/g32L.gif" alt="No Fish :(" />
         <BannerText className="bannerText" >Shop Zen.</BannerText>
       </BannerStyle>
-      <h1 style={{'marginBottom':'2rem', 'text-align': 'center'}}>no frills. just clothes and koi.</h1>
+      <h1 style={{'marginBottom':'2rem', 'textAlign': 'center'}}>no frills. just clothes and koi.</h1>
       <MainWrapper>
         <Locations>
           <h2>Stores</h2>
