@@ -12,8 +12,10 @@ const ReviewSortContainer = styled.div`
 
 const SortForm = styled.select`
   border: none;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid ${(props) => props.theme.fontColor};
   outline: 0;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.fontColor};
 `;
 
 function ReviewSort() {

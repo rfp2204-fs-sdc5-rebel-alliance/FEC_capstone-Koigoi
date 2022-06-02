@@ -23,7 +23,7 @@ const ModalContainer = styled.div`
   max-height: 90%;
   max-width: 90%;
   overflow: scroll;
-  background-color: white;
+  background-color: ${(props) => props.theme.body};
 `;
 
 const ModalHeader = styled.div`
