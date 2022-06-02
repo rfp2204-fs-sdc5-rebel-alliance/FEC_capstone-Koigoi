@@ -129,7 +129,7 @@ const App = () => {
 
           </nav>
         </header>
-        <AppContext.Provider value={{prod_id, setProd, setView, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent}}>
+        <AppContext.Provider value={{prod_id, setProd, setView, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent, theme}}>
           <div>{renderView()}</div>
           <Modal />
         </AppContext.Provider>

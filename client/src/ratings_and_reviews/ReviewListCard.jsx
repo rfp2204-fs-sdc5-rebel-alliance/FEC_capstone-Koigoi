@@ -11,7 +11,7 @@ import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 const ReviewCard = styled.div`
   max-width: 100%;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${(props) => props.theme.fontColor};
   margin: 0px 20px;
   padding: 20px 0px;
   font-weight: normal;
@@ -35,6 +35,21 @@ const ReviewImageContainer = styled.div`
 
 const CardResponse = styled.div`
   background: #F0F0F0;
+`;
+
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid ${(props) => props.theme.fontColor};
+  margin: 1rem 2rem 1rem 0;
+  background: #FFF;
+  &:hover {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  }
 `;
 
 function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
@@ -64,10 +79,10 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
       return null;
     } else {
       return (
-        <button
+        <Button
           onClick={() => {handleShowMore()}}>
           Show More
-        </button>
+        </Button>
       );
     }
   }
