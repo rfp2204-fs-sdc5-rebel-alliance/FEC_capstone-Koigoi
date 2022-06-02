@@ -115,7 +115,7 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
 
   const renderRatingBreakdown = () => {
 
-    let barColor = theme === 'light' ? 'black' : 'white'
+    let barColor = theme === 'light' ? '#36393E' : '#FFFAFA'
     return (
       [...Array(5)].map((rating, index) => {
         const starRating = 5 - index;
