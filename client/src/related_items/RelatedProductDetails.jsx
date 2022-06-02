@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { ProdPageContext } from '../product_page.jsx';
 import { fetchData, fetchRatingsData } from './fetchData.js';
-import styled from 'styled-components';
 import Carousel from './RelatedCarouselList.jsx';
 import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
+import styled from 'styled-components';
 
 const RelatedProductDetails = () => {
   const {prod_id} = useContext(ProdPageContext);
