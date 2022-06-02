@@ -85,7 +85,7 @@ const CarouselContainer = styled.div`
 
 const IndividualCardStyle = styled.div`
   display: block;
-  border-radius: 10px;
+  border-radius: 3px;
   margin: 15px;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -102,7 +102,7 @@ const ImageWrapper = styled.div`
   width: 240px;
   overflow: hidden;
   object-fit: cover;
-  border-radius: 5px;
+  // border-radius: 3px;
 `;
 
 const ImageStyle = styled.img`
