@@ -165,8 +165,8 @@ const ShopSection = () => {
         </ComponentStyle>
         <ComponentStyle>
           <SocialMedia src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" onClick={() => {window.open('https://www.facebook.com/')}}/>
-          <SocialMedia src="https://cdn-icons.flaticon.com/png/512/3256/premium/3256013.png?token=exp=1654107510~hmac=1159bb8d5cb1047a312152a56a02f6d0" alt="Twitter" onClick={() => {window.open('https://www.twitter.com/')}} />
-          <SocialMedia src="https://cdn-icons.flaticon.com/png/512/3536/premium/3536559.png?token=exp=1654107537~hmac=20c68737d56205ec0ddd9f2fcacccdae" alt="Pinterest" onClick={() => {window.open('https://www.pinterest.com/')}}/>
+          <SocialMedia src="https://cdn-icons.flaticon.com/png/512/3256/premium/3256013.png?token=exp=1654192040~hmac=caa749884f07b72e0c9d30d9fa1542a4" alt="Twitter" onClick={() => {window.open('https://www.twitter.com/')}} />
+          <SocialMedia src="https://cdn-icons.flaticon.com/png/512/3536/premium/3536559.png?token=exp=1654194532~hmac=d3c2a9338f6256a3862d3e4dd2b10424" alt="Pinterest" onClick={() => {window.open('https://www.pinterest.com/')}}/>
         </ComponentStyle>
       </Container>
     )

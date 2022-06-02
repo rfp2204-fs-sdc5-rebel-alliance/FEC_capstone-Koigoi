@@ -93,6 +93,7 @@ const HomePage = () => {
           <p>Arcadia, CA</p>
           <p>Renton, WA</p>
           <p>Kent, WA</p>
+          <p>Las Vegas, NV</p>
           <p>Sierra Vista, AZ</p>
         </Locations>
         <ItemsContainer>
