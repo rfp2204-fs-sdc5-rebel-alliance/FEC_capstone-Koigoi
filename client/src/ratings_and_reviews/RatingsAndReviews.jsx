@@ -81,7 +81,7 @@ function RatingsAndReviews() {
         });
       })
       .catch((err) => {console.log(err)});
-    }, []);
+    }, [prod_id]);
 
     const avgRating = ratingsObj.avgRating;
 
@@ -102,6 +102,7 @@ function RatingsAndReviews() {
     const renderFilterRatings = () => {
       setFilterNumRating([]);
       setFiltered(false);
+      setSearchTerm('');
 
       Object.keys(showRatings).forEach((rating) => {
         if (showRatings[rating] === true) {
