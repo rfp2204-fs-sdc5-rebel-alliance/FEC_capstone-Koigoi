@@ -4,6 +4,7 @@ import YourOutfitCarousel from './CarouselList.jsx';
 import fetchOutfitDetails from '../Data/fetchOutfitData.js';
 import EmptyCard from './EmptyCard.jsx';
 import styled from 'styled-components';
+import { ArrowTransparent } from '../Styled/Carousel.Styled.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -62,19 +63,10 @@ const YourOutfitDetails = () => {
 
 const CarouselContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
   align-items: flex-start;
   position: relative;
   width: 100%;
-`;
-
-const ArrowTransparent = styled(FontAwesomeIcon)`
-  position: relative;
-  height: 30px;
-  width: auto;
-  top: 160px;
-  visibility: hidden;
 `;
 
 export default YourOutfitDetails;
