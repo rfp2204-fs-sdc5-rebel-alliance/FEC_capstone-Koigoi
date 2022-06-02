@@ -12,11 +12,8 @@ const SearchContainer = styled.div`
   justify-content: space-between;
   padding: 0.3rem;
   align-items: center;
-  width: 800px;
   border: solid;
   border-color: #36393E;
-  // outline: 0.1rem;
-
 `;
 const SearchInput = styled.input`
   margin: 0 0.5rem 0 0.5rem;

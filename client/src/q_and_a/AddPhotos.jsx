@@ -6,6 +6,8 @@ const ThumbnailContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-left: 116px;
+  margin-top: 5px;
 `;
 
 const ImageContainer = styled.div`
