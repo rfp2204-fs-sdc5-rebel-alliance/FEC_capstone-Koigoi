@@ -102,7 +102,8 @@ const ImageWrapper = styled.div`
   width: 240px;
   overflow: hidden;
   object-fit: cover;
-  // border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
 `;
 
 const ImageStyle = styled.img`
@@ -154,16 +155,21 @@ const PriceStyle = styled.div`
   background-color: white;
   border-radius: 3px;
   cursor: pointer;
-  transition: all 235ms ease-in-out;
-}
-
-  &:hover {
-    box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
-    transform: translate3d(0, 2px, 0);
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  &:disabled {
+    pointer-events: none;
   }
 
-  &:focus {
-    box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+  &:hover {
+    color: black;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    box-shadow: none;
+    transform: translateY(0);
   }
 `;
 
