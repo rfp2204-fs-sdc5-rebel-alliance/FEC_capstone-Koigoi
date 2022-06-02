@@ -196,7 +196,6 @@ const ButtonStyle = styled.button`
   border-radius: 15px;
   color: #3B3B3B;
   cursor: pointer;
-  // font-size: 16px;
   line-height: normal;
   padding: 2px 3px;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
