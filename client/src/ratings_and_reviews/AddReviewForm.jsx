@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 import ImageUpload from '../shared_components/ImageUpload.jsx';
+import { AppContext } from '../index.jsx';
 
 const FormSection = styled.div`
   font-size: 14px;
@@ -83,6 +84,8 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   const [characteristicsValue, setCharacteristicsValue] = useState({});
   const [characterCount, setCharacterCount] = useState(50);
 
+  const { theme } = useContext(AppContext);
+
   useEffect (() => {
     renderCharacteristicsInput();
 
@@ -141,6 +144,11 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   }
 
   const StarRating = () => {
+    const starStyles = {
+
+    }
+    let selectedStar = theme === 'light' ? 'black' : 'white';
+    let defaultStar = theme === 'light' ? '#FFFAFA' : 'black'
     return (
       <div>
         {[...Array(5)].map((star, index) => {
@@ -154,9 +162,10 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
                 onClick={() => {setRating(ratingValue)}}
                 required/>
               <FontAwesomeIcon
+                style={{'stroke': 'black', 'stroke-width': '10'}}
                 icon={faStar}
                 size='2x'
-                color={ratingValue <= (ratingHover || rating) ? 'rgb(235, 235, 62)' : '#000'}
+                color={ratingValue <= (ratingHover || rating) ? selectedStar : defaultStar}
                 onMouseEnter={() => {setRatingHover(ratingValue)}}
                 onMouseLeave={() => {setRatingHover(null)}}/>
             </label>
