@@ -19,13 +19,11 @@ const YourOutfitDetails = () => {
 
     getOutfitDetails(id)
     .then((outfitData) => {
-      /* make copy of the existing state and check if the data exists in the copy */
         let currentOutfits = windowLocalStorage.slice();
         let doesCurrentExist = currentOutfits.filter((item) => item.id === outfitData.id)
         if (!doesCurrentExist.length) {
           currentOutfits.push(outfitData);
         }
-        /* set state and localStorage to copyArray with the new outfit added */
         localStorage.setItem('outfits', JSON.stringify(currentOutfits));
         setWindowLocalStorage(currentOutfits);
     })
@@ -45,30 +43,17 @@ const YourOutfitDetails = () => {
 
   if (windowLocalStorage.length === 0) {
     return (
-      <CarouselContainer>
+      <CarouselContainer className='CarouselContainer'>
         <LeftArrowTransparent icon={faAngleLeft}/>
-        <CarouselWrapper>
+        <CarouselWrapper className='CarouselWrapper'>
           <EmptyCard saveToStorage={saveToStorage}/>
         </CarouselWrapper>
         <RightArrowTransparent icon={faAngleRight} />
       </CarouselContainer>
-
-
-    //   <CarouselContainer>
-    //     <LeftArrowTransparent icon={faAngleLeft}/>
-    //     <CarouselWrapper>
-    //       <IndividualCardStyle>
-    //           <AddIcon onClick={(e) => saveToStorage(e, prod_id)}>
-    //             Add To Outfit
-    //           </AddIcon>
-    //         </IndividualCardStyle>
-    //     </CarouselWrapper>
-    //     <RightArrowTransparent icon={faAngleRight} />
-    //   </CarouselContainer>
     )
   } else {
     return (
-      <CarouselContainer>
+      <CarouselContainer className='CarouselContainer'>
         <YourOutfitCarousel
           outfitDetails={windowLocalStorage}
           saveToStorage={saveToStorage}
@@ -81,8 +66,7 @@ const YourOutfitDetails = () => {
 
 const CarouselContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  // justify-content: center;
+  flex-direction: row;
   align-items: flex-start;
   position: relative;
   width: 100%;
@@ -94,24 +78,6 @@ const CarouselWrapper = styled.div`
   display: flex;
   object-fit: cover;
   align-items: center;
-`;
-
-const IndividualCardStyle = styled.div`
-  display: block;
-  border-radius: 5px;
-  border-width: 1px;
-  border-style: solid;
-  margin: 15px;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-  width: 240px;
-  height: 340px;
-  object-fit: contain;
-  overflow: hidden;
-  text-align: center;
 `;
 
 const AddIcon = styled.button`
@@ -187,7 +153,7 @@ const LeftArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 170px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -204,7 +170,7 @@ const RightArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 170px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
   &:hover {

@@ -7,23 +7,13 @@ import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 const EmptyCard = ({saveToStorage}) => {
   const {prod_id} = useContext(ProdPageContext);
   return (
-      <CarouselWrapper>
-          <IndividualCardStyle>
-            <AddIcon onClick={(e) => saveToStorage(e, prod_id)}>
-              Add To Outfit
-            </AddIcon>
-          </IndividualCardStyle>
-      </CarouselWrapper>
+    <IndividualCardStyle className='CardStyle'>
+      <AddIcon onClick={(e) => saveToStorage(e, prod_id)}>
+        Add To Outfit
+      </AddIcon>
+    </IndividualCardStyle>
   )
 }
-
-const CarouselWrapper = styled.div`
-  flex-direction: row;
-  position: relative;
-  display: flex;
-  object-fit: cover;
-  align-items: center;
-`;
 
 const IndividualCardStyle = styled.div`
   display: block;

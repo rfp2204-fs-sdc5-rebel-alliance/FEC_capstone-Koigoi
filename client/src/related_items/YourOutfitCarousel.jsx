@@ -24,34 +24,29 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
   };
 
   return (
-    <CarouselContainer>
+    <CarouselContainer className='CarouselContainer'>
       {
         currentImageIdx !== 0 ?
         <LeftArrow icon={faAngleLeft} onClick={() => prevSlide()}/> :
         <LeftArrowTransparent icon={faAngleLeft}/>
       }
-      <CarouselWrapper>
-        <EmptyCard saveToStorage={saveToStorage}/>
-        {/* <AddCard>
-          <AddIcon onClick={(e) => saveToStorage(e, prod_id)}>
-              Add To Outfit
-          </AddIcon>
-        </AddCard> */}
+      <CarouselWrapper className='CarouselWrapper'>
+        <EmptyCard className='EmptyCard' saveToStorage={saveToStorage}/>
           {display.map((details, index) => {
             return (
-              <IndividualCardStyle key={index}>
-                <ImageWrapper>
-                  <ImageStyle
+              <IndividualCardStyle className='CardStyle'key={index}>
+                <ImageWrapper className='ImageWrapper'>
+                  <ImageStyle className='ImageStyle'
                     src={details.image === null ? placeholder : details.image}
                   />
-                  <ButtonStyle>
+                  <ButtonStyle className='button'>
                     <FontAwesomeIcon
                       icon={faCircleXmark}
                       onClick={(e) => removeFromStorage(e, details.id)}
                     />
                   </ButtonStyle>
                 </ImageWrapper>
-                <DetailsWrapper>
+                <DetailsWrapper className='Details'>
                   <CategoryStyle>{details.category}</CategoryStyle>
                   <NameStyle>{details.name}</NameStyle>
                   <PriceStyle>${details.price}</PriceStyle>
@@ -86,24 +81,6 @@ const CarouselWrapper = styled.div`
   object-fit: cover;
   align-items: center;
 `;
-
-// const AddCard = styled.div`
-//   display: block;
-//   border-radius: 5px;
-//   border-width: 1px;
-//   border-style: solid;
-//   margin: 15px;
-//   flex-direction: column;
-//   flex-wrap: nowrap;
-//   &:hover {
-//     box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-//   }
-//   width: 240px;
-//   height: 340px;
-//   object-fit: contain;
-//   overflow: hidden;
-//   text-align: center;
-// `;
 
 const IndividualCardStyle = styled.div`
   display: block;
@@ -172,7 +149,7 @@ const LeftArrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 170px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -184,7 +161,7 @@ const LeftArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 170px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -201,7 +178,7 @@ const RightArrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 170px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -213,7 +190,7 @@ const RightArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 170px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
   &:hover {

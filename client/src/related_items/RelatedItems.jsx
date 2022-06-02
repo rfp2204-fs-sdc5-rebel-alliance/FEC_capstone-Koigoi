@@ -27,7 +27,7 @@ const RelatedProductsSection = styled.section`
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  max-width: 1080px;
+  max-width: 1110px;
   padding-bottom: 20px;
   margin-bottom: 20px;
 

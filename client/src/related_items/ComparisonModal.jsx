@@ -8,8 +8,6 @@ const ComparisonModal = ({ mainId, relatedId }) => {
   const [features, setFeatures] = useState([]);
   const [mainFeatures, setMainFeatures] = useState([]);
   const [relatedFeatures, setRelatedFeatures] = useState([]);
-  // console.log('mainID', mainId);
-  // console.log('relatedID', relatedId);
 
   const getAllFeatures = () => {
     const promiseArray = [];
