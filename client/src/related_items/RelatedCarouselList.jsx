@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { ProdPageContext } from '../product_page.jsx';
+import { RelatedCarouselContext } from './RelatedProductDetails.jsx';
 import StarRating from '../shared_components/StarRating.jsx';
 import ComparisonModal from './ComparisonModal.jsx';
 import styled from 'styled-components';
@@ -7,8 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 
-const Carousel = (productDetails) => {
+const Carousel = () => {
   const {prod_id, setProd, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
+  const {productDetails} = useContext(RelatedCarouselContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4));
   const maxDisplay = productDetails.length - 4;
@@ -149,7 +151,7 @@ const Arrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: 160px;
+  top: -15px;
   cursor: pointer;
   user-select: none;
   transform: scale(0.75);
