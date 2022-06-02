@@ -48,18 +48,19 @@ const RelatedCarousel = () => {
         return (
           <IndividualCardStyle className='CardStyle' key={index}>
             <ImageWrapper className='ImageWrapper'>
-              <ImageStyle
-                className='ImageStyle'
+              <ImageStyle className='ImageStyle'
                 src={details.images === null ? placeholder : details.images}
                 onClick={(id) => changeProductID(details.id)}
               />
               <ButtonStyle onClick={() => handleModalClick(details.id)}> <FontAwesomeIcon icon={faStar}/></ButtonStyle>
             </ImageWrapper>
-            <DetailsWrapper className='DetailsWrapper'>
-              <CategoryStyle>{details.categories}</CategoryStyle>
-              <NameStyle>{details.names}</NameStyle>
-              <DetailsStyle>${details.prices}</DetailsStyle>
-              <DetailsStyle>{StarRating(details.ratings.avgRating)}</DetailsStyle>
+            <DetailsWrapper className='Details'>
+              <InfoStyle className='InfoStyle'>
+                <span>{details.names}</span>
+                <CategoryStyle>{details.categories}</CategoryStyle>
+                <span>{StarRating(details.ratings.avgRating)}</span>
+                <PriceStyle>${details.prices}</PriceStyle>
+              </InfoStyle>
             </DetailsWrapper>
           </IndividualCardStyle>
         )
@@ -82,23 +83,14 @@ const CarouselContainer = styled.div`
   width: 100%;
 `;
 
-// const CarouselWrapper = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   position: relative;
-//   align-items: center;
-// `;
-
 const IndividualCardStyle = styled.div`
   display: block;
-  border-radius: 5px;
-  border-width: 1px;
-  border-style: solid;
+  border-radius: 10px;
   margin: 15px;
   flex-direction: column;
   flex-wrap: nowrap;
   &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+    box-shadow: 0 0 5px rgba(90, 90, 90, 0.8);
   }
   width: 240px;
   height: fit-content;
@@ -110,6 +102,7 @@ const ImageWrapper = styled.div`
   width: 240px;
   overflow: hidden;
   object-fit: cover;
+  border-radius: 5px;
 `;
 
 const ImageStyle = styled.img`
@@ -122,28 +115,55 @@ const ImageStyle = styled.img`
 `;
 
 const DetailsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 5px 16px 0 0;
+`;
+
+const InfoStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  letter-spacing: .05px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 17px;
+  text-transform: none;
+  color: rgb(17, 17, 17);
+  font-weight: 500;
+  padding-left: 5px;
+`;
+
+const CategoryStyle = styled.span`
+  font-weight: 350;
+`;
+
+const PriceStyle = styled.div`
+  display: flex;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  text-transform: none;
+  color: rgb(17, 17, 17);
+  font-weight: 500;
+  padding: 2px;
   position: relative;
-  top: 10%;
-`;
+  bottom: 75px;
+  left: 183px;
+  background-color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 235ms ease-in-out;
+}
 
-const CategoryStyle = styled.div`
-  font-weight: normal;
-  text-transform: uppercase;
-  font-size: 15px;
-  padding-left: 5px;
-  padding-top: 10px;
-`;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+    transform: translate3d(0, 2px, 0);
+  }
 
-const NameStyle = styled.div`
-  font-weight: bold;
-  font-size: 17px;
-  padding-left: 5px;
-`;
-
-const DetailsStyle = styled.div`
-  font-weight: normal;
-  font-size: 15px;
-  padding-left: 5px;
+  &:focus {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+  }
 `;
 
 const Arrow = styled(FontAwesomeIcon)`

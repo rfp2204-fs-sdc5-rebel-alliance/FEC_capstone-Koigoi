@@ -8,7 +8,7 @@ import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 
 const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage }) => {
-  const {prod_id} = useContext(ProdPageContext);
+  const {prod_id, setProd} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 3));
   const maxDisplay = outfitDetails.length - 3;
@@ -21,6 +21,10 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
   const prevSlide = () => {
     setCurrentImageIdx(currentImageIdx === 0 ? 0 : currentImageIdx - 1);
   };
+
+  const changeProductID = (id) => {
+    setProd(id);
+  }
 
   return (
     <CarouselContainer className='CarouselContainer'>
@@ -36,6 +40,7 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
               <ImageWrapper className='ImageWrapper'>
                 <ImageStyle className='ImageStyle'
                   src={details.image === null ? placeholder : details.image}
+                  onClick={(id) => changeProductID(details.id)}
                 />
                 <ButtonStyle className='button'>
                   <FontAwesomeIcon
@@ -45,13 +50,12 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
                 </ButtonStyle>
               </ImageWrapper>
               <DetailsWrapper className='Details'>
-                <CategoryStyle>{details.category}</CategoryStyle>
-                <NameStyle>{details.name}</NameStyle>
+                <InfoStyle>
+                  <span> {details.name} </span>
+                  <CategoryStyle> {details.category}</CategoryStyle>
+                  <span> {StarRating(details.rating)} </span>
+                </InfoStyle>
                 <PriceStyle>${details.price}</PriceStyle>
-                <RatingStyle>
-                  {StarRating(details.rating)}
-                  {details.rating}
-                </RatingStyle>
               </DetailsWrapper>
             </IndividualCardStyle>
           )
@@ -75,14 +79,12 @@ const CarouselContainer = styled.div`
 
 const IndividualCardStyle = styled.div`
   display: block;
-  border-radius: 5px;
-  border-width: 1px;
-  border-style: solid;
+  border-radius: 10px;
   margin: 15px;
   flex-direction: column;
   flex-wrap: nowrap;
   &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+    box-shadow: 0px 0px 5px rgba(90, 90, 90, 0.8);
   }
   width: 240px;
   height: fit-content;
@@ -94,6 +96,7 @@ const ImageWrapper = styled.div`
   width: 240px;
   overflow: hidden;
   object-fit: cover;
+  border-radius: 5px;
 `;
 
 const ImageStyle = styled.img`
@@ -106,36 +109,57 @@ const ImageStyle = styled.img`
 `;
 
 const DetailsWrapper = styled.div`
-  position: relative;
-  top: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 5px 16px 0 0;
 `;
 
-const CategoryStyle = styled.div`
-  font-weight: normal;
-  text-transform: uppercase;
-  font-size: 12px;
+const InfoStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  letter-spacing: .05px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 17px;
+  text-transform: none;
+  color: rgb(17, 17, 17);
+  font-weight: 500;
   padding-left: 5px;
-  padding-top: 10px;
 `;
 
-const NameStyle = styled.div`
-  font-weight: bold;
-  font-size: 15px;
-  padding-left: 5px;
+const CategoryStyle = styled.span`
+  font-weight: 350;
 `;
 
 const PriceStyle = styled.div`
-  font-weight: normal;
-  font-size: 10px;
-  padding-left: 5px;
+  display: flex;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  text-transform: none;
+  color: rgb(17, 17, 17);
+  font-weight: 500;
+  padding: 2px;
+  position: relative;
+  bottom: 38px;
+  // right: 0px;
+  background-color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 235ms ease-in-out;
+}
+
+&:hover {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+}
+
+&:focus {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
 `;
 
-const RatingStyle = styled.div`
-
-  font-weight: normal;
-  font-size: 15px;
-  padding-left: 5px;
-`;
 
 const Arrow = styled(FontAwesomeIcon)`
   position: relative;
@@ -190,3 +214,4 @@ const ButtonStyle = styled.button`
 `;
 
 export default YourOutfitCarousel;
+
