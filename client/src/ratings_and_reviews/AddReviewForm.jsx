@@ -147,8 +147,8 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     const starStyles = {
 
     }
-    let selectedStar = theme === 'light' ? 'black' : 'white';
-    let defaultStar = theme === 'light' ? '#FFFAFA' : 'black'
+    let selectedStar = theme === 'light' ? '#36393E' : '#FFFAFA';
+    let defaultStar = theme === 'light' ? '#FFFAFA' : '#36393E';
     return (
       <div>
         {[...Array(5)].map((star, index) => {
@@ -162,7 +162,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
                 onClick={() => {setRating(ratingValue)}}
                 required/>
               <FontAwesomeIcon
-                style={{'stroke': 'black', 'stroke-width': '10'}}
+                style={{'stroke': selectedStar, 'stroke-width': '10'}}
                 icon={faStar}
                 size='2x'
                 color={ratingValue <= (ratingHover || rating) ? selectedStar : defaultStar}
@@ -188,10 +188,10 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
         console.log(index);
         if (index === 0) {
           footerLabel = characteristicLabels[characteristic][index]
-        }
-
-        if (index === 4) {
+        } else if (index === 4) {
           footerLabel = characteristicLabels[characteristic][index]
+        } else {
+          footerLabel = null;
         }
 
         characteristicOptions.push(

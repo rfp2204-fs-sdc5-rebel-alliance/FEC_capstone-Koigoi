@@ -6,10 +6,31 @@ import { QuestionContext } from  './QuestionList.jsx';
 import AddAnswerForm from './AddAnswerForm.jsx';
 import styled from 'styled-components';
 
-// const StyledQuestion = styled.div`
-//   fontWeight: bold;
-//   fontColor: #3BACB6;
-// `;
+const StyledQuestion = styled.div`
+  display: flex;
+  font-weight: bold;
+  color: #2F8F9D;
+  justify-content: space-between;
+  margin-top: 6px;
+  margin-left: 20px;
+  margin-bottom: 6px;
+`;
+
+const StyledQuestionBody = styled.span`
+  margin-left: 20px;
+`;
+
+const StyledQuestionInfo = styled.div`
+  text-align: right;
+  font-size: 12px;
+  margin-right: 40px;
+`;
+const StyledLoadMoreAnswer = styled.a`
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 116px;
+  margin-bottom: 20px;
+`;
 
 const QuestionEntry = (props) => {
 
@@ -74,7 +95,7 @@ const QuestionEntry = (props) => {
   let loadMoreAnswersLink = null;
 
   if (answers.length > 2) {
-    loadMoreAnswersLink = <a onClick={loadMoreAnswers}> {!expanded ? 'Load More Answers' : 'Collapse answers'}</a>
+    loadMoreAnswersLink = <StyledLoadMoreAnswer><a onClick={loadMoreAnswers}> {!expanded ? 'Load More Answers' : 'Collapse answers'}</a></StyledLoadMoreAnswer>
   } else {
     loadMoreAnswersLink = null
   }
@@ -84,11 +105,19 @@ const QuestionEntry = (props) => {
   return (
     <>
       <div>
-      {/* <StyledQuestion> */}
-        <div>
-        {`Question: ${props.entry.question_body}`}&nbsp;&nbsp;&nbsp; Helpful?&nbsp;<span onClick={handleClickHelpful}><u>Yes</u> ({props.entry.question_helpfulness})</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<u onClick={handleModal}>Add Answer</u>
-        </div>
-      {/* </StyledQuestion> */}
+        <StyledQuestion>
+          <div>
+            <span>Question:</span>
+            <StyledQuestionBody>
+            <span>{props.entry.question_body}</span>
+            </StyledQuestionBody>
+          </div>
+        <StyledQuestionInfo>
+          <div>
+            Helpful?&nbsp;<span onClick={handleClickHelpful}><u>Yes</u> ({props.entry.question_helpfulness})</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<u onClick={handleModal}>Add Answer</u>
+          </div>
+        </StyledQuestionInfo>
+        </StyledQuestion>
       </div>
       <div>
         <div>
