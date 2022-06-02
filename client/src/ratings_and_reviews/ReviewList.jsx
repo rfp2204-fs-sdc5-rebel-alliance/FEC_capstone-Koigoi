@@ -30,7 +30,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
   const [allReviews, setAllReviews] = useState([])
   const [filterRatingsCount, setFilterRatingsCount] = useState(10);
   const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent, totalRatings, setTotalRatings, setAverageRating } = useContext(ProdPageContext);
-  const { apiCount, reviewCount, setReviewCount, sort, ratings, setRatings, numRating, setNumRating, filterNumRating, filtered, helpful, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, setRecommended } = useContext(ReviewsContext);
+  const { apiCount, reviewCount, setReviewCount, sort, ratings, setRatings, numRating, setNumRating, filterNumRating, filtered, helpful, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, setRecommended, search, searchTerm } = useContext(ReviewsContext);
 
   useEffect(() => {
     axios.get(`/reviews`, {
@@ -42,21 +42,30 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       }
     })
     .then((reviews) => {
-      setAllReviews(reviews.data.results)
       setTotalRatings(reviews.data.results.length);
-      filterNumRatings(reviews.data.results)
+      ratingsMeta(reviews.data.results)
+
+      if (searchTerm.length >= 3) {
+        const query = reviews.data.results.filter((review) => {
+          return review.body.toLowerCase().includes(searchTerm)
+        });
+        setAllReviews(query)
+        filterNumRatings(query)
+      } else {
+        setAllReviews(reviews.data.results)
+        filterNumRatings(reviews.data.results)
+      }
     })
     .catch((err) => {console.log(err)})
-  }, [apiCount, sort, helpful, totalRatings]);
+  }, [prod_id, apiCount, sort, helpful, totalRatings, searchTerm, filtered]);
 
   useEffect(() => {
-
     if (filtered === true) {
-        setReviews(filterNumRating.slice(0, filterRatingsCount))
+      setReviews(filterNumRating.slice(0, filterRatingsCount))
     } else {
       setReviews(allReviews.slice(0, reviewCount))
     }
-  }, [reviewCount, filterRatingsCount, allReviews, filtered])
+  }, [reviewCount, filterRatingsCount, allReviews, filtered, searchTerm])
 
   const getReviews = () => {
     if (filtered === true) {
@@ -67,7 +76,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
     }
   }
 
-  const filterNumRatings = (reviews) => {
+  const ratingsMeta = (reviewsData) => {
     let numRatingObj = {
       1: [],
       2: [],
@@ -83,7 +92,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
 
     let averageRating = 0;
 
-    reviews.forEach((review) => {
+    reviewsData.forEach((review) => {
       numRatingObj[review.rating].push(review);
       recommended[review.recommend] += 1;
       averageRating += review.rating;
@@ -98,9 +107,45 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
     }
 
     setAverageRating(Math.round((averageRating / totalRatings) * 10) / 10);
-    setNumRating(numRatingObj);
     setRatings(ratingsCount);
     setRecommended(recommended);
+  }
+
+  const filterNumRatings = (reviewsData) => {
+    let numRatingObj = {
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: []
+    }
+
+    // let recommended = {
+    //   true: 0,
+    //   false: 0
+    // }
+
+    // let averageRating = 0;
+
+    reviewsData.forEach((review) => {
+      numRatingObj[review.rating].push(review);
+      // recommended[review.recommend] += 1;
+      // averageRating += review.rating;
+    })
+
+    // const ratingsCount = {
+    //   1: numRatingObj[1].length,
+    //   2: numRatingObj[2].length,
+    //   3: numRatingObj[3].length,
+    //   4: numRatingObj[4].length,
+    //   5: numRatingObj[5].length
+    // }
+
+    // setAverageRating(Math.round((averageRating / totalRatings) * 10) / 10);
+    setNumRating(numRatingObj);
+    // setRatings(ratingsCount);
+    // setRecommended(recommended);
+
   }
 
   let moreReviewsButton = null;

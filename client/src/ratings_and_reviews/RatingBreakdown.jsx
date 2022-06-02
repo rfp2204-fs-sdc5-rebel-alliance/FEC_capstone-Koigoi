@@ -61,7 +61,7 @@ const RecommendedMessage = styled.div`
   text-align: right;
 `;
 
-function RatingBreakdown({ removeFilters }) {
+function RatingBreakdown({ removeFilters, renderFilterRatings }) {
   const { ratings, totalRatings, avgRating, recommended, showRatings, setShowRatings, filtered } = useContext(ReviewsContext);
   const { averageRating } = useContext(ProdPageContext);
 
@@ -72,7 +72,9 @@ function RatingBreakdown({ removeFilters }) {
     showRatings[starRating] ? updateShowRatingObj[starRating] = false : updateShowRatingObj[starRating] = true;
 
     setShowRatings(updateShowRatingObj);
+    renderFilterRatings();
   }
+
 
   const renderFilterMessage = () => {
 

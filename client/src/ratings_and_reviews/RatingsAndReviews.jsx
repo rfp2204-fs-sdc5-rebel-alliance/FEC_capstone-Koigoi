@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ProdPageContext } from '../product_page.jsx';
 import ReviewList from './ReviewList.jsx';
 import ReviewSort from './ReviewSort.jsx';
+import SearchReviews from './SearchReviews.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
@@ -36,6 +37,9 @@ function RatingsAndReviews() {
   const [reviewCount, setReviewCount] = useState(2);
 
   const [sort, setSort] =  useState('relevant');
+  const [search, setSearch] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+
 
   const [numRating, setNumRating] = useState({});
   const [showRatings, setShowRatings] = useState({});
@@ -77,7 +81,7 @@ function RatingsAndReviews() {
         });
       })
       .catch((err) => {console.log(err)});
-    }, []);
+    }, [prod_id]);
 
     const avgRating = ratingsObj.avgRating;
 
@@ -97,6 +101,7 @@ function RatingsAndReviews() {
 
     const renderFilterRatings = () => {
       setFilterNumRating([]);
+      setFiltered(false);
 
       Object.keys(showRatings).forEach((rating) => {
         if (showRatings[rating] === true) {
@@ -107,7 +112,7 @@ function RatingsAndReviews() {
     }
 
   return (
-    <ReviewsContext.Provider value={{ apiCount, reviewCount, setReviewCount, characteristics, ratings, setRatings, totalRatings, avgRating, recommended, setRecommended, sort, setSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, filtered, setFiltered, helpful, setHelpful, showCharacteristics, setShowCharacteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel}}>
+    <ReviewsContext.Provider value={{ apiCount, reviewCount, setReviewCount, characteristics, ratings, setRatings, totalRatings, avgRating, recommended, setRecommended, sort, setSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, filtered, setFiltered, helpful, setHelpful, showCharacteristics, setShowCharacteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, search, setSearch, searchTerm, setSearchTerm}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
         <RatingsAndReviewsLayout>
@@ -118,6 +123,7 @@ function RatingsAndReviews() {
           </LayoutLeft>
           <LayoutRight>
             <ReviewSort/>
+            <SearchReviews/>
             <br/>
             <ReviewList removeFilters={removeFilters} renderFilterRatings={renderFilterRatings}/>
           </LayoutRight>
