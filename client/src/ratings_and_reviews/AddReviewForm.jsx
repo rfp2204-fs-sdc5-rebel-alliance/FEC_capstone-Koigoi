@@ -185,6 +185,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
       let footerLabel = null;
 
       [...Array(5)].map((label, index) => {
+        console.log(index);
         if (index === 0) {
           footerLabel = characteristicLabels[characteristic][index]
         }
