@@ -8,11 +8,10 @@ import { ProdPageContext } from '../product_page.jsx';
 import getOutfitDetails from './fetchYourOutfitData.js';
 
 const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage }) => {
-  // console.log('outfitDetails', outfitDetails);
   const {prod_id} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
-  const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 3)); // change to 4
-  const maxDisplay = outfitDetails.length > 0 ? outfitDetails.length - 3 : 3; // change to 4
+  const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 3));
+  const maxDisplay = outfitDetails.length > 0 ? outfitDetails.length - 3 : 3;
   const placeholder = 'http://placecorgi.com/260/180';
 
   const nextSlide = () => {
@@ -49,7 +48,7 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
                     <ButtonStyle>
                       <FontAwesomeIcon
                         icon={faCircleXmark}
-                        onClick={(e) => removeFromStorage(e, prod_id)}
+                        onClick={(e) => removeFromStorage(e, details.id)}
                       />
                     </ButtonStyle>
                   </ImageWrapper>
@@ -119,7 +118,6 @@ const IndividualCardStyle = styled.div`
   }
   width: 240px;
   height: fit-content;
-  object-fit-contain;
   overflow: hidden;
 `;
 
@@ -127,7 +125,7 @@ const ImageWrapper = styled.div`
   height: 230px;
   width: 240px;
   overflow: hidden;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const ImageStyle = styled.img`
@@ -136,6 +134,7 @@ const ImageStyle = styled.img`
   background-position: center;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 `;
 
 const DetailsWrapper = styled.div`

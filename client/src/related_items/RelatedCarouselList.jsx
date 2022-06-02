@@ -8,7 +8,6 @@ import ComparisonModal from './ComparisonModal.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 
 const Carousel = (productDetails) => {
-  console.log('productDetails', productDetails);
   const {prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4)); // change to 4
@@ -80,7 +79,6 @@ const CarouselWrapper = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  left: 15px;
 `;
 
 const IndividualCardStyle = styled.div`
@@ -103,7 +101,7 @@ const ImageWrapper = styled.div`
   height: 230px;
   width: 240px;
   overflow: hidden;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const ImageStyle = styled.img`
@@ -112,6 +110,7 @@ const ImageStyle = styled.img`
   background-position: center;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 `;
 
 const DetailsWrapper = styled.div`
