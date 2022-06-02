@@ -1,7 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { ProdPageContext } from '../product_page.jsx';
-import { fetchData } from './fetchData.js';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { fetchRelatedData } from '../Data/fetchRelatedData.js';
 import styled from 'styled-components';
 
 const ComparisonModal = ({ mainId, relatedId }) => {
@@ -11,8 +9,8 @@ const ComparisonModal = ({ mainId, relatedId }) => {
 
   const getAllFeatures = () => {
     const promiseArray = [];
-    promiseArray.push(fetchData('', mainId));
-    promiseArray.push(fetchData('', relatedId));
+    promiseArray.push(fetchRelatedData('', mainId));
+    promiseArray.push(fetchRelatedData('', relatedId));
     return Promise.all(promiseArray)
     .then(([main, related]) => {
       const mainProduct = [];
@@ -92,9 +90,9 @@ const ComparisonModal = ({ mainId, relatedId }) => {
         <tbody>
           {features.map((feature, index) => (
             <tr key={index}>
-              <LeftValues>{isMainFeaturesIncluded(feature.value) ? '✓' : ''}</LeftValues>
+              <Values>{isMainFeaturesIncluded(feature.value) ? '✓' : ''}</Values>
               <MiddleValues>{feature.value}</MiddleValues>
-              <RightValues>{isRelatedFeaturesIncluded(feature.value) ? '✓' : ''}</RightValues>
+              <Values>{isRelatedFeaturesIncluded(feature.value) ? '✓' : ''}</Values>
             </tr>
           ))}
         </tbody>
@@ -103,15 +101,7 @@ const ComparisonModal = ({ mainId, relatedId }) => {
   }
 }
 
-const LeftValues = styled.td`
-  position: flex;
-  text-align: center;
-  padding-left: 15px;
-  padding-right: 15px;
-  font-weight: bold;
-`;
-
-const RightValues = styled.td`
+const Values = styled.td`
   position: flex;
   text-align: center;
   padding-left: 15px;

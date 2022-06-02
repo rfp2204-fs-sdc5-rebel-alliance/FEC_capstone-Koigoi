@@ -1,7 +1,7 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useContext, createContext } from 'react';
 import { ProdPageContext } from '../product_page.jsx';
-import RelatedProductDetails from './RelatedProductDetails.jsx';
-import YourOutfitDetails from './YourOutfitDetails.jsx';
+import RelatedProductDetails from './RelatedProducts/ProductDetails.jsx';
+import YourOutfitDetails from './YourOutfit/ProductDetails.jsx';
 import styled from 'styled-components';
 
 export const RelatedItemsContext = createContext();
@@ -35,11 +35,9 @@ const RelatedProductsSection = styled.section`
 
 const TitleStyle = styled.h3`
   text-transform: uppercase;
-  // padding-left: 15px;
   padding-bottom: 10px;
   padding-top: 10px;
   font-size: 20px;
 `;
-
 
 export default RelatedItems;

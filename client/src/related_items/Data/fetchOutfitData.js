@@ -1,10 +1,10 @@
-import { fetchData, fetchRatingsData } from './fetchData.js';
-import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
+import { fetchRelatedData, fetchRatingsData } from './fetchRelatedData.js';
+import sharedReviewsComponent from '../../shared_components/sharedReviewsComponent';
 
-const getOutfitDetails = (id) => {
+const fetchOutfitDetails = (id) => {
   const promiseArray = [];
-  promiseArray.push(fetchData('styles', id));
-  promiseArray.push(fetchData('', id));
+  promiseArray.push(fetchRelatedData('styles', id));
+  promiseArray.push(fetchRelatedData('', id));
   promiseArray.push(fetchRatingsData('meta', id));
   return Promise.all(promiseArray)
   .then(([productStyles, productInfo, productRatings]) => {
@@ -29,6 +29,7 @@ const getOutfitDetails = (id) => {
       price: productInfo.default_price,
       rating: avgRating.avgRating
     }
+    console.log(outfit);
     return outfit;
   })
   .then((data) => {
@@ -37,4 +38,4 @@ const getOutfitDetails = (id) => {
   .catch((err) => console.log(err));
 }
 
-export default getOutfitDetails;
+export default fetchOutfitDetails;

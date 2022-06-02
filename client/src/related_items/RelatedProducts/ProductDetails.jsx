@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { ProdPageContext } from '../product_page.jsx';
-import { fetchData, fetchRatingsData } from './fetchData.js';
-import Carousel from './RelatedCarouselList.jsx';
-import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
+import React, { useState, useEffect, useContext, createContext } from 'react';
+import { ProdPageContext } from '../../product_page.jsx';
+import { fetchRelatedData, fetchRatingsData } from '../Data/fetchRelatedData.js';
+import RelatedCarousel from './CarouselList.jsx';
+import { findDuplicates } from '../Data/findDuplicates.js';
+import sharedReviewsComponent from '../../shared_components/sharedReviewsComponent';
 import styled from 'styled-components';
+
+export const RelatedCarouselContext = createContext();
 
 const RelatedProductDetails = () => {
   const {prod_id} = useContext(ProdPageContext);
@@ -11,12 +14,12 @@ const RelatedProductDetails = () => {
   const allRelatedDetails = [];
 
   const getAllRelatedDetails = () => {
-    fetchData('related', prod_id)
+    fetchRelatedData('related', prod_id)
     .then((relatedIDs) => {
         const promiseArray = [];
         relatedIDs.forEach((id) => {
-          promiseArray.push(fetchData('styles', id));
-          promiseArray.push(fetchData('', id));
+          promiseArray.push(fetchRelatedData('styles', id));
+          promiseArray.push(fetchRelatedData('', id));
           promiseArray.push(fetchRatingsData('meta', id));
         })
         return Promise.all(promiseArray)
@@ -26,10 +29,10 @@ const RelatedProductDetails = () => {
         const products = [];
         const ratings = [];
         for (let i = 0; i < allRelatedProductsData.length; i+=3) {
-          let product = allRelatedProductsData;
-          styles.push(product[i]);
-          products.push(product[i+1]);
-          ratings.push(product[i+2]);
+          let data = allRelatedProductsData;
+          styles.push(data[i]);
+          products.push(data[i + 1]);
+          ratings.push(data[i + 2]);
         }
         /* parse through related styles */
         const allStyles = styles.map((style) => {return style.results;});
@@ -73,7 +76,8 @@ const RelatedProductDetails = () => {
           allRelatedProducts.ratings = productRatings[i];
           allRelatedDetails.push(allRelatedProducts);
         }
-        setProductDetails(allRelatedDetails);
+        let filteredProducts = findDuplicates(allRelatedDetails);
+        setProductDetails(filteredProducts);
       })
       .catch((err) => {console.log(err)});
   }
@@ -82,11 +86,17 @@ const RelatedProductDetails = () => {
     getAllRelatedDetails();
   }, [prod_id]);
 
-  return (
+  if (productDetails.length === 0) {
+    return null;
+  } else {
+    return (
       <CarouselContainer>
-        {Carousel(productDetails)}
+        <RelatedCarouselContext.Provider value={{productDetails}}>
+          <RelatedCarousel />
+        </RelatedCarouselContext.Provider>
       </CarouselContainer>
-  )
+    )
+  }
 }
 
 const CarouselContainer = styled.div`
@@ -97,6 +107,5 @@ const CarouselContainer = styled.div`
   position: relative;
   width: 100%;
 `;
-
 
 export default RelatedProductDetails;
