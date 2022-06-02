@@ -95,7 +95,7 @@ const QuestionEntry = (props) => {
   let loadMoreAnswersLink = null;
 
   if (answers.length > 2) {
-    loadMoreAnswersLink = <StyledLoadMoreAnswer><a onClick={loadMoreAnswers}> {!expanded ? 'Load More Answers' : 'Collapse answers'}</a></StyledLoadMoreAnswer>
+    loadMoreAnswersLink = <StyledLoadMoreAnswer onClick={loadMoreAnswers}>{!expanded ? 'Load More Answers' : 'Collapse answers'}</StyledLoadMoreAnswer>
   } else {
     loadMoreAnswersLink = null
   }
@@ -103,7 +103,7 @@ const QuestionEntry = (props) => {
   const answerList = existSeller ? sellerTopAnswers : answers;
 
   return (
-    <>
+    <div>
       <div>
         <StyledQuestion>
           <div>
@@ -127,7 +127,7 @@ const QuestionEntry = (props) => {
           {loadMoreAnswersLink }
         </div>
       </div>
-    </>
+    </div>
   );
 
 

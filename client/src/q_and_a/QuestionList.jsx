@@ -13,6 +13,25 @@ max-height: 500px;
 overflow: scroll;
 `;
 
+const Button = styled.button`
+  justify-content: center;
+  padding: 0.25rem 1rem;
+  border: 1px solid ${(props) => props.theme.fontColor};
+  border-radius: 1rem;
+  text-align: center;
+  cursor: pointer;
+  margin: 0 2rem 0 0;
+  background: #FFF;
+  &:hover {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  }
+`;
+
+const AddButton = styled(Button)`
+  background: black;
+  color: white;
+`;
+
 const QuestionList = () => {
 
   const [questions, setQuestions] = useState([]);
@@ -25,7 +44,7 @@ const QuestionList = () => {
   const [filtered, setFiltered] = useState(false);
 
 
-  const title = 'Customer questions & answers';
+  const title = 'CUSTOMER QUESTIONS & ANSWERS';
   const url = `/qa/questions`;
 
   useEffect(() => {
@@ -73,7 +92,7 @@ const QuestionList = () => {
 
   let moreAnsweredQuestions;
   if (questionList.length > 4) {
-    moreAnsweredQuestions = <button onClick={handleMoreQuestions}> MORE ANSWERED QUESTIONS </button>
+    moreAnsweredQuestions = <Button onClick={handleMoreQuestions}> More Answered Questions </Button>
   } else {
     moreAnsweredQuestions = null
   }
@@ -81,16 +100,16 @@ const QuestionList = () => {
 
   return (
     <div>
-      <h2 > {title} </h2> <br></br>
+      <h2 > {title} </h2>
       <QuestionContext.Provider value={{ searchQuestions, count, setCount }}>
-          <Search /> <br></br>
+          <Search />
           <QuestionListContainer>
             {filtered && questionList.length === 0 && <p> No questions found. Please, clear the search field</p>}
             {!filtered && questionList.length === 0 && <p>No questions. Make a question about {prod_name}</p>}
-            {questionList.slice(0, questionsToShow).map((item) => <QuestionEntry key={item.question_id} entry={item} />)}<br></br>
-          </QuestionListContainer><br></br>
-          {show ? moreAnsweredQuestions : null} &nbsp;&nbsp;&nbsp;
-          <button onClick={handleModal}> ADD A QUESTION + </button><br></br>
+            {questionList.slice(0, questionsToShow).map((item) => <QuestionEntry key={item.question_id} entry={item} />)}
+          </QuestionListContainer>
+          {show ? moreAnsweredQuestions : null}
+          <AddButton onClick={handleModal}> Add a Question + </AddButton>
         </QuestionContext.Provider>
     </div >
   );

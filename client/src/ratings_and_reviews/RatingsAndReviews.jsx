@@ -15,6 +15,7 @@ export const ReviewsContext = createContext();
 const RatingsAndReviewsContainer = styled.div`
   font-weight: normal;
   font-size: 14px;
+  margin-top: 2rem;
 `;
 
 const RatingsAndReviewsLayout = styled.div`
@@ -114,7 +115,7 @@ function RatingsAndReviews() {
   return (
     <ReviewsContext.Provider value={{ apiCount, reviewCount, setReviewCount, characteristics, ratings, setRatings, totalRatings, avgRating, recommended, setRecommended, sort, setSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, filtered, setFiltered, helpful, setHelpful, showCharacteristics, setShowCharacteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, search, setSearch, searchTerm, setSearchTerm}}>
       <RatingsAndReviewsContainer>
-        <h2 id="RatingsAndReviews">Ratings and Reviews</h2>
+        <h2 id="RatingsAndReviews">RATINGS &#38; REVIEWS</h2>
         <RatingsAndReviewsLayout>
           <LayoutLeft>
             <RatingBreakdown removeFilters={removeFilters} renderFilterRatings={renderFilterRatings}/>
