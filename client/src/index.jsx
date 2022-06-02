@@ -64,7 +64,7 @@ const CheckBox = styled.input`
 const App = () => {
   const [theme, setTheme] = useState('light');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : []);
-  const [view, setView] = useState('Product');
+  const [view, setView] = useState('Home');
   const [prod_id, setProd] = useState(40344);
   const [showModal, setShowModal] = useState(false);
   const [modalBodyContent, setModalBodyContent] = useState(null);
@@ -110,6 +110,8 @@ const App = () => {
               <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Home')}}>Home</li>
               <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Product')}}>Product</li>
               <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Checkout')}}>Shopping Cart</li>
+              <li style={{'cursor': 'pointer'}} onClick={() => {setProd(40344); setView('Product')}}>40344</li>
+              <li style={{'cursor': 'pointer'}} onClick={() => {setProd(40348); setView('Product')}}>40348</li>
             </ul>
 
           </nav>
