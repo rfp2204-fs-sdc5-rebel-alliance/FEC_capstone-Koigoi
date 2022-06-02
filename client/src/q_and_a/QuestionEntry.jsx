@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import config from '../../dist/config.js';
 import Answer from './Answer.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 import { QuestionContext } from  './QuestionList.jsx';
@@ -18,17 +17,10 @@ const QuestionEntry = (props) => {
   const [show, setShow] = useState(true);
   const [clickedHelpful, setClickedHelpful] = useState(false);
 
-  const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${props.entry.question_id}/answers`;
+  const url = `/FEC/qa/questions/${props.entry.question_id}/answers`;
 
   useEffect(() => {
-    axios.get(url, {
-      headers: {
-        Authorization: config.TOKEN
-      },
-      params: {
-        question_id: props.entry.question_id
-      }
-    })
+    axios.get(url)
       .then((response) => { setAnswers(response.data.results); })
       .catch((err) => console.log(err))
   }, [count])
@@ -38,11 +30,7 @@ const QuestionEntry = (props) => {
       return;
     }
 
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${props.entry.question_id}/helpful`, null, {
-      headers: {
-        Authorization: config.TOKEN
-      }
-    })
+    axios.put(`/FEC/qa/questions/${props.entry.question_id}/helpful`, null)
     .then((response) => {console.log('Success')})
     .then(() => {setCount(count + 1)})
     .then(() => {setClickedHelpful(true)})

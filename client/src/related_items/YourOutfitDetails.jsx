@@ -4,7 +4,10 @@ import { fetchData, fetchRatingsData } from './fetchData.js';
 import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
 import YourOutfitCarousel from './YourOutfitCarousel.jsx';
 import getOutfitDetails from './fetchYourOutfitData.js';
+import EmptyCard from './YourOutfitEmptyCard.jsx';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 const YourOutfitDetails = () => {
   const {prod_id} = useContext(ProdPageContext);
@@ -16,13 +19,11 @@ const YourOutfitDetails = () => {
 
     getOutfitDetails(id)
     .then((outfitData) => {
-      /* make copy of the existing state and check if the data exists in the copy */
         let currentOutfits = windowLocalStorage.slice();
         let doesCurrentExist = currentOutfits.filter((item) => item.id === outfitData.id)
         if (!doesCurrentExist.length) {
           currentOutfits.push(outfitData);
         }
-        /* set state and localStorage to copyArray with the new outfit added */
         localStorage.setItem('outfits', JSON.stringify(currentOutfits));
         setWindowLocalStorage(currentOutfits);
     })
@@ -42,99 +43,145 @@ const YourOutfitDetails = () => {
 
   if (windowLocalStorage.length === 0) {
     return (
-      <CarouselWrapper>
-        <AddCard>
-          <AddIcon
-              src="https://icon-library.com/images/plus-symbol-icon/plus-symbol-icon-5.jpg"
-              onClick={(e) => saveToStorage(e, prod_id)}
-          />
-          <AddOutfit> Add To Outfit </AddOutfit>
-        </AddCard>
-      </CarouselWrapper>
+      <CarouselContainer className='CarouselContainer'>
+        <LeftArrowTransparent icon={faAngleLeft}/>
+        <CarouselWrapper className='CarouselWrapper'>
+          <EmptyCard saveToStorage={saveToStorage}/>
+        </CarouselWrapper>
+        <RightArrowTransparent icon={faAngleRight} />
+      </CarouselContainer>
     )
   } else {
     return (
-      <div>
-        {/* {YourOutfitCarousel(outfitDetails)} */}
+      <CarouselContainer className='CarouselContainer'>
         <YourOutfitCarousel
           outfitDetails={windowLocalStorage}
           saveToStorage={saveToStorage}
           removeFromStorage={removeFromStorage}
         />
-      </div>
+      </CarouselContainer>
     )
   }
 }
 
-const CarouselWrapper = styled.div`
+const CarouselContainer = styled.div`
   display: flex;
-  // justify-content: center;
-  // align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
+  position: relative;
   width: 100%;
-  overflow: hidden;
-  height: fit-content;
 `;
 
-const AddCard = styled.div`
+const CarouselWrapper = styled.div`
+  flex-direction: row;
+  position: relative;
+  display: flex;
+  object-fit: cover;
+  align-items: center;
+`;
+
+const AddIcon = styled.button`
+  align-items: center;
+  background-color: #fff;
+  border-radius: 24px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+  box-sizing: border-box;
+  color: #3c4043;
+  cursor: pointer;
+  display: inline-flex;
+  fill: currentcolor;
+  font-size: 14px;
+  font-weight: 500;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: .25px;
+  line-height: normal;
+  max-width: 100%;
+  overflow: visible;
+  padding: 2px 24px;
+  position: relative;
+  top: 40%;
+  text-align: center;
+  text-transform: none;
+  transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  will-change: transform,opacity;
+  z-index: 0;
+  font-family: "Google Sans",Roboto,Arial,sans-serif;
+
+  &:hover {
+  background: #F6F9FE;
+  color: #174ea6;
+  }
+
+  &:active {
+  box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+  outline: none;
+  }
+
+  &:focus {
+  outline: none;
+  border: 2px solid #4285f4;
+  }
+
+  &:not(:disabled) {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+  }
+
+  &:not(:disabled):hover {
+  box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+  }
+
+  &:not(:disabled):focus {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+  }
+
+  &:not(:disabled):active {
+  box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+  }
+
+  &:disabled {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+  }
+`;
+
+const LeftArrowTransparent = styled(FontAwesomeIcon)`
+  position: relative;
+  height: 30px;
+  width: auto;
+  top: 160px;
+  cursor: pointer;
+  user-select: none;
   &:hover {
     box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
   }
-  border: 1px solid black;
-  border-radius: 5px;
+  opacity: .01;
+  color: rgba(0, 0, 0, 0.75);
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  filter: blur(2px);
 `;
 
-const AddIcon = styled.img`
+const RightArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
-  width: 215px;
-  height: 230px;
-`;
-
-const AddOutfit = styled.div`
-  text-align: center;
+  height: 30px;
+  width: auto;
+  top: 160px;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+  }
+  opacity: .01;
+  color: rgba(0, 0, 0, 0.75);
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  filter: blur(2px);
 `;
 
 export default YourOutfitDetails;
 
-
-// const allStorageItems = {...localStorage};
-//   const storageArray = [];
-//   for (let i = 0; i < localStorage.length; i++) {
-//     const key = localStorage.key(i);
-//     const parsedStorageItems = JSON.parse(localStorage.getItem(key));
-//     // console.log('parsedStorageItems', parsedStorageItems);
-//     storageArray.push(parsedStorageItems);
-//   }
-
-// useEffect(() => {
-  //   setWindowLocalStorage(([]) => [...storageArray]); // this would change the state
-  // }, [allStorageItems]); // infinite loop -> need to somehow track when the localStorage changes.
-
-
-
-
-
-   // const storageHasUpdated = React.useRef(false);
-
-  // if (storageHasUpdated.current) {
-  //   useEffect(() => {
-  //       setWindowLocalStorage(([]) => [...storageArray]);
-  //   }, [allStorageItems]); // infinite loop -> need to somehow track when the localStorage changes.
-  // } else {
-  //   useEffect(() => {
-  //     setWindowLocalStorage(([]) => [...storageArray]);
-  //   }, []);
-  // }
-
-
-   // useEffect(() => {
-  //   setWindowLocalStorage(([]) => [
-  //     {
-  //       id: 'testing',
-  //       image: 'testing',
-  //       category: 'testing',
-  //       name: 'testing',
-  //       price: 'testing',
-  //       rating: 3.5
-  //     }
-  //   ]);
-  // }, windowLocalStorage);

@@ -15,6 +15,52 @@ const AppStyle = styled.div`
 
 `;
 
+const CheckBoxWrapper = styled.div`
+  position: relative;
+`;
+const CheckBoxLabel = styled.label`
+  position: absolute;
+  top: 5px;
+  right: 2px;
+  width: 30px;
+  height: 15px;
+  border-radius: 15px;
+  background: #36393E;
+  cursor: pointer;
+  &::after {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    margin: 3px;
+    background: #FFFAFA;
+    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
+    transition: 0.2s;
+  }
+`;
+
+const CheckBox = styled.input`
+  opacity: 0;
+  z-index: 9999;
+  border-radius: 15px;
+  width: 30px;
+  height: 15px;
+  &:checked + ${CheckBoxLabel} {
+    background: #FFFAFA;
+    &::after {
+      content: "";
+      display: block;
+      border-radius: 50%;
+      width: 8px;
+      height: 8px;
+      margin-left: 20px;
+      transition: 0.2s;
+      background: #36393E;
+    }
+  }
+`;
+
 const App = () => {
   const [theme, setTheme] = useState('light');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : []);
@@ -53,10 +99,17 @@ const App = () => {
           <nav>
             <h1>koigoi</h1>
             <ul>
-              <li onClick={() => {themeToggle()}}>Toggle</li>
-              <li onClick={() => {changeView('Home')}}>Home</li>
-              <li onClick={() => {changeView('Product')}}>Product</li>
-              <li onClick={() => {changeView('Checkout')}}>Shopping Cart</li>
+              <li>
+                <div>
+                  <CheckBoxWrapper>
+                    <CheckBox id="checkbox" type="checkbox" onChange={themeToggle}/>
+                    <CheckBoxLabel htmlFor="checkbox" />
+                  </CheckBoxWrapper>
+                </div>
+              </li>
+              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Home')}}>Home</li>
+              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Product')}}>Product</li>
+              <li style={{'cursor': 'pointer'}} onClick={() => {changeView('Checkout')}}>Shopping Cart</li>
             </ul>
 
           </nav>

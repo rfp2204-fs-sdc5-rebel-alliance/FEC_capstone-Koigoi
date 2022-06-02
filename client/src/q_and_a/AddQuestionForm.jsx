@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect} from 'react';
-import config from '../../dist/config.js';
 import axios from 'axios';
 import { AppContext } from '../index.jsx';
 import styled from 'styled-components';
@@ -27,7 +26,7 @@ const AddQuestionForm = ({prodId, prodName, count, setCount}) => {
 
     event.preventDefault();
 
-    const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions`;
+    const url = `/FEC/qa/questions`;
 
     const data = {
       body: question,
@@ -35,11 +34,7 @@ const AddQuestionForm = ({prodId, prodName, count, setCount}) => {
       email: email,
       product_id: prodId
     }
-    axios.post(url, data, {
-      headers: {
-        Authorization: config.TOKEN
-      }
-    })
+    axios.post(url, data)
     .then((response) => {
       console.log('success')
     })

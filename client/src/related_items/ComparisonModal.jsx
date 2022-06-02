@@ -8,8 +8,6 @@ const ComparisonModal = ({ mainId, relatedId }) => {
   const [features, setFeatures] = useState([]);
   const [mainFeatures, setMainFeatures] = useState([]);
   const [relatedFeatures, setRelatedFeatures] = useState([]);
-  // console.log('mainID', mainId);
-  // console.log('relatedID', relatedId);
 
   const getAllFeatures = () => {
     const promiseArray = [];
@@ -128,7 +126,7 @@ const MiddleValues = styled.td`
 `;
 
 const LeftHeader = styled.th`
-  padding-left: 10px;
+  padding-left: 15px;
   padding-right: 10px;
 `;
 

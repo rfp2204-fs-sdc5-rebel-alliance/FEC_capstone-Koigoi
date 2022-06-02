@@ -24,6 +24,7 @@ const ExpandStyle = styled.div`
   position: absolute;
   top: 1rem;
   left: 1rem;
+  cursor: pointer;
   &:hover,
   &:focus {
     transform: scale(1.2);

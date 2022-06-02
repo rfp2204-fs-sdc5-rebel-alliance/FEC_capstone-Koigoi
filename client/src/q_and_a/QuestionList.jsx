@@ -3,7 +3,6 @@ import axios from 'axios';
 import Search from './Search.jsx';
 import QuestionEntry from './QuestionEntry.jsx';
 import { ProdPageContext } from '../product_page.jsx';
-import config from '../../dist/config.js';
 import styled from 'styled-components';
 import AddQuestionForm from './AddQuestionForm.jsx';
 
@@ -27,13 +26,10 @@ const QuestionList = () => {
 
 
   const title = 'QUESTIONS & ANSWERS';
-  const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions`;
+  const url = `/qa/questions`;
 
   useEffect(() => {
     axios.get(url, {
-      headers: {
-        Authorization: config.TOKEN
-      },
       params: {
         product_id: prod_id,
         count: 34
@@ -59,22 +55,29 @@ const QuestionList = () => {
     }
   }
 
-  const loadMoreQuestions = () => {
-    if (questionsToShow < questions.length) {
-      setQuestionsToShow(questionsToShow + 2)
-    } else {
-      setShow(false);
-    }
-  }
-
-
   const handleModal = () => {
     setModalHeaderContent('Your Question')
     setModalBodyContent(<AddQuestionForm prodId={prod_id} prodName={prod_name} count={count} setCount={setCount}/>);
     setShowModal(true);
   }
 
+  const handleMoreQuestions = () => {
+    if (questionsToShow < questionList.length) {
+      setQuestionsToShow(questionsToShow + 2)
+    } else {
+    setShow(false)
+    }
+  }
+
   const questionList = filtered ? filteredQuestions : questions;
+
+  let moreAnsweredQuestions;
+  if (questionList.length > 4) {
+    moreAnsweredQuestions = <button onClick={handleMoreQuestions}> MORE ANSWERED QUESTIONS </button>
+  } else {
+    moreAnsweredQuestions = null
+  }
+
 
   return (
     <div>
@@ -83,9 +86,10 @@ const QuestionList = () => {
         <Search />
         <QuestionListContainer>
           {filtered && questionList.length === 0 && <p> No questions found. Please, clear the search field</p> }
+          {!filtered && questionList.length === 0 && <p>No questions. Make a question about {prod_name}</p>}
           {questionList.slice(0, questionsToShow).map((item) => <QuestionEntry key={item.question_id} entry={item} />)}
         </QuestionListContainer>
-        {show ? <button onClick={loadMoreQuestions}> MORE ANSWERED QUESTIONS </button> : null} &nbsp;&nbsp;&nbsp;
+        {show ? moreAnsweredQuestions : null} &nbsp;&nbsp;&nbsp;
         <button onClick={handleModal}> ADD A QUESTION + </button>
       </QuestionContext.Provider>
     </div>
