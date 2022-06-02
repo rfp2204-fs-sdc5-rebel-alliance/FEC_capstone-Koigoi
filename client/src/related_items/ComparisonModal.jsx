@@ -1,7 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { ProdPageContext } from '../product_page.jsx';
+import React, { useState, useEffect } from 'react';
 import { fetchData } from './fetchData.js';
-import axios from 'axios';
 import styled from 'styled-components';
 
 const ComparisonModal = ({ mainId, relatedId }) => {
@@ -92,9 +90,9 @@ const ComparisonModal = ({ mainId, relatedId }) => {
         <tbody>
           {features.map((feature, index) => (
             <tr key={index}>
-              <LeftValues>{isMainFeaturesIncluded(feature.value) ? '✓' : ''}</LeftValues>
+              <Values>{isMainFeaturesIncluded(feature.value) ? '✓' : ''}</Values>
               <MiddleValues>{feature.value}</MiddleValues>
-              <RightValues>{isRelatedFeaturesIncluded(feature.value) ? '✓' : ''}</RightValues>
+              <Values>{isRelatedFeaturesIncluded(feature.value) ? '✓' : ''}</Values>
             </tr>
           ))}
         </tbody>
@@ -103,15 +101,7 @@ const ComparisonModal = ({ mainId, relatedId }) => {
   }
 }
 
-const LeftValues = styled.td`
-  position: flex;
-  text-align: center;
-  padding-left: 15px;
-  padding-right: 15px;
-  font-weight: bold;
-`;
-
-const RightValues = styled.td`
+const Values = styled.td`
   position: flex;
   text-align: center;
   padding-left: 15px;

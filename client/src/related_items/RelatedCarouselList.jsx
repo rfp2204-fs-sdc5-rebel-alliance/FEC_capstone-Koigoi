@@ -40,7 +40,7 @@ const Carousel = (productDetails) => {
     <CarouselContainer>
       {
         currentImageIdx !== 0 ?
-        <LeftArrow icon={faAngleLeft} onClick={() => prevSlide()}/> : <LeftArrowTransparent icon={faAngleLeft}/>
+        <Arrow icon={faAngleLeft} onClick={() => prevSlide()}/> : <ArrowTransparent icon={faAngleLeft}/>
       }
       <CarouselWrapper>
         {display.map((details) => {
@@ -56,8 +56,8 @@ const Carousel = (productDetails) => {
               <DetailsWrapper>
                 <CategoryStyle>{details.categories}</CategoryStyle>
                 <NameStyle>{details.names}</NameStyle>
-                <PriceStyle>${details.prices}</PriceStyle>
-                <RatingsStyle>{StarRating(details.ratings.avgRating)}</RatingsStyle>
+                <DetailsStyle>${details.prices}</DetailsStyle>
+                <DetailsStyle>{StarRating(details.ratings.avgRating)}</DetailsStyle>
               </DetailsWrapper>
             </IndividualCardStyle>
           )
@@ -65,8 +65,8 @@ const Carousel = (productDetails) => {
       </CarouselWrapper>
       {
         currentImageIdx === maxDisplay ?
-        <RightArrowTransparent icon={faAngleRight} fill='transparent'/> :
-        <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/>
+        <ArrowTransparent icon={faAngleRight} fill='transparent'/> :
+        <Arrow icon={faAngleRight} onClick={() => nextSlide()}/>
       }
     </CarouselContainer>
   )
@@ -82,9 +82,9 @@ const CarouselContainer = styled.div`
 `;
 
 const CarouselWrapper = styled.div`
+  display: flex;
   flex-direction: row;
   position: relative;
-  display: flex;
   align-items: center;
 `;
 
@@ -139,74 +139,32 @@ const NameStyle = styled.div`
   padding-left: 5px;
 `;
 
-const PriceStyle = styled.div`
+const DetailsStyle = styled.div`
   font-weight: normal;
   font-size: 15px;
   padding-left: 5px;
 `;
 
-const RatingsStyle = styled.div`
-  font-weight: normal;
-  font-size: 15px;
-  padding-left: 5px;
-`;
-
-const LeftArrow = styled(FontAwesomeIcon)`
+const Arrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: -15px;
+  top: 160px;
   cursor: pointer;
   user-select: none;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+  transform: scale(0.75);
+  &:hover,
+  &:focus {
+    transform: scale(1.0);
   }
 `;
 
-const LeftArrowTransparent = styled(FontAwesomeIcon)`
+const ArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
-  top: -15px;
-  cursor: pointer;
-  user-select: none;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-  opacity: .01;
-  color: rgba(0, 0, 0, 0.75);
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  filter: blur(2px);
-`;
-
-const RightArrow = styled(FontAwesomeIcon)`
-  position: relative;
-  height: 30px;
-  width: auto;
-  top: -15px;
-  cursor: pointer;
-  user-select: none;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-`;
-
-const RightArrowTransparent = styled(FontAwesomeIcon)`
-  position: relative;
-  height: 30px;
-  width: auto;
-  top: -15px;
-  cursor: pointer;
-  user-select: none;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-  opacity: .01;
-  color: rgba(0, 0, 0, 0.75);
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  filter: blur(2px);
+  top: 160px;
+  visibility: hidden;
 `;
 
 const ButtonStyle = styled.button`
@@ -217,13 +175,9 @@ const ButtonStyle = styled.button`
   border-radius: 15px;
   color: #3B3B3B;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
   line-height: normal;
   padding: 2px 3px;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
-  touch-action: manipulation;
-  will-change: transform;
 
   &:disabled {
     pointer-events: none;

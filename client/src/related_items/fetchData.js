@@ -1,11 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
-import { ProdPageContext } from '../product_page.jsx';
 
 export const fetchData = (typeOfData, id) => {
-    return axios.get(`/FEC/products/${id}/${typeOfData}`)
-      .then((response) => {return response.data})
-      .catch((err) => {console.log(err)});
+  return axios.get(`/FEC/products/${id}/${typeOfData}`)
+    .then((response) => {return response.data})
+    .catch((err) => {console.log(err)});
 }
 
 export const fetchRatingsData = (typeOfData, id) => {

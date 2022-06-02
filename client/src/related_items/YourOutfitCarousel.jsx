@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { ProdPageContext } from '../product_page.jsx';
 import StarRating from '../shared_components/StarRating.jsx';
-import getOutfitDetails from './fetchYourOutfitData.js';
 import EmptyCard from './YourOutfitEmptyCard.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,8 +26,8 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
     <CarouselContainer className='CarouselContainer'>
       {
         currentImageIdx !== 0 ?
-        <LeftArrow icon={faAngleLeft} onClick={() => prevSlide()}/> :
-        <LeftArrowTransparent icon={faAngleLeft}/>
+        <Arrow icon={faAngleLeft} onClick={() => prevSlide()}/> :
+        <ArrowTransparent icon={faAngleLeft}/>
       }
       <CarouselWrapper className='CarouselWrapper'>
         <EmptyCard className='EmptyCard' saveToStorage={saveToStorage}/>
@@ -49,8 +48,8 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
                 <DetailsWrapper className='Details'>
                   <CategoryStyle>{details.category}</CategoryStyle>
                   <NameStyle>{details.name}</NameStyle>
-                  <PriceStyle>${details.price}</PriceStyle>
-                  <RatingsStyle>{StarRating(details.rating)}</RatingsStyle>
+                  <DetailsStyle>${details.price}</DetailsStyle>
+                  <DetailsStyle>{StarRating(details.rating)}</DetailsStyle>
                 </DetailsWrapper>
               </IndividualCardStyle>
             )
@@ -58,8 +57,8 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
       </CarouselWrapper>
         {
           (currentImageIdx !== maxDisplay && display.length >= 3) ?
-          <RightArrow icon={faAngleRight} onClick={() => nextSlide()}/> :
-          <RightArrowTransparent icon={faAngleRight}/>
+          <Arrow icon={faAngleRight} onClick={() => nextSlide()}/> :
+          <ArrowTransparent icon={faAngleRight}/>
         }
     </CarouselContainer>
   )
@@ -68,18 +67,17 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
 const CarouselContainer = styled.div`
   display: flex;
   flex-direction: row;
-  // justify-content: center;
-  align-items: flex-start;
   position: relative;
+  align-items: flex-start;
   width: 100%;
 `;
 
 const CarouselWrapper = styled.div`
+  display: flex;
   flex-direction: row;
   position: relative;
-  display: flex;
-  object-fit: cover;
   align-items: center;
+  object-fit: cover;
 `;
 
 const IndividualCardStyle = styled.div`
@@ -133,74 +131,32 @@ const NameStyle = styled.div`
   padding-left: 5px;
 `;
 
-const PriceStyle = styled.div`
+const DetailsStyle = styled.div`
   font-weight: normal;
   font-size: 15px;
   padding-left: 5px;
 `;
 
-const RatingsStyle = styled.div`
-  font-weight: normal;
-  font-size: 15px;
-  padding-left: 5px;
-`;
-
-const LeftArrow = styled(FontAwesomeIcon)`
+const Arrow = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
   top: 160px;
   cursor: pointer;
   user-select: none;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
+  transform: scale(0.75);
+  &:hover,
+  &:focus {
+    transform: scale(1.0);
   }
 `;
 
-const LeftArrowTransparent = styled(FontAwesomeIcon)`
+const ArrowTransparent = styled(FontAwesomeIcon)`
   position: relative;
   height: 30px;
   width: auto;
   top: 160px;
-  cursor: pointer;
-  user-select: none;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-  opacity: .01;
-  color: rgba(0, 0, 0, 0.75);
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  filter: blur(2px);
-`;
-
-const RightArrow = styled(FontAwesomeIcon)`
-  position: relative;
-  height: 30px;
-  width: auto;
-  top: 160px;
-  cursor: pointer;
-  user-select: none;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-`;
-
-const RightArrowTransparent = styled(FontAwesomeIcon)`
-  position: relative;
-  height: 30px;
-  width: auto;
-  top: 160px;
-  cursor: pointer;
-  user-select: none;
-  &:hover {
-    box-shadow: 0 0 10px rgba(90, 90, 90, 0.8);
-  }
-  opacity: .01;
-  color: rgba(0, 0, 0, 0.75);
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  filter: blur(2px);
+  visibility: hidden;
 `;
 
 const ButtonStyle = styled.button`
@@ -212,12 +168,9 @@ const ButtonStyle = styled.button`
   color: #3B3B3B;
   cursor: pointer;
   font-size: 16px;
-  font-weight: 600;
   line-height: normal;
   padding: 2px 3px;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
-  touch-action: manipulation;
-  will-change: transform;
 
   &:disabled {
     pointer-events: none;
@@ -233,75 +186,6 @@ const ButtonStyle = styled.button`
   &:active {
     box-shadow: none;
     transform: translateY(0);
-  }
-`;
-
-const AddIcon = styled.button`
-  align-items: center;
-  background-color: #fff;
-  border-radius: 24px;
-  border-style: none;
-  box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
-  box-sizing: border-box;
-  color: #3c4043;
-  cursor: pointer;
-  display: inline-flex;
-  fill: currentcolor;
-  font-size: 14px;
-  font-weight: 500;
-  height: 48px;
-  justify-content: center;
-  letter-spacing: .25px;
-  line-height: normal;
-  max-width: 100%;
-  overflow: visible;
-  padding: 2px 24px;
-  position: relative;
-  top: 40%;
-  text-align: center;
-  text-transform: none;
-  transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: auto;
-  will-change: transform, opacity;
-  z-index: 0;
-  font-family: "Google Sans",Roboto,Arial,sans-serif;
-
-  &:hover {
-  background: #F6F9FE;
-  color: #174ea6;
-  }
-
-  &:active {
-  box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
-  outline: none;
-  }
-
-  &:focus {
-  outline: none;
-  border: 2px solid #4285f4;
-  }
-
-  &:not(:disabled) {
-  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
-  }
-
-  &:not(:disabled):hover {
-  box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
-  }
-
-  &:not(:disabled):focus {
-  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
-  }
-
-  &:not(:disabled):active {
-  box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
-  }
-
-  &:disabled {
-  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
   }
 `;
 
