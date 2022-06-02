@@ -44,7 +44,7 @@ const Answer = (props) => {
   return (
     <>
       <div>
-        A: {props.entry.body}
+        Answer: {props.entry.body}
       </div>
       <AddPhotos images={props.entry.photos}/>
       <div>
