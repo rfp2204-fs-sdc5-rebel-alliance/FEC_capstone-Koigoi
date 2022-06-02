@@ -8,7 +8,7 @@ import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 
 const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage }) => {
-  const {prod_id, setProd} = useContext(ProdPageContext);
+  const {prod_id, setProdw} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 3));
   const maxDisplay = outfitDetails.length - 3;
@@ -106,6 +106,7 @@ const ImageStyle = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
 `;
 
 const DetailsWrapper = styled.div`
