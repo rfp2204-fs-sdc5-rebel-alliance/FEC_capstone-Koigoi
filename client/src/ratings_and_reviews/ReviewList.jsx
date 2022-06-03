@@ -85,10 +85,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
     } else {
       setReviews(allReviews.slice(0, reviewCount))
     }
-  }, [reviewCount, filterRatingsCount, allReviews, filtered, searchTerm])
-
-  // console.log('NUM RATING', numRating)
-  // console.log('FILTERED', filtered)
+  }, [reviewCount, filterRatingsCount, allReviews, filtered, searchTerm, filterNumRating])
 
   const getReviews = () => {
     if (filtered === true) {
