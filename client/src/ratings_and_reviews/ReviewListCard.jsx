@@ -17,7 +17,6 @@ const ReviewCard = styled.div`
   font-weight: normal;
   font-size: 14px;
   word-break: break-word;
-  white-space: normal;
   `;
 
 const ReviewCardSection = styled.div`
@@ -75,6 +74,7 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
       setShowMore(true);
     } else {
       setRenderedBody(body);
+      setShowMore(false);
     }
   }, [summary, body])
 

@@ -209,7 +209,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
       </ReviewCardContainer>
       <ButtonContainer>
         {moreReviewsButton}
-        <AddButton onClick={() => {handleModal()}}>Add a Review</AddButton>
+        <AddButton onClick={() => {handleModal()}}>Add a Review +</AddButton>
       </ButtonContainer>
     </ReviewListContainer>
   );
