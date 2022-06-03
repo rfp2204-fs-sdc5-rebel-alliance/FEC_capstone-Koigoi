@@ -40,6 +40,7 @@ const RatingNumber = styled.button`
   padding: 0px;
   margin-right: 10px;
   color: ${(props) => props.theme.fontColor};
+  cursor: pointer;
 
   &:hover {
     font-weight: bold;
@@ -47,8 +48,9 @@ const RatingNumber = styled.button`
 `;
 
 const RatingNumberTotal = styled.div`
-  width: 50px;
+  width: 35px;
   margin-left: 10px;
+  text-align: right;
 `;
 
 const RatingBarContainer = styled.div`

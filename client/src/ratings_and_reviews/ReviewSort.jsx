@@ -16,6 +16,7 @@ const SortForm = styled.select`
   outline: 0;
   background-color: ${(props) => props.theme.body};
   color: ${(props) => props.theme.fontColor};
+  cursor: pointer;
 `;
 
 function ReviewSort() {
