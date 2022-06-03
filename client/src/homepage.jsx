@@ -98,11 +98,11 @@ const HomePage = () => {
         </Locations>
         <ItemsContainer>
           <FeaturedItems>
-              <Products src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" onClick={() => {setProd('40344'); setView('Product')}}></Products>
+              <Products src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" onClick={() => {setProd(40344); setView('Product')}}></Products>
               <div style={{'visibility': 'hidden'}}>K</div>
-              <Products src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" onClick={() => {setProd('40346'); setView('Product')}}></Products>
+              <Products src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" onClick={() => {setProd(40346); setView('Product')}}></Products>
               <div style={{'visibility': 'hidden'}}>K</div>
-              <Products src="https://images.unsplash.com/photo-1561861422-a549073e547a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" onClick={() => {setProd('40350'); setView('Product')}}></Products>
+              <Products src="https://images.unsplash.com/photo-1561861422-a549073e547a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" onClick={() => {setProd(40350); setView('Product')}}></Products>
           </FeaturedItems>
         </ItemsContainer>
       </MainWrapper>
