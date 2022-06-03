@@ -6,10 +6,11 @@ import {lightTheme, darkTheme, GlobalStyle} from './themes.js';
 import ProductPage from './product_page.jsx';
 import HomePage from './homepage.jsx';
 import Checkout from './checkout.jsx';
+import About from './about.jsx';
 import Modal from './shared_components/Modal.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faHouse, faShirt } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faHouse, faShirt, faFish } from '@fortawesome/free-solid-svg-icons';
 
 export const AppContext = createContext();
 
@@ -94,6 +95,8 @@ const App = () => {
         return <ProductPage />;
       case "Checkout":
         return <Checkout />;
+      case "About":
+        return <About />;
       default:
         return <HomePage />;
     }
@@ -114,6 +117,9 @@ const App = () => {
                     <CheckBoxLabel htmlFor="checkbox" />
                   </CheckBoxWrapper>
                 </div>
+              </li>
+              <li>
+                <FontAwesomeIcon style={{'cursor': 'pointer'}} icon={faFish} onClick={() => {changeView('About')}}/>
               </li>
               <li>
                 <FontAwesomeIcon style={{'cursor': 'pointer'}} icon={faHouse} onClick={() => {changeView('Home')}}/>

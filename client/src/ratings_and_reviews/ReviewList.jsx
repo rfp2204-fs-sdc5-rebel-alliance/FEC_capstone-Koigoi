@@ -206,6 +206,7 @@ function ReviewList({ removeFilters, renderFilterRatings }) {
             helpfulness={review.helpfulness}
             photos={review.photos}
             recommend={review.recommend}
+            productId={prod_id}
           />
         )}
       </ReviewCardContainer>

@@ -96,21 +96,12 @@ nav ul li {
 .stars-outer::before {
   content: '\2605\2605\2605\2605\2605';
   font-size: 15px;
-  color: rgba(203, 197, 197, 0.966);
 }
 
 .stars-inner::before {
   content: '\2605\2605\2605\2605\2605';
   font-size: 15px;
-  color: rgb(0, 0, 0);
 }
-
-/* .stars-outer::before {
-  -webkit-text-stroke: rgba(203, 197, 197, 0.966);
-}
-.stars-inner::before {
-  -webkit-text-stroke: 1px rgb(0, 0, 0);
-} */
 
 table td,
 table th,

@@ -18,7 +18,7 @@ const IndividualCardStyle = styled.div`
   margin: 15px;
   flex-direction: column;
   flex-wrap: nowrap;
-  width: 240px;
+  min-width: 240px;
   height: 290px;
   object-fit: contain;
   overflow: hidden;

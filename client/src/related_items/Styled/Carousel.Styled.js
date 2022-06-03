@@ -1,12 +1,21 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const CarouselContainer = styled.div`
+export const SlideContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  position: relative;
   align-items: flex-start;
-  width: 100%;
+  max-width: 1110px;
+  overflow-y: auto;
+`;
+
+export const SlideWrapper = styled.div`
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
 `;
 
 export const CardStyle = styled.div`
@@ -14,7 +23,7 @@ export const CardStyle = styled.div`
   margin: 15px;
   flex-direction: column;
   flex-wrap: nowrap;
-  width: 240px;
+  min-width: 240px;
   height: fit-content;
   overflow: hidden;
   border-radius: 3px;
@@ -80,6 +89,7 @@ export const PriceStyle = styled.div`
   border-radius: 3px;
   cursor: pointer;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
   &:disabled {
     pointer-events: none;
   }
@@ -95,6 +105,15 @@ export const PriceStyle = styled.div`
     box-shadow: none;
     transform: translateY(0);
   }
+`;
+
+export const SalesPrice = styled.div`
+  color: red;
+  padding-left: 5px;
+`;
+
+export const OriginalPrice = styled.div`
+  text-decoration: line-through;
 `;
 
 
