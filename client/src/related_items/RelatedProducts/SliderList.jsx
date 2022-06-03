@@ -114,6 +114,4 @@ const RelatedSlider = () => {
   )
 }
 
-
-
 export default RelatedSlider;

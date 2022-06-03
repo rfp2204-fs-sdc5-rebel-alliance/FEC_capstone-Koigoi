@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import { ProdPageContext } from '../../product_page.jsx';
 import { fetchRelatedData, fetchRatingsData } from '../Data/fetchRelatedData.js';
-import RelatedCarousel from './CarouselList.jsx';
+import RelatedSlider from './SliderList.jsx';
 import { findDuplicates } from '../Data/findDuplicates.js';
 import sharedReviewsComponent from '../../shared_components/sharedReviewsComponent';
 import styled from 'styled-components';
-import RelatedSlider from './SliderList.jsx';
 
 export const RelatedCarouselContext = createContext();
 
@@ -98,7 +97,6 @@ const RelatedProductDetails = () => {
     return (
       <CarouselContainer>
         <RelatedCarouselContext.Provider value={{productDetails}}>
-          {/* <RelatedCarousel /> */}
           <RelatedSlider />
         </RelatedCarouselContext.Provider>
       </CarouselContainer>

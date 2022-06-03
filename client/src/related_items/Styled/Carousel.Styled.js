@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const CarouselContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  align-items: flex-start;
-  width: 100%;
-`;
-
 export const SlideContainer = styled.div`
   display: flex;
   align-items: flex-start;
@@ -19,6 +11,7 @@ export const SlideContainer = styled.div`
 export const SlideWrapper = styled.div`
   display: flex;
   overflow-y: hidden;
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     overflow-x: hidden;
     overflow-y: hidden;

@@ -5,7 +5,6 @@ import EmptyCard from './EmptyCard.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
-import styled from 'styled-components';
 import { SlideContainer, SlideWrapper, CardStyle, ImageWrapper,
          ImageStyle, DetailsWrapper, InfoStyle, CategoryStyle,
          PriceStyle, Arrow, ArrowTransparent, OutfitButtonStyle,
