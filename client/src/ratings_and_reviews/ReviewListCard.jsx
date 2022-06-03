@@ -52,11 +52,15 @@ const Button = styled.button`
   }
 `;
 
-function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend }) {
+const HelpfulReview = styled.span`
+  cursor: pointer;
+`;
+
+function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend, productId }) {
   const [renderedSummary, setRenderedSummary] = useState(summary)
   const [renderedBody, setRenderedBody] = useState(body);
   const [showMore, setShowMore] = useState(false);
-  const [clickedHelpful, setClickedHelpful] = useState(false);
+  const [windowLocalStorage, setWindowLocalStorage] = useState(JSON.parse(localStorage.getItem('helpfulReviews')) ? JSON.parse(localStorage.getItem('helpfulReviews')) : []);
   const { helpful, setHelpful } = useContext(ReviewsContext);
 
   useEffect(() => {
@@ -114,16 +118,28 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
   }
 
   const handleHelpfulClick = () => {
-    if (clickedHelpful) {
-      return;
+    let reviewData = {
+      productId: productId,
+      id: id
     }
+    let helpfulReviews = windowLocalStorage.slice();
+    let doesPrevClickExist = helpfulReviews.filter((review) => review.id === id);
 
-    axios.put(`/FEC/reviews/${id}/helpful`, {})
-    .then(() => {setHelpful(prevHelpful => prevHelpful + 1)})
-    .then(() => {setClickedHelpful(true)})
-    .catch((err) => {
-      console.log(err)
-    })
+    if (doesPrevClickExist.length > 0) {
+      return;
+    } else {
+      helpfulReviews.push(reviewData)
+
+      axios.put(`/FEC/reviews/${id}/helpful`, {})
+      .then(() => {setHelpful(prevHelpful => prevHelpful + 1)})
+      .then(() => {
+        localStorage.setItem('helpfulReviews', JSON.stringify(helpfulReviews));
+        setWindowLocalStorage(helpfulReviews);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   }
 
   return (
@@ -143,7 +159,7 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
         {recommendMessage()}
       </ReviewCardSection>
       {reviewResponse()}
-      <p>Was this review helpful? Yes <span onClick={() => {handleHelpfulClick()}}>( {helpfulness} )</span></p>
+      <p>Was this review helpful? <HelpfulReview onClick={() => {handleHelpfulClick()}}><u>Yes</u> ( {helpfulness} )</HelpfulReview></p>
     </ReviewCard>
   );
 }
