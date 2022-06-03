@@ -17,6 +17,10 @@ const StyledAnswerInfo = styled.div`
   margin-bottom: 4px;
 `;
 
+const StyledAnswerHelpful = styled.span`
+  cursor: pointer;
+`;
+
 const Answer = (props) => {
 
   const { count, setCount } = useContext(QuestionContext);
@@ -66,7 +70,11 @@ const Answer = (props) => {
         </div>
       <StyledAnswerInfo>
         <div>
-          by {answererName},&nbsp;{formattedDate(props.entry.date)}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Helpful?&nbsp; <span onClick={handleClickHelpful}><u>Yes</u> ({props.entry.helpfulness})</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <span onClick={handleClickReport}>{!reported ? <u>Report</u> : <u>Reported</u>}</span>
+          by {answererName},&nbsp;{formattedDate(props.entry.date)}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Helpful?&nbsp;
+          <StyledAnswerHelpful>
+          <span onClick={handleClickHelpful}><u>Yes</u> ({props.entry.helpfulness})</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <span onClick={handleClickReport}>{!reported ? <u>Report</u> : <u>Reported</u>}
+          </span>
+          </StyledAnswerHelpful>
         </div>
       </StyledAnswerInfo>
     </>
