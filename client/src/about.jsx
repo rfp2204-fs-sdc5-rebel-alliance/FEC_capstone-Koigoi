@@ -21,7 +21,7 @@ const About = () => {
       <NameStyle onClick={() => {window.open('https://www.linkedin.com/in/kevinniu/')}}>Kevin Niu</NameStyle>
       <NameStyle onClick={() => {window.open('https://www.linkedin.com/in/hansolji/')}}>Hansol Ji</NameStyle>
       <NameStyle onClick={() => {window.open('https://www.linkedin.com/in/neiljohnson92/')}}>Neil Johnson</NameStyle>
-      <NameStyle >JJ Jeong</NameStyle>
+      <NameStyle onClick={() => {window.open('https://www.linkedin.com/in/jongmyung-jeong-a4687222a/')}}>Jongmyung Jeong</NameStyle>
       <FaGithub size={50} style={{'marginTop': '1rem', 'cursor': 'pointer'}} onClick={() => {window.open('https://github.com/RFP2204-12/FEC_capstone')}}/>
     </DisplayStyle>
   )

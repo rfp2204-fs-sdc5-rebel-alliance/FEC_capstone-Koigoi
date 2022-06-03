@@ -74,7 +74,7 @@ const App = () => {
   const [theme, setTheme] = useState('light');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : []);
   const [view, setView] = useState('Home');
-  const [prod_id, setProd] = useState(40351);
+  const [prod_id, setProd] = useState(40344);
   const [showModal, setShowModal] = useState(false);
   const [modalBodyContent, setModalBodyContent] = useState(null);
   const [modalHeaderContent, setModalHeaderContent] = useState(null);
