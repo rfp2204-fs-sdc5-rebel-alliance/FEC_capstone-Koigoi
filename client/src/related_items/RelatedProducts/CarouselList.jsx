@@ -17,7 +17,7 @@ const RelatedCarousel = () => {
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4));
   const maxDisplay = productDetails.length - 4;
-  const placeholder = 'http://placecorgi.com/260/180';
+  const placeholder = 'https://wallpaperaccess.com/full/44303.jpg';
 
   const nextSlide = () => {
     setCurrentImageIdx(currentImageIdx === maxDisplay ? currentImageIdx : currentImageIdx + 1);

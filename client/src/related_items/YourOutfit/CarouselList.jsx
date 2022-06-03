@@ -16,7 +16,7 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 3));
   const maxDisplay = outfitDetails.length - 3;
-  const placeholder = 'http://placecorgi.com/260/180';
+  const placeholder = 'https://wallpaperaccess.com/full/44303.jpg';
 
   const nextSlide = () => {
     setCurrentImageIdx(currentImageIdx === maxDisplay ? currentImageIdx : currentImageIdx + 1);
