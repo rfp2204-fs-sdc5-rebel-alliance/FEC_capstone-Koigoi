@@ -8,8 +8,8 @@ import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { CarouselContainer, CardStyle, ImageWrapper,
           ImageStyle, DetailsWrapper, InfoStyle, CategoryStyle,
-          PriceStyle, Arrow, ArrowTransparent, RelatedButtonStyle
-        } from '../Styled/Carousel.Styled.js';
+          PriceStyle, Arrow, ArrowTransparent, RelatedButtonStyle,
+          SalesPrice, OriginalPrice} from '../Styled/Carousel.Styled.js';
 
 const RelatedCarousel = () => {
   const {prod_id, setProd, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(ProdPageContext);
@@ -17,7 +17,7 @@ const RelatedCarousel = () => {
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = productDetails.slice(currentImageIdx, (currentImageIdx + 4));
   const maxDisplay = productDetails.length - 4;
-  const placeholder = 'http://placecorgi.com/260/180';
+  const placeholder = 'https://wallpaperaccess.com/full/44303.jpg';
 
   const nextSlide = () => {
     setCurrentImageIdx(currentImageIdx === maxDisplay ? currentImageIdx : currentImageIdx + 1);
@@ -68,7 +68,15 @@ const RelatedCarousel = () => {
                 <CategoryStyle>{details.categories}</CategoryStyle>
                 <span>{StarRating(details.ratings.avgRating)}</span>
               </InfoStyle>
-                <PriceStyle>${details.prices}</PriceStyle>
+                {details.salePrices ?
+                <PriceStyle>
+                  <OriginalPrice>${Math.trunc(details.prices)}</OriginalPrice>
+                  <SalesPrice>${Math.trunc(details.salePrices)}</SalesPrice>
+                </PriceStyle>
+                :
+                <PriceStyle>
+                  <div>${Math.trunc(details.prices)}</div>
+                </PriceStyle>}
             </DetailsWrapper>
           </CardStyle>
         )

@@ -6,17 +6,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import styled from 'styled-components';
-import { CardStyle, ImageWrapper, CarouselContainer,
+import { CarouselContainer, CardStyle, ImageWrapper,
          ImageStyle, DetailsWrapper, InfoStyle, CategoryStyle,
-         PriceStyle, Arrow, ArrowTransparent, OutfitButtonStyle
-       } from '../Styled/Carousel.Styled.js';
+         PriceStyle, Arrow, ArrowTransparent, OutfitButtonStyle,
+         SalesPrice, OriginalPrice} from '../Styled/Carousel.Styled.js';
 
 const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage }) => {
   const {prod_id, setProd} = useContext(ProdPageContext);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const display = outfitDetails.slice(currentImageIdx, (currentImageIdx + 3));
   const maxDisplay = outfitDetails.length - 3;
-  const placeholder = 'http://placecorgi.com/260/180';
+  const placeholder = 'https://wallpaperaccess.com/full/44303.jpg';
 
   const nextSlide = () => {
     setCurrentImageIdx(currentImageIdx === maxDisplay ? currentImageIdx : currentImageIdx + 1);
@@ -59,7 +59,15 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
                   <CategoryStyle>{details.category}</CategoryStyle>
                   <span>{StarRating(details.rating)}</span>
                 </InfoStyle>
-                <PriceStyle>${details.price}</PriceStyle>
+                {details.salesPrice ?
+                <PriceStyle>
+                  <OriginalPrice>${Math.trunc(details.price)}</OriginalPrice>
+                  <SalesPrice>${Math.trunc(details.salesPrice)}</SalesPrice>
+                </PriceStyle>
+                :
+                <PriceStyle>
+                  <div>${Math.trunc(details.price)}</div>
+                </PriceStyle>}
               </DetailsWrapper>
             </CardStyle>
           )

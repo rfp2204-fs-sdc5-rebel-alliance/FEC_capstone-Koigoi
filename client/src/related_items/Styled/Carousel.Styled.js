@@ -80,6 +80,7 @@ export const PriceStyle = styled.div`
   border-radius: 3px;
   cursor: pointer;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
   &:disabled {
     pointer-events: none;
   }
@@ -95,6 +96,15 @@ export const PriceStyle = styled.div`
     box-shadow: none;
     transform: translateY(0);
   }
+`;
+
+export const SalesPrice = styled.div`
+  color: red;
+  padding-left: 5px;
+`;
+
+export const OriginalPrice = styled.div`
+  text-decoration: line-through;
 `;
 
 

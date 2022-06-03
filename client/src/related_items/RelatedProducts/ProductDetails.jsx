@@ -36,29 +36,33 @@ const RelatedProductDetails = () => {
         }
         /* parse through related styles */
         const allStyles = styles.map((style) => {return style.results;});
-        const images = [];
+        const productImages = [];
+        const productPrices = [];
+        const productSalePrices = [];
         allStyles.map((eachStyle) => {
           let isDefaultTrue = false;
           eachStyle.forEach((style) => {
             if (style['default?']) {
               isDefaultTrue = true;
-              images.push(style.photos[0].thumbnail_url);
+              productPrices.push(style.original_price);
+              productSalePrices.push(style.sale_price);
+              productImages.push(style.photos[0].thumbnail_url);
             }
           });
           if (!isDefaultTrue) {
-            images.push(eachStyle[0].photos[0].thumbnail_url);
+            productPrices.push(eachStyle[0].original_price);
+            productSalePrices.push(eachStyle[0].sale_price);
+            productImages.push(eachStyle[0].photos[0].thumbnail_url);
           }
         });
         /* parse through related product details */
         const productID = [];
         const productCategories = [];
         const productNames = [];
-        const productPrices = [];
         products.forEach((product) => {
           productID.push(product.id);
           productCategories.push(product.category);
           productNames.push(product.name);
-          productPrices.push(product.default_price);
         });
         /* parse through related ratings */
         const productRatings = [];
@@ -66,17 +70,19 @@ const RelatedProductDetails = () => {
           productRatings.push(sharedReviewsComponent(rating.ratings))
         })
         /* combine all data into one state */
-        for (let i = 0; i < images.length; i++) {
+        for (let i = 0; i < productImages.length; i++) {
           const allRelatedProducts = {};
-          allRelatedProducts.images = images[i];
+          allRelatedProducts.images = productImages[i];
           allRelatedProducts.id = productID[i];
           allRelatedProducts.categories = productCategories[i];
           allRelatedProducts.names = productNames[i];
           allRelatedProducts.prices = productPrices[i];
+          allRelatedProducts.salePrices = productSalePrices[i];
           allRelatedProducts.ratings = productRatings[i];
           allRelatedDetails.push(allRelatedProducts);
         }
         let filteredProducts = findDuplicates(allRelatedDetails);
+        console.log('filteredProducts', filteredProducts);
         setProductDetails(filteredProducts);
       })
       .catch((err) => {console.log(err)});
