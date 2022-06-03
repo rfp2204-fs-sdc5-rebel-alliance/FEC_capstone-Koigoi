@@ -31,6 +31,7 @@ const RemoveFiltersButton = styled.button`
   border: none;
   margin-left: 5px;
   padding: 0px;
+  cursor: pointer;
 `
 
 const RatingNumber = styled.button`

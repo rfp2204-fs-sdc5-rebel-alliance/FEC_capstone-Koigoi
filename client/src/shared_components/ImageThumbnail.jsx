@@ -19,6 +19,7 @@ const ImageContainer = styled.div`
 const Image = styled.img`
   max-height: 75px;
   margin-right: 10px;
+  cursor: pointer;
 `;
 
 const ModalImageContainer = styled.img`
