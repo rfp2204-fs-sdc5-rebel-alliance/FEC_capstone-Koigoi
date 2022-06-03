@@ -25,11 +25,17 @@ const StyledQuestionInfo = styled.div`
   font-size: 12px;
   margin-right: 40px;
 `;
+
+const StyledQuestionHelpful = styled.span`
+  cursor: pointer;
+`;
+
 const StyledLoadMoreAnswer = styled.a`
   font-size: 12px;
   font-weight: bold;
   margin-left: 116px;
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 const QuestionEntry = (props) => {
@@ -114,7 +120,11 @@ const QuestionEntry = (props) => {
           </div>
         <StyledQuestionInfo>
           <div>
-            Helpful?&nbsp;<span onClick={handleClickHelpful}><u>Yes</u> ({props.entry.question_helpfulness})</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<u onClick={handleModal}>Add Answer</u>
+            Helpful?&nbsp;
+            <StyledQuestionHelpful>
+            <span onClick={handleClickHelpful}><u>Yes</u> ({props.entry.question_helpfulness})</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span><u onClick={handleModal}>Add Answer</u>
+            </span>
+            </StyledQuestionHelpful>
           </div>
         </StyledQuestionInfo>
         </StyledQuestion>
