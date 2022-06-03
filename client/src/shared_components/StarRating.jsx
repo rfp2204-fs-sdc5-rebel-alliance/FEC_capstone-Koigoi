@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const OuterStarColor = styled.div`
   font-size: 15px;
   color: ${(props) => props.theme.body};
+  filter: brightness(80%);
 `;
 
 const InnerStarColor = styled.div`
