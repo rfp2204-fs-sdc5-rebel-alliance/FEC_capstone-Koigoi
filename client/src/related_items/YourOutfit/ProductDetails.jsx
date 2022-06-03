@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { ProdPageContext } from '../../product_page.jsx';
-import YourOutfitCarousel from './CarouselList.jsx';
 import fetchOutfitDetails from '../Data/fetchOutfitData.js';
+import YourOutfitSlider from './SliderList.jsx';
 import EmptyCard from './EmptyCard.jsx';
 import styled from 'styled-components';
 import { ArrowTransparent } from '../Styled/Carousel.Styled.js';
@@ -51,7 +51,7 @@ const YourOutfitDetails = () => {
   } else {
     return (
       <CarouselContainer className='CarouselContainer'>
-        <YourOutfitCarousel
+        <YourOutfitSlider
           outfitDetails={windowLocalStorage}
           saveToStorage={saveToStorage}
           removeFromStorage={removeFromStorage}
