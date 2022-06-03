@@ -77,7 +77,6 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
       setShowMore(false);
     }
   }, [summary, body])
-  console.log(body, body.length);
 
   const showMoreButton = () => {
     if (!showMore) {
