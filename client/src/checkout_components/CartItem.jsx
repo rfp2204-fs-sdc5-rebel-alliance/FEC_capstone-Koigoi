@@ -65,9 +65,13 @@ const CartItem = ({item}) => {
   const {cart, setCart} = useContext(AppContext);
 
   let handleDelete = (toRemove) => {
-    let tempCart = cart.filter((item) => {
-      return (item.sku !== toRemove.sku);
-    })
+    let tempCart;
+    if (cart.length > 1) {
+      tempCart = cart.filter((item) => item.sku !== toRemove.sku);
+    } else {
+      tempCart = [];
+      localStorage.setItem('cart', JSON.stringify(tempCart));
+    }
     setCart(tempCart);
   }
 
@@ -77,7 +81,6 @@ const CartItem = ({item}) => {
         let tempArray = [...cart];
         tempArray[i].quant = Number(newQuant);
         setCart(tempArray);
-        return;
       }
     }
   }

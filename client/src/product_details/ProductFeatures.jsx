@@ -24,21 +24,17 @@ const ProductFeatures = () => {
   const {prod_id} = useContext(ProdPageContext);
   const {prodObj, setProdObj, prodStyles, setProdStyles} = useContext(ProdDetailsContext);
 
-  if (!prodObj.data) {
-    return null;
-  } else {
-    return (
-      <Container>
-        {prodObj.data.features.map((feature, index) => {
-          return (
-            <FeatureText key={index}>
-              ✓ {feature.feature}: {feature.value}
-            </FeatureText>
-          )
-        })}
-      </Container>
-    )
-  }
+  return ( prodObj.data &&
+    <Container>
+      {prodObj.data.features.map((feature, index) => {
+        return (
+          <FeatureText key={index}>
+            ✓ {feature.feature}: {feature.value}
+          </FeatureText>
+        )
+      })}
+    </Container>
+  )
 
 
 }

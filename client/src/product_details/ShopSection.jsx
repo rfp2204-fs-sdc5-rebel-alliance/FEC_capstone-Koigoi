@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AppContext } from '../index.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 import { ProdDetailsContext } from './ProductDetails.jsx';
+import { FaFacebook, FaTwitter, FaPinterest } from 'react-icons/fa'
 import styled from 'styled-components';
 import config from '../../dist/config.js';
 
@@ -49,9 +50,9 @@ const AddButton = styled.button`
   }
 `;
 
-const SocialMedia = styled.img`
+const SocialMedia = styled.div`
   width: 3rem;
-  height: auto;
+  height: 3rem;
   margin-right: 1rem;
   margin-top: 1rem;
   border-radius: 0.25rem;
@@ -142,38 +143,35 @@ const ShopSection = () => {
     localStorage.setItem('cart', JSON.stringify(cart));
   },[cart])
 
-  if (!imageGallery.skus) {
-    return null;
-  } else {
-    return (
-      <Container>
-        <ComponentStyle>
-          <SelectStyle onChange={() => {onSelectSize(event.target.value)}}>
-            <option value={'Select'}>Size</option>
-            {
-              Object.keys(imageGallery.skus).map((sku, index) => {
-                return (
-                  <option key={index} value={sku}>{imageGallery.skus[sku].size}</option>
-                )
-              })
-            }
+
+  return ( imageGallery.skus &&
+    <Container>
+      <ComponentStyle>
+        <SelectStyle onChange={() => {onSelectSize(event.target.value)}}>
+          <option value={'Select'}>Size</option>
+          {
+            Object.keys(imageGallery.skus).map((sku, index) => {
+              return (
+                <option key={index} value={sku}>{imageGallery.skus[sku].size}</option>
+              )
+            })
+          }
+        </SelectStyle>
+        <ShopContext.Provider value={{size, setSize, quant, setQuant, quantOptions}}>
+          <SelectStyle onChange={() => {setQuant(event.target.value)}}>
+              <option value={0}>Quantity</option>
+              <QuantForm />
           </SelectStyle>
-          <ShopContext.Provider value={{size, setSize, quant, setQuant, quantOptions}}>
-            <SelectStyle onChange={() => {setQuant(event.target.value)}}>
-                <option value={0}>Quantity</option>
-                <QuantForm />
-            </SelectStyle>
-          </ShopContext.Provider>
-          <AddButton onClick={() => {addToCart()}}>Add to Cart</AddButton>
-        </ComponentStyle>
-        <ComponentStyle>
-          <SocialMedia src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" onClick={() => {window.open('https://www.facebook.com/')}}/>
-          <SocialMedia src="https://cdn-icons.flaticon.com/png/512/3256/premium/3256013.png?token=exp=1654192040~hmac=caa749884f07b72e0c9d30d9fa1542a4" alt="Twitter" onClick={() => {window.open('https://www.twitter.com/')}} />
-          <SocialMedia src="https://cdn-icons.flaticon.com/png/512/3536/premium/3536559.png?token=exp=1654194532~hmac=d3c2a9338f6256a3862d3e4dd2b10424" alt="Pinterest" onClick={() => {window.open('https://www.pinterest.com/')}}/>
-        </ComponentStyle>
-      </Container>
-    )
-  }
+        </ShopContext.Provider>
+        <AddButton onClick={() => {addToCart()}}>Add to Cart</AddButton>
+      </ComponentStyle>
+      <ComponentStyle>
+        <FaFacebook size={50} style={{'marginRight': '1rem', 'marginTop': '1rem', 'cursor': 'pointer'}} onClick={() => {window.open('https://www.facebook.com/')}}/>
+        <FaTwitter size={50} style={{'marginRight': '1rem','marginTop': '1rem', 'cursor': 'pointer'}} onClick={() => {window.open('https://www.twitter.com/')}}/>
+        <FaPinterest size={50} style={{'marginRight': '1rem','marginTop': '1rem', 'cursor': 'pointer'}} onClick={() => {window.open('https://www.pinterest.com/')}}/>
+      </ComponentStyle>
+    </Container>
+  )
 
 }
 
