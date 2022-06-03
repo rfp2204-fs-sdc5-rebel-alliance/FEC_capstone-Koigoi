@@ -12,6 +12,7 @@ const SearchContainer = styled.div`
   justify-content: space-between;
   padding: 0.3rem;
   align-items: center;
+  margin: 1rem 0 0 1rem;
   border: solid;
   border-color: #36393E;
 `;
