@@ -1,6 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const OuterStarColor = styled.div`
+  font-size: 15px;
+  color: ${(props) => props.theme.body};
+`;
+
+const InnerStarColor = styled.div`
+  font-size: 15px;
+  color: ${(props) => props.theme.fontColor};
+`;
+
 const StarRating = (avgRating) => {
   const starsTotal = 5;
   const starPercentage = `${Math.floor((avgRating / starsTotal) * 100)}%`;
@@ -10,9 +20,9 @@ const StarRating = (avgRating) => {
 
   return (
     <div>
-        <div className='stars-outer'>
-          <div className='stars-inner' style={width}> </div>
-        </div>
+        <OuterStarColor className='stars-outer'>
+          <InnerStarColor className='stars-inner' style={width}> </InnerStarColor>
+        </OuterStarColor>
     </div>
   )
 }
