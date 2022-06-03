@@ -82,7 +82,6 @@ const RelatedProductDetails = () => {
           allRelatedDetails.push(allRelatedProducts);
         }
         let filteredProducts = findDuplicates(allRelatedDetails);
-        console.log('filteredProducts', filteredProducts);
         setProductDetails(filteredProducts);
       })
       .catch((err) => {console.log(err)});

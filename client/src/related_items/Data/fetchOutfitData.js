@@ -36,7 +36,6 @@ const fetchOutfitDetails = (id) => {
       salesPrice: salePrice[0],
       rating: avgRating.avgRating
     }
-    console.log('outfit', outfit);
     return outfit;
   })
   .then((data) => {
