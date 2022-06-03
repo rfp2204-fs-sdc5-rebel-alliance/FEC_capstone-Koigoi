@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AppContext } from '../index.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 import { ProdDetailsContext } from './ProductDetails.jsx';
+import { FaFacebook, FaTwitter, FaPinterest } from 'react-icons/fa'
 import styled from 'styled-components';
 import config from '../../dist/config.js';
 
@@ -49,7 +50,7 @@ const AddButton = styled.button`
   }
 `;
 
-const SocialMedia = styled.img`
+const SocialMedia = styled.div`
   width: 3rem;
   height: auto;
   margin-right: 1rem;
@@ -167,9 +168,9 @@ const ShopSection = () => {
           <AddButton onClick={() => {addToCart()}}>Add to Cart</AddButton>
         </ComponentStyle>
         <ComponentStyle>
-          <SocialMedia src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" onClick={() => {window.open('https://www.facebook.com/')}}/>
-          <SocialMedia src="https://cdn-icons.flaticon.com/png/512/3256/premium/3256013.png?token=exp=1654192040~hmac=caa749884f07b72e0c9d30d9fa1542a4" alt="Twitter" onClick={() => {window.open('https://www.twitter.com/')}} />
-          <SocialMedia src="https://cdn-icons.flaticon.com/png/512/3536/premium/3536559.png?token=exp=1654194532~hmac=d3c2a9338f6256a3862d3e4dd2b10424" alt="Pinterest" onClick={() => {window.open('https://www.pinterest.com/')}}/>
+          <SocialMedia onClick={() => {window.open('https://www.facebook.com/')}}><FaFacebook /></SocialMedia>
+          <SocialMedia onClick={() => {window.open('https://www.twitter.com/')}}><FaTwitter /></SocialMedia>
+          <SocialMedia onClick={() => {window.open('https://www.pinterest.com/')}}><FaPinterest /></SocialMedia>
         </ComponentStyle>
       </Container>
     )
