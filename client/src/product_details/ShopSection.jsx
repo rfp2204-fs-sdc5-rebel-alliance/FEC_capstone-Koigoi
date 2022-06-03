@@ -65,7 +65,7 @@ const SocialMedia = styled.div`
 export const ShopContext = createContext();
 
 const ShopSection = () => {
-  const {cart, setCart} = useContext(AppContext);
+  const {cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent} = useContext(AppContext);
   const {prod_id} = useContext(ProdPageContext);
   const {prodObj, setProdObj, prodStyles, setProdStyles, imageGallery} = useContext(ProdDetailsContext);
   const [sku, setSku] = useState('');
@@ -131,12 +131,18 @@ const ShopSection = () => {
         let tempArray = [...cart];
         tempArray[i].quant += Number(quant);
         setCart(tempArray);
+        setModalHeaderContent(null)
+        setModalBodyContent('Added to Cart! Thanks for shopping with koigoi :)')
+        setShowModal(true);
         return;
       }
     }
 
     let tempObj = {'sku': sku, 'name': name, image: image,'style': style, 'price': price, 'size': size, 'quant': Number(quant), quantOptions: quantOptions};
     setCart(cart.concat(tempObj));
+    setModalHeaderContent(null)
+    setModalBodyContent('Added to Cart!')
+    setShowModal(true);
   }
 
   useEffect(() => {
