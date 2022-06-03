@@ -11,12 +11,12 @@ const RelatedItems = () => {
 
   return (
     <RelatedProductsSection>
-        <RelatedItemsContext.Provider value={{}}>
-      <TitleStyle> Related Products </TitleStyle>
-          <RelatedProductDetails />
-      <TitleStyle> Your Outfit </TitleStyle>
-          <YourOutfitDetails />
-        </RelatedItemsContext.Provider>
+      <RelatedItemsContext.Provider value={{}}>
+        <TitleStyle> Related Products </TitleStyle>
+        <RelatedProductDetails />
+        <TitleStyle> Your Outfit </TitleStyle>
+        <YourOutfitDetails />
+      </RelatedItemsContext.Provider>
     </RelatedProductsSection>
   )
 }

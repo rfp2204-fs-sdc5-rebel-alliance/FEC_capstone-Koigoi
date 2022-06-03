@@ -9,12 +9,28 @@ export const CarouselContainer = styled.div`
   width: 100%;
 `;
 
+export const SlideContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  max-width: 1110px;
+  overflow-y: auto;
+`;
+
+export const SlideWrapper = styled.div`
+  display: flex;
+  overflow-y: hidden;
+  &::-webkit-scrollbar {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+`;
+
 export const CardStyle = styled.div`
   display: block;
   margin: 15px;
   flex-direction: column;
   flex-wrap: nowrap;
-  width: 240px;
+  min-width: 240px;
   height: fit-content;
   overflow: hidden;
   border-radius: 3px;

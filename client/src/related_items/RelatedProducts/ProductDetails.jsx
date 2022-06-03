@@ -5,6 +5,7 @@ import RelatedCarousel from './CarouselList.jsx';
 import { findDuplicates } from '../Data/findDuplicates.js';
 import sharedReviewsComponent from '../../shared_components/sharedReviewsComponent';
 import styled from 'styled-components';
+import RelatedSlider from './SliderList.jsx';
 
 export const RelatedCarouselContext = createContext();
 
@@ -97,7 +98,8 @@ const RelatedProductDetails = () => {
     return (
       <CarouselContainer>
         <RelatedCarouselContext.Provider value={{productDetails}}>
-          <RelatedCarousel />
+          {/* <RelatedCarousel /> */}
+          <RelatedSlider />
         </RelatedCarouselContext.Provider>
       </CarouselContainer>
     )
