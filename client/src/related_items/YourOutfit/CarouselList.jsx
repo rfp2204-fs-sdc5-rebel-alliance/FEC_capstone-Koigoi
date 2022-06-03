@@ -59,7 +59,7 @@ const YourOutfitCarousel = ({ outfitDetails, saveToStorage, removeFromStorage })
                   <CategoryStyle>{details.category}</CategoryStyle>
                   <span>{StarRating(details.rating)}</span>
                 </InfoStyle>
-                <PriceStyle>${details.price}</PriceStyle>
+                <PriceStyle>${Math.trunc(details.price)}</PriceStyle>
               </DetailsWrapper>
             </CardStyle>
           )

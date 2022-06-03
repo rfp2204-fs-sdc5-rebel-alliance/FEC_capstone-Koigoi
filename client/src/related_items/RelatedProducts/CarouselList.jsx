@@ -68,7 +68,7 @@ const RelatedCarousel = () => {
                 <CategoryStyle>{details.categories}</CategoryStyle>
                 <span>{StarRating(details.ratings.avgRating)}</span>
               </InfoStyle>
-                <PriceStyle>${details.prices}</PriceStyle>
+                <PriceStyle>${Math.trunc(details.prices)}</PriceStyle>
             </DetailsWrapper>
           </CardStyle>
         )
