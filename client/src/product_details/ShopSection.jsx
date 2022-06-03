@@ -52,7 +52,7 @@ const AddButton = styled.button`
 
 const SocialMedia = styled.div`
   width: 3rem;
-  height: auto;
+  height: 3rem;
   margin-right: 1rem;
   margin-top: 1rem;
   border-radius: 0.25rem;
@@ -143,38 +143,35 @@ const ShopSection = () => {
     localStorage.setItem('cart', JSON.stringify(cart));
   },[cart])
 
-  if (!imageGallery.skus) {
-    return null;
-  } else {
-    return (
-      <Container>
-        <ComponentStyle>
-          <SelectStyle onChange={() => {onSelectSize(event.target.value)}}>
-            <option value={'Select'}>Size</option>
-            {
-              Object.keys(imageGallery.skus).map((sku, index) => {
-                return (
-                  <option key={index} value={sku}>{imageGallery.skus[sku].size}</option>
-                )
-              })
-            }
+
+  return ( imageGallery.skus &&
+    <Container>
+      <ComponentStyle>
+        <SelectStyle onChange={() => {onSelectSize(event.target.value)}}>
+          <option value={'Select'}>Size</option>
+          {
+            Object.keys(imageGallery.skus).map((sku, index) => {
+              return (
+                <option key={index} value={sku}>{imageGallery.skus[sku].size}</option>
+              )
+            })
+          }
+        </SelectStyle>
+        <ShopContext.Provider value={{size, setSize, quant, setQuant, quantOptions}}>
+          <SelectStyle onChange={() => {setQuant(event.target.value)}}>
+              <option value={0}>Quantity</option>
+              <QuantForm />
           </SelectStyle>
-          <ShopContext.Provider value={{size, setSize, quant, setQuant, quantOptions}}>
-            <SelectStyle onChange={() => {setQuant(event.target.value)}}>
-                <option value={0}>Quantity</option>
-                <QuantForm />
-            </SelectStyle>
-          </ShopContext.Provider>
-          <AddButton onClick={() => {addToCart()}}>Add to Cart</AddButton>
-        </ComponentStyle>
-        <ComponentStyle>
-          <SocialMedia onClick={() => {window.open('https://www.facebook.com/')}}><FaFacebook /></SocialMedia>
-          <SocialMedia onClick={() => {window.open('https://www.twitter.com/')}}><FaTwitter /></SocialMedia>
-          <SocialMedia onClick={() => {window.open('https://www.pinterest.com/')}}><FaPinterest /></SocialMedia>
-        </ComponentStyle>
-      </Container>
-    )
-  }
+        </ShopContext.Provider>
+        <AddButton onClick={() => {addToCart()}}>Add to Cart</AddButton>
+      </ComponentStyle>
+      <ComponentStyle>
+        <FaFacebook size={50} style={{'marginRight': '1rem', 'marginTop': '1rem', 'cursor': 'pointer'}} onClick={() => {window.open('https://www.facebook.com/')}}/>
+        <FaTwitter size={50} style={{'marginRight': '1rem','marginTop': '1rem', 'cursor': 'pointer'}} onClick={() => {window.open('https://www.twitter.com/')}}/>
+        <FaPinterest size={50} style={{'marginRight': '1rem','marginTop': '1rem', 'cursor': 'pointer'}} onClick={() => {window.open('https://www.pinterest.com/')}}/>
+      </ComponentStyle>
+    </Container>
+  )
 
 }
 

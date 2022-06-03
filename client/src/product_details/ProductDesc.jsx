@@ -28,17 +28,12 @@ const ProductDesc = () => {
   const {prod_id} = useContext(ProdPageContext);
   const {prodObj, setProdObj, prodStyles, setProdStyles} = useContext(ProdDetailsContext);
 
-  if (!prodObj.data) {
-    return null;
-  } else {
-    return (
-      <Container>
-        <SloganText>{prodObj.data.slogan}</SloganText>
-        <DescText>{prodObj.data.description}</DescText>
-      </Container>
-    )
-  }
-
+  return ( prodObj.data &&
+    <Container>
+      <SloganText>{prodObj.data.slogan}</SloganText>
+      <DescText>{prodObj.data.description}</DescText>
+    </Container>
+  )
 
 }
 

@@ -50,25 +50,21 @@ const StylesBlock = () => {
     setIndex(0);
   }
 
-  if (!prodStyles.data) {
-    return null;
-  } else {
-    return (
-      <ListStyle>
-          {prodStyles.data.results.map((style, index) => {
-            return (
-              <ImgContainer key={index}>
-                {
-                  imageGallery.style_id === style.style_id
-                  ? <SelectedImgStyle src={style.photos[0].thumbnail_url} alt="No Image" />
-                  : <ImgStyle onClick={() => {setStyle(style)}} src={style.photos[0].thumbnail_url} alt="No Image" />
-                }
-              </ImgContainer>
-            )
-          })}
-      </ListStyle>
-    )
-  }
+  return ( prodStyles.data &&
+    <ListStyle>
+        {prodStyles.data.results.map((style, index) => {
+          return (
+            <ImgContainer key={index}>
+              {
+                imageGallery.style_id === style.style_id
+                ? <SelectedImgStyle src={style.photos[0].thumbnail_url} alt="No Image" />
+                : <ImgStyle onClick={() => {setStyle(style)}} src={style.photos[0].thumbnail_url} alt="No Image" />
+              }
+            </ImgContainer>
+          )
+        })}
+    </ListStyle>
+  )
 }
 
 export default StylesBlock;

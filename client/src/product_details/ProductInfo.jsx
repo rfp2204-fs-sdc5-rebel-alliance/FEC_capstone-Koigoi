@@ -58,10 +58,7 @@ const ProductInfo = () => {
   const {prod_id, averageRating, totalRatings} = useContext(ProdPageContext);
   const {prodObj, setProdObj, prodStyles, setProdStyles, imageGallery} = useContext(ProdDetailsContext);
 
-  if (!prodObj.data) {
-  return null;
-  }
-  return (
+  return ( prodObj.data &&
     <Container>
       {totalRatings > 0 &&
         <div>
