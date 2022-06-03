@@ -11,7 +11,7 @@ const StyledQuestion = styled.div`
   font-weight: bold;
   color: #2F8F9D;
   justify-content: space-between;
-  margin-top: 6px;
+  margin-top: 14px;
   margin-left: 20px;
   margin-bottom: 6px;
 `;
