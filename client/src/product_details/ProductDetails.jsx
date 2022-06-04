@@ -2,9 +2,6 @@ import React, { useState, createContext, useContext, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import {ProdPageContext} from '../product_page.jsx';
-import config from '../../dist/config.js';
-
-//may need to import more stuff to begin work
 import Gallery from './Gallery.jsx';
 import ExpandedView from './ExpandedView.jsx';
 import ProductInfo from './ProductInfo.jsx';
@@ -20,7 +17,6 @@ const MainWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 
 const ProductDetails = () => {
   const {prod_id, setProdName} = useContext(ProdPageContext);
@@ -41,7 +37,7 @@ const ProductDetails = () => {
       })
     })
     .catch((err) => console.log(err));
-  }
+  };
 
   let getInfo = () => {
     axios.get(`/FEC/products/${prod_id}`)
@@ -50,7 +46,7 @@ const ProductDetails = () => {
       setProdName(results.data.name);
     })
     .catch((err) => console.log(err));
-  }
+  };
 
   useEffect(() => {
     getImages();
@@ -68,8 +64,8 @@ const ProductDetails = () => {
         <ProductFeatures />
       </MainWrapper>
     </ProdDetailsContext.Provider>
-    )
-  }
+    );
+  };
 
   return (
     <ProdDetailsContext.Provider value={{index, setIndex, prodObj, setProdObj, prodStyles, setProdStyles, imageGallery, setGallery, expanded, setExpanded}}>
@@ -82,8 +78,7 @@ const ProductDetails = () => {
         <ProductFeatures />
       </MainWrapper>
     </ProdDetailsContext.Provider>
-  )
-
-}
+  );
+};
 
 export default ProductDetails;

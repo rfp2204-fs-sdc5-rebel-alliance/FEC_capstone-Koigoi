@@ -1,16 +1,11 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
 import { ProdDetailsContext } from './ProductDetails.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCompress } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import config from '../../dist/config.js';
-
 import ExpandedCarousel from './components/ExpandedCarousel.jsx';
 import ImageList from './components/ImageList.jsx';
-
-//may need to import more stuff to begin work
 
 const Container = styled.div`
   width: 100%;
@@ -54,9 +49,8 @@ const ExpandedView = () => {
         <FontAwesomeIcon icon={faCompress} onClick={() => {setExpanded(false)}}/>
       </ExpandStyle>
     </Container>
-  )
-
-}
+  );
+};
 
 export default ExpandedView;
 

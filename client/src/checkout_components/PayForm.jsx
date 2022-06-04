@@ -3,9 +3,6 @@ import { AppContext } from '../index.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 import axios from 'axios';
 import styled from 'styled-components';
-import config from '../../dist/config.js';
-
-//may need to import more stuff to begin work
 
 const Container = styled.div`
   width: 35%;
@@ -72,9 +69,8 @@ const ShortLabelStyle = styled.label`
   display: flex;
 `;
 
-
 const PayForm = () => {
-  const {cart, setCart} = useContext(AppContext);
+  const {cart, setCart, setShowModal, setModalBodyContent, setModalHeaderContent} = useContext(AppContext);
   const [total, setTotal] = useState(0);
 
   let getTotal = () => {
@@ -83,7 +79,7 @@ const PayForm = () => {
       tempTotal += (item.price * item.quant)
     });
     setTotal(tempTotal);
-  }
+  };
 
   let handleSubmit = (event) => {
     event.preventDefault();
@@ -91,7 +87,7 @@ const PayForm = () => {
     cart.forEach((item) => {
       let data = {
         "sku_id": item.sku
-      }
+      };
       for (let i = 0; i < item.quant; i++) {
         tempArray.push(
           axios.post(`/FEC/cart`, data, {
@@ -99,20 +95,24 @@ const PayForm = () => {
               Authorization: config.TOKEN
             }
           })
-          .then((response) => {return response.data})
-          .catch((err) => console.log(err))
-        )
-      }
+            .then((response) => {return response.data})
+            .catch((err) => console.log(err))
+        );
+      };
     });
     return Promise.all(tempArray)
       .then(() => setCart([]))
-      .then(() => alert('Thank you for your purchase!'))
+      .then(() => {
+        setModalHeaderContent(null);
+        setModalBodyContent('Thank you for your purchase! :)');
+        setShowModal(true);
+      })
       .catch((err) => console.log(err));
-  }
+  };
 
   useEffect(() => {
     getTotal();
-  }, [cart])
+  }, [cart]);
 
   return (
     <Container>
@@ -174,9 +174,8 @@ const PayForm = () => {
       </div>
 
     </Container>
-  )
-
-}
+  );
+};
 
 export default PayForm;
 

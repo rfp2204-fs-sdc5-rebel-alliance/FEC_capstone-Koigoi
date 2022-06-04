@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
-//this is a carousel component
-
 const CarouselStyle = styled.div`
   display: flex;
   justify-content: center;
@@ -44,14 +42,14 @@ const Carousel = (slides) => {
 
   if (!Array.isArray(slides) || slides.length === 0) {
     return null;
-  }
+  };
 
   let nextSlide = () => {
     if (index === slides.length - 1) {
       setIndex(0);
     } else {
       setIndex(index + 1);
-    }
+    };
   };
 
   let prevSlide = () => {
@@ -59,7 +57,7 @@ const Carousel = (slides) => {
       setIndex(slides.length - 1);
     } else {
       setIndex(index - 1);
-    }
+    };
   };
 
   return (
@@ -75,14 +73,14 @@ const Carousel = (slides) => {
                 <ImgStyle src={slide.url} alt="No Image" />
               )}
             </div>
-          )
+          );
         })}
       </ImgContainer>
       <ArrowStyle>
         <FontAwesomeIcon icon={faAngleRight} onClick={nextSlide}/>
       </ArrowStyle>
     </CarouselStyle>
-  )
+  );
 };
 
 export default Carousel;

@@ -1,16 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
 import { ProdDetailsContext } from './ProductDetails.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import config from '../../dist/config.js';
-
 import Carousel from './components/Carousel.jsx';
 import ImageList from './components/ImageList.jsx';
-
-//may need to import more stuff to begin work
 
 const Container = styled.div`
   width: 60%;
@@ -45,9 +40,8 @@ const Gallery = () => {
         <FontAwesomeIcon icon={faExpand} onClick={() => {setExpanded(true)}}/>
       </ExpandStyle>
     </Container>
-  )
-
-}
+  );
+};
 
 export default Gallery;
 
