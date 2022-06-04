@@ -30,7 +30,7 @@ const ModalImageContainer = styled.img`
   max-width: 700px;
 `;
 
-function ImageThumbnail ({images}) {
+const ImageThumbnail = ({ images }) => {
   const { setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(AppContext);
 
   if (!Array.isArray(images) || images.length === 0) {

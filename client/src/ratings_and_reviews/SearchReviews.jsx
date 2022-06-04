@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 const SearchReviews = () => {
-  const { search, setSearch, searchTerm, setSearchTerm } = useContext(ReviewsContext)
+  const { setSearch, searchTerm, setSearchTerm } = useContext(ReviewsContext)
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -19,7 +19,7 @@ const SearchReviews = () => {
         value={searchTerm}
         onChange={handleChange}/>
     </div>
-  )
+  );
 }
 
 export default SearchReviews;

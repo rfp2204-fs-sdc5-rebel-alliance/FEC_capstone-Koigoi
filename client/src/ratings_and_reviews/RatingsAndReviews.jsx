@@ -26,21 +26,20 @@ const RatingsAndReviewsLayout = styled.div`
 const LayoutLeft = styled.div`
   flex: 0 0 20rem;
   margin-right: 2rem;
-`
+`;
 
 const LayoutRight = styled.div`
   flex-grow: 2;
   margin-left: 2rem;
-`
+`;
 
-function RatingsAndReviews() {
+const RatingsAndReviews = () => {
   const [apiCount, setApiCount] = useState(2);
   const [reviewCount, setReviewCount] = useState(2);
 
   const [sort, setSort] =  useState('relevant');
   const [search, setSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-
 
   const [numRating, setNumRating] = useState({});
   const [showRatings, setShowRatings] = useState({});
@@ -68,7 +67,6 @@ function RatingsAndReviews() {
       .then((reviewsData) => {
         const ratings = reviewsData.data.ratings;
         setCharacteristics(reviewsData.data.characteristics)
-        // setRecommended(reviewsData.data.recommended)
         setRatingsObj(sharedReviewsComponent(ratings));
         setApiCount(Number(ratings[1]) + Number(ratings[2]) + Number(ratings[3]) + Number(ratings[4]) + Number(ratings[5]));
       })

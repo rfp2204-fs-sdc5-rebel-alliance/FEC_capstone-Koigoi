@@ -44,7 +44,7 @@ const ModalBody = styled.div`
   padding: 20px 20px;
 `;
 
-function Modal () {
+const Modal = () => {
   const { showModal, setShowModal, modalBodyContent, modalHeaderContent } = useContext(AppContext);
 
   if (!showModal) {

@@ -18,7 +18,7 @@ const Image = styled.img`
   margin-right: 10px;
 `;
 
-function ImageUpload ({ photos, setPhotos }) {
+const ImageUpload = ({ photos, setPhotos }) => {
   const [displayPhotos, setDisplayPhotos] = useState(null);
 
   useEffect (() => {

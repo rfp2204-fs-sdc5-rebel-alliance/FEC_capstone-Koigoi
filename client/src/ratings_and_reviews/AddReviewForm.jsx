@@ -13,7 +13,8 @@ const FormSection = styled.div`
 `;
 
 const FormHeading = styled.h4`
-`
+`;
+
 const StarRatingInput = styled.input`
   &[type='radio'] {
     display:none
@@ -29,8 +30,8 @@ const InputText = styled.input`
 `;
 
 const InputMessage = styled.div`
+`;
 
-`
 const CharacteristicContainer = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -69,10 +70,9 @@ const CharacteristicOptions = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 `;
 
-function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, setShowModal }) {
+const AddReviewForm = ({ prodId, productName, characteristics, characteristicLabels, showCharacteristicLabel, setShowModal }) => {
   const [rating, setRating] = useState(0);
   const [ratingHover, setRatingHover] = useState(null);
   const [summary, setSummary] = useState('');
@@ -89,7 +89,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   useEffect (() => {
     renderCharacteristicsInput();
 
-  }, [characteristicsValue])
+  }, [characteristicsValue]);
 
   const handleBody = (event) => {
     let bodyContent = event.target.value;
@@ -98,7 +98,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     setBody(bodyContent);
 
     if (bodyLength >= 50) {
-      setCharacterCount('Minimum reached')
+      setCharacterCount('Minimum reached');
     } else {
       setCharacterCount(50 - (bodyLength));
     }
@@ -134,7 +134,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
       'email': email.target.value,
       'photos': photos,
       'characteristics': characteristicsValue
-    }
+    };
 
     axios.post(`/FEC/reviews/`, newReviewData)
     .then(() => {setShowModal(false)})
@@ -144,11 +144,9 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   }
 
   const StarRating = () => {
-    const starStyles = {
+    const selectedStar = theme === 'light' ? '#36393E' : '#FFFAFA';
+    const defaultStar = theme === 'light' ? '#FFFAFA' : '#36393E';
 
-    }
-    let selectedStar = theme === 'light' ? '#36393E' : '#FFFAFA';
-    let defaultStar = theme === 'light' ? '#FFFAFA' : '#36393E';
     return (
       <div>
         {[...Array(5)].map((star, index) => {
@@ -162,17 +160,17 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
                 onClick={() => {setRating(ratingValue)}}
                 required/>
               <FontAwesomeIcon
-                style={{'stroke': selectedStar, 'stroke-width': '10'}}
+                style={{'stroke': selectedStar, 'strokeWidth': '10'}}
                 icon={faStar}
                 size='2x'
                 color={ratingValue <= (ratingHover || rating) ? selectedStar : defaultStar}
                 onMouseEnter={() => {setRatingHover(ratingValue)}}
                 onMouseLeave={() => {setRatingHover(null)}}/>
             </label>
-          )
+          );
         })}
       </div>
-    )
+    );
   }
 
   let characteristicsFormLayout = [];
@@ -185,11 +183,10 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
       let footerLabel = null;
 
       [...Array(5)].map((label, index) => {
-        console.log(index);
         if (index === 0) {
-          footerLabel = characteristicLabels[characteristic][index]
+          footerLabel = characteristicLabels[characteristic][index];
         } else if (index === 4) {
-          footerLabel = characteristicLabels[characteristic][index]
+          footerLabel = characteristicLabels[characteristic][index];
         } else {
           footerLabel = null;
         }
@@ -205,7 +202,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
                 required/>
               <CharacteristicLabelsContainer>{footerLabel}</CharacteristicLabelsContainer>
             </CharacteristicOptions>
-        )
+        );
       });
 
       characteristicsFormLayout.push(

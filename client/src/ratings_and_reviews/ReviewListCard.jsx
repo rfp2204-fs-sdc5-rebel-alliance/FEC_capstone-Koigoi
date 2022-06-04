@@ -20,12 +20,12 @@ const ReviewCard = styled.div`
   `;
 
 const ReviewCardSection = styled.div`
-margin: 10px 0px;
+  margin: 10px 0px;
 `;
 
 const Bold = styled.p`
-font-weight: bold;
-font-size: 18px;
+  font-weight: bold;
+  font-size: 18px;
 `;
 
 const ReviewImageContainer = styled.div`
@@ -46,6 +46,7 @@ const Button = styled.button`
   border: 1px solid ${(props) => props.theme.fontColor};
   margin: 1rem 2rem 1rem 0;
   background: #FFF;
+
   &:hover {
     box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   }
@@ -55,7 +56,7 @@ const HelpfulReview = styled.span`
   cursor: pointer;
 `;
 
-function ReviewListCard({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend, productId }) {
+const ReviewListCard = ({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend, productId }) => {
   const [renderedSummary, setRenderedSummary] = useState(summary)
   const [renderedBody, setRenderedBody] = useState(body);
   const [showMore, setShowMore] = useState(false);
@@ -118,17 +119,17 @@ function ReviewListCard({ id, date, rating, reviewerName, summary, body, respons
   }
 
   const handleHelpfulClick = () => {
-    let reviewData = {
-      productId: productId,
-      id: id
-    }
+    const reviewData = {
+      productId,
+      id
+    };
     let helpfulReviews = windowLocalStorage.slice();
     let doesPrevClickExist = helpfulReviews.filter((review) => review.id === id);
 
     if (doesPrevClickExist.length > 0) {
       return;
     } else {
-      helpfulReviews.push(reviewData)
+      helpfulReviews.push(reviewData);
 
       axios.put(`/FEC/reviews/${id}/helpful`, {})
       .then(() => {setHelpful(prevHelpful => prevHelpful + 1)})

@@ -15,7 +15,7 @@ const AverageRating = styled.div`
 
 const AverageRatingStars = styled.span`
   margin-left: 10px;
-`
+`;
 
 const RatingsBreakdown = styled.div`
   display: flex;
@@ -32,7 +32,7 @@ const RemoveFiltersButton = styled.button`
   margin-left: 5px;
   padding: 0px;
   cursor: pointer;
-`
+`;
 
 const RatingNumber = styled.button`
   width: 60px;
@@ -66,9 +66,9 @@ const RecommendedMessage = styled.div`
   text-align: right;
 `;
 
-function RatingBreakdown({ removeFilters, renderFilterRatings }) {
-  const { ratings, totalRatings, avgRating, recommended, showRatings, setShowRatings, filtered } = useContext(ReviewsContext);
-  const { averageRating } = useContext(ProdPageContext);
+const RatingBreakdown = ({ removeFilters, renderFilterRatings }) => {
+  const { ratings, recommended, showRatings, setShowRatings, filtered } = useContext(ReviewsContext);
+  const { averageRating, totalRatings } = useContext(ProdPageContext);
   const { theme } = useContext(AppContext);
 
   const handleRatingClick = (event) => {
@@ -94,7 +94,7 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
       if (showRatings[rating] === true) {
         starFilters.push(rating + ' star');
       }
-    })
+    });
 
     if (starFilters.length > 1) {
       starFilters = starFilters.join(', ')
@@ -126,7 +126,7 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
           'width': `${individualRatingAvg(starRating)}%`,
           'height': '30px',
           'backgroundColor': barColor
-        }
+        };
         return (
           <RatingsBreakdown key={index}>
               <RatingNumber

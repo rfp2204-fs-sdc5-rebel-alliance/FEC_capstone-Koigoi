@@ -28,12 +28,11 @@ const CharacteristicLabelsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   height: 30px;
   margin: 0px 5px;
 `;
 
-function ProductBreakdown () {
+const ProductBreakdown = () => {
     const { characteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel } = useContext(ReviewsContext);
 
     useEffect(() => {
@@ -60,7 +59,6 @@ function ProductBreakdown () {
     const renderCharacteristics = () => {
 
       Object.keys(characteristics).forEach((characteristic) => {
-
         let averageCharacteristicValue = (Math.round(characteristics[characteristic].value));
 
         if (averageCharacteristicValue === 1) {
@@ -81,7 +79,7 @@ function ProductBreakdown () {
           'position': 'relative',
           'left': `${averageCharacteristicValue}%`,
           'height': '30px',
-        }
+        };
 
         characteristicsLayout.push(
           <div>
@@ -94,8 +92,8 @@ function ProductBreakdown () {
               <div>{characteristicLabels[characteristic][4]}</div>
             </CharacteristicLabelsContainer>
           </div>
-        )
-      })
+        );
+      });
     }
 
     renderCharacteristics();
