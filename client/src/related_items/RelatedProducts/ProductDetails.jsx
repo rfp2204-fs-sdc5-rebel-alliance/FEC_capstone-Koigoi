@@ -67,15 +67,15 @@ const RelatedProductDetails = () => {
         productRatings.push(sharedReviewsComponent(rating.ratings));
       });
       for (let i = 0; i < productImages.length; i++) {
-        const allRelatedProducts = {};
-        allRelatedProducts.images = productImages[i];
-        allRelatedProducts.id = productID[i];
-        allRelatedProducts.categories = productCategories[i];
-        allRelatedProducts.names = productNames[i];
-        allRelatedProducts.prices = productPrices[i];
-        allRelatedProducts.salePrices = productSalePrices[i];
-        allRelatedProducts.ratings = productRatings[i];
-        allRelatedDetails.push(allRelatedProducts);
+        const allRelatedData = {};
+        allRelatedData.images = productImages[i];
+        allRelatedData.id = productID[i];
+        allRelatedData.categories = productCategories[i];
+        allRelatedData.names = productNames[i];
+        allRelatedData.prices = productPrices[i];
+        allRelatedData.salePrices = productSalePrices[i];
+        allRelatedData.ratings = productRatings[i];
+        allRelatedDetails.push(allRelatedData);
       };
       let filteredProducts = findDuplicates(allRelatedDetails);
       setProductDetails(filteredProducts);
