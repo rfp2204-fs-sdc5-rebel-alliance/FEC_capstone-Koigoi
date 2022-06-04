@@ -3,15 +3,15 @@ import { ProdPageContext } from '../../product_page.jsx';
 import styled from 'styled-components';
 
 const EmptyCard = ({saveToStorage}) => {
-  const {prod_id} = useContext(ProdPageContext);
+  const { prod_id } = useContext(ProdPageContext);
   return (
-    <IndividualCardStyle className='CardStyle'>
+    <IndividualCardStyle className="CardStyle">
       <AddIcon onClick={(e) => saveToStorage(e, prod_id)}>
         Add To Outfit
       </AddIcon>
     </IndividualCardStyle>
   )
-}
+};
 
 const IndividualCardStyle = styled.div`
   display: block;

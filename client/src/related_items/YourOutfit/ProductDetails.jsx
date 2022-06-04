@@ -9,8 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 const YourOutfitDetails = () => {
-  const {prod_id} = useContext(ProdPageContext);
-  const [windowLocalStorage, setWindowLocalStorage] = useState(JSON.parse(localStorage.getItem('outfits')) ? JSON.parse(localStorage.getItem('outfits')) : []);
+  const { prod_id } = useContext(ProdPageContext);
+  const [windowLocalStorage, setWindowLocalStorage] = useState(JSON.parse(localStorage.getItem('outfits')) || []);
 
   const saveToStorage = (e, id) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ const YourOutfitDetails = () => {
     fetchOutfitDetails(id)
     .then((outfitData) => {
         let currentOutfits = windowLocalStorage.slice();
-        let doesCurrentExist = currentOutfits.filter((item) => item.id === outfitData.id)
+        let doesCurrentExist = currentOutfits.filter((item) => item.id === outfitData.id);
         if (!doesCurrentExist.length) {
           currentOutfits.push(outfitData);
         }
@@ -27,7 +27,7 @@ const YourOutfitDetails = () => {
         setWindowLocalStorage(currentOutfits);
     })
     .catch((err) => console.log(err));
-  }
+  };
 
   const removeFromStorage = (e, id) => {
     let currentOutfits = windowLocalStorage.slice();
@@ -38,28 +38,28 @@ const YourOutfitDetails = () => {
     });
     localStorage.setItem('outfits', JSON.stringify(currentOutfits));
     setWindowLocalStorage(currentOutfits);
-  }
+  };
 
   if (windowLocalStorage.length === 0) {
     return (
-      <CarouselContainer className='CarouselContainer'>
-        <ArrowTransparent icon={faAngleLeft}/>
-          <EmptyCard saveToStorage={saveToStorage}/>
-        <ArrowTransparent icon={faAngleRight} />
+      <CarouselContainer className="CarouselContainer">
+        <ArrowTransparent icon={ faAngleLeft }/>
+          <EmptyCard saveToStorage={ saveToStorage }/>
+        <ArrowTransparent icon={ faAngleRight } />
       </CarouselContainer>
     )
   } else {
     return (
-      <CarouselContainer className='CarouselContainer'>
+      <CarouselContainer className="CarouselContainer">
         <YourOutfitSlider
-          outfitDetails={windowLocalStorage}
-          saveToStorage={saveToStorage}
-          removeFromStorage={removeFromStorage}
+          outfitDetails={ windowLocalStorage }
+          saveToStorage={ saveToStorage }
+          removeFromStorage={ removeFromStorage }
         />
       </CarouselContainer>
     )
   }
-}
+};
 
 const CarouselContainer = styled.div`
   display: flex;

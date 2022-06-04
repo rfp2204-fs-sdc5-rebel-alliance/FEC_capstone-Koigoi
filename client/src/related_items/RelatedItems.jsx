@@ -7,7 +7,7 @@ import styled from 'styled-components';
 export const RelatedItemsContext = createContext();
 
 const RelatedItems = () => {
-  const {prod_id} = useContext(ProdPageContext);
+  const { prod_id } = useContext(ProdPageContext);
 
   return (
     <RelatedProductsSection>
@@ -19,7 +19,7 @@ const RelatedItems = () => {
       </RelatedItemsContext.Provider>
     </RelatedProductsSection>
   )
-}
+};
 
 const RelatedProductsSection = styled.div`
   display: flex;

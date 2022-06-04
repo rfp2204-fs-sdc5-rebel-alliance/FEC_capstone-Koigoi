@@ -35,9 +35,8 @@ const ComparisonModal = ({ mainId, relatedId }) => {
       setRelatedFeatures(relatedProduct);
       setFeatures(mainProduct.concat(relatedProduct));
     })
-    .catch((err) => {console.log(err)});
+    .catch((err) => console.log(err));
   }
-
 
   useEffect(() => {
     getAllFeatures();
@@ -46,59 +45,58 @@ const ComparisonModal = ({ mainId, relatedId }) => {
   const isMainFeaturesIncluded = (value) => {
     let isTrue;
     for (let i = 0; i < mainFeatures.length; i++) {
-      const currentValue = mainFeatures[i].value
+      const currentValue = mainFeatures[i].value;
       if (currentValue.includes(value)) {
         isTrue = true;
         break;
-      } else {
-        isTrue = false;
       }
-    }
+      isTrue = false;
+    };
     return isTrue;
   }
 
   const isRelatedFeaturesIncluded = (value) => {
     let isTrue;
     for (let i = 0; i < relatedFeatures.length; i++) {
-      const currentValue = relatedFeatures[i].value
+      const currentValue = relatedFeatures[i].value;
       if (currentValue.includes(value)) {
         isTrue = true;
         break;
-      } else {
-        isTrue = false;
       }
-    }
+      isTrue = false;
+    };
     return isTrue;
   }
 
-  if (features.length === 0 ||
-      mainFeatures.length === 0 ||
-      relatedFeatures.length === 0
-      ) {
+  if (
+    features.length === 0
+    || mainFeatures.length === 0
+    || relatedFeatures.length === 0
+  ) {
     return null;
   } else {
     return (
       <table>
         <thead>
           <tr>
-            <HeaderStyle>{features[0].name}</HeaderStyle>
+            <HeaderStyle> {features[0].name} </HeaderStyle>
             <th> </th>
-            <HeaderStyle>{features[features.length-1].name}</HeaderStyle>
+            <HeaderStyle> {features[features.length-1].name} </HeaderStyle>
           </tr>
         </thead>
         <tbody>
           {features.map((feature, index) => (
-            <tr key={index}>
-              <Values>{isMainFeaturesIncluded(feature.value) ? '✓' : ''}</Values>
-              <MiddleValues>{feature.value}</MiddleValues>
-              <Values>{isRelatedFeaturesIncluded(feature.value) ? '✓' : ''}</Values>
+            <tr key={ index }>
+              <Values> {isMainFeaturesIncluded(feature.value) ? '✓' : ''} </Values>
+              <MiddleValues> {feature.value} </MiddleValues>
+              <Values> {isRelatedFeaturesIncluded(feature.value) ? '✓' : ''} </Values>
             </tr>
           ))}
         </tbody>
       </table>
     )
   }
-}
+};
 
 const Values = styled.td`
   position: flex;

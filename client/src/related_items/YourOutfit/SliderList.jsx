@@ -5,14 +5,15 @@ import EmptyCard from './EmptyCard.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
-import { SlideContainer, SlideWrapper, CardStyle, ImageWrapper,
-         ImageStyle, DetailsWrapper, InfoStyle, CategoryStyle,
-         PriceStyle, Arrow, ArrowTransparent, OutfitButtonStyle,
-         SalesPrice, OriginalPrice
-         } from '../Styled/Carousel.Styled.js';
+import {
+  SlideContainer, SlideWrapper, CardStyle, ImageWrapper,
+  ImageStyle, DetailsWrapper, InfoStyle, CategoryStyle,
+  PriceStyle, Arrow, ArrowTransparent, OutfitButtonStyle,
+  SalesPrice, OriginalPrice
+} from '../Styled/Carousel.Styled.js';
 
 const YourOutfitSlider = ({ outfitDetails, saveToStorage, removeFromStorage }) => {
-  const {prod_id, setProd} = useContext(ProdPageContext);
+  const { prod_id, setProd } = useContext(ProdPageContext);
   const [count, setCount] = useState(0);
   const maxDisplay = outfitDetails.length - 3;
   const listRef = useRef(null);
@@ -49,43 +50,42 @@ const YourOutfitSlider = ({ outfitDetails, saveToStorage, removeFromStorage }) =
   }
 
   return (
-    <SlideContainer className='CarouselContainer'>
+    <SlideContainer className="CarouselContainer">
       {
-        count !== 0 ?
-        <Arrow icon={faAngleLeft} onClick={scrollLeft}/> :
-        <ArrowTransparent icon={faAngleLeft}/>
+        count !== 0
+        ? <Arrow icon={ faAngleLeft } onClick={ scrollLeft }/>
+        : <ArrowTransparent icon={ faAngleLeft }/>
       }
-      <SlideWrapper className='SlideWrapper' ref={listRef}>
-        <EmptyCard className='EmptyCard' saveToStorage={saveToStorage}/>
+      <SlideWrapper className="SlideWrapper" ref={ listRef }>
+        <EmptyCard className="EmptyCard" saveToStorage={ saveToStorage }/>
           {outfitDetails.map((details, index) => {
             return (
-              <CardStyle className='CardStyle'key={index}>
-                <ImageWrapper className='ImageWrapper'>
-                  <ImageStyle className='ImageStyle'
-                    src={details.image === null ? placeholder : details.image}
+              <CardStyle className="CardStyle"key={ index }>
+                <ImageWrapper className="ImageWrapper">
+                  <ImageStyle className="ImageStyle"
+                    src={ details.image === null ? placeholder : details.image }
                     onClick={(id) => changeProductID(details.id)}
                   />
-                  <OutfitButtonStyle className='button'>
+                  <OutfitButtonStyle className="Button">
                     <FontAwesomeIcon
-                      icon={faCircleXmark}
+                      icon={ faCircleXmark }
                       onClick={(e) => removeFromStorage(e, details.id)}
                     />
                   </OutfitButtonStyle>
                 </ImageWrapper>
-                <DetailsWrapper className='Details'>
+                <DetailsWrapper className="Details">
                   <InfoStyle>
-                    <span>{details.name}</span>
-                    <CategoryStyle>{details.category}</CategoryStyle>
-                    <span>{StarRating(details.rating)}</span>
+                    <span> {details.name} </span>
+                    <CategoryStyle> {details.category} </CategoryStyle>
+                    <span> {StarRating(details.rating)} </span>
                   </InfoStyle>
-                  {details.salesPrice ?
-                  <PriceStyle>
-                    <OriginalPrice>${Math.trunc(details.price)}</OriginalPrice>
-                    <SalesPrice>${Math.trunc(details.salesPrice)}</SalesPrice>
+                  {details.salesPrice
+                  ? <PriceStyle>
+                    <OriginalPrice> ${Math.trunc(details.price)} </OriginalPrice>
+                    <SalesPrice> ${Math.trunc(details.salesPrice)} </SalesPrice>
                   </PriceStyle>
-                  :
-                  <PriceStyle>
-                    <div>${Math.trunc(details.price)}</div>
+                  : <PriceStyle>
+                    <div> ${Math.trunc(details.price)} </div>
                   </PriceStyle>}
                 </DetailsWrapper>
               </CardStyle>
@@ -93,13 +93,13 @@ const YourOutfitSlider = ({ outfitDetails, saveToStorage, removeFromStorage }) =
           })}
         </SlideWrapper>
         {
-          (count !== maxDisplay && outfitDetails.length >=3) ?
-          <Arrow icon={faAngleRight} onClick={scrollRight}/> :
-          <ArrowTransparent icon={faAngleRight}/>
+          (count !== maxDisplay && outfitDetails.length >= 3)
+          ? <Arrow icon={ faAngleRight } onClick={ scrollRight }/>
+          : <ArrowTransparent icon={ faAngleRight }/>
         }
     </SlideContainer>
   )
-}
+};
 
 export default YourOutfitSlider;
 
