@@ -1,14 +1,12 @@
 import React, { useState, createContext } from "react";
 import { render } from "react-dom";
-
-import styled, {ThemeProvider} from 'styled-components';
-import {lightTheme, darkTheme, GlobalStyle} from './themes.js';
+import styled, { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme, GlobalStyle } from './themes.js';
 import ProductPage from './product_page.jsx';
 import HomePage from './homepage.jsx';
 import Checkout from './checkout.jsx';
 import About from './about.jsx';
 import Modal from './shared_components/Modal.jsx';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faHouse, faShirt, faFish } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,12 +14,12 @@ export const AppContext = createContext();
 
 const AppStyle = styled.div`
   color: ${props => props.theme.fontColor};
-
 `;
 
 const CheckBoxWrapper = styled.div`
   position: relative;
 `;
+
 const CheckBoxLabel = styled.label`
   position: absolute;
   top: 5px;
@@ -81,11 +79,11 @@ const App = () => {
 
   const themeToggle = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
-  }
+  };
 
   const changeView = (name) => {
     setView(name);
-  }
+  };
 
   const renderView = () => {
     switch (view) {
@@ -99,8 +97,8 @@ const App = () => {
         return <About />;
       default:
         return <HomePage />;
-    }
-  }
+    };
+  };
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
@@ -132,7 +130,6 @@ const App = () => {
                 <CartCount>{cart.length || ''}</CartCount>
               </li>
             </ul>
-
           </nav>
         </header>
         <AppContext.Provider value={{prod_id, setProd, setView, cart, setCart, showModal, setShowModal, modalBodyContent, setModalBodyContent, modalHeaderContent, setModalHeaderContent, theme}}>
@@ -141,7 +138,7 @@ const App = () => {
         </AppContext.Provider>
       </AppStyle>
     </ThemeProvider>
-  )
-}
+  );
+};
 
 render(<App />, document.getElementById("root"));
