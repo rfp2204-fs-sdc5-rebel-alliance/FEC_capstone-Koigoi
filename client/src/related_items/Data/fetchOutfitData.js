@@ -28,20 +28,18 @@ const fetchOutfitDetails = (id) => {
     }
     const avgRating = sharedReviewsComponent(productRatings.ratings);
     const outfit = {
-      id: id,
+      id,
       image: defaultImage[0],
-      category: productInfo.category,
-      name: productInfo.name,
       price: price[0],
       salesPrice: salePrice[0],
+      category: productInfo.category,
+      name: productInfo.name,
       rating: avgRating.avgRating
-    }
+    };
     return outfit;
   })
-  .then((data) => {
-    return data;
-  })
+  .then((data) => { return data })
   .catch((err) => console.log(err));
-}
+};
 
 export default fetchOutfitDetails;
