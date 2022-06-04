@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {ProdDetailsContext} from '../ProductDetails.jsx';
-
 import {ShopContext} from '../ShopSection.jsx';
 
 const QuantForm = () => {
@@ -13,7 +12,7 @@ const QuantForm = () => {
         <option key={index} value={quant}>{quant}</option>
       )
     })
-  )
-}
+  );
+};
 
 export default QuantForm;

@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
-//this is a carousel component
-
 const CarouselStyle = styled.div`
   display: flex;
   justify-content: center;
@@ -53,14 +51,14 @@ const ExpandedCarousel = (slides) => {
 
   if (!Array.isArray(slides) || slides.length === 0) {
     return null;
-  }
+  };
 
   let nextSlide = () => {
     if (index === slides.length - 1) {
       setIndex(0);
     } else {
       setIndex(index + 1);
-    }
+    };
   };
 
   let prevSlide = () => {
@@ -68,7 +66,7 @@ const ExpandedCarousel = (slides) => {
       setIndex(slides.length - 1);
     } else {
       setIndex(index - 1);
-    }
+    };
   };
 
   let handleMouseMove = (event) => {
@@ -76,7 +74,7 @@ const ExpandedCarousel = (slides) => {
     let x = (event.pageX - left) / width * 100;
     let y = (event.pageY - top) / height * 100;
     setZoomPosition(`${x}% ${y}%`);
-  }
+  };
 
   return (
     <CarouselStyle>
@@ -91,14 +89,14 @@ const ExpandedCarousel = (slides) => {
                 <ImgStyle src={slide.url} alt="No Image" />
               )}
             </ZoomStyle>
-          )
+          );
         })}
       </ImgContainer>
       <ArrowStyle>
         <FontAwesomeIcon icon={faAngleRight} onClick={nextSlide}/>
       </ArrowStyle>
     </CarouselStyle>
-  )
+  );
 };
 
 export default ExpandedCarousel;

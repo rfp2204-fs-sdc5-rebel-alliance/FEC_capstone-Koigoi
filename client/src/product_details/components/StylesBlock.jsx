@@ -48,7 +48,7 @@ const StylesBlock = () => {
   let setStyle = (style) => {
     setGallery(style);
     setIndex(0);
-  }
+  };
 
   return ( prodStyles.data &&
     <ListStyle>
@@ -61,10 +61,10 @@ const StylesBlock = () => {
                 : <ImgStyle onClick={() => {setStyle(style)}} src={style.photos[0].thumbnail_url} alt="No Image" />
               }
             </ImgContainer>
-          )
+          );
         })}
     </ListStyle>
-  )
-}
+  );
+};
 
 export default StylesBlock;

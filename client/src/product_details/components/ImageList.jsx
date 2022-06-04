@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
-//may need to import more stuff to begin work
-
 const ListStyle = styled.div`
   display: block;
   justify-content: center;
@@ -74,18 +72,18 @@ const ImageList = ({images}) => {
   let rangeCheck = () => {
     if (index >= range.max) {
       setRange({min: index - 6, max: index + 1});
-    }
+    };
     if (index < range.min) {
       setRange({min: index, max: index + 7});
-    }
-  }
+    };
+  };
 
   useEffect(() => {
     if (!Array.isArray(images) || !images.length) {
       return null;
-    }
+    };
     rangeCheck();
-  }, [index])
+  }, [index]);
 
   return (
     <ListStyle>
@@ -109,7 +107,7 @@ const ImageList = ({images}) => {
                 }
               </ImgContainer>
             )
-          }
+          };
         })}
         {
           range.max !== images.length && images.length > 7 ?
@@ -121,7 +119,7 @@ const ImageList = ({images}) => {
             </NoStyle>
         }
     </ListStyle>
-  )
-}
+  );
+};
 
 export default ImageList;

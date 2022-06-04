@@ -31,7 +31,7 @@ const BannerText = styled.div`
   font-weight: bold;
   color: #FFFAFA;
   visibility: hidden;
-`
+`;
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -74,12 +74,11 @@ const AboutStyle = styled(ProductStyle)`
       visibility: visible;
     }
   }
-`
+`;
 
 const SectionBanner = styled(BannerText)`
   left: 27.5%;
-`
-
+`;
 
 const HomePage = () => {
   const { cart, setCart, setProd, setView } = useContext(AppContext);
@@ -126,7 +125,7 @@ const HomePage = () => {
         </ItemsContainer>
       </MainWrapper>
     </div>
-  )
-}
+  );
+};
 
 export default HomePage;

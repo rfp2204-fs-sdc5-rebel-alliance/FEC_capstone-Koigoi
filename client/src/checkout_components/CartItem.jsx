@@ -2,8 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../index.jsx';
 import styled from 'styled-components';
 
-//may need to import more stuff to begin work
-
 const Container = styled.div`
   border-bottom: 0.1rem solid gray;
   display: flex;
@@ -71,9 +69,9 @@ const CartItem = ({item}) => {
     } else {
       tempCart = [];
       localStorage.setItem('cart', JSON.stringify(tempCart));
-    }
+    };
     setCart(tempCart);
-  }
+  };
 
   let onSelectQuant = (newQuant) => {
     for (let i = 0; i < cart.length; i++) {
@@ -81,13 +79,13 @@ const CartItem = ({item}) => {
         let tempArray = [...cart];
         tempArray[i].quant = Number(newQuant);
         setCart(tempArray);
-      }
-    }
-  }
+      };
+    };
+  };
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart])
+  }, [cart]);
 
   return (
     <Container>
@@ -121,8 +119,7 @@ const CartItem = ({item}) => {
         <div style={{'marginTop': '1rem', 'marginRight': '1rem', 'cursor': 'pointer'}} onClick={() => {handleDelete(item)}}>❌</div>
       </QuantContainer>
     </Container>
-  )
-
-}
+  );
+};
 
 export default CartItem;

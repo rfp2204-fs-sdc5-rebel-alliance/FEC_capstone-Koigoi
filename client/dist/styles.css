@@ -110,10 +110,6 @@ table tr {
   text-align: var(--justify-important);
 }
 
-
-
-/* ----- Added CSS Styles ----- */
-
 .slide {
   opacity: 0;
   transition-duration: 1s ease;

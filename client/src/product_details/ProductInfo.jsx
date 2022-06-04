@@ -1,11 +1,7 @@
 import React, { useState, useContex, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { ProdPageContext } from '../product_page.jsx';
 import { ProdDetailsContext } from './ProductDetails.jsx';
 import styled from 'styled-components';
-import config from '../../dist/config.js';
-
-//may need to import more stuff to begin work
 import StylesBlock from './components/StylesBlock.jsx';
 import ShopSection from './ShopSection.jsx';
 import StarRating from '../shared_components/StarRating.jsx';
@@ -81,7 +77,7 @@ const ProductInfo = () => {
       <StylesBlock />
       <ShopSection />
     </Container>
-  )
-}
+  );
+};
 
 export default ProductInfo;
