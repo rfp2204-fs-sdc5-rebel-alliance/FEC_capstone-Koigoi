@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react';
-
 import { AppContext } from '../index.jsx';
-
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';

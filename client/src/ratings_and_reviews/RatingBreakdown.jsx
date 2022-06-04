@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
-
 import StarRating from '../shared_components/StarRating.jsx';
-
 import { AppContext } from '../index.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
@@ -23,9 +21,6 @@ const RatingsBreakdown = styled.div`
   display: flex;
   align-items: center;
   margin: 10px 0px;
-`;
-
-const StarFilterMessage = styled.div`
 `;
 
 const RemoveFiltersButton = styled.button`
@@ -103,11 +98,11 @@ const RatingBreakdown = ({ removeFilters, renderFilterRatings }) => {
     }
 
     return (
-      <StarFilterMessage>
+      <div>
         <h4>Currently filtering:</h4>
         <span style={{"fontWeight": "bold"}}>{starFilters}</span>
           <RemoveFiltersButton onClick={removeFilters}>Remove filter</RemoveFiltersButton>
-      </StarFilterMessage>
+      </div>
     );
   };
 

@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
 import { QuestionContext } from './QuestionList.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';

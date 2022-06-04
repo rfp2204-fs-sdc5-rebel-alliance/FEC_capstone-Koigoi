@@ -24,7 +24,7 @@ const StarRating = (avgRating) => {
         </InnerStarColor>
       </OuterStarColor>
     </div>
-  )
+  );
 };
 
 export default StarRating;

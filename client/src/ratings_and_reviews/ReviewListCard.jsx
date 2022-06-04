@@ -1,17 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-
 import ImageThumbnail from '../shared_components/ImageThumbnail.jsx';
 import StarRating from '../shared_components/StarRating.jsx';
 import formattedDate from '../shared_components/formattedDate.js';
-
 import { ReviewsContext } from './RatingsAndReviews.jsx';
-
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-
-
 
 const ReviewCard = styled.div`
   max-width: 100%;

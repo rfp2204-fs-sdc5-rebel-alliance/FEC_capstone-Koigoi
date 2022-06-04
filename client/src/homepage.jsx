@@ -110,15 +110,15 @@ const HomePage = () => {
         <ItemsContainer>
           <FeaturedItems>
               <ProductStyle>
-                <ImgStyle src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" onClick={() => {setProd(40344); setView('Product')}}></ImgStyle>
+                <ImgStyle src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" alt="No Image" onClick={() => {setProd(40344); setView('Product')}}></ImgStyle>
               </ProductStyle>
               <div style={{'visibility': 'hidden'}}>K</div>
               <ProductStyle>
-                <ImgStyle src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" onClick={() => {setProd(40346); setView('Product')}}></ImgStyle>
+                <ImgStyle src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" alt="No Image" onClick={() => {setProd(40346); setView('Product')}}></ImgStyle>
               </ProductStyle>
               <div style={{'visibility': 'hidden'}}>K</div>
               <AboutStyle onClick={() => {setView('About')}}>
-                <ImgStyle src="https://ih1.redbubble.net/image.623055286.9686/flat,750x1000,075,t.jpg"></ImgStyle>
+                <ImgStyle src="https://ih1.redbubble.net/image.623055286.9686/flat,750x1000,075,t.jpg" alt="No Image"></ImgStyle>
                 <SectionBanner className="bannerText2">About Us.</SectionBanner>
               </AboutStyle>
           </FeaturedItems>

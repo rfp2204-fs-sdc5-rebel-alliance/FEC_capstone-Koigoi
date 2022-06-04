@@ -1,15 +1,12 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import axios from 'axios';
-
 import ReviewList from './ReviewList.jsx';
 import ReviewSort from './ReviewSort.jsx';
 import SearchReviews from './SearchReviews.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
-
 import { ProdPageContext } from '../product_page.jsx';
-
 import styled from 'styled-components';
 
 export const ReviewsContext = createContext();
@@ -84,8 +81,6 @@ const RatingsAndReviews = () => {
       .catch((err) => console.log(err));
     }, [prod_id]);
 
-    const avgRating = ratingsObj.avgRating;
-
     const removeFilters = () => {
       setFiltered(false);
 
@@ -114,7 +109,7 @@ const RatingsAndReviews = () => {
 
   return (
     <ReviewsContext.Provider value={{ apiCount, reviewCount, setReviewCount, characteristics,
-      ratings, setRatings, totalRatings, avgRating, recommended, setRecommended, sort, setSort,
+      ratings, setRatings, totalRatings, recommended, setRecommended, sort, setSort,
       numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings,
       filtered, setFiltered, helpful, setHelpful, showCharacteristics, setShowCharacteristics,
       characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel,

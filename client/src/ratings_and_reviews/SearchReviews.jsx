@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-
 import { ReviewsContext } from './RatingsAndReviews.jsx';
 
 const SearchReviews = () => {

@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../index.jsx';
 import styled from 'styled-components';
-
 import CartItem from './CartItem.jsx';
 
 const Container = styled.div`

@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-
 import ReviewListCard from './ReviewListCard.jsx';
 import AddReviewForm from './AddReviewForm.jsx';
-
 import { ProdPageContext } from '../product_page.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
-
 import styled from 'styled-components';
 
 const ReviewListContainer = styled.div`

@@ -1,4 +1,4 @@
-function sharedReviewsComponent (ratings) {
+const sharedReviewsComponent = (ratings) => {
   let ratingsObj = {
     totalRatings: 0,
     avgRating: 0,

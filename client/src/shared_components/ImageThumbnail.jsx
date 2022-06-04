@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react';
-
 import { AppContext } from '../index.jsx';
-
 import styled from 'styled-components';
 
 const ThumbnailContainer = styled.div`

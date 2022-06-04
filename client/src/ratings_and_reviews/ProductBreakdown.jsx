@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-
 import { ReviewsContext } from './RatingsAndReviews.jsx';
-
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';

@@ -18,7 +18,7 @@ const RelatedItems = () => {
         <YourOutfitDetails />
       </RelatedItemsContext.Provider>
     </RelatedProductsSection>
-  )
+  );
 };
 
 const RelatedProductsSection = styled.div`

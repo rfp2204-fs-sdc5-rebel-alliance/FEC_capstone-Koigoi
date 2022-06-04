@@ -12,30 +12,30 @@ const ComparisonModal = ({ mainId, relatedId }) => {
     promiseArray.push(fetchRelatedData('', mainId));
     promiseArray.push(fetchRelatedData('', relatedId));
     return Promise.all(promiseArray)
-    .then(([main, related]) => {
-      const mainProduct = [];
-      const relatedProduct = [];
-      main.features.forEach((feature) => {
-        if (feature.value !== null) {
-          mainProduct.push({
-            name: main.name,
-            value: feature.value
-          });
-        }
-      });
-      related.features.forEach((feature) => {
-        if (feature.value !== null) {
-          relatedProduct.push({
-            name: related.name,
-            value: feature.value
-          });
-        }
-      });
-      setMainFeatures(mainProduct);
-      setRelatedFeatures(relatedProduct);
-      setFeatures(mainProduct.concat(relatedProduct));
-    })
-    .catch((err) => console.log(err));
+      .then(([main, related]) => {
+        const mainProduct = [];
+        const relatedProduct = [];
+        main.features.forEach((feature) => {
+          if (feature.value !== null) {
+            mainProduct.push({
+              name: main.name,
+              value: feature.value
+            });
+          }
+        });
+        related.features.forEach((feature) => {
+          if (feature.value !== null) {
+            relatedProduct.push({
+              name: related.name,
+              value: feature.value
+            });
+          }
+        });
+        setMainFeatures(mainProduct);
+        setRelatedFeatures(relatedProduct);
+        setFeatures(mainProduct.concat(relatedProduct));
+      })
+      .catch((err) => console.log(err));
   }
 
   useEffect(() => {

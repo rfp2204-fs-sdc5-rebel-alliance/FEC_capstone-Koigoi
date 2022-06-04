@@ -1,21 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-
 import ImageUpload from '../shared_components/ImageUpload.jsx';
-
 import { AppContext } from '../index.jsx';
-
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
-
 const FormSection = styled.div`
   font-size: 14px;
   margin: 20px 0px;
-`;
-
-const FormHeading = styled.h4`
 `;
 
 const StarRatingInput = styled.input`
@@ -30,9 +23,6 @@ const RadioButtons = styled.label`
 
 const InputText = styled.input`
   margin-right: 10px;
-`;
-
-const InputMessage = styled.div`
 `;
 
 const CharacteristicContainer = styled.div`
@@ -87,12 +77,10 @@ const AddReviewForm = ({ prodId, productName, characteristics, characteristicLab
   const [photos, setPhotos] = useState([]);
   const [characteristicsValue, setCharacteristicsValue] = useState({});
   const [characterCount, setCharacterCount] = useState(50);
-
   const { theme } = useContext(AppContext);
 
   useEffect (() => {
     renderCharacteristicsInput();
-
   }, [characteristicsValue]);
 
   const handleBody = (event) => {
@@ -229,11 +217,11 @@ const AddReviewForm = ({ prodId, productName, characteristics, characteristicLab
       </FormSection>
       <form onSubmit={handleSubmit}>
         <FormSection>
-          <FormHeading>Overall Rating*</FormHeading>
+          <h4>Overall Rating*</h4>
           {StarRating()}
         </FormSection>
         <FormSection>
-          <FormHeading>Do you recommend this product?*</FormHeading>
+          <h4>Do you recommend this product?*</h4>
           <RadioButtons>
             <InputText
               type="radio"
@@ -254,13 +242,13 @@ const AddReviewForm = ({ prodId, productName, characteristics, characteristicLab
           </RadioButtons>
         </FormSection>
         <FormSection>
-          <FormHeading>Characteristics*</FormHeading>
+          <h4>Characteristics*</h4>
             {characteristicsFormLayout.map((element, index) =>
               <div key={index}>{element}</div>
             )}
         </FormSection>
         <FormSection>
-          <FormHeading>Review Summary</FormHeading>
+          <h4>Review Summary</h4>
           <input
             type="text"
             name="summary"
@@ -269,7 +257,7 @@ const AddReviewForm = ({ prodId, productName, characteristics, characteristicLab
             onChange={setSummary}/>
         </FormSection>
         <FormSection>
-          <FormHeading>Review Body*</FormHeading>
+          <h4>Review Body*</h4>
           <textarea
             name="body"
             rows="10"
@@ -280,14 +268,14 @@ const AddReviewForm = ({ prodId, productName, characteristics, characteristicLab
             onChange={handleBody}
             required>
           </textarea>
-          <InputMessage>Minimum required characters left: {characterCount}</InputMessage>
+          <div>Minimum required characters left: {characterCount}</div>
         </FormSection>
         <FormSection>
-          <FormHeading>Upload your photos</FormHeading>
+          <h4>Upload your photos</h4>
           <ImageUpload photos={photos} setPhotos={setPhotos}/>
         </FormSection>
         <FormSection>
-          <FormHeading>What is your nickname*</FormHeading>
+          <h4>What is your nickname*</h4>
           <input
             type="text"
             name="nickname"
@@ -295,10 +283,10 @@ const AddReviewForm = ({ prodId, productName, characteristics, characteristicLab
             placeholder="Example: jackson11!"
             onChange={setName}
             required/>
-            <InputMessage>For privacy reasons, do not use your full name or email address</InputMessage>
+            <div>For privacy reasons, do not use your full name or email address</div>
         </FormSection>
         <FormSection>
-          <FormHeading>Email*</FormHeading>
+          <h4>Email*</h4>
           <input
             type="email"
             name="summary"
@@ -306,7 +294,7 @@ const AddReviewForm = ({ prodId, productName, characteristics, characteristicLab
             placeholder="Example: jackson11@email.com"
             onChange={setEmail}
             required/>
-            <InputMessage>For authentication reasons, you will not be emailed</InputMessage>
+            <div>For authentication reasons, you will not be emailed</div>
         </FormSection>
         <FormSection>
           <input type ="submit" value="Submit"/>
