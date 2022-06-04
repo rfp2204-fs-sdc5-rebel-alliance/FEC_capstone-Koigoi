@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import styled from 'styled-components';
 import { ProdPageContext } from '../product_page.jsx';
+import styled from 'styled-components';
 
 const ThumbnailContainer = styled.div`
   display: flex;
@@ -30,16 +30,16 @@ const ModalImageContainer = styled.img`
   max-width: 700px;
 `;
 
-// This is for image thumnails
-function AddPhotos ({images}) {
+function AddPhotos ({ images }) {
   const { setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(ProdPageContext);
 
   const handleModal = (event) => {
     const imageSrc = event.target.src;
-    setModalHeaderContent(null)
-    setModalBodyContent(<ModalImageContainer src={imageSrc}></ModalImageContainer>)
+    setModalHeaderContent(null);
+    setModalBodyContent(<ModalImageContainer src={imageSrc}></ModalImageContainer>);
     setShowModal(true);
-  }
+  };
+
   if (!Array.isArray(images) || images.length === 0) {
     return null;
   } else {

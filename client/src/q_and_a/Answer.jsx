@@ -31,22 +31,19 @@ const Answer = (props) => {
     if (clickedHelpful) {
       return;
     }
-
     axios.put(`/FEC/qa/answers/${props.entry.answer_id}/helpful`, null)
       .then((response) => { console.log('Success') })
       .then(() => { setCount(count + 1) })
       .then(() => { setClickedHelpful(true) })
       .catch((err) => console.log(err))
-  }
+  };
 
   const handleClickReport = () => {
-
     setReported(true);
-
     axios.put(`/FEC/qa/answers/${props.entry.answer_id}/report`, null)
       .then((response) => { console.log('Success') })
       .catch((err) => console.log(err))
-  }
+  };
 
   let user = props.entry.answerer_name;
   let answererName;
@@ -62,7 +59,8 @@ const Answer = (props) => {
     <>
       <StyledAnswer>
         <div>
-          Answer: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{props.entry.body}
+          Answer: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          {props.entry.body}
         </div>
       </StyledAnswer>
         <div>
@@ -70,15 +68,20 @@ const Answer = (props) => {
         </div>
       <StyledAnswerInfo>
         <div>
-          by {answererName},&nbsp;{formattedDate(props.entry.date)}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Helpful?&nbsp;
+          by {answererName},&nbsp;
+          {formattedDate(props.entry.date)}&nbsp;&nbsp;&nbsp;
+          |&nbsp;&nbsp;&nbsp;Helpful?&nbsp;&nbsp;&nbsp;
           <StyledAnswerHelpful>
-          <span onClick={handleClickHelpful}><u>Yes</u> ({props.entry.helpfulness})</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <span onClick={handleClickReport}>{!reported ? <u>Report</u> : <u>Reported</u>}
+          <span onClick={handleClickHelpful}>
+            <u>Yes</u> ({props.entry.helpfulness})
+          </span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+          <span onClick={handleClickReport}>
+            {!reported ? <u>Report</u> : <u>Reported</u>}
           </span>
           </StyledAnswerHelpful>
         </div>
       </StyledAnswerInfo>
     </>
-
   );
 }
 

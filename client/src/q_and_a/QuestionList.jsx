@@ -1,10 +1,10 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
 import axios from 'axios';
+import { ProdPageContext } from '../product_page.jsx';
 import Search from './Search.jsx';
 import QuestionEntry from './QuestionEntry.jsx';
-import { ProdPageContext } from '../product_page.jsx';
-import styled from 'styled-components';
 import AddQuestionForm from './AddQuestionForm.jsx';
+import styled from 'styled-components';
 
 export const QuestionContext = React.createContext();
 
@@ -56,7 +56,7 @@ const QuestionList = () => {
     })
       .then((response) => { setQuestions(response.data.results); })
       .catch((err) => console.log(err))
-  }, [count, prod_id])
+  }, [count, prod_id]);
 
 
   const searchQuestions = (word) => {
@@ -72,13 +72,13 @@ const QuestionList = () => {
       setQuestionsToShow(4);
       setShow(true);
     }
-  }
+  };
 
   const handleModal = () => {
     setModalHeaderContent('Your Question')
     setModalBodyContent(<AddQuestionForm prodId={prod_id} prodName={prod_name} count={count} setCount={setCount} />);
     setShowModal(true);
-  }
+  };
 
   const handleMoreQuestions = () => {
     if (questionsToShow < questionList.length) {
@@ -86,7 +86,7 @@ const QuestionList = () => {
     } else {
       setShow(false)
     }
-  }
+  };
 
   const questionList = filtered ? filteredQuestions : questions;
 
@@ -96,7 +96,6 @@ const QuestionList = () => {
   } else {
     moreAnsweredQuestions = null
   }
-
 
   return (
     <div>
