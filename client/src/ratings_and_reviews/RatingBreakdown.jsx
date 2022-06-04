@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
+
 import StarRating from '../shared_components/StarRating.jsx';
 
-import { ReviewsContext } from './RatingsAndReviews.jsx';
-import { ProdPageContext } from '../product_page.jsx';
 import { AppContext } from '../index.jsx';
+import { ProdPageContext } from '../product_page.jsx';
+import { ReviewsContext } from './RatingsAndReviews.jsx';
+
+import styled from 'styled-components';
 
 const AverageRating = styled.div`
   display: flex;
@@ -15,7 +17,7 @@ const AverageRating = styled.div`
 
 const AverageRatingStars = styled.span`
   margin-left: 10px;
-`
+`;
 
 const RatingsBreakdown = styled.div`
   display: flex;
@@ -32,7 +34,7 @@ const RemoveFiltersButton = styled.button`
   margin-left: 5px;
   padding: 0px;
   cursor: pointer;
-`
+`;
 
 const RatingNumber = styled.button`
   width: 60px;
@@ -66,9 +68,9 @@ const RecommendedMessage = styled.div`
   text-align: right;
 `;
 
-function RatingBreakdown({ removeFilters, renderFilterRatings }) {
-  const { ratings, totalRatings, avgRating, recommended, showRatings, setShowRatings, filtered } = useContext(ReviewsContext);
-  const { averageRating } = useContext(ProdPageContext);
+const RatingBreakdown = ({ removeFilters, renderFilterRatings }) => {
+  const { ratings, recommended, showRatings, setShowRatings, filtered } = useContext(ReviewsContext);
+  const { averageRating, totalRatings } = useContext(ProdPageContext);
   const { theme } = useContext(AppContext);
 
   const handleRatingClick = (event) => {
@@ -79,7 +81,7 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
 
     setShowRatings(updateShowRatingObj);
     renderFilterRatings();
-  }
+  };
 
 
   const renderFilterMessage = () => {
@@ -94,10 +96,10 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
       if (showRatings[rating] === true) {
         starFilters.push(rating + ' star');
       }
-    })
+    });
 
     if (starFilters.length > 1) {
-      starFilters = starFilters.join(', ')
+      starFilters = starFilters.join(', ');
     }
 
     return (
@@ -107,26 +109,26 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
           <RemoveFiltersButton onClick={removeFilters}>Remove filter</RemoveFiltersButton>
       </StarFilterMessage>
     );
-  }
+  };
 
   const individualRatingAvg = (rating, sum = 0) => {
     sum = ratings[rating] * rating;
     return Math.round((ratings[rating] / totalRatings) * 100);
-  }
+  };
 
   let recommendedPercentage = `${Math.round((recommended.true / totalRatings) * 100)}% of reviews recommend this product`;
 
   const renderRatingBreakdown = () => {
 
-    let barColor = theme === 'light' ? '#36393E' : '#FFFAFA'
+    let barColor = theme === 'light' ? "#36393E" : "#FFFAFA";
     return (
       [...Array(5)].map((rating, index) => {
         const starRating = 5 - index;
         const ratingPercent = {
-          'width': `${individualRatingAvg(starRating)}%`,
-          'height': '30px',
-          'backgroundColor': barColor
-        }
+          "width": `${individualRatingAvg(starRating)}%`,
+          "height": "30px",
+          "backgroundColor": barColor
+        };
         return (
           <RatingsBreakdown key={index}>
               <RatingNumber
@@ -142,7 +144,7 @@ function RatingBreakdown({ removeFilters, renderFilterRatings }) {
         );
       })
     );
-  }
+  };
 
   return (
     <div>

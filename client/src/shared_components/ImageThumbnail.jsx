@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
-import styled from 'styled-components';
 
 import { AppContext } from '../index.jsx';
+
+import styled from 'styled-components';
 
 const ThumbnailContainer = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ const ModalImageContainer = styled.img`
   max-width: 700px;
 `;
 
-function ImageThumbnail ({images}) {
+const ImageThumbnail = ({ images }) => {
   const { setShowModal, setModalBodyContent, setModalHeaderContent } = useContext(AppContext);
 
   if (!Array.isArray(images) || images.length === 0) {
@@ -51,10 +52,10 @@ function ImageThumbnail ({images}) {
 
   const handleModal = (event) => {
     const imageSrc = event.target.src;
-    setModalHeaderContent(null)
-    setModalBodyContent(<ModalImageContainer src={imageSrc}></ModalImageContainer>)
+    setModalHeaderContent(null);
+    setModalBodyContent(<ModalImageContainer src={imageSrc}></ModalImageContainer>);
     setShowModal(true);
-  }
+  };
 
   return (
     <ThumbnailContainer>

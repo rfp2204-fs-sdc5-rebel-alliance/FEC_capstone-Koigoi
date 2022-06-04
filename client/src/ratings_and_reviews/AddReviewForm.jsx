@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import styled from 'styled-components';
 
 import ImageUpload from '../shared_components/ImageUpload.jsx';
+
 import { AppContext } from '../index.jsx';
+
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
 
 const FormSection = styled.div`
   font-size: 14px;
@@ -13,7 +16,8 @@ const FormSection = styled.div`
 `;
 
 const FormHeading = styled.h4`
-`
+`;
+
 const StarRatingInput = styled.input`
   &[type='radio'] {
     display:none
@@ -29,8 +33,8 @@ const InputText = styled.input`
 `;
 
 const InputMessage = styled.div`
+`;
 
-`
 const CharacteristicContainer = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -69,10 +73,10 @@ const CharacteristicOptions = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 `;
 
-function AddReviewForm ({ prodId, productName, characteristics, characteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, setShowModal }) {
+const AddReviewForm = ({ prodId, productName, characteristics, characteristicLabels,
+  showCharacteristicLabel, setShowModal }) => {
   const [rating, setRating] = useState(0);
   const [ratingHover, setRatingHover] = useState(null);
   const [summary, setSummary] = useState('');
@@ -89,7 +93,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
   useEffect (() => {
     renderCharacteristicsInput();
 
-  }, [characteristicsValue])
+  }, [characteristicsValue]);
 
   const handleBody = (event) => {
     let bodyContent = event.target.value;
@@ -98,11 +102,11 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     setBody(bodyContent);
 
     if (bodyLength >= 50) {
-      setCharacterCount('Minimum reached')
+      setCharacterCount('Minimum reached');
     } else {
       setCharacterCount(50 - (bodyLength));
     }
-  }
+  };
 
   const handleCharacteristics = (event) => {
     const key = event.target.name;
@@ -111,7 +115,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
     setCharacteristicsValue(showCharacteristicLabel[key] = [false, false, false, false, false]);
     setCharacteristicsValue(showCharacteristicLabel[key][index] = true);
     setCharacteristicsValue({...characteristicsValue, [characteristics[key].id]: Number(value)});
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -134,21 +138,17 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
       'email': email.target.value,
       'photos': photos,
       'characteristics': characteristicsValue
-    }
+    };
 
     axios.post(`/FEC/reviews/`, newReviewData)
-    .then(() => {setShowModal(false)})
-    .catch((err) => {
-      console.log(err)
-    })
-  }
+      .then(() => setShowModal(false))
+      .catch((err) => console.log(err))
+  };
 
   const StarRating = () => {
-    const starStyles = {
+    const selectedStar = theme === 'light' ? "#36393E" : "#FFFAFA";
+    const defaultStar = theme === 'light' ? "#FFFAFA" : "#36393E";
 
-    }
-    let selectedStar = theme === 'light' ? '#36393E' : '#FFFAFA';
-    let defaultStar = theme === 'light' ? '#FFFAFA' : '#36393E';
     return (
       <div>
         {[...Array(5)].map((star, index) => {
@@ -156,24 +156,24 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
           return (
             <label key={index}>
               <StarRatingInput
-                type='radio'
-                name='rating'
+                type="radio"
+                name="rating"
                 value={ratingValue}
                 onClick={() => {setRating(ratingValue)}}
                 required/>
               <FontAwesomeIcon
-                style={{'stroke': selectedStar, 'stroke-width': '10'}}
+                style={{"stroke": selectedStar, "strokeWidth": "10"}}
                 icon={faStar}
-                size='2x'
+                size="2x"
                 color={ratingValue <= (ratingHover || rating) ? selectedStar : defaultStar}
                 onMouseEnter={() => {setRatingHover(ratingValue)}}
                 onMouseLeave={() => {setRatingHover(null)}}/>
             </label>
-          )
+          );
         })}
       </div>
-    )
-  }
+    );
+  };
 
   let characteristicsFormLayout = [];
 
@@ -185,27 +185,28 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
       let footerLabel = null;
 
       [...Array(5)].map((label, index) => {
-        console.log(index);
         if (index === 0) {
-          footerLabel = characteristicLabels[characteristic][index]
+          footerLabel = characteristicLabels[characteristic][index];
         } else if (index === 4) {
-          footerLabel = characteristicLabels[characteristic][index]
+          footerLabel = characteristicLabels[characteristic][index];
         } else {
           footerLabel = null;
         }
 
         characteristicOptions.push(
           <CharacteristicOptions key={index}>
-              <div style={showCharacteristicLabel[characteristic][index] ? {'visibility': 'visible'} : {'visibility': 'hidden'}}>{characteristicLabels[characteristic][index]}</div>
+              <div style={showCharacteristicLabel[characteristic][index] ? {"visibility": "visible"} : {"visibility": "hidden"}}>
+                {characteristicLabels[characteristic][index]}
+              </div>
               <CharacteristicRadioButtons
-                type='radio'
+                type="radio"
                 name={characteristic}
                 value={index + 1}
                 onChange={handleCharacteristics}
                 required/>
               <CharacteristicLabelsContainer>{footerLabel}</CharacteristicLabelsContainer>
             </CharacteristicOptions>
-        )
+        );
       });
 
       characteristicsFormLayout.push(
@@ -217,7 +218,7 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
         </CharacteristicContainer>
       );
     })
-  }
+  };
 
   renderCharacteristicsInput();
 
@@ -235,8 +236,8 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
           <FormHeading>Do you recommend this product?*</FormHeading>
           <RadioButtons>
             <InputText
-              type='radio'
-              name='recommend'
+              type="radio"
+              name="recommend"
               value={true}
               onChange={setRecommend}
               required/>
@@ -244,8 +245,8 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
           </RadioButtons>
           <RadioButtons>
             <InputText
-              type='radio'
-              name='recommend'
+              type="radio"
+              name="recommend"
               value={false}
               onChange={setRecommend}
               required/>
@@ -261,20 +262,20 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
         <FormSection>
           <FormHeading>Review Summary</FormHeading>
           <input
-            type='text'
-            name='summary'
-            size='60'
+            type="text"
+            name="summary"
+            size="60"
             placeholder="Example: Best purchase ever!"
             onChange={setSummary}/>
         </FormSection>
         <FormSection>
           <FormHeading>Review Body*</FormHeading>
           <textarea
-            name='body'
-            rows='10'
-            cols='100'
-            minLength='50'
-            maxLength='1000'
+            name="body"
+            rows="10"
+            cols="100"
+            minLength="50"
+            maxLength="1000"
             placeholder="Why did you like the product or not?"
             onChange={handleBody}
             required>
@@ -288,10 +289,10 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
         <FormSection>
           <FormHeading>What is your nickname*</FormHeading>
           <input
-            type='text'
-            name='nickname'
-            size='60'
-            placeholder='Example: jackson11!'
+            type="text"
+            name="nickname"
+            size="60"
+            placeholder="Example: jackson11!"
             onChange={setName}
             required/>
             <InputMessage>For privacy reasons, do not use your full name or email address</InputMessage>
@@ -299,16 +300,16 @@ function AddReviewForm ({ prodId, productName, characteristics, characteristicLa
         <FormSection>
           <FormHeading>Email*</FormHeading>
           <input
-            type='email'
-            name='summary'
-            size='60'
-            placeholder='Example: jackson11@email.com'
+            type="email"
+            name="summary"
+            size="60"
+            placeholder="Example: jackson11@email.com"
             onChange={setEmail}
             required/>
             <InputMessage>For authentication reasons, you will not be emailed</InputMessage>
         </FormSection>
         <FormSection>
-          <input type ='submit' value='Submit'/>
+          <input type ="submit" value="Submit"/>
         </FormSection>
       </form>
     </div>

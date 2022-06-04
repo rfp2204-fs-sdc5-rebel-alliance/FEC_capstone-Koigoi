@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import styled from 'styled-components';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 import { ReviewsContext } from './RatingsAndReviews.jsx';
+
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 const ProductBreakdownHeader = styled.h3`
   margin-bottom: 10px;
@@ -28,13 +28,13 @@ const CharacteristicLabelsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   height: 30px;
   margin: 0px 5px;
 `;
 
-function ProductBreakdown () {
-    const { characteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel } = useContext(ReviewsContext);
+const ProductBreakdown = () => {
+    const { characteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel,
+      setShowCharacteristicLabel } = useContext(ReviewsContext);
 
     useEffect(() => {
       setCharacteristicLabels({
@@ -44,7 +44,7 @@ function ProductBreakdown () {
         Quality: ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'],
         Length: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
         Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long']
-      })
+      });
       setShowCharacteristicLabel({
         Size: [false, false, false, false, false],
         Width: [false, false, false, false, false],
@@ -60,7 +60,6 @@ function ProductBreakdown () {
     const renderCharacteristics = () => {
 
       Object.keys(characteristics).forEach((characteristic) => {
-
         let averageCharacteristicValue = (Math.round(characteristics[characteristic].value));
 
         if (averageCharacteristicValue === 1) {
@@ -76,27 +75,29 @@ function ProductBreakdown () {
         }
 
         const characteristicValue = {
-          'display': 'flex',
-          'alignItems': 'center',
-          'position': 'relative',
-          'left': `${averageCharacteristicValue}%`,
-          'height': '30px',
-        }
+          "display": "flex",
+          "alignItems": "center",
+          "position": "relative",
+          "left": `${averageCharacteristicValue}%`,
+          "height": "30px",
+        };
 
         characteristicsLayout.push(
           <div>
             <CharacteristicName>{characteristic}</CharacteristicName>
             <CharacteristicBarContainer>
-              <div style={characteristicValue}><FontAwesomeIcon icon={faCaretDown} size='2x'/></div>
+              <div style={characteristicValue}>
+                <FontAwesomeIcon icon={faCaretDown} size="2x"/>
+              </div>
             </CharacteristicBarContainer>
             <CharacteristicLabelsContainer>
               <div>{characteristicLabels[characteristic][0]}</div>
               <div>{characteristicLabels[characteristic][4]}</div>
             </CharacteristicLabelsContainer>
           </div>
-        )
-      })
-    }
+        );
+      });
+    };
 
     renderCharacteristics();
 

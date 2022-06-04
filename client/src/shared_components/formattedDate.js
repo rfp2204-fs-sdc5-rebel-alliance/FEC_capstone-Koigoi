@@ -1,5 +1,4 @@
-function formattedDate(date) {
-
+const formattedDate = (date) => {
   date = new Date(date);
 
   const options = {

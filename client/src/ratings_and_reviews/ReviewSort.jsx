@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
 
 import { ReviewsContext } from './RatingsAndReviews.jsx';
+
+import styled from 'styled-components';
 
 const ReviewSortContainer = styled.div`
   display: flex;
@@ -19,8 +20,8 @@ const SortForm = styled.select`
   cursor: pointer;
 `;
 
-function ReviewSort() {
-  const { totalRatings, sort, setSort } = useContext(ReviewsContext);
+const ReviewSort = () => {
+  const { totalRatings, setSort } = useContext(ReviewsContext);
 
   return (
     <ReviewSortContainer>
@@ -34,7 +35,7 @@ function ReviewSort() {
         </SortForm>
       </form>
     </ReviewSortContainer>
-  )
+  );
 }
 
 export default ReviewSort;

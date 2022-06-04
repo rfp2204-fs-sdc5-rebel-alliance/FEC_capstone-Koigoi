@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import styled from 'styled-components';
 
 const FormSection = styled.div`
@@ -18,7 +19,7 @@ const Image = styled.img`
   margin-right: 10px;
 `;
 
-function ImageUpload ({ photos, setPhotos }) {
+const ImageUpload = ({ photos, setPhotos }) => {
   const [displayPhotos, setDisplayPhotos] = useState(null);
 
   useEffect (() => {
@@ -33,7 +34,7 @@ function ImageUpload ({ photos, setPhotos }) {
         </FormSection>
       );
     }
-  }, [photos])
+  }, [photos]);
 
   const handlePhotos = (event) => {
     const uploadedPhotos = event.target.files;
@@ -48,19 +49,19 @@ function ImageUpload ({ photos, setPhotos }) {
         uploadPhotos(formData);
       }
     }
-  }
+  };
 
   const uploadPhotos = (photo) => {
     axios.post(`https://api.cloudinary.com/v1_1/dgn6fimlv/image/upload`, photo)
-    .then((photo) => {setPhotos(prevArray => prevArray.concat(photo.data.url))})
-    .catch((err) => {console.log(err)})
-  }
+      .then((photo) => setPhotos(prevArray => prevArray.concat(photo.data.url)))
+      .catch((err) => console.log(err))
+  };
 
   return (
     <div>
       <input
-      type='file'
-      name='image'
+      type="file"
+      name="image"
       onChange={handlePhotos}
       multiple/>
     {displayPhotos}
