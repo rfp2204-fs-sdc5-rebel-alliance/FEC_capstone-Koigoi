@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
 
 import ReviewListCard from './ReviewListCard.jsx';
 import AddReviewForm from './AddReviewForm.jsx';
 
 import { ProdPageContext } from '../product_page.jsx';
 import { ReviewsContext } from './RatingsAndReviews.jsx';
+
+import styled from 'styled-components';
 
 const ReviewListContainer = styled.div`
   font-size: 18px;
@@ -48,10 +49,13 @@ const AddButton = styled(Button)`
 
 const ReviewList = ({ removeFilters, renderFilterRatings }) => {
   const [reviews, setReviews] = useState([]);
-  const [allReviews, setAllReviews] = useState([])
+  const [allReviews, setAllReviews] = useState([]);
   const [filterRatingsCount, setFilterRatingsCount] = useState(10);
-  const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent, totalRatings, setTotalRatings, setAverageRating } = useContext(ProdPageContext);
-  const { apiCount, reviewCount, setReviewCount, sort, ratings, setRatings, numRating, setNumRating, filterNumRating, filtered, helpful, characteristics, characteristicLabels, showCharacteristicLabel, setRecommended, search, searchTerm } = useContext(ReviewsContext);
+  const { prod_id, prod_name, setShowModal, setModalBodyContent, setModalHeaderContent,
+    totalRatings, setTotalRatings, setAverageRating } = useContext(ProdPageContext);
+  const { apiCount, reviewCount, setReviewCount, sort, ratings, setRatings, numRating, setNumRating,
+    filterNumRating, filtered, helpful, characteristics, characteristicLabels, showCharacteristicLabel,
+    setRecommended, search, searchTerm } = useContext(ReviewsContext);
 
   useEffect(() => {
     axios.get(`/reviews`, {
@@ -62,29 +66,29 @@ const ReviewList = ({ removeFilters, renderFilterRatings }) => {
         product_id: prod_id
       }
     })
-    .then((reviews) => {
-      setTotalRatings(reviews.data.results.length);
-      ratingsMeta(reviews.data.results);
+      .then((reviews) => {
+        setTotalRatings(reviews.data.results.length);
+        ratingsMeta(reviews.data.results);
 
-      if (searchTerm.length >= 3) {
-        const query = reviews.data.results.filter((review) => {
-          return review.body.toLowerCase().includes(searchTerm);
-        });
-        setAllReviews(query);
-        filterNumRatings(query);
-      } else {
-        setAllReviews(reviews.data.results);
-        filterNumRatings(reviews.data.results);
-      }
-    })
-    .catch((err) => {console.log(err)})
+        if (searchTerm.length >= 3) {
+          const query = reviews.data.results.filter((review) => {
+            return review.body.toLowerCase().includes(searchTerm);
+          });
+          setAllReviews(query);
+          filterNumRatings(query);
+        } else {
+          setAllReviews(reviews.data.results);
+          filterNumRatings(reviews.data.results);
+        }
+      })
+      .catch((err) => console.log(err))
   }, [prod_id, apiCount, sort, helpful, totalRatings, searchTerm, filtered]);
 
   useEffect(() => {
     if (filtered === true) {
-      setReviews(filterNumRating.slice(0, filterRatingsCount))
+      setReviews(filterNumRating.slice(0, filterRatingsCount));
     } else {
-      setReviews(allReviews.slice(0, reviewCount))
+      setReviews(allReviews.slice(0, reviewCount));
     }
   }, [reviewCount, filterRatingsCount, allReviews, filtered, searchTerm, filterNumRating]);
 
@@ -95,7 +99,7 @@ const ReviewList = ({ removeFilters, renderFilterRatings }) => {
       setFilterRatingsCount(10);
       setReviewCount(prevReviewCount => prevReviewCount + 2);
     }
-  }
+  };
 
   const ratingsMeta = (reviewsData) => {
     let numRatingObj = {
@@ -143,7 +147,7 @@ const ReviewList = ({ removeFilters, renderFilterRatings }) => {
 
     reviewsData.forEach((review) => {
       numRatingObj[review.rating].push(review);
-    })
+    });
 
     setNumRating(numRatingObj);
   }
@@ -160,9 +164,17 @@ const ReviewList = ({ removeFilters, renderFilterRatings }) => {
   }
 
   const handleModal = () => {
-    setModalHeaderContent('Write Your Review')
-    setModalBodyContent(<AddReviewForm prodId={prod_id} productName={prod_name} characteristics={characteristics} characteristicLabels={characteristicLabels} showCharacteristicLabel={showCharacteristicLabel} setShowModal={setShowModal}/>);
     setShowModal(true);
+    setModalHeaderContent('Write Your Review');
+    setModalBodyContent(
+      <AddReviewForm
+        prodId={prod_id}
+        productName={prod_name}
+        characteristics={characteristics}
+        characteristicLabels={characteristicLabels}
+        showCharacteristicLabel={showCharacteristicLabel}
+        setShowModal={setShowModal}/>
+      );
   }
 
   return (
@@ -189,7 +201,7 @@ const ReviewList = ({ removeFilters, renderFilterRatings }) => {
       </ReviewCardContainer>
       <ButtonContainer>
         {moreReviewsButton}
-        <AddButton onClick={() => {handleModal()}}>Add a Review +</AddButton>
+        <AddButton onClick={() => handleModal()}>Add a Review +</AddButton>
       </ButtonContainer>
     </ReviewListContainer>
   );

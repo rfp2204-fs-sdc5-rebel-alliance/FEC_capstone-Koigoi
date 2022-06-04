@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import styled from 'styled-components';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 import { ReviewsContext } from './RatingsAndReviews.jsx';
+
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 const ProductBreakdownHeader = styled.h3`
   margin-bottom: 10px;
@@ -33,7 +33,8 @@ const CharacteristicLabelsContainer = styled.div`
 `;
 
 const ProductBreakdown = () => {
-    const { characteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel } = useContext(ReviewsContext);
+    const { characteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel,
+      setShowCharacteristicLabel } = useContext(ReviewsContext);
 
     useEffect(() => {
       setCharacteristicLabels({
@@ -43,7 +44,7 @@ const ProductBreakdown = () => {
         Quality: ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'],
         Length: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
         Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long']
-      })
+      });
       setShowCharacteristicLabel({
         Size: [false, false, false, false, false],
         Width: [false, false, false, false, false],
@@ -74,18 +75,20 @@ const ProductBreakdown = () => {
         }
 
         const characteristicValue = {
-          'display': 'flex',
-          'alignItems': 'center',
-          'position': 'relative',
-          'left': `${averageCharacteristicValue}%`,
-          'height': '30px',
+          "display": "flex",
+          "alignItems": "center",
+          "position": "relative",
+          "left": `${averageCharacteristicValue}%`,
+          "height": "30px",
         };
 
         characteristicsLayout.push(
           <div>
             <CharacteristicName>{characteristic}</CharacteristicName>
             <CharacteristicBarContainer>
-              <div style={characteristicValue}><FontAwesomeIcon icon={faCaretDown} size='2x'/></div>
+              <div style={characteristicValue}>
+                <FontAwesomeIcon icon={faCaretDown} size="2x"/>
+              </div>
             </CharacteristicBarContainer>
             <CharacteristicLabelsContainer>
               <div>{characteristicLabels[characteristic][0]}</div>
@@ -94,7 +97,7 @@ const ProductBreakdown = () => {
           </div>
         );
       });
-    }
+    };
 
     renderCharacteristics();
 

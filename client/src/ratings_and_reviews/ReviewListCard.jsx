@@ -1,12 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import formattedDate from '../shared_components/formattedDate.js';
+
+import ImageThumbnail from '../shared_components/ImageThumbnail.jsx';
 import StarRating from '../shared_components/StarRating.jsx';
+import formattedDate from '../shared_components/formattedDate.js';
+
+import { ReviewsContext } from './RatingsAndReviews.jsx';
+
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import ImageThumbnail from '../shared_components/ImageThumbnail.jsx';
-import { ReviewsContext } from './RatingsAndReviews.jsx';
+
 
 
 const ReviewCard = styled.div`
@@ -56,12 +60,15 @@ const HelpfulReview = styled.span`
   cursor: pointer;
 `;
 
-const ReviewListCard = ({ id, date, rating, reviewerName, summary, body, response, helpfulness, photos, recommend, productId }) => {
-  const [renderedSummary, setRenderedSummary] = useState(summary)
+const ReviewListCard = ({ id, date, rating, reviewerName, summary, body, response,
+  helpfulness, photos, recommend, productId }) => {
+  const [renderedSummary, setRenderedSummary] = useState(summary);
   const [renderedBody, setRenderedBody] = useState(body);
   const [showMore, setShowMore] = useState(false);
-  const [windowLocalStorage, setWindowLocalStorage] = useState(JSON.parse(localStorage.getItem('helpfulReviews')) ? JSON.parse(localStorage.getItem('helpfulReviews')) : []);
   const { helpful, setHelpful } = useContext(ReviewsContext);
+  const [windowLocalStorage, setWindowLocalStorage] = useState(
+    JSON.parse(localStorage.getItem('helpfulReviews')) ? JSON.parse(localStorage.getItem('helpfulReviews')) : []
+  );
 
   useEffect(() => {
     if (summary.length > 60) {
@@ -71,13 +78,13 @@ const ReviewListCard = ({ id, date, rating, reviewerName, summary, body, respons
     }
 
     if (body.length > 250) {
-      setRenderedBody(body.slice(0, 250))
+      setRenderedBody(body.slice(0, 250));
       setShowMore(true);
     } else {
       setRenderedBody(body);
       setShowMore(false);
     }
-  }, [summary, body])
+  }, [summary, body]);
 
   const showMoreButton = () => {
     if (!showMore) {
@@ -85,7 +92,7 @@ const ReviewListCard = ({ id, date, rating, reviewerName, summary, body, respons
     } else {
       return (
         <Button
-          onClick={() => {handleShowMore()}}>
+          onClick={() => handleShowMore()}>
           Show More
         </Button>
       );
@@ -95,15 +102,15 @@ const ReviewListCard = ({ id, date, rating, reviewerName, summary, body, respons
   const handleShowMore = () => {
     setShowMore(false);
     setRenderedBody(body);
-  }
+  };
 
   const recommendMessage = () => {
     if (recommend) {
-      return <p><FontAwesomeIcon icon={faCheck}/> I recommend this product!</p>
+      return <p><FontAwesomeIcon icon={faCheck}/> I recommend this product!</p>;
     } else {
       return null;
     }
-  }
+  };
 
   const reviewResponse = () => {
     if (response) {
@@ -116,7 +123,7 @@ const ReviewListCard = ({ id, date, rating, reviewerName, summary, body, respons
     } else {
       return null;
     }
-  }
+  };
 
   const handleHelpfulClick = () => {
     const reviewData = {
@@ -132,14 +139,12 @@ const ReviewListCard = ({ id, date, rating, reviewerName, summary, body, respons
       helpfulReviews.push(reviewData);
 
       axios.put(`/FEC/reviews/${id}/helpful`, {})
-      .then(() => {setHelpful(prevHelpful => prevHelpful + 1)})
-      .then(() => {
-        localStorage.setItem('helpfulReviews', JSON.stringify(helpfulReviews));
-        setWindowLocalStorage(helpfulReviews);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+        .then(() => setHelpful(prevHelpful => prevHelpful + 1))
+        .then(() => {
+          localStorage.setItem('helpfulReviews', JSON.stringify(helpfulReviews));
+          setWindowLocalStorage(helpfulReviews);
+        })
+        .catch((err) => console.log(err))
     }
   }
 
@@ -160,7 +165,11 @@ const ReviewListCard = ({ id, date, rating, reviewerName, summary, body, respons
         {recommendMessage()}
       </ReviewCardSection>
       {reviewResponse()}
-      <p>Was this review helpful? <HelpfulReview onClick={() => {handleHelpfulClick()}}><u>Yes</u> ( {helpfulness} )</HelpfulReview></p>
+      <p>Was this review helpful?&nbsp;
+        <HelpfulReview onClick={() => handleHelpfulClick()}>
+          <u>Yes</u> ( {helpfulness} )
+        </HelpfulReview>
+      </p>
     </ReviewCard>
   );
 }

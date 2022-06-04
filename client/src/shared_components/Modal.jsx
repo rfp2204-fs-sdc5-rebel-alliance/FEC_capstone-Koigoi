@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
+
+import { AppContext } from '../index.jsx';
+
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
-
-import { AppContext } from '../index.jsx';
 
 const ModalDiv = styled.div`
   position: fixed;
@@ -53,14 +54,14 @@ const Modal = () => {
 
   const closeModal = () => {
     setShowModal(false);
-  }
+  };
 
   return (
     <ModalDiv onClick={closeModal}>
       <ModalContainer onClick={event => event.stopPropagation()}>
         <ModalHeader>
           <h3>{modalHeaderContent}</h3>
-          <FontAwesomeIcon icon={faXmarkCircle} onClick={closeModal} />
+          <FontAwesomeIcon icon={faXmarkCircle} onClick={closeModal}/>
         </ModalHeader>
         <ModalBody>{modalBodyContent}</ModalBody>
       </ModalContainer>

@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
 
 import { ReviewsContext } from './RatingsAndReviews.jsx';
+
+import styled from 'styled-components';
 
 const ReviewSortContainer = styled.div`
   display: flex;

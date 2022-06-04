@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
-import styled from 'styled-components';
 
 import { AppContext } from '../index.jsx';
+
+import styled from 'styled-components';
 
 const ThumbnailContainer = styled.div`
   display: flex;
@@ -51,10 +52,10 @@ const ImageThumbnail = ({ images }) => {
 
   const handleModal = (event) => {
     const imageSrc = event.target.src;
-    setModalHeaderContent(null)
-    setModalBodyContent(<ModalImageContainer src={imageSrc}></ModalImageContainer>)
+    setModalHeaderContent(null);
+    setModalBodyContent(<ModalImageContainer src={imageSrc}></ModalImageContainer>);
     setShowModal(true);
-  }
+  };
 
   return (
     <ThumbnailContainer>

@@ -1,14 +1,16 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
 
-import { ProdPageContext } from '../product_page.jsx';
 import ReviewList from './ReviewList.jsx';
 import ReviewSort from './ReviewSort.jsx';
 import SearchReviews from './SearchReviews.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import sharedReviewsComponent from '../shared_components/sharedReviewsComponent';
+
+import { ProdPageContext } from '../product_page.jsx';
+
+import styled from 'styled-components';
 
 export const ReviewsContext = createContext();
 
@@ -43,7 +45,7 @@ const RatingsAndReviews = () => {
 
   const [numRating, setNumRating] = useState({});
   const [showRatings, setShowRatings] = useState({});
-  const [filterNumRating, setFilterNumRating] = useState([])
+  const [filterNumRating, setFilterNumRating] = useState([]);
   const [filtered, setFiltered] = useState(false);
 
   const [showCharacteristics, setShowCharacteristics] = useState({});
@@ -63,10 +65,10 @@ const RatingsAndReviews = () => {
         params: {
           product_id: prod_id
         }
-      })
+    })
       .then((reviewsData) => {
         const ratings = reviewsData.data.ratings;
-        setCharacteristics(reviewsData.data.characteristics)
+        setCharacteristics(reviewsData.data.characteristics);
         setRatingsObj(sharedReviewsComponent(ratings));
         setApiCount(Number(ratings[1]) + Number(ratings[2]) + Number(ratings[3]) + Number(ratings[4]) + Number(ratings[5]));
       })
@@ -79,7 +81,7 @@ const RatingsAndReviews = () => {
           '5': false
         });
       })
-      .catch((err) => {console.log(err)});
+      .catch((err) => console.log(err));
     }, [prod_id]);
 
     const avgRating = ratingsObj.avgRating;
@@ -96,7 +98,7 @@ const RatingsAndReviews = () => {
         '4': false,
         '5': false
       });
-    }
+    };
 
     const renderFilterRatings = () => {
       setFilterNumRating([]);
@@ -108,10 +110,15 @@ const RatingsAndReviews = () => {
           setFiltered(true);
         }
       })
-    }
+    };
 
   return (
-    <ReviewsContext.Provider value={{ apiCount, reviewCount, setReviewCount, characteristics, ratings, setRatings, totalRatings, avgRating, recommended, setRecommended, sort, setSort, numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings, filtered, setFiltered, helpful, setHelpful, showCharacteristics, setShowCharacteristics, characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel, search, setSearch, searchTerm, setSearchTerm}}>
+    <ReviewsContext.Provider value={{ apiCount, reviewCount, setReviewCount, characteristics,
+      ratings, setRatings, totalRatings, avgRating, recommended, setRecommended, sort, setSort,
+      numRating, setNumRating, filterNumRating, setFilterNumRating, showRatings, setShowRatings,
+      filtered, setFiltered, helpful, setHelpful, showCharacteristics, setShowCharacteristics,
+      characteristicLabels, setCharacteristicLabels, showCharacteristicLabel, setShowCharacteristicLabel,
+      search, setSearch, searchTerm, setSearchTerm}}>
       <RatingsAndReviewsContainer>
         <h2 id="RatingsAndReviews">RATINGS &#38; REVIEWS</h2>
         <RatingsAndReviewsLayout>
