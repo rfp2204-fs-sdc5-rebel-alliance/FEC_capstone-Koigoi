@@ -66,7 +66,7 @@ const YourOutfitSlider = ({ outfitDetails, saveToStorage, removeFromStorage }) =
                     src={ details.image === null ? placeholder : details.image }
                     onClick={(id) => changeProductID(details.id)}
                   />
-                  <OutfitButtonStyle className="button">
+                  <OutfitButtonStyle className="Button">
                     <FontAwesomeIcon
                       icon={ faCircleXmark }
                       onClick={(e) => removeFromStorage(e, details.id)}
@@ -94,8 +94,8 @@ const YourOutfitSlider = ({ outfitDetails, saveToStorage, removeFromStorage }) =
         </SlideWrapper>
         {
           (count !== maxDisplay && outfitDetails.length >= 3)
-          ? <Arrow icon={faAngleRight} onClick={scrollRight}/>
-          : <ArrowTransparent icon={faAngleRight}/>
+          ? <Arrow icon={ faAngleRight } onClick={ scrollRight }/>
+          : <ArrowTransparent icon={ faAngleRight }/>
         }
     </SlideContainer>
   )
