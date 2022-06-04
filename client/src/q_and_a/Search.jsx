@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import QuestionList from './QuestionList.jsx';
 import { QuestionContext } from './QuestionList.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import QuestionList from './QuestionList.jsx';
 import styled from 'styled-components';
 
 const SearchContainer = styled.div`
@@ -31,25 +31,19 @@ const Search = () => {
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
     searchQuestions(search);
-  }
-  const handleSearch = (e) => {
-    e.preventDefault();
-    searchQuestions(search);
-  }
+  };
+
   return (
     <SearchContainer>
       <div>
       <FontAwesomeIcon icon={faMagnifyingGlass} />
         <SearchInput
-          // icon='search'
           type="text"
           placeholder="Have a question? Search for answers…"
           value={search}
           size="80"
           onChange={handleSearchChange}
         />
-
-        {/* <button type="submit" onClick={handleSearch} >Search</button> */}
       </div>
     </SearchContainer>
   );

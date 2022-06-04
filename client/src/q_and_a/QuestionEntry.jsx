@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import Answer from './Answer.jsx';
 import { ProdPageContext } from '../product_page.jsx';
 import { QuestionContext } from  './QuestionList.jsx';
+import Answer from './Answer.jsx';
 import AddAnswerForm from './AddAnswerForm.jsx';
 import styled from 'styled-components';
 
@@ -56,22 +56,19 @@ const QuestionEntry = (props) => {
     axios.get(url)
       .then((response) => { setAnswers(response.data.results); })
       .catch((err) => console.log(err))
-  }, [count])
+  }, [count]);
 
   const handleClickHelpful = () => {
     if (clickedHelpful) {
       return;
     }
-
     axios.put(`/FEC/qa/questions/${props.entry.question_id}/helpful`, null)
-    .then((response) => {console.log('Success')})
-    .then(() => {setCount(count + 1)})
-    .then(() => {setClickedHelpful(true)})
-    .catch((err) => console.log(err))
+      .then((response) => {console.log('Success')})
+      .then(() => {setCount(count + 1)})
+      .then(() => {setClickedHelpful(true)})
+      .catch((err) => console.log(err))
+  };
 
-  }
-
-  // handle seller Answers
   const isSeller = (obj) => obj.answerer_name.toLowerCase() === 'seller';
   const isUser = (obj) => obj.answerer_name.toLowerCase() !== 'seller';
   let sellerArray = answers.filter(isSeller);
@@ -85,25 +82,35 @@ const QuestionEntry = (props) => {
     } else {
       setExistSeller(false);
     }
-  }, [answers])
+  }, [answers]);
 
   const handleModal = () => {
     setModalHeaderContent('Submit Your Answer')
-    setModalBodyContent(<AddAnswerForm prodName={prod_name} questionBody={props.entry.question_body} questionId={props.entry.question_id} count={count} setCount={setCount}/>);
+    setModalBodyContent(
+      <AddAnswerForm
+        prodName={prod_name}
+        questionBody={props.entry.question_body}
+        questionId={props.entry.question_id}
+        count={count}
+        setCount={setCount}
+      />
+    );
     setShowModal(true);
-  }
+  };
 
   const loadMoreAnswers = () => {
     answersToShow === 2 ? setAnwsersToShow(answers.length) : setAnwsersToShow(2);
     setExpanded(!expanded)
-  }
+  };
 
   let loadMoreAnswersLink = null;
-
   if (answers.length > 2) {
-    loadMoreAnswersLink = <StyledLoadMoreAnswer onClick={loadMoreAnswers}>{!expanded ? 'Load More Answers' : 'Collapse answers'}</StyledLoadMoreAnswer>
+    loadMoreAnswersLink =
+      <StyledLoadMoreAnswer onClick={loadMoreAnswers}>
+        {!expanded ? 'Load More Answers' : 'Collapse answers'}
+      </StyledLoadMoreAnswer>
   } else {
-    loadMoreAnswersLink = null
+    loadMoreAnswersLink = null;
   }
 
   const answerList = existSeller ? sellerTopAnswers : answers;
@@ -120,9 +127,13 @@ const QuestionEntry = (props) => {
           </div>
         <StyledQuestionInfo>
           <div>
-            Helpful?&nbsp;
+            Helpful?&nbsp;&nbsp;&nbsp;
             <StyledQuestionHelpful>
-            <span onClick={handleClickHelpful}><u>Yes</u> ({props.entry.question_helpfulness})</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span><u onClick={handleModal}>Add Answer</u>
+            <span onClick={handleClickHelpful}>
+              <u>Yes</u> ({props.entry.question_helpfulness})
+            </span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <span>
+              <u onClick={handleModal}>Add Answer</u>
             </span>
             </StyledQuestionHelpful>
           </div>
@@ -131,10 +142,11 @@ const QuestionEntry = (props) => {
       </div>
       <div>
         <div>
-        {answerList.slice(0, answersToShow).map((answer) => <Answer key={answer.answer_id} entry={answer} />)}
+          {answerList.slice(0, answersToShow).map((answer) =>
+          <Answer key={answer.answer_id} entry={answer} />)}
         </div>
         <div>
-          {loadMoreAnswersLink }
+          {loadMoreAnswersLink}
         </div>
       </div>
     </div>

@@ -1,19 +1,21 @@
 import React, { useState, useContext, useEffect} from 'react';
-import { AppContext } from '../index.jsx';
 import axios from 'axios';
-import styled from 'styled-components';
+import { AppContext } from '../index.jsx';
 import ImageUpload from '../shared_components/ImageUpload.jsx';
+import styled from 'styled-components';
 
 const FormSection = styled.div`
   margin: 20px 0px;
-  `;
+`;
+
 const FormHeading = styled.h4`
 `;
+
 const InputText = styled.input`
   margin-right: 10px;
 `;
 
-const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) => {
+const AddAnswerForm = ({ prodName, questionBody, questionId, count, setCount }) => {
 
   const { setShowModal } = useContext(AppContext);
   const [answer, setAnswer] = useState("");
@@ -26,18 +28,14 @@ const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) =>
   const handleChangeEmail = (e) => {setEmail(e.target.value)};
 
   const handleClickSubmit = () => {
-
     event.preventDefault();
-
     const url = `/FEC/qa/questions/${questionId}/answers`;
-
     const data = {
       body: answer,
       name: nickname,
-      email: email,
-      photos: photos
+      email,
+      photos
     }
-
     axios.post(url, data)
     .then((response) => {
       console.log('success')
@@ -45,7 +43,6 @@ const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) =>
     .then(() => {setCount(count + 1)})
     .catch((err) => console.log(err))
     .then(() => setShowModal(false))
-
   };
 
   return (
@@ -68,7 +65,7 @@ const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) =>
         <FormSection>
           <label>
           <h5>What is your nickname? *</h5>
-            <input name="nickname" type="text" placeholder="Example: jack543!"   size='30' value={nickname} onChange={handleChangeNickname} required/>
+            <input name="nickname" type="text" placeholder="Example: jack543!"   size="30" value={nickname} onChange={handleChangeNickname} required/>
               <br></br>
               <h5>For privacy reasons, do not use your full name or email address</h5>
           </label>
@@ -76,13 +73,13 @@ const AddAnswerForm = ({prodName, questionBody, questionId, count, setCount}) =>
         <FormSection>
           <label>
           <h5>Your email *</h5>
-            <input name="email" placeholder="Example: jack@email.com" type="email"  size='30' value={email}
+            <input name="email" placeholder="Example: jack@email.com" type="email"  size="30" value={email}
               onChange={handleChangeEmail} required/>
               <h5>For authentication reasons, you will not be emailed</h5>
           </label>
         </FormSection>
         <FormSection>
-          <input type ='submit' value='Submit' />
+          <input type ="submit" value="Submit" />
         </FormSection>
         </form>
       </div>
