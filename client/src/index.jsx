@@ -71,7 +71,7 @@ const CartCount = styled.span`
 const App = () => {
   const [theme, setTheme] = useState('light');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : []);
-  const [view, setView] = useState('Home');
+  const [view, setView] = useState('Product');
   const [prod_id, setProd] = useState(40344);
   const [showModal, setShowModal] = useState(false);
   const [modalBodyContent, setModalBodyContent] = useState(null);
