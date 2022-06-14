@@ -5,13 +5,15 @@ const axios = require('axios');
 
 const app = express();
 
-const port = config.port || 3000;
+const port = config.PORT || 3000;
+const { PRODUCTS_URL, QA_URL, RATINGS_URL } = config.SERVER_URL;
 
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-//routes
+//---- FEC Routes ----//
+
 app.get('/FEC/*', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${req.url.slice(4)}`, {
     headers: {
@@ -26,34 +28,6 @@ app.get('/FEC/*', (req, res) => {
 })
 
 app.get('/qa/questions', (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${req.originalUrl}`, {
-    headers: {
-      Authorization: config.TOKEN
-    },
-    params: req.originalUrl
-  })
-  .then((results) => {res.status(200).send(results.data)})
-  .catch((err) => {
-    console.log(err);
-    res.sendStatus(404);
-  });
-})
-
-app.get('/reviews', (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${req.originalUrl}`, {
-    headers: {
-      Authorization: config.TOKEN
-    },
-    params: req.originalUrl
-  })
-  .then((results) => {res.status(200).send(results.data)})
-  .catch((err) => {
-    console.log(err);
-    res.sendStatus(404);
-  });
-})
-
-app.get('/reviews/meta', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${req.originalUrl}`, {
     headers: {
       Authorization: config.TOKEN
@@ -93,6 +67,65 @@ app.put('/FEC/*', (req, res) => {
   });
 })
 
+//---- SDC Product Overview Routes ----//
+
+//---- SDC Questions and Answers Routes ----//
+
+//---- SDC Reviews and Ratings Routes ----//
+
+app.get('/reviews', (req, res) => {
+  axios.get(`${RATINGS_URL}${req.originalUrl}`, {
+    headers: {
+      Authorization: config.TOKEN
+    },
+    params: req.originalUrl
+  })
+  .then((results) => {res.status(200).send(results.data)})
+  .catch((err) => {
+    console.log(err);
+    res.sendStatus(404);
+  });
+})
+
+app.get('/reviews/meta', (req, res) => {
+  axios.get(`e${RATINGS_URL}${req.originalUrl}`, {
+    headers: {
+      Authorization: config.TOKEN
+    },
+    params: req.originalUrl
+  })
+  .then((results) => {res.status(200).send(results.data)})
+  .catch((err) => {
+    console.log(err);
+    res.sendStatus(404);
+  });
+})
+
+app.post('/SDC/*', (req, res) => {
+  axios.post(`${RATINGS_URL}${req.url.slice(4)}`, req.body, {
+    headers: {
+      Authorization: config.TOKEN
+    }
+  })
+  .then((results) => {res.status(200).send(results.data)})
+  .catch((err) => {
+    console.log(err);
+    res.sendStatus(404);
+  });
+})
+
+app.put('/SDC/*', (req, res) => {
+  axios.put(`${RATINGS_URL}${req.url.slice(4)}`, req.body, {
+    headers: {
+      Authorization: config.TOKEN
+    }
+  })
+  .then((results) => {res.status(200).send(results.data)})
+  .catch((err) => {
+    console.log(err);
+    res.sendStatus(404);
+  });
+})
 
 
 app.use(express.static(path.join(__dirname, '../client/dist')));

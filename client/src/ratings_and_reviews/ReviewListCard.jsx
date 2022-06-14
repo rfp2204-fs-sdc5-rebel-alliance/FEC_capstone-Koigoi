@@ -133,7 +133,7 @@ const ReviewListCard = ({ id, date, rating, reviewerName, summary, body, respons
     } else {
       helpfulReviews.push(reviewData);
 
-      axios.put(`/FEC/reviews/${id}/helpful`, {})
+      axios.put(`/SDC/reviews/${id}/helpful`, {})
         .then(() => setHelpful(prevHelpful => prevHelpful + 1))
         .then(() => {
           localStorage.setItem('helpfulReviews', JSON.stringify(helpfulReviews));

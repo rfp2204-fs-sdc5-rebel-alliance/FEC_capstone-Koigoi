@@ -128,7 +128,7 @@ const AddReviewForm = ({ prodId, productName, characteristics, characteristicLab
       'characteristics': characteristicsValue
     };
 
-    axios.post(`/FEC/reviews/`, newReviewData)
+    axios.post(`/SDC/reviews/`, newReviewData)
       .then(() => setShowModal(false))
       .catch((err) => console.log(err))
   };
