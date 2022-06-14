@@ -6,8 +6,7 @@ const axios = require('axios');
 const app = express();
 
 const port = config.PORT || 3000;
-const serverPort = config.SERVER_PORT;
-const serverUrl = config.SERVER_URL;
+const { PRODUCTS_URL, QA_URL, RATINGS_URL } = config.SERVER_URL;
 
 //middleware
 app.use(express.json());
@@ -75,7 +74,7 @@ app.put('/FEC/*', (req, res) => {
 //---- SDC Reviews and Ratings Routes ----//
 
 app.get('/reviews', (req, res) => {
-  axios.get(`${serverUrl}${serverPort}${req.originalUrl}`, {
+  axios.get(`${RATINGS_URL}${req.originalUrl}`, {
     headers: {
       Authorization: config.TOKEN
     },
@@ -89,7 +88,7 @@ app.get('/reviews', (req, res) => {
 })
 
 app.get('/reviews/meta', (req, res) => {
-  axios.get(`e${serverUrl}${serverPort}${req.originalUrl}`, {
+  axios.get(`e${RATINGS_URL}${req.originalUrl}`, {
     headers: {
       Authorization: config.TOKEN
     },
@@ -103,7 +102,7 @@ app.get('/reviews/meta', (req, res) => {
 })
 
 app.post('/SDC/*', (req, res) => {
-  axios.post(`${serverUrl}${serverPort}${req.url.slice(4)}`, req.body, {
+  axios.post(`${RATINGS_URL}${req.url.slice(4)}`, req.body, {
     headers: {
       Authorization: config.TOKEN
     }
@@ -116,7 +115,7 @@ app.post('/SDC/*', (req, res) => {
 })
 
 app.put('/SDC/*', (req, res) => {
-  axios.put(`${serverUrl}${serverPort}${req.url.slice(4)}`, req.body, {
+  axios.put(`${RATINGS_URL}${req.url.slice(4)}`, req.body, {
     headers: {
       Authorization: config.TOKEN
     }
