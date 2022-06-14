@@ -6,7 +6,8 @@ const axios = require('axios');
 const app = express();
 
 const port = config.PORT || 3000;
-const serverPort = config.SERVPORT;
+const serverPort = config.SERVER_PORT;
+const serverUrl = config.SERVER_URL;
 
 //middleware
 app.use(express.json());
@@ -74,7 +75,7 @@ app.put('/FEC/*', (req, res) => {
 //---- SDC Reviews and Ratings Routes ----//
 
 app.get('/reviews', (req, res) => {
-  axios.get(`ec2-54-190-15-161.us-west-2.compute.amazonaws.com${serverPort}${req.originalUrl}`, {
+  axios.get(`${serverUrl}${serverPort}${req.originalUrl}`, {
     headers: {
       Authorization: config.TOKEN
     },
@@ -88,7 +89,7 @@ app.get('/reviews', (req, res) => {
 })
 
 app.get('/reviews/meta', (req, res) => {
-  axios.get(`ec2-54-190-15-161.us-west-2.compute.amazonaws.com${serverPort}${req.originalUrl}`, {
+  axios.get(`e${serverUrl}${serverPort}${req.originalUrl}`, {
     headers: {
       Authorization: config.TOKEN
     },
@@ -102,7 +103,7 @@ app.get('/reviews/meta', (req, res) => {
 })
 
 app.post('/SDC/*', (req, res) => {
-  axios.post(`ec2-54-190-15-161.us-west-2.compute.amazonaws.com${serverPort}${req.url.slice(4)}`, req.body, {
+  axios.post(`${serverUrl}${serverPort}${req.url.slice(4)}`, req.body, {
     headers: {
       Authorization: config.TOKEN
     }
@@ -115,7 +116,7 @@ app.post('/SDC/*', (req, res) => {
 })
 
 app.put('/SDC/*', (req, res) => {
-  axios.put(`ec2-54-190-15-161.us-west-2.compute.amazonaws.com${serverPort}${req.url.slice(4)}`, req.body, {
+  axios.put(`${serverUrl}${serverPort}${req.url.slice(4)}`, req.body, {
     headers: {
       Authorization: config.TOKEN
     }
